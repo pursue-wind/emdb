@@ -1,7 +1,7 @@
 project:
   name: Event-Tracker
 log:
-  path: "../logs/"
+  path: "../../logs/"
   level: "Info"
 server:
   host:

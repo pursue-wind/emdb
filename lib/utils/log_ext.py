@@ -20,7 +20,7 @@ class Logger(object):
             self.logger.setLevel(logging.INFO)
             # from serviceProgram.utils.FileUtil import FileUtil
             # rootPath = FileUtil.getProgrameRootPath()
-            self.log_path = os.path.join(os.path.dirname(__file__), '../../logs')
+            self.log_path = os.path.join(os.path.dirname(__file__), '../../../logs')
 
             if not os.path.exists(self.log_path):
                 os.makedirs(self.log_path)
