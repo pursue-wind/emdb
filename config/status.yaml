@@ -1,0 +1,4 @@
+- code: 400
+  msg: Parameters Error!
+- code: 403
+  msg: Auth Error!

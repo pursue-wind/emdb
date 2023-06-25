@@ -1,0 +1,1882 @@
+[2023-06-19 11:24:09,481] - [INFO] - scaned_block_height:None
+[2023-06-19 11:24:09,481] - [INFO] - scaned_block_height:None
+[2023-06-19 11:24:11,857] - [ERROR] - {'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'}
+[2023-06-19 11:28:56,973] - [INFO] - scaned_block_height:{'_id': ObjectId('648fcb61dd8c2099b80d48b2'), 'a': 1000.0}
+[2023-06-19 11:28:56,973] - [ERROR] - scaned_block_height:{'_id': ObjectId('648fcb61dd8c2099b80d48b2'), 'a': 1000.0}
+[2023-06-19 11:29:50,793] - [INFO] - scaned_block_height:{'_id': ObjectId('648fcb61dd8c2099b80d48b2'), 'blockHeight': 1000.0}
+[2023-06-19 11:29:50,794] - [ERROR] - scaned_block_height:{'_id': ObjectId('648fcb61dd8c2099b80d48b2'), 'blockHeight': 1000.0}
+[2023-06-19 11:29:52,820] - [ERROR] - {'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'}
+[2023-06-19 11:35:15,811] - [INFO] - scaned_block_height:{'_id': ObjectId('648fcb61dd8c2099b80d48b2'), 'blockHeight': 1000.0}
+[2023-06-19 11:35:15,811] - [ERROR] - scaned_block_height:{'_id': ObjectId('648fcb61dd8c2099b80d48b2'), 'blockHeight': 1000.0}
+[2023-06-19 11:35:17,932] - [ERROR] - {'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'}
+[2023-06-19 11:35:31,030] - [INFO] - scaned_block_height:{'_id': ObjectId('648fcb61dd8c2099b80d48b2'), 'blockHeight': 1000.0}
+[2023-06-19 11:35:31,030] - [ERROR] - scaned_block_height:{'_id': ObjectId('648fcb61dd8c2099b80d48b2'), 'blockHeight': 1000.0}
+[2023-06-19 11:35:33,086] - [ERROR] - {'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'}
+[2023-06-19 11:36:36,326] - [INFO] - scaned_block_height:{'_id': ObjectId('648fcb61dd8c2099b80d48b2'), 'blockHeight': 1000.0}
+[2023-06-19 11:36:36,327] - [ERROR] - scaned_block_height:{'_id': ObjectId('648fcb61dd8c2099b80d48b2'), 'blockHeight': 1000.0}
+[2023-06-19 11:36:38,324] - [ERROR] - {'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'}
+[2023-06-19 11:37:59,293] - [INFO] - scaned_block_height:{'_id': ObjectId('648fcb61dd8c2099b80d48b2'), 'blockHeight': 1000.0}
+[2023-06-19 11:37:59,294] - [ERROR] - scaned_block_height:{'_id': ObjectId('648fcb61dd8c2099b80d48b2'), 'blockHeight': 1000.0}
+[2023-06-19 11:38:01,465] - [ERROR] - {'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'}
+[2023-06-19 11:39:13,128] - [INFO] - scaned_block_height:{'_id': ObjectId('648fcb61dd8c2099b80d48b2'), 'blockHeight': 1000.0}
+[2023-06-19 11:39:13,128] - [ERROR] - scaned_block_height:{'_id': ObjectId('648fcb61dd8c2099b80d48b2'), 'blockHeight': 1000.0}
+[2023-06-19 11:39:14,586] - [INFO] - current_block_height:17511173
+[2023-06-19 11:39:15,296] - [ERROR] - {'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'}
+[2023-06-19 11:39:57,641] - [INFO] - scaned_block_height:{'_id': ObjectId('648fcb61dd8c2099b80d48b2'), 'blockHeight': 1000.0}
+[2023-06-19 11:39:57,641] - [ERROR] - scaned_block_height:{'_id': ObjectId('648fcb61dd8c2099b80d48b2'), 'blockHeight': 1000.0}
+[2023-06-19 11:39:59,445] - [INFO] - current_block_height:17511176
+[2023-06-19 11:40:00,351] - [ERROR] - {'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'}
+[2023-06-19 11:47:46,511] - [INFO] - scaned_block_height:{'_id': ObjectId('648fcb61dd8c2099b80d48b2'), 'blockHeight': 1000.0}
+[2023-06-19 11:47:46,512] - [ERROR] - scaned_block_height:{'_id': ObjectId('648fcb61dd8c2099b80d48b2'), 'blockHeight': 1000.0}
+[2023-06-19 11:47:48,543] - [INFO] - current_block_height:17511216
+[2023-06-19 11:47:49,350] - [ERROR] - {'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'}
+[2023-06-19 11:48:05,840] - [INFO] - scaned_block_height:{'_id': ObjectId('648fcb61dd8c2099b80d48b2'), 'blockHeight': 1000.0}
+[2023-06-19 11:48:05,840] - [ERROR] - scaned_block_height:{'_id': ObjectId('648fcb61dd8c2099b80d48b2'), 'blockHeight': 1000.0}
+[2023-06-19 11:48:07,591] - [INFO] - current_block_height:17511217
+[2023-06-19 11:48:07,887] - [ERROR] - {'code': -32602, 'message': 'could not unmarshal parameter 0'}
+[2023-06-19 11:48:51,082] - [INFO] - scaned_block_height:{'_id': ObjectId('648fcb61dd8c2099b80d48b2'), 'blockHeight': 1000.0}
+[2023-06-19 11:48:51,082] - [ERROR] - scaned_block_height:{'_id': ObjectId('648fcb61dd8c2099b80d48b2'), 'blockHeight': 1000.0}
+[2023-06-19 11:48:53,152] - [INFO] - current_block_height:17511221
+[2023-06-19 11:48:53,558] - [ERROR] - {'code': -32602, 'message': 'could not unmarshal parameter 0'}
+[2023-06-19 11:51:07,680] - [INFO] - scaned_block_height:{'_id': ObjectId('648fcb61dd8c2099b80d48b2'), 'blockHeight': 1000.0}
+[2023-06-19 11:51:07,681] - [ERROR] - scaned_block_height:{'_id': ObjectId('648fcb61dd8c2099b80d48b2'), 'blockHeight': 1000.0}
+[2023-06-19 11:51:24,904] - [INFO] - current_block_height:17511232
+[2023-06-19 11:51:25,317] - [ERROR] - {'code': -32602, 'message': 'could not unmarshal parameter 0'}
+[2023-06-19 11:51:37,769] - [INFO] - scaned_block_height:{'_id': ObjectId('648fcb61dd8c2099b80d48b2'), 'blockHeight': 1000.0}
+[2023-06-19 11:51:37,769] - [ERROR] - scaned_block_height:{'_id': ObjectId('648fcb61dd8c2099b80d48b2'), 'blockHeight': 1000.0}
+[2023-06-19 11:52:14,738] - [INFO] - current_block_height:17511236
+[2023-06-19 11:53:03,137] - [ERROR] - {'code': -32602, 'message': 'could not unmarshal parameter 0'}
+[2023-06-19 11:53:06,966] - [INFO] - scaned_block_height:{'_id': ObjectId('648fcb61dd8c2099b80d48b2'), 'blockHeight': 1000.0}
+[2023-06-19 11:53:06,966] - [ERROR] - scaned_block_height:{'_id': ObjectId('648fcb61dd8c2099b80d48b2'), 'blockHeight': 1000.0}
+[2023-06-19 11:53:09,582] - [INFO] - current_block_height:17511242
+[2023-06-19 11:53:23,131] - [ERROR] - {'code': -32602, 'message': 'could not unmarshal parameter 0'}
+[2023-06-19 11:53:26,763] - [INFO] - scaned_block_height:{'_id': ObjectId('648fcb61dd8c2099b80d48b2'), 'blockHeight': 1000.0}
+[2023-06-19 11:53:26,763] - [ERROR] - scaned_block_height:{'_id': ObjectId('648fcb61dd8c2099b80d48b2'), 'blockHeight': 1000.0}
+[2023-06-19 11:53:30,360] - [INFO] - current_block_height:17511244
+[2023-06-19 11:54:30,819] - [ERROR] - {'code': -32602, 'message': 'could not unmarshal parameter 0'}
+[2023-06-19 11:55:48,786] - [INFO] - scaned_block_height:{'_id': ObjectId('648fcb61dd8c2099b80d48b2'), 'blockHeight': 1000.0}
+[2023-06-19 11:55:48,786] - [ERROR] - scaned_block_height:{'_id': ObjectId('648fcb61dd8c2099b80d48b2'), 'blockHeight': 1000.0}
+[2023-06-19 11:55:50,242] - [INFO] - current_block_height:17511256
+[2023-06-19 11:55:56,570] - [INFO] - current_block_height:17511256
+[2023-06-19 11:56:02,523] - [INFO] - current_block_height:17511257
+[2023-06-19 11:56:08,528] - [INFO] - current_block_height:17511257
+[2023-06-19 11:56:14,500] - [INFO] - current_block_height:17511258
+[2023-06-19 11:56:20,648] - [INFO] - current_block_height:17511258
+[2023-06-19 11:56:26,603] - [INFO] - current_block_height:17511259
+[2023-06-19 11:58:21,201] - [INFO] - scaned_block_height:{'_id': ObjectId('648fcb61dd8c2099b80d48b2'), 'blockHeight': 1000.0}
+[2023-06-19 11:58:21,201] - [ERROR] - scaned_block_height:{'_id': ObjectId('648fcb61dd8c2099b80d48b2'), 'blockHeight': 1000.0}
+[2023-06-19 11:58:22,612] - [INFO] - current_block_height:17511268
+[2023-06-19 11:58:28,533] - [INFO] - current_block_height:17511269
+[2023-06-19 11:58:34,582] - [INFO] - current_block_height:17511269
+[2023-06-19 14:35:16,733] - [INFO] - scaned_block_height:{'_id': ObjectId('648fcb61dd8c2099b80d48b2'), 'blockHeight': 1000.0}
+[2023-06-19 14:35:16,734] - [ERROR] - scaned_block_height:{'_id': ObjectId('648fcb61dd8c2099b80d48b2'), 'blockHeight': 1000.0}
+[2023-06-19 14:35:18,295] - [INFO] - current_block_height:17512044
+[2023-06-19 14:35:25,344] - [INFO] - current_block_height:17512045
+[2023-06-19 14:35:32,308] - [INFO] - current_block_height:17512045
+[2023-06-19 14:35:39,481] - [INFO] - current_block_height:17512046
+[2023-06-19 14:35:46,797] - [INFO] - current_block_height:17512046
+[2023-06-19 14:45:43,065] - [INFO] - scaned_block_height:{'_id': ObjectId('648fcb61dd8c2099b80d48b2'), 'blockHeight': 1000.0}
+[2023-06-19 14:45:43,066] - [ERROR] - scaned_block_height:{'_id': ObjectId('648fcb61dd8c2099b80d48b2'), 'blockHeight': 1000.0}
+[2023-06-19 14:45:48,996] - [INFO] - current_block_height:17512097
+[2023-06-19 14:48:21,567] - [ERROR] - MotorCollection object is not callable. If you meant to call the 'blockHeight.update' method on a MotorCollection object it is failing because no such method exists.
+[2023-06-19 14:56:32,765] - [INFO] - scaned_block_height:{'_id': ObjectId('648fcb61dd8c2099b80d48b2'), 'blockHeight': 1000.0}
+[2023-06-19 14:56:32,765] - [ERROR] - scaned_block_height:{'_id': ObjectId('648fcb61dd8c2099b80d48b2'), 'blockHeight': 1000.0}
+[2023-06-19 14:56:34,050] - [INFO] - current_block_height:17512150
+[2023-06-19 14:56:41,036] - [INFO] - current_block_height:17512151
+[2023-06-19 14:56:48,315] - [INFO] - current_block_height:17512151
+[2023-06-19 14:56:55,046] - [INFO] - current_block_height:17512152
+[2023-06-19 14:59:07,706] - [INFO] - scaned_block_height:{'_id': ObjectId('648fcb61dd8c2099b80d48b2'), 'blockHeight': 1000.0}
+[2023-06-19 14:59:07,707] - [ERROR] - scaned_block_height:{'_id': ObjectId('648fcb61dd8c2099b80d48b2'), 'blockHeight': 1000.0}
+[2023-06-19 14:59:09,718] - [INFO] - current_block_height:17512162
+[2023-06-19 14:59:12,236] - [ERROR] - update_block_height() missing 1 required positional argument: 'block_height'
+[2023-06-19 15:01:22,122] - [INFO] - scaned_block_height:{'_id': ObjectId('648fcb61dd8c2099b80d48b2'), 'blockHeight': 1000.0}
+[2023-06-19 15:01:22,122] - [ERROR] - scaned_block_height:{'_id': ObjectId('648fcb61dd8c2099b80d48b2'), 'blockHeight': 1000.0}
+[2023-06-19 15:01:24,060] - [INFO] - current_block_height:17512173
+[2023-06-19 15:01:31,913] - [INFO] - current_block_height:17512174
+[2023-06-19 15:01:39,453] - [INFO] - current_block_height:17512175
+[2023-06-19 15:03:38,152] - [INFO] - scaned_block_height:{'_id': ObjectId('648fcb61dd8c2099b80d48b2'), 'blockHeight': 1000.0}
+[2023-06-19 15:03:38,153] - [ERROR] - scaned_block_height:{'_id': ObjectId('648fcb61dd8c2099b80d48b2'), 'blockHeight': 1000.0}
+[2023-06-19 15:03:39,403] - [INFO] - current_block_height:17512185
+[2023-06-19 15:03:46,283] - [INFO] - current_block_height:17512185
+[2023-06-19 15:03:54,503] - [INFO] - scaned_block_height:{'_id': ObjectId('648fcb61dd8c2099b80d48b2'), 'blockHeight': 1000.0}
+[2023-06-19 15:03:54,503] - [ERROR] - scaned_block_height:{'_id': ObjectId('648fcb61dd8c2099b80d48b2'), 'blockHeight': 1000.0}
+[2023-06-19 15:03:58,075] - [INFO] - current_block_height:17512186
+[2023-06-19 15:05:58,705] - [INFO] - current_block_height:17512195
+[2023-06-19 15:09:38,908] - [INFO] - scaned_block_height:{'_id': ObjectId('648fcb61dd8c2099b80d48b2'), 'blockHeight': 1000.0}
+[2023-06-19 15:09:38,908] - [ERROR] - scaned_block_height:{'_id': ObjectId('648fcb61dd8c2099b80d48b2'), 'blockHeight': 1000.0}
+[2023-06-19 15:09:40,211] - [INFO] - current_block_height:17512214
+[2023-06-19 15:10:56,074] - [INFO] - scaned_block_height:{'_id': ObjectId('648fcb61dd8c2099b80d48b2'), 'blockHeight': 1000.0}
+[2023-06-19 15:10:56,074] - [ERROR] - scaned_block_height:{'_id': ObjectId('648fcb61dd8c2099b80d48b2'), 'blockHeight': 1000.0}
+[2023-06-19 15:10:57,396] - [INFO] - current_block_height:17512220
+[2023-06-19 15:10:58,920] - [ERROR] - MotorCollection object is not callable. If you meant to call the 'blockHeight.update' method on a MotorCollection object it is failing because no such method exists.
+[2023-06-19 15:13:14,081] - [INFO] - scaned_block_height:None
+[2023-06-19 15:13:14,081] - [ERROR] - scaned_block_height:None
+[2023-06-19 15:13:15,839] - [INFO] - current_block_height:17512232
+[2023-06-19 15:13:17,360] - [ERROR] - list indices must be integers or slices, not str
+2023-06-19 15:15:06,232 I scaned_block_height:None
+2023-06-19 15:15:06,233 E scaned_block_height:None
+2023-06-19 15:15:08,378 I current_block_height:17512241
+2023-06-19 15:15:10,509 E list indices must be integers or slices, not str
+2023-06-19 15:16:31,622 I scaned_block_height:None
+2023-06-19 15:16:31,622 E scaned_block_height:None
+2023-06-19 15:16:40,857 I current_block_height:17512249
+2023-06-19 15:19:40,047 I scaned_block_height:None
+2023-06-19 15:19:40,048 E scaned_block_height:None
+2023-06-19 15:19:41,782 I current_block_height:17512264
+2023-06-19 15:19:43,405 E list indices must be integers or slices, not str
+2023-06-19 15:23:45,472 I scaned_block_height:None
+2023-06-19 15:23:45,473 E scaned_block_height:None
+2023-06-19 15:23:46,824 I current_block_height:17512283
+2023-06-19 15:23:53,779 I current_block_height:17512284
+2023-06-19 15:29:08,760 I scaned_block_height:{'_id': ObjectId('64900284f8cb2f1e06fc71d8'), 'name': 'height', 'scanedBlockHeight': 17465148}
+2023-06-19 15:29:08,761 E scaned_block_height:{'_id': ObjectId('64900284f8cb2f1e06fc71d8'), 'name': 'height', 'scanedBlockHeight': 17465148}
+2023-06-19 15:30:03,992 I scaned_block_height:{'_id': ObjectId('64900284f8cb2f1e06fc71d8'), 'name': 'height', 'scanedBlockHeight': 17465148}
+2023-06-19 15:30:03,993 E scaned_block_height:{'_id': ObjectId('64900284f8cb2f1e06fc71d8'), 'name': 'height', 'scanedBlockHeight': 17465148}
+2023-06-19 15:30:03,994 I from_block:17465148
+2023-06-19 15:30:03,994 I end_block:17465248
+2023-06-19 15:30:05,780 I current_block_height:17512315
+2023-06-19 15:30:12,100 I from_block:17465148
+2023-06-19 15:30:12,101 I end_block:17465248
+2023-06-19 15:30:12,448 I current_block_height:17512315
+2023-06-19 15:30:18,138 I from_block:17465148
+2023-06-19 15:30:18,139 I end_block:17465248
+2023-06-19 15:30:18,677 I current_block_height:17512316
+2023-06-19 15:30:24,391 I from_block:17465148
+2023-06-19 15:30:24,392 I end_block:17465248
+2023-06-19 15:30:24,821 I current_block_height:17512317
+2023-06-19 15:32:22,605 I scaned_block_height:{'_id': ObjectId('64900284f8cb2f1e06fc71d8'), 'name': 'height', 'scanedBlockHeight': 17465248}
+2023-06-19 15:32:22,606 E scaned_block_height:{'_id': ObjectId('64900284f8cb2f1e06fc71d8'), 'name': 'height', 'scanedBlockHeight': 17465248}
+2023-06-19 15:32:22,606 I from_block:17465248
+2023-06-19 15:32:22,606 I end_block:17465348
+2023-06-19 15:32:24,326 I current_block_height:17512325
+2023-06-19 15:32:30,183 I from_block:17465348
+2023-06-19 15:32:30,183 I end_block:17465448
+2023-06-19 15:32:30,548 I current_block_height:17512326
+2023-06-19 15:32:36,302 I from_block:17465448
+2023-06-19 15:32:36,302 I end_block:17465548
+2023-06-19 15:32:36,710 I current_block_height:17512327
+2023-06-19 15:33:30,591 I scaned_block_height:{'_id': ObjectId('64900284f8cb2f1e06fc71d8'), 'name': 'height', 'scanedBlockHeight': 17465548}
+2023-06-19 15:33:30,592 E scaned_block_height:{'_id': ObjectId('64900284f8cb2f1e06fc71d8'), 'name': 'height', 'scanedBlockHeight': 17465548}
+2023-06-19 15:33:30,593 I from_block:17465548
+2023-06-19 15:33:30,593 I end_block:17466548
+2023-06-19 15:33:31,910 I current_block_height:17512331
+2023-06-19 15:33:37,718 I from_block:17466548
+2023-06-19 15:33:37,719 I end_block:17467548
+2023-06-19 15:33:38,045 I current_block_height:17512332
+2023-06-19 15:33:43,876 I from_block:17467548
+2023-06-19 15:33:43,877 I end_block:17468548
+2023-06-19 15:33:44,291 I current_block_height:17512332
+2023-06-19 15:33:49,993 I from_block:17468548
+2023-06-19 15:33:49,994 I end_block:17469548
+2023-06-19 15:33:50,331 I current_block_height:17512333
+2023-06-19 15:33:56,025 I from_block:17469548
+2023-06-19 15:33:56,026 I end_block:17470548
+2023-06-19 15:33:56,373 I current_block_height:17512333
+2023-06-19 15:34:01,980 I from_block:17470548
+2023-06-19 15:34:01,980 I end_block:17471548
+2023-06-19 15:34:02,315 I current_block_height:17512334
+2023-06-19 15:34:56,856 I scaned_block_height:{'_id': ObjectId('64900284f8cb2f1e06fc71d8'), 'name': 'height', 'scanedBlockHeight': 17471548}
+2023-06-19 15:34:56,856 E scaned_block_height:{'_id': ObjectId('64900284f8cb2f1e06fc71d8'), 'name': 'height', 'scanedBlockHeight': 17471548}
+2023-06-19 15:34:56,857 I from_block:17471548
+2023-06-19 15:34:56,857 I end_block:17481548
+2023-06-19 15:34:58,549 I current_block_height:17512338
+2023-06-19 15:34:59,616 E {'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'}
+2023-06-19 15:35:38,685 I scaned_block_height:{'_id': ObjectId('64900284f8cb2f1e06fc71d8'), 'name': 'height', 'scanedBlockHeight': 17471548}
+2023-06-19 15:35:38,686 E scaned_block_height:{'_id': ObjectId('64900284f8cb2f1e06fc71d8'), 'name': 'height', 'scanedBlockHeight': 17471548}
+2023-06-19 15:35:38,686 I from_block:17471548
+2023-06-19 15:35:38,686 I end_block:17481548
+2023-06-19 15:35:40,107 I current_block_height:17512342
+2023-06-19 15:35:44,228 I scaned_block_height:{'_id': ObjectId('64900284f8cb2f1e06fc71d8'), 'name': 'height', 'scanedBlockHeight': 17471548}
+2023-06-19 15:35:44,228 E scaned_block_height:{'_id': ObjectId('64900284f8cb2f1e06fc71d8'), 'name': 'height', 'scanedBlockHeight': 17471548}
+2023-06-19 15:35:44,228 I from_block:17471548
+2023-06-19 15:35:44,228 I end_block:17481548
+2023-06-19 15:35:45,538 I current_block_height:17512342
+2023-06-19 15:35:49,881 E {'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'}
+2023-06-19 15:36:03,116 I scaned_block_height:{'_id': ObjectId('64900284f8cb2f1e06fc71d8'), 'name': 'height', 'scanedBlockHeight': 17471548}
+2023-06-19 15:36:03,117 E scaned_block_height:{'_id': ObjectId('64900284f8cb2f1e06fc71d8'), 'name': 'height', 'scanedBlockHeight': 17471548}
+2023-06-19 15:36:03,117 I from_block:17471548
+2023-06-19 15:36:03,117 I end_block:17481548
+2023-06-19 15:36:04,613 I current_block_height:17512344
+2023-06-19 15:37:28,548 E {'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'}
+2023-06-19 15:38:47,787 I scaned_block_height:{'_id': ObjectId('64900284f8cb2f1e06fc71d8'), 'name': 'height', 'scanedBlockHeight': 17471548}
+2023-06-19 15:38:47,788 E scaned_block_height:{'_id': ObjectId('64900284f8cb2f1e06fc71d8'), 'name': 'height', 'scanedBlockHeight': 17471548}
+2023-06-19 15:38:47,789 I from_block:17471548
+2023-06-19 15:38:47,789 I end_block:17481548
+2023-06-19 15:38:49,464 I current_block_height:17512358
+2023-06-19 15:43:54,287 I scaned_block_height:{'_id': ObjectId('64900284f8cb2f1e06fc71d8'), 'name': 'height', 'scanedBlockHeight': 17471548}
+2023-06-19 15:43:54,287 E scaned_block_height:{'_id': ObjectId('64900284f8cb2f1e06fc71d8'), 'name': 'height', 'scanedBlockHeight': 17471548}
+2023-06-19 15:43:54,288 I from_block:17471548
+2023-06-19 15:43:54,288 I end_block:17481548
+2023-06-19 15:43:56,049 I current_block_height:17512383
+2023-06-19 15:43:56,779 E {'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'}
+2023-06-19 15:44:15,591 I scaned_block_height:{'_id': ObjectId('64900284f8cb2f1e06fc71d8'), 'name': 'height', 'scanedBlockHeight': 17471548}
+2023-06-19 15:44:15,591 E scaned_block_height:{'_id': ObjectId('64900284f8cb2f1e06fc71d8'), 'name': 'height', 'scanedBlockHeight': 17471548}
+2023-06-19 15:44:15,592 I from_block:17471548
+2023-06-19 15:44:15,592 I end_block:17481548
+2023-06-19 15:44:17,156 I current_block_height:17512385
+2023-06-19 15:44:47,931 E {'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'}
+2023-06-19 15:45:39,823 I scaned_block_height:{'_id': ObjectId('64900284f8cb2f1e06fc71d8'), 'name': 'height', 'scanedBlockHeight': 17471548}
+2023-06-19 15:45:39,824 E scaned_block_height:{'_id': ObjectId('64900284f8cb2f1e06fc71d8'), 'name': 'height', 'scanedBlockHeight': 17471548}
+2023-06-19 15:45:39,824 I from_block:17471548
+2023-06-19 15:45:39,824 I end_block:17481548
+2023-06-19 15:45:42,474 I current_block_height:17512392
+2023-06-19 15:45:51,473 E ({'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'},)
+2023-06-19 15:46:54,052 I scaned_block_height:{'_id': ObjectId('64900284f8cb2f1e06fc71d8'), 'name': 'height', 'scanedBlockHeight': 17471548}
+2023-06-19 15:46:54,052 E scaned_block_height:{'_id': ObjectId('64900284f8cb2f1e06fc71d8'), 'name': 'height', 'scanedBlockHeight': 17471548}
+2023-06-19 15:46:54,053 I from_block:17471548
+2023-06-19 15:46:54,053 I end_block:17481548
+2023-06-19 15:46:55,398 I current_block_height:17512398
+2023-06-19 15:47:04,593 E {'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'}
+2023-06-19 15:47:07,888 E ({'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'},)
+2023-06-19 15:47:07,888 E {'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'}
+2023-06-19 15:47:50,183 I scaned_block_height:{'_id': ObjectId('64900284f8cb2f1e06fc71d8'), 'name': 'height', 'scanedBlockHeight': 17471548}
+2023-06-19 15:47:50,183 E scaned_block_height:{'_id': ObjectId('64900284f8cb2f1e06fc71d8'), 'name': 'height', 'scanedBlockHeight': 17471548}
+2023-06-19 15:47:50,184 I from_block:17471548
+2023-06-19 15:47:50,184 I end_block:17481548
+2023-06-19 15:47:51,984 I current_block_height:17512403
+2023-06-19 15:48:21,732 I scaned_block_height:{'_id': ObjectId('64900284f8cb2f1e06fc71d8'), 'name': 'height', 'scanedBlockHeight': 17471548}
+2023-06-19 15:48:21,733 E scaned_block_height:{'_id': ObjectId('64900284f8cb2f1e06fc71d8'), 'name': 'height', 'scanedBlockHeight': 17471548}
+2023-06-19 15:48:21,733 I from_block:17471548
+2023-06-19 15:48:21,733 I end_block:17481548
+2023-06-19 15:48:23,941 I current_block_height:17512405
+2023-06-19 15:48:26,337 E {'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'}
+2023-06-19 15:48:26,337 E ({'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'},)
+2023-06-19 15:48:26,338 E -32005
+2023-06-19 15:49:05,065 I scaned_block_height:{'_id': ObjectId('64900284f8cb2f1e06fc71d8'), 'name': 'height', 'scanedBlockHeight': 17471548}
+2023-06-19 15:49:05,065 E scaned_block_height:{'_id': ObjectId('64900284f8cb2f1e06fc71d8'), 'name': 'height', 'scanedBlockHeight': 17471548}
+2023-06-19 15:49:05,065 I from_block:17471548
+2023-06-19 15:49:05,065 I end_block:17481548
+2023-06-19 15:49:07,509 I current_block_height:17512409
+2023-06-19 15:49:09,067 E ({'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'},)
+2023-06-19 15:49:32,988 I scaned_block_height:{'_id': ObjectId('64900284f8cb2f1e06fc71d8'), 'name': 'height', 'scanedBlockHeight': 17471548}
+2023-06-19 15:49:32,988 E scaned_block_height:{'_id': ObjectId('64900284f8cb2f1e06fc71d8'), 'name': 'height', 'scanedBlockHeight': 17471548}
+2023-06-19 15:49:32,988 I from_block:17471548
+2023-06-19 15:49:32,988 I end_block:17481548
+2023-06-19 15:49:34,381 I current_block_height:17512411
+2023-06-19 15:49:38,174 E ({'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'},)
+2023-06-19 15:50:33,289 I scaned_block_height:{'_id': ObjectId('64900284f8cb2f1e06fc71d8'), 'name': 'height', 'scanedBlockHeight': 17471548}
+2023-06-19 15:50:33,290 E scaned_block_height:{'_id': ObjectId('64900284f8cb2f1e06fc71d8'), 'name': 'height', 'scanedBlockHeight': 17471548}
+2023-06-19 15:50:33,290 I from_block:17471548
+2023-06-19 15:50:33,290 I end_block:17481548
+2023-06-19 15:50:34,895 I current_block_height:17512416
+2023-06-19 15:50:38,017 E ({'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'},)
+2023-06-19 15:50:38,602 I from_block:17471548
+2023-06-19 15:50:38,602 I end_block:17476548.0
+2023-06-19 15:50:39,098 I current_block_height:17512417
+2023-06-19 15:50:46,043 E ({'code': -32602, 'message': 'could not unmarshal parameter 0'},)
+2023-06-19 15:51:59,616 I scaned_block_height:{'_id': ObjectId('64900284f8cb2f1e06fc71d8'), 'name': 'height', 'scanedBlockHeight': 17471548}
+2023-06-19 15:51:59,616 E scaned_block_height:{'_id': ObjectId('64900284f8cb2f1e06fc71d8'), 'name': 'height', 'scanedBlockHeight': 17471548}
+2023-06-19 15:51:59,617 I from_block:17471548
+2023-06-19 15:51:59,617 I end_block:17481548
+2023-06-19 15:52:00,983 I current_block_height:17512424
+2023-06-19 15:52:38,487 I scaned_block_height:{'_id': ObjectId('64900284f8cb2f1e06fc71d8'), 'name': 'height', 'scanedBlockHeight': 17471548}
+2023-06-19 15:52:38,487 E scaned_block_height:{'_id': ObjectId('64900284f8cb2f1e06fc71d8'), 'name': 'height', 'scanedBlockHeight': 17471548}
+2023-06-19 15:52:38,487 I from_block:17471548
+2023-06-19 15:52:38,487 I end_block:17481548
+2023-06-19 15:52:40,676 I current_block_height:17512427
+2023-06-19 15:52:41,447 E ({'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'},)
+2023-06-19 15:52:41,447 I from_block:17471548
+2023-06-19 15:52:41,447 I end_block:17476548.0
+2023-06-19 15:52:42,229 I current_block_height:17512427
+2023-06-19 15:52:42,836 E ({'code': -32602, 'message': 'could not unmarshal parameter 0'},)
+2023-06-19 15:53:41,285 I scaned_block_height:{'_id': ObjectId('64900284f8cb2f1e06fc71d8'), 'name': 'height', 'scanedBlockHeight': 17471548}
+2023-06-19 15:53:41,285 E scaned_block_height:{'_id': ObjectId('64900284f8cb2f1e06fc71d8'), 'name': 'height', 'scanedBlockHeight': 17471548}
+2023-06-19 15:53:41,286 I from_block:17471548
+2023-06-19 15:53:41,286 I end_block:17481548
+2023-06-19 15:53:42,656 I current_block_height:17512432
+2023-06-19 15:53:47,512 E ({'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'},)
+2023-06-19 15:54:41,995 I from_block:17471548
+2023-06-19 15:54:45,343 I end_block:17476548.0
+2023-06-19 15:55:24,279 I current_block_height:17512440
+2023-06-19 15:55:37,474 I scaned_block_height:{'_id': ObjectId('64900284f8cb2f1e06fc71d8'), 'name': 'height', 'scanedBlockHeight': 17471548}
+2023-06-19 15:55:37,474 E scaned_block_height:{'_id': ObjectId('64900284f8cb2f1e06fc71d8'), 'name': 'height', 'scanedBlockHeight': 17471548}
+2023-06-19 15:55:37,475 I from_block:17471548
+2023-06-19 15:55:37,475 I end_block:17481548
+2023-06-19 15:55:40,051 I current_block_height:17512441
+2023-06-19 15:55:40,759 E ({'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'},)
+2023-06-19 15:55:40,759 I from_block:17471548
+2023-06-19 15:55:40,759 I end_block:17476548.0
+2023-06-19 15:55:41,166 I current_block_height:17512441
+2023-06-19 15:55:41,888 E ({'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'},)
+2023-06-19 15:55:41,889 I from_block:17471548
+2023-06-19 15:55:41,889 I end_block:17474048.0
+2023-06-19 15:55:42,294 I current_block_height:17512441
+2023-06-19 15:55:42,947 E ({'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'},)
+2023-06-19 15:55:42,948 I from_block:17471548
+2023-06-19 15:55:42,948 I end_block:17472798.0
+2023-06-19 15:55:43,295 I current_block_height:17512441
+2023-06-19 15:55:44,033 E ({'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'},)
+2023-06-19 15:55:44,033 I from_block:17471548
+2023-06-19 15:55:44,033 I end_block:17472173.0
+2023-06-19 15:55:44,450 I current_block_height:17512441
+2023-06-19 15:55:45,719 E ({'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'},)
+2023-06-19 15:55:45,720 I from_block:17471548
+2023-06-19 15:55:45,720 I end_block:17471860.5
+2023-06-19 15:55:46,085 I current_block_height:17512441
+2023-06-19 15:55:47,200 E ({'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'},)
+2023-06-19 15:55:47,200 I from_block:17471548
+2023-06-19 15:55:47,200 I end_block:17471704.25
+2023-06-19 15:55:47,616 I current_block_height:17512441
+2023-06-19 15:55:48,462 E ({'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'},)
+2023-06-19 15:55:48,462 I from_block:17471548
+2023-06-19 15:55:48,463 I end_block:17471626.125
+2023-06-19 15:55:48,960 I current_block_height:17512441
+2023-06-19 15:55:50,374 E ({'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'},)
+2023-06-19 15:55:50,375 I from_block:17471548
+2023-06-19 15:55:50,375 I end_block:17471587.0625
+2023-06-19 15:55:50,711 I current_block_height:17512442
+2023-06-19 15:55:52,392 E ({'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'},)
+2023-06-19 15:55:52,392 I from_block:17471548
+2023-06-19 15:55:52,392 I end_block:17471567.53125
+2023-06-19 15:55:52,849 I current_block_height:17512442
+2023-06-19 15:55:53,646 E ({'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'},)
+2023-06-19 15:55:53,646 I from_block:17471548
+2023-06-19 15:55:53,646 I end_block:17471557.765625
+2023-06-19 16:00:38,444 I scaned_block_height:{'_id': ObjectId('64900284f8cb2f1e06fc71d8'), 'name': 'height', 'scanedBlockHeight': 17471548}
+2023-06-19 16:00:38,444 E scaned_block_height:{'_id': ObjectId('64900284f8cb2f1e06fc71d8'), 'name': 'height', 'scanedBlockHeight': 17471548}
+2023-06-19 16:00:38,445 I from_block:17471548
+2023-06-19 16:00:38,445 I end_block:17481548
+2023-06-19 16:00:40,391 I current_block_height:17512466
+2023-06-19 16:00:41,299 E ({'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'},)
+2023-06-19 16:00:41,803 I from_block:17471548
+2023-06-19 16:00:41,804 I end_block:17476548
+2023-06-19 16:00:42,232 I current_block_height:17512466
+2023-06-19 16:00:43,012 E ({'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'},)
+2023-06-19 16:00:43,517 I from_block:17471548
+2023-06-19 16:00:43,518 I end_block:17474048
+2023-06-19 16:00:43,970 I current_block_height:17512466
+2023-06-19 16:00:44,783 E ({'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'},)
+2023-06-19 16:00:45,287 I from_block:17471548
+2023-06-19 16:00:45,288 I end_block:17472798
+2023-06-19 16:00:45,706 I current_block_height:17512466
+2023-06-19 16:00:46,520 E ({'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'},)
+2023-06-19 16:00:47,024 I from_block:17471548
+2023-06-19 16:00:47,025 I end_block:17472173
+2023-06-19 16:00:47,439 I current_block_height:17512466
+2023-06-19 16:00:48,566 E ({'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'},)
+2023-06-19 16:00:49,070 I from_block:17471548
+2023-06-19 16:00:49,071 I end_block:17471860
+2023-06-19 16:00:49,500 I current_block_height:17512467
+2023-06-19 16:00:50,279 E ({'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'},)
+2023-06-19 16:00:50,784 I from_block:17471548
+2023-06-19 16:00:50,785 I end_block:17471704
+2023-06-19 16:00:51,172 I current_block_height:17512467
+2023-06-19 16:00:52,054 E ({'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'},)
+2023-06-19 16:00:52,559 I from_block:17471548
+2023-06-19 16:00:52,559 I end_block:17471626
+2023-06-19 16:00:53,049 I current_block_height:17512467
+2023-06-19 16:00:54,221 E ({'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'},)
+2023-06-19 16:00:54,726 I from_block:17471548
+2023-06-19 16:00:54,727 I end_block:17471587
+2023-06-19 16:00:55,278 I current_block_height:17512467
+2023-06-19 16:00:56,318 E ({'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'},)
+2023-06-19 16:00:56,822 I from_block:17471548
+2023-06-19 16:00:56,822 I end_block:17471567
+2023-06-19 16:00:57,279 I current_block_height:17512467
+2023-06-19 16:00:58,280 E ({'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'},)
+2023-06-19 16:00:58,784 I from_block:17471548
+2023-06-19 16:00:58,785 I end_block:17471557
+2023-06-19 16:00:59,280 I current_block_height:17512467
+2023-06-19 16:01:00,324 E ({'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'},)
+2023-06-19 16:01:00,830 I from_block:17471548
+2023-06-19 16:01:00,830 I end_block:17471552
+2023-06-19 16:01:01,376 I current_block_height:17512468
+2023-06-19 16:01:02,216 E ({'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'},)
+2023-06-19 16:01:02,718 I from_block:17471548
+2023-06-19 16:01:02,718 I end_block:17471550
+2023-06-19 16:01:03,119 I current_block_height:17512468
+2023-06-19 16:01:04,131 E ({'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'},)
+2023-06-19 16:01:04,631 I from_block:17471548
+2023-06-19 16:01:04,631 I end_block:17471549
+2023-06-19 16:01:05,269 I current_block_height:17512468
+2023-06-19 16:01:06,001 E ({'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'},)
+2023-06-19 16:01:06,506 I from_block:17471548
+2023-06-19 16:01:06,507 I end_block:17471548
+2023-06-19 16:01:06,907 I current_block_height:17512468
+2023-06-19 16:01:07,718 E ({'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'},)
+2023-06-19 16:01:10,188 I scaned_block_height:{'_id': ObjectId('64900284f8cb2f1e06fc71d8'), 'name': 'height', 'scanedBlockHeight': 17471548}
+2023-06-19 16:01:10,188 E scaned_block_height:{'_id': ObjectId('64900284f8cb2f1e06fc71d8'), 'name': 'height', 'scanedBlockHeight': 17471548}
+2023-06-19 16:01:10,189 I from_block:17471548
+2023-06-19 16:01:10,189 I end_block:17481548
+2023-06-19 16:01:11,524 I current_block_height:17512468
+2023-06-19 16:01:12,323 E ({'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'},)
+2023-06-19 16:01:12,828 I from_block:17471548
+2023-06-19 16:01:12,828 I end_block:17476548
+2023-06-19 16:01:13,158 I current_block_height:17512469
+2023-06-19 16:01:13,907 E ({'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'},)
+2023-06-19 16:01:14,411 I from_block:17471548
+2023-06-19 16:01:14,412 I end_block:17474048
+2023-06-19 16:01:14,791 I current_block_height:17512469
+2023-06-19 16:01:15,589 E ({'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'},)
+2023-06-19 16:01:16,090 I from_block:17471548
+2023-06-19 16:01:16,091 I end_block:17472798
+2023-06-19 16:04:05,848 I scaned_block_height:{'_id': ObjectId('64900284f8cb2f1e06fc71d8'), 'name': 'height', 'scanedBlockHeight': 17471548}
+2023-06-19 16:04:05,849 E scaned_block_height:{'_id': ObjectId('64900284f8cb2f1e06fc71d8'), 'name': 'height', 'scanedBlockHeight': 17471548}
+2023-06-19 16:04:05,849 I from_block:17471548
+2023-06-19 16:04:05,849 I end_block:17481548
+2023-06-19 16:04:08,663 I current_block_height:17512482
+2023-06-19 16:04:15,143 I from_block:17481548
+2023-06-19 16:04:15,144 I end_block:17491548
+2023-06-19 16:04:15,527 I current_block_height:17512483
+2023-06-19 16:04:21,256 I from_block:17491548
+2023-06-19 16:04:21,256 I end_block:17501548
+2023-06-19 16:04:21,673 I current_block_height:17512483
+2023-06-19 16:04:27,931 I from_block:17501548
+2023-06-19 16:04:27,932 I end_block:17511548
+2023-06-19 16:04:28,287 I current_block_height:17512484
+2023-06-19 16:04:34,319 I from_block:17511548
+2023-06-19 16:04:34,319 I end_block:17521548
+2023-06-19 16:04:34,678 I current_block_height:17512484
+2023-06-19 16:04:40,499 I from_block:17512484
+2023-06-19 16:04:40,500 I end_block:17522484
+2023-06-19 16:04:40,842 I current_block_height:17512485
+2023-06-19 16:04:46,645 I from_block:17512485
+2023-06-19 16:04:46,645 I end_block:17522485
+2023-06-19 16:04:47,072 I current_block_height:17512485
+2023-06-19 16:04:52,883 I from_block:17512485
+2023-06-19 16:04:52,884 I end_block:17522485
+2023-06-19 16:04:53,228 I current_block_height:17512486
+2023-06-19 16:04:58,888 I from_block:17512486
+2023-06-19 16:04:58,888 I end_block:17522486
+2023-06-19 16:04:59,595 I current_block_height:17512486
+2023-06-19 16:06:58,184 I scaned_block_height:{'_id': ObjectId('64900284f8cb2f1e06fc71d8'), 'name': 'height', 'scanedBlockHeight': 17512486}
+2023-06-19 16:06:58,184 E scaned_block_height:{'_id': ObjectId('64900284f8cb2f1e06fc71d8'), 'name': 'height', 'scanedBlockHeight': 17512486}
+2023-06-19 16:06:58,185 I from_block:17512486
+2023-06-19 16:06:58,185 I end_block:17522486
+2023-06-19 16:06:59,522 I current_block_height:17512496
+2023-06-19 16:07:05,379 I from_block:17512497
+2023-06-19 16:07:05,379 I end_block:17522497
+2023-06-19 16:07:05,697 I current_block_height:17512497
+2023-06-19 16:07:11,837 I from_block:17512498
+2023-06-19 16:07:11,838 I end_block:17522498
+2023-06-19 16:07:12,167 I current_block_height:17512497
+2023-06-19 16:07:12,167 I from_block:17512498
+2023-06-19 16:07:12,167 I end_block:17522498
+2023-06-19 16:07:12,479 I current_block_height:17512497
+2023-06-19 16:07:12,479 I from_block:17512498
+2023-06-19 16:07:12,479 I end_block:17522498
+2023-06-19 16:07:12,761 I current_block_height:17512497
+2023-06-19 16:07:12,761 I from_block:17512498
+2023-06-19 16:07:12,761 I end_block:17522498
+2023-06-19 16:07:13,091 I current_block_height:17512497
+2023-06-19 16:07:13,091 I from_block:17512498
+2023-06-19 16:07:13,091 I end_block:17522498
+2023-06-19 16:07:13,395 I current_block_height:17512497
+2023-06-19 16:07:13,396 I from_block:17512498
+2023-06-19 16:07:13,396 I end_block:17522498
+2023-06-19 16:07:13,704 I current_block_height:17512497
+2023-06-19 16:07:13,704 I from_block:17512498
+2023-06-19 16:07:13,704 I end_block:17522498
+2023-06-19 16:07:14,016 I current_block_height:17512498
+2023-06-19 16:08:04,098 I scaned_block_height:{'_id': ObjectId('64900284f8cb2f1e06fc71d8'), 'name': 'height', 'scanedBlockHeight': 17512498}
+2023-06-19 16:08:04,098 E scaned_block_height:{'_id': ObjectId('64900284f8cb2f1e06fc71d8'), 'name': 'height', 'scanedBlockHeight': 17512498}
+2023-06-19 16:08:05,530 I current_block_height:17512502
+2023-06-19 16:08:05,530 I from_block:17512498
+2023-06-19 16:08:05,530 I end_block:17512502
+2023-06-19 16:08:11,561 I current_block_height:17512502
+2023-06-19 16:08:11,970 I current_block_height:17512502
+2023-06-19 16:08:12,282 I current_block_height:17512502
+2023-06-19 16:08:12,593 I current_block_height:17512503
+2023-06-19 16:08:12,593 I from_block:17512503
+2023-06-19 16:08:12,593 I end_block:17512503
+2023-06-19 16:08:18,734 I current_block_height:17512503
+2023-06-19 16:08:19,034 I current_block_height:17512503
+2023-06-19 16:08:19,335 I current_block_height:17512503
+2023-06-19 16:08:19,667 I current_block_height:17512503
+2023-06-19 16:08:20,082 I current_block_height:17512503
+2023-06-19 16:08:20,817 I current_block_height:17512503
+2023-06-19 16:08:21,313 I current_block_height:17512503
+2023-06-19 17:34:20,804 E ('No connection adapters were found for "{\'eth\': \'https://mainnet.infura.io/v3/c2d6f727c31447e4a364c8b3523e7bfd\', \'polygon\': \'\'}"',)
+2023-06-19 17:34:25,820 E ('No connection adapters were found for "{\'eth\': \'https://mainnet.infura.io/v3/c2d6f727c31447e4a364c8b3523e7bfd\', \'polygon\': \'\'}"',)
+2023-06-19 17:35:05,460 I current_block_height:17512935
+2023-06-19 17:35:05,461 I event_name:Transfer,from_block:17464948
+2023-06-19 17:35:05,461 I event_name:Transfer,end_block:17474948
+2023-06-19 17:35:05,461 E ('string indices must be integers',)
+2023-06-19 17:35:05,903 I current_block_height:17512935
+2023-06-19 17:35:05,903 I event_name:Mint,from_block:17464948
+2023-06-19 17:35:05,903 I event_name:Mint,end_block:17474948
+2023-06-19 17:35:05,903 E ('string indices must be integers',)
+2023-06-19 17:35:06,338 I current_block_height:17512935
+2023-06-19 17:35:06,338 I event_name:Burn,from_block:17464948
+2023-06-19 17:35:06,338 I event_name:Burn,end_block:17474948
+2023-06-19 17:35:06,338 E ('string indices must be integers',)
+2023-06-19 17:35:11,764 I current_block_height:17512935
+2023-06-19 17:35:11,764 I event_name:Transfer,from_block:17464948
+2023-06-19 17:35:11,764 I event_name:Transfer,end_block:17474948
+2023-06-19 17:35:11,764 E ('string indices must be integers',)
+2023-06-19 17:35:12,138 I current_block_height:17512935
+2023-06-19 17:35:12,140 I event_name:Mint,from_block:17464948
+2023-06-19 17:35:12,140 I event_name:Mint,end_block:17474948
+2023-06-19 17:35:12,140 E ('string indices must be integers',)
+2023-06-19 17:35:12,597 I current_block_height:17512936
+2023-06-19 17:35:12,597 I event_name:Burn,from_block:17464948
+2023-06-19 17:35:12,597 I event_name:Burn,end_block:17474948
+2023-06-19 17:35:12,597 E ('string indices must be integers',)
+2023-06-19 17:36:24,952 I current_block_height:17512942
+2023-06-19 17:36:24,952 I event_name:Transfer,from_block:17464948
+2023-06-19 17:36:24,952 I event_name:Transfer,end_block:17474948
+2023-06-19 17:36:24,953 E ('string indices must be integers',)
+2023-06-19 17:36:25,397 I current_block_height:17512942
+2023-06-19 17:36:25,397 I event_name:Mint,from_block:17464948
+2023-06-19 17:36:25,397 I event_name:Mint,end_block:17474948
+2023-06-19 17:36:25,397 E ('string indices must be integers',)
+2023-06-19 17:36:25,994 I current_block_height:17512942
+2023-06-19 17:36:25,994 I event_name:Burn,from_block:17464948
+2023-06-19 17:36:25,994 I event_name:Burn,end_block:17474948
+2023-06-19 17:36:25,994 E ('string indices must be integers',)
+2023-06-19 17:36:54,290 I current_block_height:17512944
+2023-06-19 17:36:54,290 I event_name:Transfer,from_block:17464948
+2023-06-19 17:36:54,290 I event_name:Transfer,end_block:17474948
+2023-06-19 17:38:18,504 I current_block_height:17512951
+2023-06-19 17:38:18,505 I event_name:Transfer,from_block:17464948
+2023-06-19 17:38:18,505 I event_name:Transfer,end_block:17474948
+2023-06-19 17:38:18,505 E ('string indices must be integers',)
+2023-06-19 17:38:18,897 I current_block_height:17512951
+2023-06-19 17:38:18,897 I event_name:Mint,from_block:17464948
+2023-06-19 17:38:18,897 I event_name:Mint,end_block:17474948
+2023-06-19 17:38:18,897 E ('string indices must be integers',)
+2023-06-19 17:38:19,296 I current_block_height:17512951
+2023-06-19 17:38:19,296 I event_name:Burn,from_block:17464948
+2023-06-19 17:38:19,297 I event_name:Burn,end_block:17474948
+2023-06-19 17:38:19,297 E ('string indices must be integers',)
+2023-06-19 17:39:08,456 I current_block_height:17512955
+2023-06-19 17:39:08,457 I event_name:Transfer,from_block:17464948
+2023-06-19 17:39:08,457 I event_name:Transfer,end_block:17474948
+2023-06-19 17:39:08,457 E ('the JSON object must be str, bytes or bytearray, not Config',)
+2023-06-19 17:39:14,299 I current_block_height:17512956
+2023-06-19 17:39:14,299 I event_name:Transfer,from_block:17464948
+2023-06-19 17:39:14,299 I event_name:Transfer,end_block:17474948
+2023-06-19 17:39:14,299 E ('the JSON object must be str, bytes or bytearray, not Config',)
+2023-06-19 17:40:49,416 I current_block_height:17512964
+2023-06-19 17:40:49,416 I event_name:Transfer,from_block:17464948
+2023-06-19 17:40:49,416 I event_name:Transfer,end_block:17474948
+2023-06-19 17:40:49,417 E ('the JSON object must be str, bytes or bytearray, not Config',)
+2023-06-19 17:42:27,011 I current_block_height:17512972
+2023-06-19 17:42:27,011 I event_name:Transfer,from_block:17464948
+2023-06-19 17:42:27,011 I event_name:Transfer,end_block:17474948
+2023-06-19 17:42:27,012 E ("'NoneType' object is not callable",)
+2023-06-19 17:45:03,876 I current_block_height:17512984
+2023-06-19 17:45:03,877 I event_name:Transfer,from_block:17464948
+2023-06-19 17:45:03,877 I event_name:Transfer,end_block:17474948
+2023-06-19 17:45:03,877 E ("'NoneType' object is not callable",)
+2023-06-19 17:47:52,534 I current_block_height:17512998
+2023-06-19 17:47:52,535 I event_name:Transfer,from_block:17464948
+2023-06-19 17:47:52,535 I event_name:Transfer,end_block:17474948
+2023-06-19 17:47:52,535 E ('string indices must be integers',)
+2023-06-19 17:47:52,931 I current_block_height:17512998
+2023-06-19 17:47:52,931 I event_name:Mint,from_block:17464948
+2023-06-19 17:47:52,932 I event_name:Mint,end_block:17474948
+2023-06-19 17:47:52,932 E ('string indices must be integers',)
+2023-06-19 17:47:53,337 I current_block_height:17512998
+2023-06-19 17:47:53,337 I event_name:Burn,from_block:17464948
+2023-06-19 17:47:53,337 I event_name:Burn,end_block:17474948
+2023-06-19 17:47:53,337 E ('string indices must be integers',)
+2023-06-19 17:47:58,669 I current_block_height:17512998
+2023-06-19 17:47:58,669 I event_name:Transfer,from_block:17464948
+2023-06-19 17:47:58,669 I event_name:Transfer,end_block:17474948
+2023-06-19 17:47:58,669 E ('string indices must be integers',)
+2023-06-19 17:47:59,079 I current_block_height:17512998
+2023-06-19 17:47:59,080 I event_name:Mint,from_block:17464948
+2023-06-19 17:47:59,081 I event_name:Mint,end_block:17474948
+2023-06-19 17:47:59,081 E ('string indices must be integers',)
+2023-06-19 17:47:59,400 I current_block_height:17512998
+2023-06-19 17:47:59,400 I event_name:Burn,from_block:17464948
+2023-06-19 17:47:59,400 I event_name:Burn,end_block:17474948
+2023-06-19 17:47:59,400 E ('string indices must be integers',)
+2023-06-19 17:49:59,574 I current_block_height:17513008
+2023-06-19 17:49:59,574 I event_name:Transfer,from_block:17464948
+2023-06-19 17:49:59,574 I event_name:Transfer,end_block:17474948
+2023-06-19 17:50:25,219 I current_block_height:17513011
+2023-06-19 17:50:25,219 I event_name:Transfer,from_block:17464948
+2023-06-19 17:50:25,219 I event_name:Transfer,end_block:17474948
+2023-06-19 17:50:25,219 E ('too many values to unpack (expected 2)',)
+2023-06-19 17:50:34,637 I current_block_height:17513011
+2023-06-19 17:50:34,638 I event_name:Transfer,from_block:17464948
+2023-06-19 17:50:34,638 I event_name:Transfer,end_block:17474948
+2023-06-19 17:50:34,638 E ('too many values to unpack (expected 2)',)
+2023-06-19 17:50:42,216 I current_block_height:17513012
+2023-06-19 17:50:42,217 I event_name:Transfer,from_block:17464948
+2023-06-19 17:50:42,217 I event_name:Transfer,end_block:17474948
+2023-06-19 17:50:42,217 E ('too many values to unpack (expected 2)',)
+2023-06-19 17:50:52,343 I current_block_height:17513013
+2023-06-19 17:50:52,343 I event_name:Transfer,from_block:17464948
+2023-06-19 17:50:52,343 I event_name:Transfer,end_block:17474948
+2023-06-19 17:50:52,344 E ('too many values to unpack (expected 2)',)
+2023-06-19 17:51:01,138 I current_block_height:17513013
+2023-06-19 17:51:01,138 I event_name:Transfer,from_block:17464948
+2023-06-19 17:51:01,138 I event_name:Transfer,end_block:17474948
+2023-06-19 17:51:01,139 E ('too many values to unpack (expected 2)',)
+2023-06-19 17:51:10,569 I current_block_height:17513014
+2023-06-19 17:51:10,569 I event_name:Transfer,from_block:17464948
+2023-06-19 17:51:10,570 I event_name:Transfer,end_block:17474948
+2023-06-19 17:51:10,570 E ('too many values to unpack (expected 2)',)
+2023-06-19 17:51:49,996 I current_block_height:17513018
+2023-06-19 17:51:49,996 I event_name:Transfer,from_block:17464948
+2023-06-19 17:51:49,996 I event_name:Transfer,end_block:17474948
+2023-06-19 17:51:49,997 E ('too many values to unpack (expected 2)',)
+2023-06-19 17:52:10,586 I current_block_height:17513019
+2023-06-19 17:52:10,586 I event_name:Transfer,from_block:17464948
+2023-06-19 17:52:10,586 I event_name:Transfer,end_block:17474948
+2023-06-19 17:52:10,587 E ('too many values to unpack (expected 2)',)
+2023-06-19 17:52:16,001 I current_block_height:17513020
+2023-06-19 17:52:16,001 I event_name:Transfer,from_block:17464948
+2023-06-19 17:52:16,001 I event_name:Transfer,end_block:17474948
+2023-06-19 17:52:16,002 E ('too many values to unpack (expected 2)',)
+2023-06-19 17:53:28,502 I current_block_height:17513026
+2023-06-19 17:53:28,503 I event_name:Transfer,from_block:17464948
+2023-06-19 17:53:28,503 I event_name:Transfer,end_block:17474948
+2023-06-19 17:53:29,725 I current_block_height:17513026
+2023-06-19 17:53:29,725 I event_name:Mint,from_block:17464948
+2023-06-19 17:53:29,726 I event_name:Mint,end_block:17474948
+2023-06-19 17:53:30,978 I current_block_height:17513026
+2023-06-19 17:53:30,979 I event_name:Burn,from_block:17464948
+2023-06-19 17:53:30,979 I event_name:Burn,end_block:17474948
+2023-06-19 17:53:30,993 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 17:53:36,476 I current_block_height:17513026
+2023-06-19 17:53:36,476 I event_name:Transfer,from_block:17464948
+2023-06-19 17:53:36,476 I event_name:Transfer,end_block:17474948
+2023-06-19 17:53:37,713 I current_block_height:17513027
+2023-06-19 17:53:37,713 I event_name:Mint,from_block:17464948
+2023-06-19 17:53:37,713 I event_name:Mint,end_block:17474948
+2023-06-19 17:53:38,770 I current_block_height:17513027
+2023-06-19 17:53:38,771 I event_name:Burn,from_block:17464948
+2023-06-19 17:53:38,771 I event_name:Burn,end_block:17474948
+2023-06-19 17:53:38,782 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 17:53:44,429 I current_block_height:17513027
+2023-06-19 17:53:44,429 I event_name:Transfer,from_block:17464948
+2023-06-19 17:53:44,429 I event_name:Transfer,end_block:17474948
+2023-06-19 17:53:45,838 I current_block_height:17513027
+2023-06-19 17:53:45,839 I event_name:Mint,from_block:17464948
+2023-06-19 17:53:45,839 I event_name:Mint,end_block:17474948
+2023-06-19 17:53:47,030 I current_block_height:17513027
+2023-06-19 17:53:47,030 I event_name:Burn,from_block:17464948
+2023-06-19 17:53:47,030 I event_name:Burn,end_block:17474948
+2023-06-19 17:53:47,044 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 17:55:32,001 I current_block_height:17513036
+2023-06-19 17:55:32,002 I event_name:Transfer,from_block:17464948
+2023-06-19 17:55:32,002 I event_name:Transfer,end_block:17474948
+2023-06-19 17:56:07,840 I current_block_height:17513039
+2023-06-19 17:56:07,841 I event_name:Mint,from_block:17464948
+2023-06-19 17:56:07,841 I event_name:Mint,end_block:17474948
+2023-06-19 17:56:20,854 I current_block_height:17513040
+2023-06-19 17:56:20,855 I event_name:Burn,from_block:17464948
+2023-06-19 17:56:20,855 I event_name:Burn,end_block:17474948
+2023-06-19 17:57:15,202 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 17:59:16,657 I current_block_height:17513055
+2023-06-19 17:59:16,658 I event_name:Transfer,from_block:17464948
+2023-06-19 17:59:16,658 I event_name:Transfer,end_block:17474948
+2023-06-19 17:59:17,971 I current_block_height:17513055
+2023-06-19 17:59:17,971 I event_name:Mint,from_block:17464948
+2023-06-19 17:59:17,971 I event_name:Mint,end_block:17474948
+2023-06-19 17:59:19,322 I current_block_height:17513055
+2023-06-19 17:59:19,322 I event_name:Burn,from_block:17464948
+2023-06-19 17:59:19,322 I event_name:Burn,end_block:17474948
+2023-06-19 17:59:19,336 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 17:59:24,738 I current_block_height:17513055
+2023-06-19 17:59:24,738 I event_name:Transfer,from_block:17464948
+2023-06-19 17:59:24,738 I event_name:Transfer,end_block:17474948
+2023-06-19 17:59:25,910 I current_block_height:17513056
+2023-06-19 17:59:25,910 I event_name:Mint,from_block:17464948
+2023-06-19 17:59:25,910 I event_name:Mint,end_block:17474948
+2023-06-19 17:59:27,528 I current_block_height:17513056
+2023-06-19 17:59:27,528 I event_name:Burn,from_block:17464948
+2023-06-19 17:59:27,528 I event_name:Burn,end_block:17474948
+2023-06-19 17:59:27,541 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 17:59:33,476 I current_block_height:17513056
+2023-06-19 17:59:33,477 I event_name:Transfer,from_block:17464948
+2023-06-19 17:59:33,477 I event_name:Transfer,end_block:17474948
+2023-06-19 17:59:34,877 I current_block_height:17513056
+2023-06-19 17:59:34,877 I event_name:Mint,from_block:17464948
+2023-06-19 17:59:34,877 I event_name:Mint,end_block:17474948
+2023-06-19 17:59:36,206 I current_block_height:17513057
+2023-06-19 17:59:36,206 I event_name:Burn,from_block:17464948
+2023-06-19 17:59:36,206 I event_name:Burn,end_block:17474948
+2023-06-19 17:59:36,218 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 17:59:41,602 I current_block_height:17513057
+2023-06-19 17:59:41,602 I event_name:Transfer,from_block:17464948
+2023-06-19 17:59:41,602 I event_name:Transfer,end_block:17474948
+2023-06-19 17:59:42,804 I current_block_height:17513057
+2023-06-19 17:59:42,805 I event_name:Mint,from_block:17464948
+2023-06-19 17:59:42,805 I event_name:Mint,end_block:17474948
+2023-06-19 17:59:44,219 I current_block_height:17513057
+2023-06-19 17:59:44,219 I event_name:Burn,from_block:17464948
+2023-06-19 17:59:44,220 I event_name:Burn,end_block:17474948
+2023-06-19 17:59:44,251 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 18:02:21,689 I event_name:Transfer,from_block:17464948, to_block:17474948, current_block_height:17513070
+2023-06-19 18:02:23,422 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17513070
+2023-06-19 18:02:25,472 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17513071
+2023-06-19 18:02:25,485 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 18:02:31,305 I event_name:Transfer,from_block:17464948, to_block:17474948, current_block_height:17513071
+2023-06-19 18:02:33,252 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17513071
+2023-06-19 18:02:35,340 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17513071
+2023-06-19 18:02:35,353 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 18:02:40,920 I event_name:Transfer,from_block:17464948, to_block:17474948, current_block_height:17513072
+2023-06-19 18:02:43,286 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17513072
+2023-06-19 18:02:44,411 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17513072
+2023-06-19 18:02:44,421 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 19:19:42,430 I event_name:Transfer,from_block:17464948, to_block:17474948, current_block_height:17513455
+2023-06-19 19:19:43,842 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17513455
+2023-06-19 19:19:44,799 E ('Unknow result type,there is an error with fetch_event_log!',)
+2023-06-19 19:19:45,137 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17513455
+2023-06-19 19:19:45,151 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 19:19:51,072 I event_name:Transfer,from_block:17464948, to_block:17474948, current_block_height:17513456
+2023-06-19 19:19:52,020 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17513456
+2023-06-19 19:19:52,808 E ('Unknow result type,there is an error with fetch_event_log!',)
+2023-06-19 19:19:53,536 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17513456
+2023-06-19 19:19:53,550 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 19:19:58,939 I event_name:Transfer,from_block:17464948, to_block:17474948, current_block_height:17513456
+2023-06-19 19:20:00,596 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17513456
+2023-06-19 19:20:01,819 E ('Unknow result type,there is an error with fetch_event_log!',)
+2023-06-19 19:20:02,443 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17513457
+2023-06-19 19:20:02,457 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 19:20:08,299 I event_name:Transfer,from_block:17464948, to_block:17474948, current_block_height:17513457
+2023-06-19 19:20:09,686 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17513457
+2023-06-19 19:20:10,486 E ('Unknow result type,there is an error with fetch_event_log!',)
+2023-06-19 19:20:11,094 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17513457
+2023-06-19 19:20:11,110 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 19:20:17,374 I event_name:Transfer,from_block:17464948, to_block:17474948, current_block_height:17513458
+2023-06-19 19:20:18,428 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17513458
+2023-06-19 19:20:19,144 E ('Unknow result type,there is an error with fetch_event_log!',)
+2023-06-19 19:20:19,458 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17513458
+2023-06-19 19:20:19,470 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 19:20:25,024 I event_name:Transfer,from_block:17464948, to_block:17474948, current_block_height:17513458
+2023-06-19 19:20:26,044 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17513459
+2023-06-19 19:20:26,804 E ('Unknow result type,there is an error with fetch_event_log!',)
+2023-06-19 19:20:27,252 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17513459
+2023-06-19 19:20:27,264 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 19:20:32,631 I event_name:Transfer,from_block:17464948, to_block:17474948, current_block_height:17513459
+2023-06-19 19:20:33,673 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17513459
+2023-06-19 19:20:34,713 E ('Unknow result type,there is an error with fetch_event_log!',)
+2023-06-19 19:20:35,047 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17513459
+2023-06-19 19:20:35,063 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 19:20:40,381 I event_name:Transfer,from_block:17464948, to_block:17474948, current_block_height:17513460
+2023-06-19 19:20:41,762 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17513460
+2023-06-19 19:20:42,464 E ('Unknow result type,there is an error with fetch_event_log!',)
+2023-06-19 19:20:42,814 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17513460
+2023-06-19 19:20:42,826 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 19:20:48,348 I event_name:Transfer,from_block:17464948, to_block:17474948, current_block_height:17513461
+2023-06-19 19:20:50,219 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17513461
+2023-06-19 19:21:07,572 I event_name:Transfer,from_block:17464948, to_block:17474948, current_block_height:17513462
+2023-06-19 19:21:08,762 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17513462
+2023-06-19 19:21:09,967 E []
+2023-06-19 19:21:09,968 E ('Unknow result type,there is an error with fetch_event_log!',)
+2023-06-19 19:21:10,289 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17513462
+2023-06-19 19:21:10,301 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 19:21:15,650 I event_name:Transfer,from_block:17464948, to_block:17474948, current_block_height:17513463
+2023-06-19 19:21:17,840 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17513463
+2023-06-19 19:21:18,647 E []
+2023-06-19 19:21:18,647 E ('Unknow result type,there is an error with fetch_event_log!',)
+2023-06-19 19:21:19,247 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17513463
+2023-06-19 19:21:19,257 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 19:21:24,651 I event_name:Transfer,from_block:17464948, to_block:17474948, current_block_height:17513464
+2023-06-19 19:21:26,409 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17513464
+2023-06-19 19:23:09,797 I event_name:Transfer,from_block:17464948, to_block:17474948, current_block_height:17513472
+2023-06-19 19:23:11,087 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17513472
+2023-06-19 19:23:12,129 E []
+2023-06-19 19:23:12,129 E <class 'list'>
+2023-06-19 19:23:12,129 E ('Unknow result type,there is an error with fetch_event_log!',)
+2023-06-19 19:23:12,438 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17513472
+2023-06-19 19:23:12,448 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 19:23:17,902 I event_name:Transfer,from_block:17464948, to_block:17474948, current_block_height:17513473
+2023-06-19 19:25:31,737 I event_name:Transfer,from_block:17464948, to_block:17474948, current_block_height:17513484
+2023-06-19 19:25:32,809 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17513484
+2023-06-19 19:25:34,051 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17513484
+2023-06-19 19:25:34,064 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 19:25:39,458 I event_name:Transfer,from_block:17464948, to_block:17474948, current_block_height:17513485
+2023-06-19 19:25:40,808 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17513485
+2023-06-19 19:25:42,110 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17513485
+2023-06-19 19:25:42,136 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 19:25:47,488 I event_name:Transfer,from_block:17464948, to_block:17474948, current_block_height:17513485
+2023-06-19 19:25:48,978 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17513486
+2023-06-19 19:25:51,129 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17513486
+2023-06-19 19:25:51,145 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 19:25:56,845 I event_name:Transfer,from_block:17464948, to_block:17474948, current_block_height:17513486
+2023-06-19 19:25:58,363 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17513486
+2023-06-19 19:25:59,938 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17513486
+2023-06-19 19:25:59,946 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 19:26:05,678 I event_name:Transfer,from_block:17464948, to_block:17474948, current_block_height:17513487
+2023-06-19 19:26:07,250 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17513487
+2023-06-19 19:26:08,855 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17513487
+2023-06-19 19:26:08,867 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 19:32:39,658 I event_name:Transfer,from_block:17464948, to_block:17474948, current_block_height:17513520
+2023-06-19 19:32:42,148 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17513520
+2023-06-19 19:32:44,207 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17513520
+2023-06-19 19:32:44,220 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 19:32:49,923 I event_name:Transfer,from_block:17464948, to_block:17474948, current_block_height:17513521
+2023-06-19 19:32:51,272 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17513521
+2023-06-19 19:32:52,346 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17513521
+2023-06-19 19:32:52,358 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 19:41:41,346 E scaned_block_height:None
+2023-06-19 19:41:41,347 I event_name:Transfer,from_block:17464948, to_block:17474948, current_block_height:17513565
+2023-06-19 19:41:43,242 E scaned_block_height:None
+2023-06-19 19:41:43,242 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17513565
+2023-06-19 19:41:44,697 E scaned_block_height:None
+2023-06-19 19:41:44,697 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17513565
+2023-06-19 19:41:44,712 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 19:43:11,059 E scaned_block_height:None
+2023-06-19 19:43:11,060 I event_name:Transfer,from_block:17464948, to_block:17474948, current_block_height:17513569
+2023-06-19 19:44:41,931 E scaned_block_height:None
+2023-06-19 19:44:41,932 I event_name:Transfer,from_block:17464948, to_block:17474948, current_block_height:17513580
+2023-06-19 19:44:43,544 E scaned_block_height:None
+2023-06-19 19:44:43,544 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17513580
+2023-06-19 19:45:17,185 E scaned_block_height:None
+2023-06-19 19:45:17,185 I event_name:Transfer,from_block:17464948, to_block:17474948, current_block_height:17513583
+2023-06-19 19:45:19,133 E scaned_block_height:None
+2023-06-19 19:45:19,133 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17513583
+2023-06-19 19:45:22,562 E scaned_block_height:None
+2023-06-19 19:45:22,562 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17513583
+2023-06-19 19:45:22,575 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 19:46:32,114 E scaned_block_height:{'_id': ObjectId('64903fcef8cb2f1e06fc94ab'), 'eventName': 'Transfer', 'scanedBlockHeight': 17474948}
+2023-06-19 19:46:32,114 I event_name:Transfer,from_block:17474948, to_block:17484948, current_block_height:17513589
+2023-06-19 19:46:33,566 E scaned_block_height:{'_id': ObjectId('64903fd0f8cb2f1e06fc94b0'), 'eventName': 'Mint', 'scanedBlockHeight': 17474948}
+2023-06-19 19:46:33,566 I event_name:Mint,from_block:17474948, to_block:17484948, current_block_height:17513589
+2023-06-19 19:46:35,678 E scaned_block_height:None
+2023-06-19 19:46:35,678 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17513589
+2023-06-19 19:46:35,690 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 19:46:48,055 E scaned_block_height:{'_id': ObjectId('64903fcef8cb2f1e06fc94ab'), 'eventName': 'Transfer', 'scanedBlockHeight': 17484948}
+2023-06-19 19:46:48,055 I event_name:Transfer,from_block:17484948, to_block:17494948, current_block_height:17513590
+2023-06-19 19:46:49,836 E scaned_block_height:{'_id': ObjectId('64903fd0f8cb2f1e06fc94b0'), 'eventName': 'Mint', 'scanedBlockHeight': 17484948}
+2023-06-19 19:46:49,837 I event_name:Mint,from_block:17484948, to_block:17494948, current_block_height:17513591
+2023-06-19 19:46:51,244 E scaned_block_height:None
+2023-06-19 19:46:51,244 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17513591
+2023-06-19 19:46:51,262 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 19:46:56,649 E scaned_block_height:{'_id': ObjectId('64903fcef8cb2f1e06fc94ab'), 'eventName': 'Transfer', 'scanedBlockHeight': 17494948}
+2023-06-19 19:46:56,649 I event_name:Transfer,from_block:17494948, to_block:17504948, current_block_height:17513591
+2023-06-19 19:46:58,495 E scaned_block_height:{'_id': ObjectId('64903fd0f8cb2f1e06fc94b0'), 'eventName': 'Mint', 'scanedBlockHeight': 17494948}
+2023-06-19 19:46:58,496 I event_name:Mint,from_block:17494948, to_block:17504948, current_block_height:17513591
+2023-06-19 19:47:00,316 E scaned_block_height:None
+2023-06-19 19:47:00,316 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17513592
+2023-06-19 19:47:00,343 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 19:47:06,613 E scaned_block_height:{'_id': ObjectId('64903fcef8cb2f1e06fc94ab'), 'eventName': 'Transfer', 'scanedBlockHeight': 17504948}
+2023-06-19 19:47:06,614 I event_name:Transfer,from_block:17504948, to_block:17513592, current_block_height:17513592
+2023-06-19 19:47:08,886 E scaned_block_height:{'_id': ObjectId('64903fd0f8cb2f1e06fc94b0'), 'eventName': 'Mint', 'scanedBlockHeight': 17504948}
+2023-06-19 19:47:08,886 I event_name:Mint,from_block:17504948, to_block:17513592, current_block_height:17513592
+2023-06-19 19:47:10,904 E scaned_block_height:None
+2023-06-19 19:47:10,904 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17513592
+2023-06-19 19:47:10,921 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 19:47:17,099 E scaned_block_height:{'_id': ObjectId('64903fcef8cb2f1e06fc94ab'), 'eventName': 'Transfer', 'scanedBlockHeight': 17513592}
+2023-06-19 19:47:17,099 I event_name:Transfer,from_block:17513592, to_block:17513593, current_block_height:17513593
+2023-06-19 19:47:18,675 E scaned_block_height:{'_id': ObjectId('64903fd0f8cb2f1e06fc94b0'), 'eventName': 'Mint', 'scanedBlockHeight': 17513592}
+2023-06-19 19:47:18,675 I event_name:Mint,from_block:17513592, to_block:17513593, current_block_height:17513593
+2023-06-19 19:47:20,136 E scaned_block_height:None
+2023-06-19 19:47:20,136 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17513593
+2023-06-19 19:47:20,175 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 19:47:26,067 E scaned_block_height:{'_id': ObjectId('64903fcef8cb2f1e06fc94ab'), 'eventName': 'Transfer', 'scanedBlockHeight': 17513593}
+2023-06-19 19:47:26,067 I event_name:Transfer,from_block:17513593, to_block:17513594, current_block_height:17513594
+2023-06-19 19:47:27,566 E scaned_block_height:{'_id': ObjectId('64903fd0f8cb2f1e06fc94b0'), 'eventName': 'Mint', 'scanedBlockHeight': 17513593}
+2023-06-19 19:47:27,566 I event_name:Mint,from_block:17513593, to_block:17513594, current_block_height:17513594
+2023-06-19 19:47:29,149 E scaned_block_height:None
+2023-06-19 19:47:29,149 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17513594
+2023-06-19 19:47:29,168 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 19:47:35,263 E scaned_block_height:{'_id': ObjectId('64903fcef8cb2f1e06fc94ab'), 'eventName': 'Transfer', 'scanedBlockHeight': 17513594}
+2023-06-19 19:47:47,113 I event_name:Transfer,from_block:17513594, to_block:17513594, current_block_height:17513594
+2023-06-19 19:47:48,391 E scaned_block_height:{'_id': ObjectId('64903fd0f8cb2f1e06fc94b0'), 'eventName': 'Mint', 'scanedBlockHeight': 17513594}
+2023-06-19 19:47:48,391 I event_name:Mint,from_block:17513594, to_block:17513595, current_block_height:17513595
+2023-06-19 19:47:50,088 E scaned_block_height:None
+2023-06-19 19:47:50,088 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17513596
+2023-06-19 19:47:50,099 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 19:47:55,811 E scaned_block_height:{'_id': ObjectId('64903fcef8cb2f1e06fc94ab'), 'eventName': 'Transfer', 'scanedBlockHeight': 17513594}
+2023-06-19 19:47:55,811 I event_name:Transfer,from_block:17513594, to_block:17513596, current_block_height:17513596
+2023-06-19 19:47:57,067 E scaned_block_height:{'_id': ObjectId('64903fd0f8cb2f1e06fc94b0'), 'eventName': 'Mint', 'scanedBlockHeight': 17513595}
+2023-06-19 19:47:57,067 I event_name:Mint,from_block:17513595, to_block:17513596, current_block_height:17513596
+2023-06-19 19:47:58,353 E scaned_block_height:None
+2023-06-19 19:47:58,353 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17513596
+2023-06-19 19:47:58,369 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 19:48:03,706 E scaned_block_height:{'_id': ObjectId('64903fcef8cb2f1e06fc94ab'), 'eventName': 'Transfer', 'scanedBlockHeight': 17513596}
+2023-06-19 19:48:03,707 I event_name:Transfer,from_block:17513596, to_block:17513597, current_block_height:17513597
+2023-06-19 19:48:05,169 E scaned_block_height:{'_id': ObjectId('64903fd0f8cb2f1e06fc94b0'), 'eventName': 'Mint', 'scanedBlockHeight': 17513596}
+2023-06-19 19:48:05,169 I event_name:Mint,from_block:17513596, to_block:17513597, current_block_height:17513597
+2023-06-19 19:48:06,743 E scaned_block_height:None
+2023-06-19 19:48:06,743 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17513597
+2023-06-19 19:48:06,757 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 19:48:12,398 E scaned_block_height:{'_id': ObjectId('64903fcef8cb2f1e06fc94ab'), 'eventName': 'Transfer', 'scanedBlockHeight': 17513597}
+2023-06-19 20:13:39,196 E scaned_block_height:None
+2023-06-19 20:13:39,198 I event_name:Transfer,from_block:17464948, to_block:17474948, current_block_height:17513721
+2023-06-19 20:13:40,559 E scaned_block_height:None
+2023-06-19 20:13:40,559 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17513721
+2023-06-19 20:13:42,293 E scaned_block_height:None
+2023-06-19 20:13:42,293 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17513721
+2023-06-19 20:13:42,306 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 20:13:47,710 E scaned_block_height:{'_id': ObjectId('64904673f8cb2f1e06fc98dc'), 'eventName': 'Transfer', 'scanedBlockHeight': 17474948}
+2023-06-19 20:13:47,710 I event_name:Transfer,from_block:17474948, to_block:17484948, current_block_height:17513721
+2023-06-19 20:13:50,160 E scaned_block_height:{'_id': ObjectId('64904675f8cb2f1e06fc98df'), 'eventName': 'Mint', 'scanedBlockHeight': 17474948}
+2023-06-19 20:13:50,160 I event_name:Mint,from_block:17474948, to_block:17484948, current_block_height:17513722
+2023-06-19 20:13:51,289 E scaned_block_height:None
+2023-06-19 20:13:51,289 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17513722
+2023-06-19 20:13:51,299 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 20:13:56,980 E scaned_block_height:{'_id': ObjectId('64904673f8cb2f1e06fc98dc'), 'eventName': 'Transfer', 'scanedBlockHeight': 17484948}
+2023-06-19 20:13:56,981 I event_name:Transfer,from_block:17484948, to_block:17494948, current_block_height:17513722
+2023-06-19 20:13:58,550 E scaned_block_height:{'_id': ObjectId('64904675f8cb2f1e06fc98df'), 'eventName': 'Mint', 'scanedBlockHeight': 17484948}
+2023-06-19 20:13:58,550 I event_name:Mint,from_block:17484948, to_block:17494948, current_block_height:17513722
+2023-06-19 20:14:00,221 E scaned_block_height:None
+2023-06-19 20:14:00,222 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17513722
+2023-06-19 20:14:00,240 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 20:14:05,641 E scaned_block_height:{'_id': ObjectId('64904673f8cb2f1e06fc98dc'), 'eventName': 'Transfer', 'scanedBlockHeight': 17494948}
+2023-06-19 20:14:05,641 I event_name:Transfer,from_block:17494948, to_block:17504948, current_block_height:17513723
+2023-06-19 20:14:06,956 E scaned_block_height:{'_id': ObjectId('64904675f8cb2f1e06fc98df'), 'eventName': 'Mint', 'scanedBlockHeight': 17494948}
+2023-06-19 20:14:06,956 I event_name:Mint,from_block:17494948, to_block:17504948, current_block_height:17513723
+2023-06-19 20:14:08,807 E scaned_block_height:None
+2023-06-19 20:14:08,807 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17513723
+2023-06-19 20:14:08,831 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 20:14:14,274 E scaned_block_height:{'_id': ObjectId('64904673f8cb2f1e06fc98dc'), 'eventName': 'Transfer', 'scanedBlockHeight': 17504948}
+2023-06-19 20:14:14,275 I event_name:Transfer,from_block:17504948, to_block:17513724, current_block_height:17513724
+2023-06-19 20:14:15,855 E scaned_block_height:{'_id': ObjectId('64904675f8cb2f1e06fc98df'), 'eventName': 'Mint', 'scanedBlockHeight': 17504948}
+2023-06-19 20:14:15,855 I event_name:Mint,from_block:17504948, to_block:17513724, current_block_height:17513724
+2023-06-19 20:14:17,423 E scaned_block_height:None
+2023-06-19 20:14:17,424 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17513724
+2023-06-19 20:14:17,440 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 20:14:22,786 E scaned_block_height:{'_id': ObjectId('64904673f8cb2f1e06fc98dc'), 'eventName': 'Transfer', 'scanedBlockHeight': 17513724}
+2023-06-19 20:14:34,792 I event_name:Transfer,from_block:17513724, to_block:17513724, current_block_height:17513724
+2023-06-19 20:14:36,357 E scaned_block_height:{'_id': ObjectId('64904675f8cb2f1e06fc98df'), 'eventName': 'Mint', 'scanedBlockHeight': 17513724}
+2023-06-19 20:14:36,357 I event_name:Mint,from_block:17513724, to_block:17513725, current_block_height:17513725
+2023-06-19 20:14:38,205 E scaned_block_height:None
+2023-06-19 20:14:38,205 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17513726
+2023-06-19 20:14:38,215 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 20:14:43,623 E scaned_block_height:{'_id': ObjectId('64904673f8cb2f1e06fc98dc'), 'eventName': 'Transfer', 'scanedBlockHeight': 17513724}
+2023-06-19 20:14:43,624 I event_name:Transfer,from_block:17513724, to_block:17513726, current_block_height:17513726
+2023-06-19 20:14:44,829 E scaned_block_height:{'_id': ObjectId('64904675f8cb2f1e06fc98df'), 'eventName': 'Mint', 'scanedBlockHeight': 17513725}
+2023-06-19 20:14:44,829 I event_name:Mint,from_block:17513725, to_block:17513726, current_block_height:17513726
+2023-06-19 20:14:46,605 E scaned_block_height:None
+2023-06-19 20:14:46,606 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17513726
+2023-06-19 20:14:46,621 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 20:20:10,313 E scaned_block_height:None
+2023-06-19 20:20:10,314 I event_name:Transfer,from_block:17464948, to_block:17474948, current_block_height:17513753
+2023-06-19 20:20:11,316 E ("MotorCollection object is not callable. If you meant to call the 'logs.insert' method on a MotorCollection object it is failing because no such method exists.",)
+2023-06-19 20:20:11,805 E scaned_block_height:None
+2023-06-19 20:20:11,805 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17513753
+2023-06-19 20:20:13,121 E scaned_block_height:None
+2023-06-19 20:20:13,121 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17513754
+2023-06-19 20:20:13,128 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 20:20:18,682 E scaned_block_height:None
+2023-06-19 20:20:18,682 I event_name:Transfer,from_block:17464948, to_block:17474948, current_block_height:17513754
+2023-06-19 20:20:19,677 E ("MotorCollection object is not callable. If you meant to call the 'logs.insert' method on a MotorCollection object it is failing because no such method exists.",)
+2023-06-19 20:20:20,235 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17474948}
+2023-06-19 20:20:20,235 I event_name:Mint,from_block:17474948, to_block:17484948, current_block_height:17513754
+2023-06-19 20:20:21,428 E scaned_block_height:None
+2023-06-19 20:20:21,428 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17513754
+2023-06-19 20:20:21,437 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 20:20:27,192 E scaned_block_height:None
+2023-06-19 20:20:27,193 I event_name:Transfer,from_block:17464948, to_block:17474948, current_block_height:17513755
+2023-06-19 20:20:28,771 E ("MotorCollection object is not callable. If you meant to call the 'logs.insert' method on a MotorCollection object it is failing because no such method exists.",)
+2023-06-19 20:20:29,155 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17484948}
+2023-06-19 20:20:29,155 I event_name:Mint,from_block:17484948, to_block:17494948, current_block_height:17513755
+2023-06-19 20:20:30,521 E scaned_block_height:None
+2023-06-19 20:20:30,521 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17513755
+2023-06-19 20:20:30,535 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 20:20:35,997 E scaned_block_height:None
+2023-06-19 20:20:35,998 I event_name:Transfer,from_block:17464948, to_block:17474948, current_block_height:17513755
+2023-06-19 20:20:37,506 E ("MotorCollection object is not callable. If you meant to call the 'logs.insert' method on a MotorCollection object it is failing because no such method exists.",)
+2023-06-19 20:20:38,028 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17494948}
+2023-06-19 20:20:38,028 I event_name:Mint,from_block:17494948, to_block:17504948, current_block_height:17513756
+2023-06-19 20:20:39,224 E scaned_block_height:None
+2023-06-19 20:20:39,225 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17513756
+2023-06-19 20:20:39,264 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 20:20:44,888 E scaned_block_height:None
+2023-06-19 20:20:44,892 I event_name:Transfer,from_block:17464948, to_block:17474948, current_block_height:17513756
+2023-06-19 20:20:45,952 E ("MotorCollection object is not callable. If you meant to call the 'logs.insert' method on a MotorCollection object it is failing because no such method exists.",)
+2023-06-19 20:20:46,466 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17504948}
+2023-06-19 20:20:46,467 I event_name:Mint,from_block:17504948, to_block:17513756, current_block_height:17513756
+2023-06-19 20:20:49,243 E scaned_block_height:None
+2023-06-19 20:20:49,243 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17513756
+2023-06-19 20:20:49,262 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 20:22:18,237 E scaned_block_height:None
+2023-06-19 20:22:18,239 I event_name:Transfer,from_block:17464948, to_block:17474948, current_block_height:17513764
+2023-06-19 20:22:19,733 E Future exception was never retrieved
+future: <Future finished exception=OperationFailure('BSON field \'insert.ordered\' is the wrong type \'object\', expected type \'bool\', full error: {\'ok\': 0.0, \'errmsg\': "BSON field \'insert.ordered\' is the wrong type \'object\', expected type \'bool\'", \'code\': 14, \'codeName\': \'TypeMismatch\'}')>
+Traceback (most recent call last):
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/concurrent/futures/thread.py", line 52, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/Users/van/projects/likn/event-tracker/venv/lib/python3.9/site-packages/pymongo/_csot.py", line 105, in csot_wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/van/projects/likn/event-tracker/venv/lib/python3.9/site-packages/pymongo/collection.py", line 714, in insert_many
+    blk.execute(write_concern, session=session)
+  File "/Users/van/projects/likn/event-tracker/venv/lib/python3.9/site-packages/pymongo/bulk.py", line 513, in execute
+    return self.execute_command(generator, write_concern, session)
+  File "/Users/van/projects/likn/event-tracker/venv/lib/python3.9/site-packages/pymongo/bulk.py", line 391, in execute_command
+    client._retry_with_session(self.is_retryable, retryable_bulk, s, self)
+  File "/Users/van/projects/likn/event-tracker/venv/lib/python3.9/site-packages/pymongo/mongo_client.py", line 1349, in _retry_with_session
+    return self._retry_internal(retryable, func, session, bulk)
+  File "/Users/van/projects/likn/event-tracker/venv/lib/python3.9/site-packages/pymongo/_csot.py", line 105, in csot_wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/van/projects/likn/event-tracker/venv/lib/python3.9/site-packages/pymongo/mongo_client.py", line 1390, in _retry_internal
+    return func(session, sock_info, retryable)
+  File "/Users/van/projects/likn/event-tracker/venv/lib/python3.9/site-packages/pymongo/bulk.py", line 385, in retryable_bulk
+    self._execute_command(
+  File "/Users/van/projects/likn/event-tracker/venv/lib/python3.9/site-packages/pymongo/bulk.py", line 338, in _execute_command
+    result, to_send = bwc.execute(cmd, ops, client)
+  File "/Users/van/projects/likn/event-tracker/venv/lib/python3.9/site-packages/pymongo/message.py", line 842, in execute
+    result = self.write_command(cmd, request_id, msg, to_send)
+  File "/Users/van/projects/likn/event-tracker/venv/lib/python3.9/site-packages/pymongo/message.py", line 920, in write_command
+    reply = self.sock_info.write_command(request_id, msg, self.codec)
+  File "/Users/van/projects/likn/event-tracker/venv/lib/python3.9/site-packages/pymongo/pool.py", line 857, in write_command
+    helpers._check_command_response(result, self.max_wire_version)
+  File "/Users/van/projects/likn/event-tracker/venv/lib/python3.9/site-packages/pymongo/helpers.py", line 181, in _check_command_response
+    raise OperationFailure(errmsg, code, response, max_wire_version)
+pymongo.errors.OperationFailure: BSON field 'insert.ordered' is the wrong type 'object', expected type 'bool', full error: {'ok': 0.0, 'errmsg': "BSON field 'insert.ordered' is the wrong type 'object', expected type 'bool'", 'code': 14, 'codeName': 'TypeMismatch'}
+2023-06-19 20:22:19,743 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17513756}
+2023-06-19 20:22:19,744 I event_name:Mint,from_block:17513756, to_block:17513764, current_block_height:17513764
+2023-06-19 20:22:21,838 E scaned_block_height:None
+2023-06-19 20:22:21,838 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17513764
+2023-06-19 20:22:21,853 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 20:23:49,456 E scaned_block_height:{'_id': ObjectId('6490487bf8cb2f1e06fc9a9b'), 'eventName': 'Transfer', 'scanedBlockHeight': 17474948}
+2023-06-19 20:23:49,457 I event_name:Transfer,from_block:17474948, to_block:17484948, current_block_height:17513772
+2023-06-19 20:23:51,153 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17513764}
+2023-06-19 20:23:51,153 I event_name:Mint,from_block:17513764, to_block:17513772, current_block_height:17513772
+2023-06-19 20:23:53,058 E scaned_block_height:None
+2023-06-19 20:23:53,058 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17513772
+2023-06-19 20:23:53,073 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 20:23:58,827 E scaned_block_height:{'_id': ObjectId('6490487bf8cb2f1e06fc9a9b'), 'eventName': 'Transfer', 'scanedBlockHeight': 17484948}
+2023-06-19 20:23:58,827 I event_name:Transfer,from_block:17484948, to_block:17494948, current_block_height:17513772
+2023-06-19 20:24:00,469 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17513772}
+2023-06-19 20:24:00,469 I event_name:Mint,from_block:17513772, to_block:17513773, current_block_height:17513773
+2023-06-19 20:24:01,543 E scaned_block_height:None
+2023-06-19 20:24:01,543 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17513773
+2023-06-19 20:24:01,556 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 20:24:06,983 E scaned_block_height:{'_id': ObjectId('6490487bf8cb2f1e06fc9a9b'), 'eventName': 'Transfer', 'scanedBlockHeight': 17494948}
+2023-06-19 20:24:06,984 I event_name:Transfer,from_block:17494948, to_block:17504948, current_block_height:17513773
+2023-06-19 20:24:08,793 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17513773}
+2023-06-19 20:24:20,798 I event_name:Mint,from_block:17513773, to_block:17513773, current_block_height:17513773
+2023-06-19 20:24:21,897 E scaned_block_height:None
+2023-06-19 20:24:21,897 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17513774
+2023-06-19 20:24:21,910 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 20:24:27,334 E scaned_block_height:{'_id': ObjectId('6490487bf8cb2f1e06fc9a9b'), 'eventName': 'Transfer', 'scanedBlockHeight': 17504948}
+2023-06-19 20:24:27,334 I event_name:Transfer,from_block:17504948, to_block:17513775, current_block_height:17513775
+2023-06-19 20:24:28,772 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17513773}
+2023-06-19 20:24:28,772 I event_name:Mint,from_block:17513773, to_block:17513775, current_block_height:17513775
+2023-06-19 20:24:30,176 E scaned_block_height:None
+2023-06-19 20:24:30,176 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17513775
+2023-06-19 20:24:30,227 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:13:35,291 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17513775}
+2023-06-19 21:13:35,291 I event_name:Mint,from_block:17513775, to_block:17514016, current_block_height:17514016
+2023-06-19 21:13:36,824 E scaned_block_height:{'_id': ObjectId('6490487bf8cb2f1e06fc9a9b'), 'eventName': 'Transfer', 'scanedBlockHeight': 17513775}
+2023-06-19 21:13:36,825 I event_name:Transfer,from_block:17513775, to_block:17514016, current_block_height:17514016
+2023-06-19 21:13:38,403 E scaned_block_height:None
+2023-06-19 21:13:38,403 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514017
+2023-06-19 21:13:38,418 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:13:44,165 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17514016}
+2023-06-19 21:13:44,165 I event_name:Mint,from_block:17514016, to_block:17514017, current_block_height:17514017
+2023-06-19 21:13:45,842 E scaned_block_height:{'_id': ObjectId('6490487bf8cb2f1e06fc9a9b'), 'eventName': 'Transfer', 'scanedBlockHeight': 17514016}
+2023-06-19 21:13:45,842 I event_name:Transfer,from_block:17514016, to_block:17514017, current_block_height:17514017
+2023-06-19 21:13:47,838 E scaned_block_height:None
+2023-06-19 21:13:47,838 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514017
+2023-06-19 21:13:47,850 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:13:53,610 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17514017}
+2023-06-19 21:13:53,610 I event_name:Mint,from_block:17514017, to_block:17514018, current_block_height:17514018
+2023-06-19 21:13:55,057 E scaned_block_height:{'_id': ObjectId('6490487bf8cb2f1e06fc9a9b'), 'eventName': 'Transfer', 'scanedBlockHeight': 17514017}
+2023-06-19 21:13:55,057 I event_name:Transfer,from_block:17514017, to_block:17514018, current_block_height:17514018
+2023-06-19 21:13:56,772 E scaned_block_height:None
+2023-06-19 21:13:56,772 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514018
+2023-06-19 21:13:56,787 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:14:02,510 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17514018}
+2023-06-19 21:14:02,510 I event_name:Mint,from_block:17514018, to_block:17514019, current_block_height:17514019
+2023-06-19 21:14:04,604 E scaned_block_height:{'_id': ObjectId('6490487bf8cb2f1e06fc9a9b'), 'eventName': 'Transfer', 'scanedBlockHeight': 17514018}
+2023-06-19 21:14:04,605 I event_name:Transfer,from_block:17514018, to_block:17514019, current_block_height:17514019
+2023-06-19 21:14:06,012 E scaned_block_height:None
+2023-06-19 21:14:06,013 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514019
+2023-06-19 21:14:06,067 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:14:11,466 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17514019}
+2023-06-19 21:14:23,474 I event_name:Mint,from_block:17514019, to_block:17514019, current_block_height:17514019
+2023-06-19 21:14:24,898 E scaned_block_height:{'_id': ObjectId('6490487bf8cb2f1e06fc9a9b'), 'eventName': 'Transfer', 'scanedBlockHeight': 17514019}
+2023-06-19 21:14:24,899 I event_name:Transfer,from_block:17514019, to_block:17514021, current_block_height:17514021
+2023-06-19 21:14:26,831 E scaned_block_height:None
+2023-06-19 21:14:26,831 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514021
+2023-06-19 21:14:26,841 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:14:32,265 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17514019}
+2023-06-19 21:14:32,265 I event_name:Mint,from_block:17514019, to_block:17514021, current_block_height:17514021
+2023-06-19 21:14:33,991 E scaned_block_height:{'_id': ObjectId('6490487bf8cb2f1e06fc9a9b'), 'eventName': 'Transfer', 'scanedBlockHeight': 17514021}
+2023-06-19 21:14:45,997 I event_name:Transfer,from_block:17514021, to_block:17514021, current_block_height:17514021
+2023-06-19 21:14:47,612 E scaned_block_height:None
+2023-06-19 21:14:47,612 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514022
+2023-06-19 21:14:47,634 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:14:53,495 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17514021}
+2023-06-19 21:14:53,496 I event_name:Mint,from_block:17514021, to_block:17514023, current_block_height:17514023
+2023-06-19 21:14:56,660 E scaned_block_height:{'_id': ObjectId('6490487bf8cb2f1e06fc9a9b'), 'eventName': 'Transfer', 'scanedBlockHeight': 17514021}
+2023-06-19 21:14:56,661 I event_name:Transfer,from_block:17514021, to_block:17514023, current_block_height:17514023
+2023-06-19 21:14:58,623 E scaned_block_height:None
+2023-06-19 21:14:58,623 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514023
+2023-06-19 21:14:58,646 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:15:04,258 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17514023}
+2023-06-19 21:15:04,258 I event_name:Mint,from_block:17514023, to_block:17514024, current_block_height:17514024
+2023-06-19 21:15:06,505 E scaned_block_height:{'_id': ObjectId('6490487bf8cb2f1e06fc9a9b'), 'eventName': 'Transfer', 'scanedBlockHeight': 17514023}
+2023-06-19 21:15:06,505 I event_name:Transfer,from_block:17514023, to_block:17514024, current_block_height:17514024
+2023-06-19 21:15:08,182 E scaned_block_height:None
+2023-06-19 21:15:08,183 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514024
+2023-06-19 21:15:08,197 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:15:14,362 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17514024}
+2023-06-19 21:15:14,364 I event_name:Mint,from_block:17514024, to_block:17514025, current_block_height:17514025
+2023-06-19 21:15:15,957 E scaned_block_height:{'_id': ObjectId('6490487bf8cb2f1e06fc9a9b'), 'eventName': 'Transfer', 'scanedBlockHeight': 17514024}
+2023-06-19 21:15:15,957 I event_name:Transfer,from_block:17514024, to_block:17514025, current_block_height:17514025
+2023-06-19 21:15:17,493 E scaned_block_height:None
+2023-06-19 21:15:17,493 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514025
+2023-06-19 21:15:17,509 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:15:23,262 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17514025}
+2023-06-19 21:15:35,270 I event_name:Mint,from_block:17514025, to_block:17514025, current_block_height:17514025
+2023-06-19 21:15:37,962 E scaned_block_height:{'_id': ObjectId('6490487bf8cb2f1e06fc9a9b'), 'eventName': 'Transfer', 'scanedBlockHeight': 17514025}
+2023-06-19 21:15:37,962 I event_name:Transfer,from_block:17514025, to_block:17514027, current_block_height:17514027
+2023-06-19 21:15:41,085 E scaned_block_height:None
+2023-06-19 21:15:41,085 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514027
+2023-06-19 21:15:41,111 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:15:46,560 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17514025}
+2023-06-19 21:15:46,560 I event_name:Mint,from_block:17514025, to_block:17514027, current_block_height:17514027
+2023-06-19 21:15:47,892 E scaned_block_height:{'_id': ObjectId('6490487bf8cb2f1e06fc9a9b'), 'eventName': 'Transfer', 'scanedBlockHeight': 17514027}
+2023-06-19 21:15:59,898 I event_name:Transfer,from_block:17514027, to_block:17514027, current_block_height:17514027
+2023-06-19 21:16:02,051 E scaned_block_height:None
+2023-06-19 21:16:02,051 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514029
+2023-06-19 21:16:02,073 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:16:07,631 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17514027}
+2023-06-19 21:16:07,631 I event_name:Mint,from_block:17514027, to_block:17514029, current_block_height:17514029
+2023-06-19 21:16:09,394 E scaned_block_height:{'_id': ObjectId('6490487bf8cb2f1e06fc9a9b'), 'eventName': 'Transfer', 'scanedBlockHeight': 17514027}
+2023-06-19 21:16:09,394 I event_name:Transfer,from_block:17514027, to_block:17514029, current_block_height:17514029
+2023-06-19 21:16:11,346 E scaned_block_height:None
+2023-06-19 21:16:11,346 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514029
+2023-06-19 21:16:11,357 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:16:17,442 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17514029}
+2023-06-19 21:16:17,443 I event_name:Mint,from_block:17514029, to_block:17514030, current_block_height:17514030
+2023-06-19 21:16:19,179 E scaned_block_height:{'_id': ObjectId('6490487bf8cb2f1e06fc9a9b'), 'eventName': 'Transfer', 'scanedBlockHeight': 17514029}
+2023-06-19 21:16:19,179 I event_name:Transfer,from_block:17514029, to_block:17514030, current_block_height:17514030
+2023-06-19 21:16:22,153 E scaned_block_height:None
+2023-06-19 21:16:22,153 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514030
+2023-06-19 21:16:22,176 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:16:28,031 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17514030}
+2023-06-19 21:16:40,037 I event_name:Mint,from_block:17514030, to_block:17514030, current_block_height:17514030
+2023-06-19 21:16:41,558 E scaned_block_height:{'_id': ObjectId('6490487bf8cb2f1e06fc9a9b'), 'eventName': 'Transfer', 'scanedBlockHeight': 17514030}
+2023-06-19 21:16:41,558 I event_name:Transfer,from_block:17514030, to_block:17514031, current_block_height:17514031
+2023-06-19 21:16:43,140 E scaned_block_height:None
+2023-06-19 21:16:43,140 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514031
+2023-06-19 21:16:43,162 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:16:48,834 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17514030}
+2023-06-19 21:16:48,835 I event_name:Mint,from_block:17514030, to_block:17514031, current_block_height:17514031
+2023-06-19 21:16:50,376 E scaned_block_height:{'_id': ObjectId('6490487bf8cb2f1e06fc9a9b'), 'eventName': 'Transfer', 'scanedBlockHeight': 17514031}
+2023-06-19 21:17:02,381 I event_name:Transfer,from_block:17514031, to_block:17514031, current_block_height:17514031
+2023-06-19 21:17:04,442 E scaned_block_height:None
+2023-06-19 21:17:04,443 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514033
+2023-06-19 21:17:04,455 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:17:10,275 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17514031}
+2023-06-19 21:17:10,276 I event_name:Mint,from_block:17514031, to_block:17514033, current_block_height:17514033
+2023-06-19 21:17:12,009 E scaned_block_height:{'_id': ObjectId('6490487bf8cb2f1e06fc9a9b'), 'eventName': 'Transfer', 'scanedBlockHeight': 17514031}
+2023-06-19 21:17:12,009 I event_name:Transfer,from_block:17514031, to_block:17514033, current_block_height:17514033
+2023-06-19 21:17:13,888 E scaned_block_height:None
+2023-06-19 21:17:13,888 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514034
+2023-06-19 21:17:13,902 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:17:20,693 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17514033}
+2023-06-19 21:17:20,694 I event_name:Mint,from_block:17514033, to_block:17514034, current_block_height:17514034
+2023-06-19 21:17:22,317 E scaned_block_height:{'_id': ObjectId('6490487bf8cb2f1e06fc9a9b'), 'eventName': 'Transfer', 'scanedBlockHeight': 17514033}
+2023-06-19 21:17:22,318 I event_name:Transfer,from_block:17514033, to_block:17514034, current_block_height:17514034
+2023-06-19 21:17:23,862 E scaned_block_height:None
+2023-06-19 21:17:23,863 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514034
+2023-06-19 21:17:23,885 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:17:29,618 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17514034}
+2023-06-19 21:17:29,623 I event_name:Mint,from_block:17514034, to_block:17514035, current_block_height:17514035
+2023-06-19 21:17:31,198 E scaned_block_height:{'_id': ObjectId('6490487bf8cb2f1e06fc9a9b'), 'eventName': 'Transfer', 'scanedBlockHeight': 17514034}
+2023-06-19 21:17:31,198 I event_name:Transfer,from_block:17514034, to_block:17514035, current_block_height:17514035
+2023-06-19 21:17:32,754 E scaned_block_height:None
+2023-06-19 21:17:32,754 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514035
+2023-06-19 21:17:32,773 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:17:38,859 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17514035}
+2023-06-19 21:17:38,859 I event_name:Mint,from_block:17514035, to_block:17514036, current_block_height:17514036
+2023-06-19 21:17:41,158 E scaned_block_height:{'_id': ObjectId('6490487bf8cb2f1e06fc9a9b'), 'eventName': 'Transfer', 'scanedBlockHeight': 17514035}
+2023-06-19 21:17:41,158 I event_name:Transfer,from_block:17514035, to_block:17514036, current_block_height:17514036
+2023-06-19 21:17:42,716 E scaned_block_height:None
+2023-06-19 21:17:42,717 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514036
+2023-06-19 21:17:42,732 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:17:48,543 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17514036}
+2023-06-19 21:18:00,553 I event_name:Mint,from_block:17514036, to_block:17514036, current_block_height:17514036
+2023-06-19 21:18:01,946 E scaned_block_height:{'_id': ObjectId('6490487bf8cb2f1e06fc9a9b'), 'eventName': 'Transfer', 'scanedBlockHeight': 17514036}
+2023-06-19 21:18:01,946 I event_name:Transfer,from_block:17514036, to_block:17514038, current_block_height:17514038
+2023-06-19 21:18:04,278 E scaned_block_height:None
+2023-06-19 21:18:04,280 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514038
+2023-06-19 21:18:04,301 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:18:10,553 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17514036}
+2023-06-19 21:18:10,554 I event_name:Mint,from_block:17514036, to_block:17514038, current_block_height:17514038
+2023-06-19 21:18:12,080 E scaned_block_height:{'_id': ObjectId('6490487bf8cb2f1e06fc9a9b'), 'eventName': 'Transfer', 'scanedBlockHeight': 17514038}
+2023-06-19 21:18:24,086 I event_name:Transfer,from_block:17514038, to_block:17514038, current_block_height:17514038
+2023-06-19 21:18:26,526 E scaned_block_height:None
+2023-06-19 21:18:26,527 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514040
+2023-06-19 21:18:26,550 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:18:32,289 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17514038}
+2023-06-19 21:18:32,291 I event_name:Mint,from_block:17514038, to_block:17514040, current_block_height:17514040
+2023-06-19 21:18:33,607 E scaned_block_height:{'_id': ObjectId('6490487bf8cb2f1e06fc9a9b'), 'eventName': 'Transfer', 'scanedBlockHeight': 17514038}
+2023-06-19 21:18:33,608 I event_name:Transfer,from_block:17514038, to_block:17514040, current_block_height:17514040
+2023-06-19 21:18:35,273 E scaned_block_height:None
+2023-06-19 21:18:35,274 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514040
+2023-06-19 21:18:35,294 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:18:42,706 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17514040}
+2023-06-19 21:18:42,707 I event_name:Mint,from_block:17514040, to_block:17514041, current_block_height:17514041
+2023-06-19 21:18:45,121 E scaned_block_height:{'_id': ObjectId('6490487bf8cb2f1e06fc9a9b'), 'eventName': 'Transfer', 'scanedBlockHeight': 17514040}
+2023-06-19 21:18:45,121 I event_name:Transfer,from_block:17514040, to_block:17514041, current_block_height:17514041
+2023-06-19 21:18:47,207 E scaned_block_height:None
+2023-06-19 21:18:47,208 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514041
+2023-06-19 21:18:47,229 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:18:52,971 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17514041}
+2023-06-19 21:18:52,974 I event_name:Mint,from_block:17514041, to_block:17514042, current_block_height:17514042
+2023-06-19 21:18:54,546 E scaned_block_height:{'_id': ObjectId('6490487bf8cb2f1e06fc9a9b'), 'eventName': 'Transfer', 'scanedBlockHeight': 17514041}
+2023-06-19 21:18:54,546 I event_name:Transfer,from_block:17514041, to_block:17514042, current_block_height:17514042
+2023-06-19 21:18:56,007 E scaned_block_height:None
+2023-06-19 21:18:56,008 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514042
+2023-06-19 21:18:56,022 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:28:11,042 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17514042}
+2023-06-19 21:28:11,043 I event_name:Mint,from_block:17514042, to_block:17514088, current_block_height:17514088
+2023-06-19 21:28:11,059 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:28:11,927 E scaned_block_height:None
+2023-06-19 21:28:11,927 I event_name:TransferSingle,from_block:17464948, to_block:17474948, current_block_height:17514088
+2023-06-19 21:28:11,934 E ('Unknow Event Types!',)
+2023-06-19 21:28:12,497 E scaned_block_height:None
+2023-06-19 21:28:12,497 I event_name:TransferBatch,from_block:17464948, to_block:17474948, current_block_height:17514088
+2023-06-19 21:28:12,506 E ('Unknow Event Types!',)
+2023-06-19 21:28:12,970 E scaned_block_height:None
+2023-06-19 21:28:12,970 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514088
+2023-06-19 21:28:12,979 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:28:18,914 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17514042}
+2023-06-19 21:28:18,914 I event_name:Mint,from_block:17514042, to_block:17514089, current_block_height:17514089
+2023-06-19 21:28:18,923 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:28:19,304 E scaned_block_height:None
+2023-06-19 21:28:19,305 I event_name:TransferSingle,from_block:17464948, to_block:17474948, current_block_height:17514089
+2023-06-19 21:28:19,313 E ('Unknow Event Types!',)
+2023-06-19 21:28:19,826 E scaned_block_height:None
+2023-06-19 21:28:19,826 I event_name:TransferBatch,from_block:17464948, to_block:17474948, current_block_height:17514089
+2023-06-19 21:28:19,833 E ('Unknow Event Types!',)
+2023-06-19 21:28:20,763 E scaned_block_height:None
+2023-06-19 21:28:20,763 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514089
+2023-06-19 21:28:20,772 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:32:00,819 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17514042}
+2023-06-19 21:32:00,821 I event_name:Mint,from_block:17514042, to_block:17514106, current_block_height:17514106
+2023-06-19 21:32:57,887 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17514042}
+2023-06-19 21:32:57,887 I event_name:Mint,from_block:17514042, to_block:17514111, current_block_height:17514111
+2023-06-19 21:32:57,894 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:32:58,360 E scaned_block_height:None
+2023-06-19 21:32:58,360 I event_name:TransferSingle,from_block:17464948, to_block:17474948, current_block_height:17514111
+2023-06-19 21:32:58,367 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:32:59,110 E scaned_block_height:None
+2023-06-19 21:32:59,111 I event_name:TransferBatch,from_block:17464948, to_block:17474948, current_block_height:17514111
+2023-06-19 21:32:59,119 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:32:59,463 E scaned_block_height:None
+2023-06-19 21:32:59,464 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514111
+2023-06-19 21:32:59,472 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:33:04,818 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17514042}
+2023-06-19 21:33:04,818 I event_name:Mint,from_block:17514042, to_block:17514112, current_block_height:17514112
+2023-06-19 21:33:04,825 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:33:05,319 E scaned_block_height:None
+2023-06-19 21:33:05,319 I event_name:TransferSingle,from_block:17464948, to_block:17474948, current_block_height:17514112
+2023-06-19 21:33:05,326 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:33:06,147 E scaned_block_height:None
+2023-06-19 21:33:06,148 I event_name:TransferBatch,from_block:17464948, to_block:17474948, current_block_height:17514112
+2023-06-19 21:33:06,155 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:33:06,557 E scaned_block_height:None
+2023-06-19 21:33:06,557 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514112
+2023-06-19 21:33:06,565 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:33:12,065 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17514042}
+2023-06-19 21:33:12,065 I event_name:Mint,from_block:17514042, to_block:17514112, current_block_height:17514112
+2023-06-19 21:33:12,074 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:33:12,673 E scaned_block_height:None
+2023-06-19 21:33:12,673 I event_name:TransferSingle,from_block:17464948, to_block:17474948, current_block_height:17514113
+2023-06-19 21:33:12,682 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:33:13,116 E scaned_block_height:None
+2023-06-19 21:33:13,116 I event_name:TransferBatch,from_block:17464948, to_block:17474948, current_block_height:17514113
+2023-06-19 21:33:13,124 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:33:13,517 E scaned_block_height:None
+2023-06-19 21:33:13,517 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514113
+2023-06-19 21:33:13,525 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:33:18,947 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17514042}
+2023-06-19 21:33:18,948 I event_name:Mint,from_block:17514042, to_block:17514113, current_block_height:17514113
+2023-06-19 21:33:18,956 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:33:19,600 E scaned_block_height:None
+2023-06-19 21:33:19,600 I event_name:TransferSingle,from_block:17464948, to_block:17474948, current_block_height:17514113
+2023-06-19 21:33:19,609 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:33:21,200 E scaned_block_height:None
+2023-06-19 21:33:21,200 I event_name:TransferBatch,from_block:17464948, to_block:17474948, current_block_height:17514113
+2023-06-19 21:33:21,211 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:33:22,113 E scaned_block_height:None
+2023-06-19 21:33:22,113 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514113
+2023-06-19 21:33:22,119 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:34:15,187 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17514042}
+2023-06-19 21:34:15,188 I event_name:Mint,from_block:17514042, to_block:17514118, current_block_height:17514118
+2023-06-19 21:34:15,196 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:34:15,566 E scaned_block_height:None
+2023-06-19 21:34:15,567 I event_name:TransferSingle,from_block:17464948, to_block:17474948, current_block_height:17514118
+2023-06-19 21:34:15,573 E ("The event 'TransferSingle' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:34:17,425 E scaned_block_height:None
+2023-06-19 21:34:17,426 I event_name:TransferBatch,from_block:17464948, to_block:17474948, current_block_height:17514118
+2023-06-19 21:34:17,434 E ("The event 'TransferBatch' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:34:18,392 E scaned_block_height:None
+2023-06-19 21:34:18,392 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514118
+2023-06-19 21:34:18,401 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:34:23,875 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17514042}
+2023-06-19 21:34:23,875 I event_name:Mint,from_block:17514042, to_block:17514118, current_block_height:17514118
+2023-06-19 21:34:23,881 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:34:24,279 E scaned_block_height:None
+2023-06-19 21:34:24,279 I event_name:TransferSingle,from_block:17464948, to_block:17474948, current_block_height:17514118
+2023-06-19 21:34:24,287 E ("The event 'TransferSingle' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:34:24,655 E scaned_block_height:None
+2023-06-19 21:34:24,655 I event_name:TransferBatch,from_block:17464948, to_block:17474948, current_block_height:17514118
+2023-06-19 21:34:24,661 E ("The event 'TransferBatch' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:34:24,991 E scaned_block_height:None
+2023-06-19 21:34:24,992 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514119
+2023-06-19 21:34:24,998 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:34:30,431 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17514042}
+2023-06-19 21:34:30,431 I event_name:Mint,from_block:17514042, to_block:17514119, current_block_height:17514119
+2023-06-19 21:34:30,440 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:34:30,850 E scaned_block_height:None
+2023-06-19 21:34:30,850 I event_name:TransferSingle,from_block:17464948, to_block:17474948, current_block_height:17514119
+2023-06-19 21:34:30,857 E ("The event 'TransferSingle' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:34:31,472 E scaned_block_height:None
+2023-06-19 21:34:31,472 I event_name:TransferBatch,from_block:17464948, to_block:17474948, current_block_height:17514119
+2023-06-19 21:34:31,480 E ("The event 'TransferBatch' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:34:31,840 E scaned_block_height:None
+2023-06-19 21:34:31,841 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514119
+2023-06-19 21:34:31,849 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:34:37,203 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17514042}
+2023-06-19 21:34:37,203 I event_name:Mint,from_block:17514042, to_block:17514120, current_block_height:17514120
+2023-06-19 21:34:37,209 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:34:38,251 E scaned_block_height:None
+2023-06-19 21:34:38,251 I event_name:TransferSingle,from_block:17464948, to_block:17474948, current_block_height:17514120
+2023-06-19 21:34:38,259 E ("The event 'TransferSingle' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:34:38,715 E scaned_block_height:None
+2023-06-19 21:34:38,715 I event_name:TransferBatch,from_block:17464948, to_block:17474948, current_block_height:17514120
+2023-06-19 21:34:38,723 E ("The event 'TransferBatch' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:34:39,298 E scaned_block_height:None
+2023-06-19 21:34:39,298 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514120
+2023-06-19 21:34:39,306 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:34:44,690 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17514042}
+2023-06-19 21:34:44,690 I event_name:Mint,from_block:17514042, to_block:17514120, current_block_height:17514120
+2023-06-19 21:34:44,696 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:34:45,073 E scaned_block_height:None
+2023-06-19 21:34:45,073 I event_name:TransferSingle,from_block:17464948, to_block:17474948, current_block_height:17514120
+2023-06-19 21:34:45,081 E ("The event 'TransferSingle' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:34:45,479 E scaned_block_height:None
+2023-06-19 21:34:45,479 I event_name:TransferBatch,from_block:17464948, to_block:17474948, current_block_height:17514120
+2023-06-19 21:34:45,489 E ("The event 'TransferBatch' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:34:45,985 E scaned_block_height:None
+2023-06-19 21:34:45,985 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514120
+2023-06-19 21:34:45,993 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:34:51,738 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17514042}
+2023-06-19 21:34:51,738 I event_name:Mint,from_block:17514042, to_block:17514121, current_block_height:17514121
+2023-06-19 21:34:51,744 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:34:52,216 E scaned_block_height:None
+2023-06-19 21:34:52,216 I event_name:TransferSingle,from_block:17464948, to_block:17474948, current_block_height:17514121
+2023-06-19 21:34:52,223 E ("The event 'TransferSingle' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:34:54,281 E scaned_block_height:None
+2023-06-19 21:34:54,281 I event_name:TransferBatch,from_block:17464948, to_block:17474948, current_block_height:17514121
+2023-06-19 21:34:54,288 E ("The event 'TransferBatch' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:34:54,728 E scaned_block_height:None
+2023-06-19 21:34:54,728 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514121
+2023-06-19 21:34:54,750 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:35:00,116 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17514042}
+2023-06-19 21:35:00,116 I event_name:Mint,from_block:17514042, to_block:17514121, current_block_height:17514121
+2023-06-19 21:35:00,122 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:35:00,469 E scaned_block_height:None
+2023-06-19 21:35:00,470 I event_name:TransferSingle,from_block:17464948, to_block:17474948, current_block_height:17514121
+2023-06-19 21:35:00,475 E ("The event 'TransferSingle' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:35:00,935 E scaned_block_height:None
+2023-06-19 21:35:00,935 I event_name:TransferBatch,from_block:17464948, to_block:17474948, current_block_height:17514121
+2023-06-19 21:35:00,942 E ("The event 'TransferBatch' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:35:01,345 E scaned_block_height:None
+2023-06-19 21:35:01,345 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514122
+2023-06-19 21:35:01,351 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:35:06,781 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17514042}
+2023-06-19 21:35:06,783 I event_name:Mint,from_block:17514042, to_block:17514122, current_block_height:17514122
+2023-06-19 21:35:06,794 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:35:07,696 E scaned_block_height:None
+2023-06-19 21:35:07,697 I event_name:TransferSingle,from_block:17464948, to_block:17474948, current_block_height:17514122
+2023-06-19 21:35:07,712 E ("The event 'TransferSingle' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:35:08,092 E scaned_block_height:None
+2023-06-19 21:35:08,092 I event_name:TransferBatch,from_block:17464948, to_block:17474948, current_block_height:17514122
+2023-06-19 21:35:08,104 E ("The event 'TransferBatch' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:35:08,522 E scaned_block_height:None
+2023-06-19 21:35:08,523 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514122
+2023-06-19 21:35:08,533 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:35:13,867 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17514042}
+2023-06-19 21:35:13,867 I event_name:Mint,from_block:17514042, to_block:17514123, current_block_height:17514123
+2023-06-19 21:35:13,875 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:35:14,351 E scaned_block_height:None
+2023-06-19 21:35:14,351 I event_name:TransferSingle,from_block:17464948, to_block:17474948, current_block_height:17514123
+2023-06-19 21:35:14,358 E ("The event 'TransferSingle' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:35:15,281 E scaned_block_height:None
+2023-06-19 21:35:15,281 I event_name:TransferBatch,from_block:17464948, to_block:17474948, current_block_height:17514123
+2023-06-19 21:35:15,285 E ("The event 'TransferBatch' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:35:16,410 E scaned_block_height:None
+2023-06-19 21:35:16,410 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514123
+2023-06-19 21:35:16,417 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:45:19,837 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17514042}
+2023-06-19 21:45:19,838 I event_name:Mint,from_block:17514042, to_block:17514173, current_block_height:17514173
+2023-06-19 21:45:19,848 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:45:20,257 E scaned_block_height:None
+2023-06-19 21:45:20,257 I event_name:TransferSingle,from_block:17464948, to_block:17474948, current_block_height:17514173
+2023-06-19 21:45:21,899 E Future exception was never retrieved
+future: <Future finished exception=OverflowError('MongoDB can only handle up to 8-byte ints')>
+Traceback (most recent call last):
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/concurrent/futures/thread.py", line 52, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/Users/van/projects/likn/event-tracker/venv/lib/python3.9/site-packages/pymongo/_csot.py", line 105, in csot_wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/van/projects/likn/event-tracker/venv/lib/python3.9/site-packages/pymongo/collection.py", line 714, in insert_many
+    blk.execute(write_concern, session=session)
+  File "/Users/van/projects/likn/event-tracker/venv/lib/python3.9/site-packages/pymongo/bulk.py", line 513, in execute
+    return self.execute_command(generator, write_concern, session)
+  File "/Users/van/projects/likn/event-tracker/venv/lib/python3.9/site-packages/pymongo/bulk.py", line 391, in execute_command
+    client._retry_with_session(self.is_retryable, retryable_bulk, s, self)
+  File "/Users/van/projects/likn/event-tracker/venv/lib/python3.9/site-packages/pymongo/mongo_client.py", line 1349, in _retry_with_session
+    return self._retry_internal(retryable, func, session, bulk)
+  File "/Users/van/projects/likn/event-tracker/venv/lib/python3.9/site-packages/pymongo/_csot.py", line 105, in csot_wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/van/projects/likn/event-tracker/venv/lib/python3.9/site-packages/pymongo/mongo_client.py", line 1390, in _retry_internal
+    return func(session, sock_info, retryable)
+  File "/Users/van/projects/likn/event-tracker/venv/lib/python3.9/site-packages/pymongo/bulk.py", line 385, in retryable_bulk
+    self._execute_command(
+  File "/Users/van/projects/likn/event-tracker/venv/lib/python3.9/site-packages/pymongo/bulk.py", line 338, in _execute_command
+    result, to_send = bwc.execute(cmd, ops, client)
+  File "/Users/van/projects/likn/event-tracker/venv/lib/python3.9/site-packages/pymongo/message.py", line 841, in execute
+    request_id, msg, to_send = self._batch_command(cmd, docs)
+  File "/Users/van/projects/likn/event-tracker/venv/lib/python3.9/site-packages/pymongo/message.py", line 833, in _batch_command
+    request_id, msg, to_send = _do_batched_op_msg(
+  File "/Users/van/projects/likn/event-tracker/venv/lib/python3.9/site-packages/pymongo/message.py", line 1167, in _do_batched_op_msg
+    return _batched_op_msg(operation, command, docs, ack, opts, ctx)
+OverflowError: MongoDB can only handle up to 8-byte ints
+2023-06-19 21:45:21,907 E scaned_block_height:None
+2023-06-19 21:45:21,908 I event_name:TransferBatch,from_block:17464948, to_block:17474948, current_block_height:17514173
+2023-06-19 21:45:23,133 E scaned_block_height:None
+2023-06-19 21:45:23,133 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514173
+2023-06-19 21:45:23,145 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:45:28,734 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17514042}
+2023-06-19 21:45:28,734 I event_name:Mint,from_block:17514042, to_block:17514174, current_block_height:17514174
+2023-06-19 21:45:28,745 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:45:29,095 E scaned_block_height:{'_id': ObjectId('64905bf1f8cb2f1e06fca4ca'), 'eventName': 'TransferSingle', 'scanedBlockHeight': 17474948}
+2023-06-19 21:45:29,095 I event_name:TransferSingle,from_block:17474948, to_block:17484948, current_block_height:17514174
+2023-06-19 21:52:15,753 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17514042}
+2023-06-19 21:52:15,756 I event_name:Mint,from_block:17514042, to_block:17514208, current_block_height:17514208
+2023-06-19 21:52:15,768 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:52:16,108 E scaned_block_height:{'_id': ObjectId('64905bf1f8cb2f1e06fca4ca'), 'eventName': 'TransferSingle', 'scanedBlockHeight': 17474948}
+2023-06-19 21:52:16,108 I event_name:TransferSingle,from_block:17474948, to_block:17484948, current_block_height:17514208
+2023-06-19 21:52:16,761 E ("'AttributeDict' object does not support item assignment",)
+2023-06-19 21:52:17,150 E scaned_block_height:{'_id': ObjectId('64905bf2f8cb2f1e06fca4ce'), 'eventName': 'TransferBatch', 'scanedBlockHeight': 17474948}
+2023-06-19 21:52:17,150 I event_name:TransferBatch,from_block:17474948, to_block:17484948, current_block_height:17514208
+2023-06-19 21:52:18,158 E scaned_block_height:None
+2023-06-19 21:52:18,158 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514208
+2023-06-19 21:52:18,167 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:52:23,815 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17514042}
+2023-06-19 21:52:23,815 I event_name:Mint,from_block:17514042, to_block:17514208, current_block_height:17514208
+2023-06-19 21:52:23,826 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:52:24,213 E scaned_block_height:{'_id': ObjectId('64905bf1f8cb2f1e06fca4ca'), 'eventName': 'TransferSingle', 'scanedBlockHeight': 17474948}
+2023-06-19 21:52:24,213 I event_name:TransferSingle,from_block:17474948, to_block:17484948, current_block_height:17514208
+2023-06-19 21:52:25,253 E ("'AttributeDict' object does not support item assignment",)
+2023-06-19 21:52:25,640 E scaned_block_height:{'_id': ObjectId('64905bf2f8cb2f1e06fca4ce'), 'eventName': 'TransferBatch', 'scanedBlockHeight': 17484948}
+2023-06-19 21:52:25,641 I event_name:TransferBatch,from_block:17484948, to_block:17494948, current_block_height:17514208
+2023-06-19 21:52:27,485 E scaned_block_height:None
+2023-06-19 21:52:27,485 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514209
+2023-06-19 21:52:27,496 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:52:32,944 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17514042}
+2023-06-19 21:52:32,945 I event_name:Mint,from_block:17514042, to_block:17514209, current_block_height:17514209
+2023-06-19 21:52:32,955 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:52:34,039 E scaned_block_height:{'_id': ObjectId('64905bf1f8cb2f1e06fca4ca'), 'eventName': 'TransferSingle', 'scanedBlockHeight': 17474948}
+2023-06-19 21:52:34,039 I event_name:TransferSingle,from_block:17474948, to_block:17484948, current_block_height:17514209
+2023-06-19 21:52:34,682 E ("'AttributeDict' object does not support item assignment",)
+2023-06-19 21:52:35,341 E scaned_block_height:{'_id': ObjectId('64905bf2f8cb2f1e06fca4ce'), 'eventName': 'TransferBatch', 'scanedBlockHeight': 17494948}
+2023-06-19 21:52:35,341 I event_name:TransferBatch,from_block:17494948, to_block:17504948, current_block_height:17514209
+2023-06-19 21:52:36,727 E scaned_block_height:None
+2023-06-19 21:52:36,727 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514209
+2023-06-19 21:52:36,740 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:52:42,082 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17514042}
+2023-06-19 21:52:42,082 I event_name:Mint,from_block:17514042, to_block:17514210, current_block_height:17514210
+2023-06-19 21:52:42,091 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:52:42,539 E scaned_block_height:{'_id': ObjectId('64905bf1f8cb2f1e06fca4ca'), 'eventName': 'TransferSingle', 'scanedBlockHeight': 17474948}
+2023-06-19 21:52:42,539 I event_name:TransferSingle,from_block:17474948, to_block:17484948, current_block_height:17514210
+2023-06-19 21:52:43,725 E ("'AttributeDict' object does not support item assignment",)
+2023-06-19 21:52:44,346 E scaned_block_height:{'_id': ObjectId('64905bf2f8cb2f1e06fca4ce'), 'eventName': 'TransferBatch', 'scanedBlockHeight': 17504948}
+2023-06-19 21:52:44,347 I event_name:TransferBatch,from_block:17504948, to_block:17514210, current_block_height:17514210
+2023-06-19 21:52:45,514 E scaned_block_height:None
+2023-06-19 21:52:45,514 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514210
+2023-06-19 21:52:45,524 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:52:51,235 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17514042}
+2023-06-19 21:52:51,235 I event_name:Mint,from_block:17514042, to_block:17514211, current_block_height:17514211
+2023-06-19 21:52:51,242 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:52:52,042 E scaned_block_height:{'_id': ObjectId('64905bf1f8cb2f1e06fca4ca'), 'eventName': 'TransferSingle', 'scanedBlockHeight': 17474948}
+2023-06-19 21:52:52,042 I event_name:TransferSingle,from_block:17474948, to_block:17484948, current_block_height:17514211
+2023-06-19 21:52:52,693 E ("'AttributeDict' object does not support item assignment",)
+2023-06-19 21:52:53,165 E scaned_block_height:{'_id': ObjectId('64905bf2f8cb2f1e06fca4ce'), 'eventName': 'TransferBatch', 'scanedBlockHeight': 17514210}
+2023-06-19 21:52:53,169 I event_name:TransferBatch,from_block:17514210, to_block:17514211, current_block_height:17514211
+2023-06-19 21:52:54,526 E scaned_block_height:None
+2023-06-19 21:52:54,527 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514211
+2023-06-19 21:52:54,546 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:53:00,194 E scaned_block_height:{'_id': ObjectId('649047fcf8cb2f1e06fc9a1d'), 'eventName': 'Mint', 'scanedBlockHeight': 17514042}
+2023-06-19 21:53:00,195 I event_name:Mint,from_block:17514042, to_block:17514211, current_block_height:17514211
+2023-06-19 21:53:00,212 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:53:00,563 E scaned_block_height:{'_id': ObjectId('64905bf1f8cb2f1e06fca4ca'), 'eventName': 'TransferSingle', 'scanedBlockHeight': 17474948}
+2023-06-19 21:53:00,563 I event_name:TransferSingle,from_block:17474948, to_block:17484948, current_block_height:17514211
+2023-06-19 21:53:01,364 E ("'AttributeDict' object does not support item assignment",)
+2023-06-19 21:53:01,724 E scaned_block_height:{'_id': ObjectId('64905bf2f8cb2f1e06fca4ce'), 'eventName': 'TransferBatch', 'scanedBlockHeight': 17514211}
+2023-06-19 21:53:01,724 I event_name:TransferBatch,from_block:17514211, to_block:17514212, current_block_height:17514212
+2023-06-19 21:53:02,814 E scaned_block_height:None
+2023-06-19 21:53:02,814 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514212
+2023-06-19 21:53:02,826 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:53:23,625 E scaned_block_height:None
+2023-06-19 21:53:23,626 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17514213
+2023-06-19 21:53:23,636 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:53:24,095 E scaned_block_height:None
+2023-06-19 21:53:24,096 I event_name:TransferSingle,from_block:17464948, to_block:17474948, current_block_height:17514213
+2023-06-19 21:53:25,756 E ("'AttributeDict' object does not support item assignment",)
+2023-06-19 21:53:26,156 E scaned_block_height:None
+2023-06-19 21:53:26,156 I event_name:TransferBatch,from_block:17464948, to_block:17474948, current_block_height:17514214
+2023-06-19 21:53:28,516 E scaned_block_height:None
+2023-06-19 21:53:28,516 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514214
+2023-06-19 21:53:28,528 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:53:34,017 E scaned_block_height:None
+2023-06-19 21:53:34,017 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17514214
+2023-06-19 21:53:34,028 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:53:34,455 E scaned_block_height:None
+2023-06-19 21:53:34,456 I event_name:TransferSingle,from_block:17464948, to_block:17474948, current_block_height:17514214
+2023-06-19 21:53:35,479 E ("'AttributeDict' object does not support item assignment",)
+2023-06-19 21:53:35,893 E scaned_block_height:{'_id': ObjectId('64905dd7f8cb2f1e06fca630'), 'eventName': 'TransferBatch', 'scanedBlockHeight': 17474948}
+2023-06-19 21:53:35,894 I event_name:TransferBatch,from_block:17474948, to_block:17484948, current_block_height:17514214
+2023-06-19 21:53:37,692 E scaned_block_height:None
+2023-06-19 21:53:37,693 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514215
+2023-06-19 21:53:37,700 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:53:43,365 E scaned_block_height:None
+2023-06-19 21:53:43,365 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17514215
+2023-06-19 21:53:43,379 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:53:44,494 E scaned_block_height:None
+2023-06-19 21:53:44,494 I event_name:TransferSingle,from_block:17464948, to_block:17474948, current_block_height:17514215
+2023-06-19 21:53:46,111 E ("'AttributeDict' object does not support item assignment",)
+2023-06-19 21:53:46,840 E scaned_block_height:{'_id': ObjectId('64905dd7f8cb2f1e06fca630'), 'eventName': 'TransferBatch', 'scanedBlockHeight': 17484948}
+2023-06-19 21:53:46,840 I event_name:TransferBatch,from_block:17484948, to_block:17494948, current_block_height:17514215
+2023-06-19 21:53:48,382 E scaned_block_height:None
+2023-06-19 21:53:48,382 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514215
+2023-06-19 21:53:48,395 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:53:53,805 E scaned_block_height:None
+2023-06-19 21:53:53,806 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17514216
+2023-06-19 21:53:53,816 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:53:54,215 E scaned_block_height:None
+2023-06-19 21:53:54,216 I event_name:TransferSingle,from_block:17464948, to_block:17474948, current_block_height:17514216
+2023-06-19 21:53:55,135 E ("'AttributeDict' object does not support item assignment",)
+2023-06-19 21:53:55,523 E scaned_block_height:{'_id': ObjectId('64905dd7f8cb2f1e06fca630'), 'eventName': 'TransferBatch', 'scanedBlockHeight': 17494948}
+2023-06-19 21:53:55,523 I event_name:TransferBatch,from_block:17494948, to_block:17504948, current_block_height:17514216
+2023-06-19 21:53:57,155 E scaned_block_height:None
+2023-06-19 21:53:57,155 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514216
+2023-06-19 21:53:57,172 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:54:03,239 E scaned_block_height:None
+2023-06-19 21:54:03,239 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17514217
+2023-06-19 21:54:03,258 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:54:03,958 E scaned_block_height:None
+2023-06-19 21:54:03,958 I event_name:TransferSingle,from_block:17464948, to_block:17474948, current_block_height:17514217
+2023-06-19 21:54:04,991 E ("'AttributeDict' object does not support item assignment",)
+2023-06-19 21:54:05,491 E scaned_block_height:{'_id': ObjectId('64905dd7f8cb2f1e06fca630'), 'eventName': 'TransferBatch', 'scanedBlockHeight': 17504948}
+2023-06-19 21:54:05,492 I event_name:TransferBatch,from_block:17504948, to_block:17514217, current_block_height:17514217
+2023-06-19 21:54:07,334 E scaned_block_height:None
+2023-06-19 21:54:07,334 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514217
+2023-06-19 21:54:07,353 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:54:13,173 E scaned_block_height:None
+2023-06-19 21:54:13,173 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17514217
+2023-06-19 21:54:13,185 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:54:13,579 E scaned_block_height:None
+2023-06-19 21:54:13,579 I event_name:TransferSingle,from_block:17464948, to_block:17474948, current_block_height:17514218
+2023-06-19 21:54:14,482 E ("'AttributeDict' object does not support item assignment",)
+2023-06-19 21:54:15,611 E scaned_block_height:{'_id': ObjectId('64905dd7f8cb2f1e06fca630'), 'eventName': 'TransferBatch', 'scanedBlockHeight': 17514217}
+2023-06-19 21:54:15,611 I event_name:TransferBatch,from_block:17514217, to_block:17514218, current_block_height:17514218
+2023-06-19 21:54:17,568 E scaned_block_height:None
+2023-06-19 21:54:17,569 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514218
+2023-06-19 21:54:17,580 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:54:23,194 E scaned_block_height:None
+2023-06-19 21:54:23,194 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17514218
+2023-06-19 21:54:23,204 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:54:23,696 E scaned_block_height:None
+2023-06-19 21:54:23,696 I event_name:TransferSingle,from_block:17464948, to_block:17474948, current_block_height:17514218
+2023-06-19 21:54:24,632 E ("'AttributeDict' object does not support item assignment",)
+2023-06-19 21:54:25,559 E scaned_block_height:{'_id': ObjectId('64905dd7f8cb2f1e06fca630'), 'eventName': 'TransferBatch', 'scanedBlockHeight': 17514218}
+2023-06-19 21:54:25,559 I event_name:TransferBatch,from_block:17514218, to_block:17514219, current_block_height:17514219
+2023-06-19 21:54:28,628 E scaned_block_height:None
+2023-06-19 21:54:28,629 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514219
+2023-06-19 21:54:28,640 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:54:34,050 E scaned_block_height:None
+2023-06-19 21:54:34,050 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17514219
+2023-06-19 21:54:34,065 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:54:34,487 E scaned_block_height:None
+2023-06-19 21:54:34,487 I event_name:TransferSingle,from_block:17464948, to_block:17474948, current_block_height:17514219
+2023-06-19 21:54:35,727 E ("'AttributeDict' object does not support item assignment",)
+2023-06-19 21:54:36,214 E scaned_block_height:{'_id': ObjectId('64905dd7f8cb2f1e06fca630'), 'eventName': 'TransferBatch', 'scanedBlockHeight': 17514219}
+2023-06-19 21:54:48,219 I event_name:TransferBatch,from_block:17514219, to_block:17514219, current_block_height:17514219
+2023-06-19 21:54:49,724 E scaned_block_height:None
+2023-06-19 21:54:49,724 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514220
+2023-06-19 21:54:49,738 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:54:56,058 E scaned_block_height:None
+2023-06-19 21:54:56,058 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17514221
+2023-06-19 21:54:56,064 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:54:56,469 E scaned_block_height:None
+2023-06-19 21:54:56,469 I event_name:TransferSingle,from_block:17464948, to_block:17474948, current_block_height:17514221
+2023-06-19 21:54:57,394 E ("'AttributeDict' object does not support item assignment",)
+2023-06-19 21:54:57,811 E scaned_block_height:{'_id': ObjectId('64905dd7f8cb2f1e06fca630'), 'eventName': 'TransferBatch', 'scanedBlockHeight': 17514219}
+2023-06-19 21:54:57,811 I event_name:TransferBatch,from_block:17514219, to_block:17514221, current_block_height:17514221
+2023-06-19 21:54:59,236 E scaned_block_height:None
+2023-06-19 21:54:59,236 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514221
+2023-06-19 21:54:59,242 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:55:04,879 E scaned_block_height:None
+2023-06-19 21:55:04,879 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17514222
+2023-06-19 21:55:04,891 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:55:05,709 E scaned_block_height:None
+2023-06-19 21:55:05,709 I event_name:TransferSingle,from_block:17464948, to_block:17474948, current_block_height:17514222
+2023-06-19 21:55:06,508 E ("'AttributeDict' object does not support item assignment",)
+2023-06-19 21:55:07,126 E scaned_block_height:{'_id': ObjectId('64905dd7f8cb2f1e06fca630'), 'eventName': 'TransferBatch', 'scanedBlockHeight': 17514221}
+2023-06-19 21:55:07,127 I event_name:TransferBatch,from_block:17514221, to_block:17514222, current_block_height:17514222
+2023-06-19 21:55:08,195 E scaned_block_height:None
+2023-06-19 21:55:08,196 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514222
+2023-06-19 21:55:08,206 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:55:13,697 E scaned_block_height:None
+2023-06-19 21:55:13,698 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17514222
+2023-06-19 21:55:13,711 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:55:14,093 E scaned_block_height:None
+2023-06-19 21:55:14,093 I event_name:TransferSingle,from_block:17464948, to_block:17474948, current_block_height:17514223
+2023-06-19 21:55:15,013 E ("'AttributeDict' object does not support item assignment",)
+2023-06-19 21:55:15,628 E scaned_block_height:{'_id': ObjectId('64905dd7f8cb2f1e06fca630'), 'eventName': 'TransferBatch', 'scanedBlockHeight': 17514222}
+2023-06-19 21:55:15,628 I event_name:TransferBatch,from_block:17514222, to_block:17514223, current_block_height:17514223
+2023-06-19 21:55:17,362 E scaned_block_height:None
+2023-06-19 21:55:17,362 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514223
+2023-06-19 21:55:17,369 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:55:22,993 E scaned_block_height:None
+2023-06-19 21:55:22,993 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17514223
+2023-06-19 21:55:22,999 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:55:23,400 E scaned_block_height:None
+2023-06-19 21:55:23,400 I event_name:TransferSingle,from_block:17464948, to_block:17474948, current_block_height:17514223
+2023-06-19 21:55:24,239 E ("'AttributeDict' object does not support item assignment",)
+2023-06-19 21:55:24,733 E scaned_block_height:{'_id': ObjectId('64905dd7f8cb2f1e06fca630'), 'eventName': 'TransferBatch', 'scanedBlockHeight': 17514223}
+2023-06-19 21:55:36,736 I event_name:TransferBatch,from_block:17514223, to_block:17514223, current_block_height:17514223
+2023-06-19 21:55:38,565 E scaned_block_height:None
+2023-06-19 21:55:38,565 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514225
+2023-06-19 21:55:38,576 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:55:43,984 E scaned_block_height:None
+2023-06-19 21:55:43,984 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17514225
+2023-06-19 21:55:43,994 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:55:44,396 E scaned_block_height:None
+2023-06-19 21:55:44,396 I event_name:TransferSingle,from_block:17464948, to_block:17474948, current_block_height:17514225
+2023-06-19 21:55:46,038 E ("'AttributeDict' object does not support item assignment",)
+2023-06-19 21:55:46,445 E scaned_block_height:{'_id': ObjectId('64905dd7f8cb2f1e06fca630'), 'eventName': 'TransferBatch', 'scanedBlockHeight': 17514223}
+2023-06-19 21:55:46,445 I event_name:TransferBatch,from_block:17514223, to_block:17514225, current_block_height:17514225
+2023-06-19 21:55:47,778 E scaned_block_height:None
+2023-06-19 21:55:47,778 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514225
+2023-06-19 21:55:47,787 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:55:53,522 E scaned_block_height:None
+2023-06-19 21:55:53,522 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17514226
+2023-06-19 21:55:53,533 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:55:54,354 E scaned_block_height:None
+2023-06-19 21:55:54,355 I event_name:TransferSingle,from_block:17464948, to_block:17474948, current_block_height:17514226
+2023-06-19 21:55:55,154 E ("'AttributeDict' object does not support item assignment",)
+2023-06-19 21:55:55,669 E scaned_block_height:{'_id': ObjectId('64905dd7f8cb2f1e06fca630'), 'eventName': 'TransferBatch', 'scanedBlockHeight': 17514225}
+2023-06-19 21:55:55,669 I event_name:TransferBatch,from_block:17514225, to_block:17514226, current_block_height:17514226
+2023-06-19 21:55:57,410 E scaned_block_height:None
+2023-06-19 21:55:57,410 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514226
+2023-06-19 21:55:57,421 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:57:27,742 E scaned_block_height:None
+2023-06-19 21:57:27,745 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17514234
+2023-06-19 21:57:46,369 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:57:58,668 E scaned_block_height:None
+2023-06-19 21:57:58,668 I event_name:TransferSingle,from_block:17464948, to_block:17474948, current_block_height:17514236
+2023-06-19 21:58:02,256 E ("'AttributeDict' object does not support item assignment",)
+2023-06-19 21:58:04,324 E scaned_block_height:{'_id': ObjectId('64905dd7f8cb2f1e06fca630'), 'eventName': 'TransferBatch', 'scanedBlockHeight': 17514226}
+2023-06-19 21:58:04,324 I event_name:TransferBatch,from_block:17514226, to_block:17514237, current_block_height:17514237
+2023-06-19 21:58:11,013 E scaned_block_height:None
+2023-06-19 21:58:11,015 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514237
+2023-06-19 21:58:14,108 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:58:22,063 E scaned_block_height:None
+2023-06-19 21:58:22,064 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17514238
+2023-06-19 21:58:23,810 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:58:25,740 E scaned_block_height:None
+2023-06-19 21:58:25,740 I event_name:TransferSingle,from_block:17464948, to_block:17474948, current_block_height:17514239
+2023-06-19 21:58:28,637 E ("'AttributeDict' object does not support item assignment",)
+2023-06-19 21:58:30,445 E scaned_block_height:{'_id': ObjectId('64905dd7f8cb2f1e06fca630'), 'eventName': 'TransferBatch', 'scanedBlockHeight': 17514237}
+2023-06-19 21:58:30,446 I event_name:TransferBatch,from_block:17514237, to_block:17514239, current_block_height:17514239
+2023-06-19 21:59:38,433 E scaned_block_height:None
+2023-06-19 21:59:38,434 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17514245
+2023-06-19 21:59:38,444 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:59:39,047 E scaned_block_height:None
+2023-06-19 21:59:39,047 I event_name:TransferSingle,from_block:17464948, to_block:17474948, current_block_height:17514245
+2023-06-19 21:59:41,303 E scaned_block_height:{'_id': ObjectId('64905dd7f8cb2f1e06fca630'), 'eventName': 'TransferBatch', 'scanedBlockHeight': 17514237}
+2023-06-19 21:59:41,303 I event_name:TransferBatch,from_block:17514237, to_block:17514245, current_block_height:17514245
+2023-06-19 21:59:44,423 E scaned_block_height:None
+2023-06-19 21:59:44,424 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514245
+2023-06-19 21:59:44,430 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:59:50,167 E scaned_block_height:None
+2023-06-19 21:59:50,167 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17514246
+2023-06-19 21:59:50,178 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 21:59:50,999 E scaned_block_height:{'_id': ObjectId('64905f4cf8cb2f1e06fca80f'), 'eventName': 'TransferSingle', 'scanedBlockHeight': 17474948}
+2023-06-19 21:59:51,000 I event_name:TransferSingle,from_block:17474948, to_block:17484948, current_block_height:17514246
+2023-06-19 21:59:52,999 E scaned_block_height:{'_id': ObjectId('64905dd7f8cb2f1e06fca630'), 'eventName': 'TransferBatch', 'scanedBlockHeight': 17514245}
+2023-06-19 21:59:52,999 I event_name:TransferBatch,from_block:17514245, to_block:17514246, current_block_height:17514246
+2023-06-19 21:59:54,649 E scaned_block_height:None
+2023-06-19 21:59:54,649 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514246
+2023-06-19 21:59:54,667 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 22:00:00,304 E scaned_block_height:None
+2023-06-19 22:00:00,304 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17514246
+2023-06-19 22:00:00,322 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 22:00:01,235 E scaned_block_height:{'_id': ObjectId('64905f4cf8cb2f1e06fca80f'), 'eventName': 'TransferSingle', 'scanedBlockHeight': 17484948}
+2023-06-19 22:00:01,236 I event_name:TransferSingle,from_block:17484948, to_block:17494948, current_block_height:17514246
+2023-06-19 22:00:03,497 E scaned_block_height:{'_id': ObjectId('64905dd7f8cb2f1e06fca630'), 'eventName': 'TransferBatch', 'scanedBlockHeight': 17514246}
+2023-06-19 22:00:03,497 I event_name:TransferBatch,from_block:17514246, to_block:17514247, current_block_height:17514247
+2023-06-19 22:00:05,834 E scaned_block_height:None
+2023-06-19 22:00:05,834 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514247
+2023-06-19 22:00:05,849 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 22:00:11,581 E scaned_block_height:None
+2023-06-19 22:00:11,582 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17514247
+2023-06-19 22:00:11,593 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 22:00:12,674 E scaned_block_height:{'_id': ObjectId('64905f4cf8cb2f1e06fca80f'), 'eventName': 'TransferSingle', 'scanedBlockHeight': 17494948}
+2023-06-19 22:00:12,674 I event_name:TransferSingle,from_block:17494948, to_block:17504948, current_block_height:17514247
+2023-06-19 22:00:14,748 E scaned_block_height:{'_id': ObjectId('64905dd7f8cb2f1e06fca630'), 'eventName': 'TransferBatch', 'scanedBlockHeight': 17514247}
+2023-06-19 22:02:00,255 E scaned_block_height:None
+2023-06-19 22:02:00,256 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17514256
+2023-06-19 22:02:00,266 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 22:02:00,694 E scaned_block_height:{'_id': ObjectId('64905f4cf8cb2f1e06fca80f'), 'eventName': 'TransferSingle', 'scanedBlockHeight': 17504948}
+2023-06-19 22:02:00,695 I event_name:TransferSingle,from_block:17504948, to_block:17514256, current_block_height:17514256
+2023-06-19 22:02:02,560 E scaned_block_height:{'_id': ObjectId('64905dd7f8cb2f1e06fca630'), 'eventName': 'TransferBatch', 'scanedBlockHeight': 17514247}
+2023-06-19 22:02:02,561 I event_name:TransferBatch,from_block:17514247, to_block:17514257, current_block_height:17514257
+2023-06-19 22:02:05,289 E scaned_block_height:None
+2023-06-19 22:02:05,289 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514257
+2023-06-19 22:02:05,299 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 22:02:10,700 E scaned_block_height:None
+2023-06-19 22:02:10,701 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17514257
+2023-06-19 22:02:10,712 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 22:02:11,279 E scaned_block_height:{'_id': ObjectId('64905f4cf8cb2f1e06fca80f'), 'eventName': 'TransferSingle', 'scanedBlockHeight': 17514256}
+2023-06-19 22:02:11,279 I event_name:TransferSingle,from_block:17514256, to_block:17514257, current_block_height:17514257
+2023-06-19 22:02:13,327 E scaned_block_height:{'_id': ObjectId('64905dd7f8cb2f1e06fca630'), 'eventName': 'TransferBatch', 'scanedBlockHeight': 17514257}
+2023-06-19 22:02:13,327 I event_name:TransferBatch,from_block:17514257, to_block:17514258, current_block_height:17514258
+2023-06-19 22:02:15,369 E scaned_block_height:None
+2023-06-19 22:02:15,369 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514258
+2023-06-19 22:02:15,378 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 22:02:20,714 E scaned_block_height:None
+2023-06-19 22:02:20,714 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17514258
+2023-06-19 22:02:20,726 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 22:02:21,300 E scaned_block_height:{'_id': ObjectId('64905f4cf8cb2f1e06fca80f'), 'eventName': 'TransferSingle', 'scanedBlockHeight': 17514257}
+2023-06-19 22:02:21,300 I event_name:TransferSingle,from_block:17514257, to_block:17514258, current_block_height:17514258
+2023-06-19 22:02:23,360 E scaned_block_height:{'_id': ObjectId('64905dd7f8cb2f1e06fca630'), 'eventName': 'TransferBatch', 'scanedBlockHeight': 17514258}
+2023-06-19 22:02:35,366 I event_name:TransferBatch,from_block:17514258, to_block:17514258, current_block_height:17514258
+2023-06-19 22:02:38,007 E scaned_block_height:None
+2023-06-19 22:02:38,008 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514260
+2023-06-19 22:02:38,019 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 22:02:43,742 E scaned_block_height:None
+2023-06-19 22:02:43,744 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17514260
+2023-06-19 22:02:43,757 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 22:02:44,184 E scaned_block_height:{'_id': ObjectId('64905f4cf8cb2f1e06fca80f'), 'eventName': 'TransferSingle', 'scanedBlockHeight': 17514258}
+2023-06-19 22:02:44,185 I event_name:TransferSingle,from_block:17514258, to_block:17514260, current_block_height:17514260
+2023-06-19 22:02:45,810 E scaned_block_height:{'_id': ObjectId('64905dd7f8cb2f1e06fca630'), 'eventName': 'TransferBatch', 'scanedBlockHeight': 17514258}
+2023-06-19 22:02:45,810 I event_name:TransferBatch,from_block:17514258, to_block:17514260, current_block_height:17514260
+2023-06-19 22:02:47,423 E scaned_block_height:None
+2023-06-19 22:02:47,424 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514260
+2023-06-19 22:02:47,459 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 22:02:53,122 E scaned_block_height:None
+2023-06-19 22:02:53,122 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17514261
+2023-06-19 22:02:53,131 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 22:02:53,747 E scaned_block_height:{'_id': ObjectId('64905f4cf8cb2f1e06fca80f'), 'eventName': 'TransferSingle', 'scanedBlockHeight': 17514260}
+2023-06-19 22:02:53,747 I event_name:TransferSingle,from_block:17514260, to_block:17514261, current_block_height:17514261
+2023-06-19 22:02:55,564 E scaned_block_height:{'_id': ObjectId('64905dd7f8cb2f1e06fca630'), 'eventName': 'TransferBatch', 'scanedBlockHeight': 17514260}
+2023-06-19 22:02:55,568 I event_name:TransferBatch,from_block:17514260, to_block:17514261, current_block_height:17514261
+2023-06-19 22:02:57,258 E scaned_block_height:None
+2023-06-19 22:02:57,258 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514261
+2023-06-19 22:02:57,269 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 22:03:03,197 E scaned_block_height:None
+2023-06-19 22:03:03,198 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17514262
+2023-06-19 22:03:03,211 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 22:03:03,809 E scaned_block_height:{'_id': ObjectId('64905f4cf8cb2f1e06fca80f'), 'eventName': 'TransferSingle', 'scanedBlockHeight': 17514261}
+2023-06-19 22:03:03,809 I event_name:TransferSingle,from_block:17514261, to_block:17514262, current_block_height:17514262
+2023-06-19 22:03:05,555 E scaned_block_height:{'_id': ObjectId('64905dd7f8cb2f1e06fca630'), 'eventName': 'TransferBatch', 'scanedBlockHeight': 17514261}
+2023-06-19 22:03:05,555 I event_name:TransferBatch,from_block:17514261, to_block:17514262, current_block_height:17514262
+2023-06-19 22:03:07,322 E scaned_block_height:None
+2023-06-19 22:03:07,322 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514262
+2023-06-19 22:03:07,335 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 22:03:14,103 E scaned_block_height:None
+2023-06-19 22:03:14,105 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17514263
+2023-06-19 22:03:14,115 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 22:03:14,545 E scaned_block_height:{'_id': ObjectId('64905f4cf8cb2f1e06fca80f'), 'eventName': 'TransferSingle', 'scanedBlockHeight': 17514262}
+2023-06-19 22:03:14,545 I event_name:TransferSingle,from_block:17514262, to_block:17514263, current_block_height:17514263
+2023-06-19 22:03:16,507 E scaned_block_height:{'_id': ObjectId('64905dd7f8cb2f1e06fca630'), 'eventName': 'TransferBatch', 'scanedBlockHeight': 17514262}
+2023-06-19 22:03:16,507 I event_name:TransferBatch,from_block:17514262, to_block:17514263, current_block_height:17514263
+2023-06-19 22:03:17,624 E scaned_block_height:None
+2023-06-19 22:03:17,624 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514263
+2023-06-19 22:03:17,631 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 22:03:22,969 E scaned_block_height:None
+2023-06-19 22:03:22,969 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17514263
+2023-06-19 22:03:22,981 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 22:03:23,357 E scaned_block_height:{'_id': ObjectId('64905f4cf8cb2f1e06fca80f'), 'eventName': 'TransferSingle', 'scanedBlockHeight': 17514263}
+2023-06-19 22:03:35,362 I event_name:TransferSingle,from_block:17514263, to_block:17514263, current_block_height:17514263
+2023-06-19 22:03:39,113 E scaned_block_height:{'_id': ObjectId('64905dd7f8cb2f1e06fca630'), 'eventName': 'TransferBatch', 'scanedBlockHeight': 17514263}
+2023-06-19 22:03:39,113 I event_name:TransferBatch,from_block:17514263, to_block:17514265, current_block_height:17514265
+2023-06-19 22:03:40,474 E scaned_block_height:None
+2023-06-19 22:03:40,475 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514265
+2023-06-19 22:03:40,492 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 22:03:46,128 E scaned_block_height:None
+2023-06-19 22:03:46,130 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17514265
+2023-06-19 22:03:46,150 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 22:03:46,732 E scaned_block_height:{'_id': ObjectId('64905f4cf8cb2f1e06fca80f'), 'eventName': 'TransferSingle', 'scanedBlockHeight': 17514263}
+2023-06-19 22:03:46,733 I event_name:TransferSingle,from_block:17514263, to_block:17514265, current_block_height:17514265
+2023-06-19 22:03:48,243 E scaned_block_height:{'_id': ObjectId('64905dd7f8cb2f1e06fca630'), 'eventName': 'TransferBatch', 'scanedBlockHeight': 17514265}
+2023-06-19 22:04:00,249 I event_name:TransferBatch,from_block:17514265, to_block:17514265, current_block_height:17514265
+2023-06-19 22:04:01,767 E scaned_block_height:None
+2023-06-19 22:04:01,767 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514267
+2023-06-19 22:04:01,777 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 22:04:07,230 E scaned_block_height:None
+2023-06-19 22:04:07,231 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17514267
+2023-06-19 22:04:07,251 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 22:04:07,758 E scaned_block_height:{'_id': ObjectId('64905f4cf8cb2f1e06fca80f'), 'eventName': 'TransferSingle', 'scanedBlockHeight': 17514265}
+2023-06-19 22:04:07,759 I event_name:TransferSingle,from_block:17514265, to_block:17514267, current_block_height:17514267
+2023-06-19 22:04:09,642 E scaned_block_height:{'_id': ObjectId('64905dd7f8cb2f1e06fca630'), 'eventName': 'TransferBatch', 'scanedBlockHeight': 17514265}
+2023-06-19 22:04:09,647 I event_name:TransferBatch,from_block:17514265, to_block:17514267, current_block_height:17514267
+2023-06-19 22:04:11,583 E scaned_block_height:None
+2023-06-19 22:04:11,584 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514267
+2023-06-19 22:04:11,603 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 22:04:17,117 E scaned_block_height:None
+2023-06-19 22:04:17,119 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17514268
+2023-06-19 22:04:17,129 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 22:04:17,947 E scaned_block_height:{'_id': ObjectId('64905f4cf8cb2f1e06fca80f'), 'eventName': 'TransferSingle', 'scanedBlockHeight': 17514267}
+2023-06-19 22:04:17,948 I event_name:TransferSingle,from_block:17514267, to_block:17514268, current_block_height:17514268
+2023-06-19 22:04:19,203 E scaned_block_height:{'_id': ObjectId('64905dd7f8cb2f1e06fca630'), 'eventName': 'TransferBatch', 'scanedBlockHeight': 17514267}
+2023-06-19 22:04:19,203 I event_name:TransferBatch,from_block:17514267, to_block:17514268, current_block_height:17514268
+2023-06-19 22:04:21,142 E scaned_block_height:None
+2023-06-19 22:04:21,142 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514268
+2023-06-19 22:04:21,153 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 22:04:27,295 E scaned_block_height:None
+2023-06-19 22:04:27,295 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17514269
+2023-06-19 22:04:27,307 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 22:04:29,203 E scaned_block_height:{'_id': ObjectId('64905f4cf8cb2f1e06fca80f'), 'eventName': 'TransferSingle', 'scanedBlockHeight': 17514268}
+2023-06-19 22:04:29,203 I event_name:TransferSingle,from_block:17514268, to_block:17514269, current_block_height:17514269
+2023-06-19 22:04:31,126 E scaned_block_height:{'_id': ObjectId('64905dd7f8cb2f1e06fca630'), 'eventName': 'TransferBatch', 'scanedBlockHeight': 17514268}
+2023-06-19 22:04:31,126 I event_name:TransferBatch,from_block:17514268, to_block:17514269, current_block_height:17514269
+2023-06-19 22:04:32,904 E scaned_block_height:None
+2023-06-19 22:04:32,904 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514269
+2023-06-19 22:04:32,912 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 22:04:38,565 E scaned_block_height:None
+2023-06-19 22:04:38,565 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17514270
+2023-06-19 22:04:38,572 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 22:04:39,025 E scaned_block_height:{'_id': ObjectId('64905f4cf8cb2f1e06fca80f'), 'eventName': 'TransferSingle', 'scanedBlockHeight': 17514269}
+2023-06-19 22:04:39,025 I event_name:TransferSingle,from_block:17514269, to_block:17514270, current_block_height:17514270
+2023-06-19 22:04:41,153 E scaned_block_height:{'_id': ObjectId('64905dd7f8cb2f1e06fca630'), 'eventName': 'TransferBatch', 'scanedBlockHeight': 17514269}
+2023-06-19 22:04:41,153 I event_name:TransferBatch,from_block:17514269, to_block:17514270, current_block_height:17514270
+2023-06-19 22:04:43,130 E scaned_block_height:None
+2023-06-19 22:04:43,130 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514270
+2023-06-19 22:04:43,140 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 22:04:48,770 E scaned_block_height:None
+2023-06-19 22:04:48,772 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17514270
+2023-06-19 22:04:48,783 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 22:04:50,014 E scaned_block_height:{'_id': ObjectId('64905f4cf8cb2f1e06fca80f'), 'eventName': 'TransferSingle', 'scanedBlockHeight': 17514270}
+2023-06-19 22:05:02,020 I event_name:TransferSingle,from_block:17514270, to_block:17514270, current_block_height:17514270
+2023-06-19 22:05:04,330 E scaned_block_height:{'_id': ObjectId('64905dd7f8cb2f1e06fca630'), 'eventName': 'TransferBatch', 'scanedBlockHeight': 17514270}
+2023-06-19 22:05:04,330 I event_name:TransferBatch,from_block:17514270, to_block:17514272, current_block_height:17514272
+2023-06-19 22:05:06,373 E scaned_block_height:None
+2023-06-19 22:05:06,373 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514272
+2023-06-19 22:05:06,379 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 22:05:12,131 E scaned_block_height:None
+2023-06-19 22:05:12,131 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17514272
+2023-06-19 22:05:12,142 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 22:05:13,244 E scaned_block_height:{'_id': ObjectId('64905f4cf8cb2f1e06fca80f'), 'eventName': 'TransferSingle', 'scanedBlockHeight': 17514270}
+2023-06-19 22:05:13,244 I event_name:TransferSingle,from_block:17514270, to_block:17514273, current_block_height:17514273
+2023-06-19 22:05:14,804 E scaned_block_height:{'_id': ObjectId('64905dd7f8cb2f1e06fca630'), 'eventName': 'TransferBatch', 'scanedBlockHeight': 17514272}
+2023-06-19 22:05:14,804 I event_name:TransferBatch,from_block:17514272, to_block:17514273, current_block_height:17514273
+2023-06-19 22:05:17,389 E scaned_block_height:None
+2023-06-19 22:05:17,389 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514273
+2023-06-19 22:05:17,402 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 22:05:23,518 E scaned_block_height:None
+2023-06-19 22:05:23,518 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17514273
+2023-06-19 22:05:23,529 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 22:05:25,121 E scaned_block_height:{'_id': ObjectId('64905f4cf8cb2f1e06fca80f'), 'eventName': 'TransferSingle', 'scanedBlockHeight': 17514273}
+2023-06-19 22:05:25,121 I event_name:TransferSingle,from_block:17514273, to_block:17514274, current_block_height:17514274
+2023-06-19 22:05:27,707 E scaned_block_height:{'_id': ObjectId('64905dd7f8cb2f1e06fca630'), 'eventName': 'TransferBatch', 'scanedBlockHeight': 17514273}
+2023-06-19 22:05:27,708 I event_name:TransferBatch,from_block:17514273, to_block:17514274, current_block_height:17514274
+2023-06-19 22:05:29,162 E scaned_block_height:None
+2023-06-19 22:05:29,162 I event_name:Burn,from_block:17464948, to_block:17474948, current_block_height:17514274
+2023-06-19 22:05:29,173 E ("The event 'Burn' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 22:05:34,832 E scaned_block_height:None
+2023-06-19 22:05:34,833 I event_name:Mint,from_block:17464948, to_block:17474948, current_block_height:17514274
+2023-06-19 22:05:34,841 E ("The event 'Mint' was not found in this contract's abi. ", 'Are you sure you provided the correct contract abi?')
+2023-06-19 22:05:35,733 E scaned_block_height:{'_id': ObjectId('64905f4cf8cb2f1e06fca80f'), 'eventName': 'TransferSingle', 'scanedBlockHeight': 17514274}

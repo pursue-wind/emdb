@@ -1,0 +1,28 @@
+2023-06-15 17:57:13,756-MainThread-logger.py-[line:84]-ERROR: servive start listening on 127.0.0.1:8090
+2023-06-15 17:57:30,178-MainThread-logger.py-[line:84]-ERROR: servive start listening on 127.0.0.1:8090
+2023-06-16 16:30:20,340-MainThread-logger.py-[line:84]-ERROR: insert_logs() takes 2 positional arguments but 3 were given
+2023-06-16 16:31:50,146-MainThread-logger.py-[line:84]-ERROR: insert_logs() takes 2 positional arguments but 3 were given
+2023-06-16 17:15:07,716-MainThread-logger.py-[line:84]-ERROR: MotorCollection object is not callable. If you meant to call the 'blockHeight.query_block_height' method on a MotorCollection object it is failing because no such method exists.
+2023-06-16 17:15:12,721-MainThread-logger.py-[line:84]-ERROR: MotorCollection object is not callable. If you meant to call the 'blockHeight.query_block_height' method on a MotorCollection object it is failing because no such method exists.
+2023-06-16 17:15:17,728-MainThread-logger.py-[line:84]-ERROR: MotorCollection object is not callable. If you meant to call the 'blockHeight.query_block_height' method on a MotorCollection object it is failing because no such method exists.
+2023-06-16 17:18:38,179-MainThread-logger.py-[line:84]-ERROR: MotorCollection object is not callable. If you meant to call the 'blockHeight.query_block_height' method on a MotorCollection object it is failing because no such method exists.
+2023-06-16 17:18:43,186-MainThread-logger.py-[line:84]-ERROR: MotorCollection object is not callable. If you meant to call the 'blockHeight.query_block_height' method on a MotorCollection object it is failing because no such method exists.
+2023-06-16 17:20:00,764-MainThread-logger.py-[line:84]-ERROR: {'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'}
+2023-06-16 17:20:06,908-MainThread-logger.py-[line:84]-ERROR: {'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'}
+2023-06-16 17:21:52,893-MainThread-logger.py-[line:84]-ERROR: Result is not set.
+2023-06-16 17:22:56,455-MainThread-logger.py-[line:84]-ERROR: 'dict' object has no attribute 'result'
+2023-06-16 17:25:48,311-MainThread-logger.py-[line:84]-ERROR: {'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'}
+2023-06-16 17:27:56,290-MainThread-logger.py-[line:84]-ERROR: unsupported operand type(s) for +: 'dict' and 'int'
+2023-06-16 17:28:01,297-MainThread-logger.py-[line:84]-ERROR: unsupported operand type(s) for +: 'dict' and 'int'
+2023-06-16 17:29:00,319-MainThread-logger.py-[line:84]-ERROR: int() argument must be a string, a bytes-like object or a number, not 'dict'
+2023-06-16 17:29:05,329-MainThread-logger.py-[line:84]-ERROR: int() argument must be a string, a bytes-like object or a number, not 'dict'
+2023-06-16 17:29:53,571-MainThread-logger.py-[line:84]-ERROR: Unknow Event types!
+2023-06-16 17:29:58,604-MainThread-logger.py-[line:84]-ERROR: Unknow Event types!
+2023-06-16 17:33:41,938-MainThread-logger.py-[line:84]-ERROR: Unknow Event types!
+2023-06-16 17:33:57,590-MainThread-logger.py-[line:84]-ERROR: Unknow Event types!
+2023-06-16 18:09:14,244-MainThread-logger.py-[line:84]-ERROR: list indices must be integers or slices, not str
+2023-06-16 18:13:21,862-MainThread-logger.py-[line:84]-ERROR: list indices must be integers or slices, not str
+2023-06-17 22:43:49,117-MainThread-logger.py-[line:84]-ERROR: list indices must be integers or slices, not str
+2023-06-17 23:00:47,323-MainThread-logger.py-[line:84]-ERROR: list indices must be integers or slices, not str
+2023-06-17 23:03:04,670-MainThread-logger.py-[line:84]-ERROR: {'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'}
+2023-06-17 23:27:24,783-MainThread-logger.py-[line:84]-ERROR: {'code': -32005, 'data': {'from': '0xAD0E9D', 'limit': 10000, 'to': '0xB20AEB'}, 'message': 'query returned more than 10000 results. Try with this block range [0xAD0E9D, 0xB20AEB].'}

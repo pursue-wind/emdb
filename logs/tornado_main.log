@@ -1,0 +1,403 @@
+ 2023-06-24 15:50:48 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '51032156517012602710750852899093911391733291613482576614848296747610922811393'}
+ 2023-06-24 15:50:48 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '51032156517012602710750852899093911391733291613482576614848296747610922811393'}
+ 2023-06-24 15:50:48 E   Uncaught exception   POST       127.0.0.1  /nft/event_logs 
+    HTTPServerRequest(protocol='http', host='127.0.0.1:8090', method='POST', uri='/nft/event_logs', version='HTTP/1.1', remote_ip='127.0.0.1')
+    Traceback (most recent call last):
+      File "/Users/van/projects/likn/event-tracker/venv/lib/python3.9/site-packages/tornado/web.py", line 1786, in _execute
+        result = await result
+      File "/Users/van/projects/likn/event-tracker/venv/lib/python3.9/site-packages/tornado/gen.py", line 234, in wrapper
+        yielded = ctx_run(next, result)
+      File "/Users/van/projects/likn/event-tracker/handlers/event_log_handler.py", line 15, in post
+        print(f"args: {args}")
+    BrokenPipeError: [Errno 32] Broken pipe
+ 2023-06-24 15:50:48 E    20.21ms 500   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-24 15:51:19 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '51032156517012602710750852899093911391733291613482576614848296747610922811393'}
+ 2023-06-24 15:51:19 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '51032156517012602710750852899093911391733291613482576614848296747610922811393'}
+ 2023-06-24 15:51:19 E   Uncaught exception   POST       127.0.0.1  /nft/event_logs 
+    HTTPServerRequest(protocol='http', host='127.0.0.1:8090', method='POST', uri='/nft/event_logs', version='HTTP/1.1', remote_ip='127.0.0.1')
+    Traceback (most recent call last):
+      File "/Users/van/projects/likn/event-tracker/venv/lib/python3.9/site-packages/tornado/web.py", line 1786, in _execute
+        result = await result
+      File "/Users/van/projects/likn/event-tracker/venv/lib/python3.9/site-packages/tornado/gen.py", line 234, in wrapper
+        yielded = ctx_run(next, result)
+      File "/Users/van/projects/likn/event-tracker/handlers/event_log_handler.py", line 15, in post
+        print(f"args: {args}")
+    BrokenPipeError: [Errno 32] Broken pipe
+ 2023-06-24 15:51:19 E     1.96ms 500   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-24 15:51:20 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '51032156517012602710750852899093911391733291613482576614848296747610922811393'}
+ 2023-06-24 15:51:20 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '51032156517012602710750852899093911391733291613482576614848296747610922811393'}
+ 2023-06-24 15:51:20 E   Uncaught exception   POST       127.0.0.1  /nft/event_logs 
+    HTTPServerRequest(protocol='http', host='127.0.0.1:8090', method='POST', uri='/nft/event_logs', version='HTTP/1.1', remote_ip='127.0.0.1')
+    Traceback (most recent call last):
+      File "/Users/van/projects/likn/event-tracker/venv/lib/python3.9/site-packages/tornado/web.py", line 1786, in _execute
+        result = await result
+      File "/Users/van/projects/likn/event-tracker/venv/lib/python3.9/site-packages/tornado/gen.py", line 234, in wrapper
+        yielded = ctx_run(next, result)
+      File "/Users/van/projects/likn/event-tracker/handlers/event_log_handler.py", line 15, in post
+        print(f"args: {args}")
+    BrokenPipeError: [Errno 32] Broken pipe
+ 2023-06-24 15:51:20 E     1.67ms 500   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-24 15:51:39 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '51032156517012602710750852899093911391733291613482576614848296747610922811393'}
+ 2023-06-24 15:51:39 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '51032156517012602710750852899093911391733291613482576614848296747610922811393'}
+ 2023-06-24 15:51:39 E   Uncaught exception   POST       127.0.0.1  /nft/event_logs 
+    HTTPServerRequest(protocol='http', host='127.0.0.1:8090', method='POST', uri='/nft/event_logs', version='HTTP/1.1', remote_ip='127.0.0.1')
+    Traceback (most recent call last):
+      File "/Users/van/projects/likn/event-tracker/venv/lib/python3.9/site-packages/tornado/web.py", line 1786, in _execute
+        result = await result
+      File "/Users/van/projects/likn/event-tracker/venv/lib/python3.9/site-packages/tornado/gen.py", line 234, in wrapper
+        yielded = ctx_run(next, result)
+      File "/Users/van/projects/likn/event-tracker/handlers/event_log_handler.py", line 15, in post
+        print(f"args: {args}")
+    BrokenPipeError: [Errno 32] Broken pipe
+ 2023-06-24 15:51:39 E     2.23ms 500   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-24 15:51:40 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '51032156517012602710750852899093911391733291613482576614848296747610922811393'}
+ 2023-06-24 15:51:40 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '51032156517012602710750852899093911391733291613482576614848296747610922811393'}
+ 2023-06-24 15:51:40 E   Uncaught exception   POST       127.0.0.1  /nft/event_logs 
+    HTTPServerRequest(protocol='http', host='127.0.0.1:8090', method='POST', uri='/nft/event_logs', version='HTTP/1.1', remote_ip='127.0.0.1')
+    Traceback (most recent call last):
+      File "/Users/van/projects/likn/event-tracker/venv/lib/python3.9/site-packages/tornado/web.py", line 1786, in _execute
+        result = await result
+      File "/Users/van/projects/likn/event-tracker/venv/lib/python3.9/site-packages/tornado/gen.py", line 234, in wrapper
+        yielded = ctx_run(next, result)
+      File "/Users/van/projects/likn/event-tracker/handlers/event_log_handler.py", line 15, in post
+        print(f"args: {args}")
+    BrokenPipeError: [Errno 32] Broken pipe
+ 2023-06-24 15:51:40 E     1.97ms 500   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-24 15:55:42 I   [0;32mservive start listening on 127.0.0.1:8090
+ 2023-06-24 15:55:55 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '51032156517012602710750852899093911391733291613482576614848296747610922811393'}
+ 2023-06-24 15:55:55 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '51032156517012602710750852899093911391733291613482576614848296747610922811393'}
+ 2023-06-24 15:55:55 I    56.86ms 200   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-24 17:41:31 I   [0;32mservive start listening on 127.0.0.1:8090
+ 2023-06-24 17:42:07 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-24 17:42:07 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-24 17:42:08 E   Uncaught exception   POST       127.0.0.1  /nft/event_logs 
+    HTTPServerRequest(protocol='http', host='127.0.0.1:8090', method='POST', uri='/nft/event_logs', version='HTTP/1.1', remote_ip='127.0.0.1')
+    Traceback (most recent call last):
+      File "/Users/van/projects/likn/event-tracker/venv/lib/python3.9/site-packages/tornado/web.py", line 1786, in _execute
+        result = await result
+      File "/Users/van/projects/likn/event-tracker/venv/lib/python3.9/site-packages/tornado/gen.py", line 786, in run
+        yielded = self.gen.send(value)
+      File "/Users/van/projects/likn/event-tracker/handlers/event_log_handler.py", line 25, in post
+        if event_logs["from"] == web3.constants.ADDRESS_ZERO:
+    TypeError: list indices must be integers or slices, not str
+ 2023-06-24 17:42:08 E    52.37ms 500   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-24 17:43:58 I   [0;32mservive start listening on 127.0.0.1:8090
+ 2023-06-24 17:44:03 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-24 17:44:03 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-24 17:44:03 I    34.96ms 200   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-24 17:44:12 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-24 17:44:12 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-24 17:44:12 I     6.48ms 200   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-24 17:44:41 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-24 17:44:41 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-24 17:44:41 I     4.12ms 200   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-24 18:04:41 I   [0;32mservive start listening on 127.0.0.1:8090
+ 2023-06-24 18:04:45 I   request params: {'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-24 18:04:45 I   request_body:{'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-24 18:04:45 W   400   POST       127.0.0.1  /nft/event_logs : Missing argument 'contract_address'
+ 2023-06-24 18:04:45 W     0.60ms 400   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-24 18:04:50 I   request params: {'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-24 18:04:50 I   request_body:{'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-24 18:04:50 W   400   POST       127.0.0.1  /nft/event_logs : Missing argument 'contract_address'
+ 2023-06-24 18:04:50 W     1.75ms 400   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-24 18:05:43 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-24 18:05:43 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-24 18:05:43 I     2.09ms 200   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-24 18:06:12 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-24 18:06:12 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-24 18:06:12 I     1.93ms 200   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-24 18:06:54 I   [0;32mservive start listening on 127.0.0.1:8090
+ 2023-06-24 18:06:57 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-24 18:06:57 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-24 18:06:57 I     1.66ms 200   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-24 18:07:00 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-24 18:07:00 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-24 18:07:00 I     2.81ms 200   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-24 18:13:55 I   [0;32mservive start listening on 127.0.0.1:8090
+ 2023-06-24 18:14:04 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-24 18:14:04 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-24 18:14:04 I     1.58ms 200   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-24 18:14:05 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-24 18:14:05 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-24 18:14:05 I     2.30ms 200   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-24 18:14:07 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-24 18:14:07 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-24 18:14:07 I     1.40ms 200   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-24 18:14:09 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-24 18:14:09 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-24 18:14:09 I     1.60ms 200   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-24 18:14:10 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-24 18:14:10 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-24 18:14:10 I     2.86ms 200   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-24 18:17:11 I   [0;32mservive start listening on 127.0.0.1:8090
+ 2023-06-24 18:17:16 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-24 18:17:16 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-24 18:17:16 I     0.54ms 200   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-24 18:17:18 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-24 18:17:18 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-24 18:17:18 I     1.42ms 200   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-24 18:17:23 I   request params: {'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-24 18:17:23 I   request_body:{'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-24 18:17:23 W   400   POST       127.0.0.1  /nft/event_logs : Missing argument 'contract_address'
+ 2023-06-24 18:17:23 W     0.53ms 400   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-24 18:17:25 I   request params: {'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-24 18:17:25 I   request_body:{'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-24 18:17:25 W   400   POST       127.0.0.1  /nft/event_logs : Missing argument 'contract_address'
+ 2023-06-24 18:17:25 W     1.21ms 400   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-24 18:17:46 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-24 18:17:46 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-24 18:17:46 I    47.18ms 200   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-25 10:16:33 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 10:16:33 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 10:16:33 I     6.00ms 200   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-25 10:16:36 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 10:16:36 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 10:16:36 I     4.85ms 200   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-25 10:16:39 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 10:16:39 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 10:16:39 I     4.87ms 200   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-25 10:16:44 I   request params: {'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 10:16:44 I   request_body:{'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 10:16:44 W   400   POST       127.0.0.1  /nft/event_logs : Missing argument 'contract_address'
+ 2023-06-25 10:16:44 W     1.50ms 400   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-25 10:16:46 I   request params: {'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 10:16:46 I   request_body:{'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 10:16:46 W   400   POST       127.0.0.1  /nft/event_logs : Missing argument 'contract_address'
+ 2023-06-25 10:16:46 W     1.55ms 400   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-25 10:16:57 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 10:16:57 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 10:16:57 I     7.50ms 200   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-25 10:47:33 I   [0;32mservive start listening on 127.0.0.1:8090
+ 2023-06-25 10:49:22 I   [0;32mservive start listening on 127.0.0.1:8090
+ 2023-06-25 11:02:16 I   [0;32mservive start listening on 127.0.0.1:8090
+ 2023-06-25 11:29:44 I   [0;32mservive start listening on 127.0.0.1:8090
+ 2023-06-25 11:38:23 I   [0;32mservive start listening on 127.0.0.1:8090
+ 2023-06-25 11:38:29 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 11:38:29 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 11:38:29 E   Future exception was never retrieved
+    future: <Future finished exception=MissingArgumentError()>
+    Traceback (most recent call last):
+      File "/Users/van/projects/likn/event-tracker/venv/lib/python3.9/site-packages/tornado/gen.py", line 216, in wrapper
+        result = ctx_run(func, *args, **kwargs)
+      File "/Users/van/projects/likn/event-tracker/handlers/base_handler.py", line 165, in check_auth
+        app_key = self.get_argument('app_key')
+      File "/Users/van/projects/likn/event-tracker/venv/lib/python3.9/site-packages/tornado/web.py", line 456, in get_argument
+        return self._get_argument(name, default, self.request.arguments, strip)
+      File "/Users/van/projects/likn/event-tracker/venv/lib/python3.9/site-packages/tornado/web.py", line 539, in _get_argument
+        raise MissingArgumentError(name)
+    tornado.web.MissingArgumentError: HTTP 400: Bad Request (Missing argument app_key)
+ 2023-06-25 11:38:29 I   res: <class 'dict'>,{'contractAddress': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'network': 'polygon', 'tokenId': '72782624731666412354988373537424362100091203464653780819061485792367296380934', 'logs': [{'event': 'Mint', 'from': '0x0000000000000000000000000000000000000000', 'to': '0xa0E981792Dc04258b26FA3be9755ffC0F3dA21FF', 'transactionHash': '0xe9cff646354d4c3da664daf95e41ecd6e452a234dde264d873c176929b92db99', 'blockNumber': 42378913, 'operator': '0xa0E981792Dc04258b26FA3be9755ffC0F3dA21FF'}]}
+ 2023-06-25 11:38:29 I    51.64ms 200   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-25 11:39:30 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 11:39:30 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 11:39:30 I   res: <class 'dict'>,{'contractAddress': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'network': 'polygon', 'tokenId': '72782624731666412354988373537424362100091203464653780819061485792367296380934', 'logs': [{'event': 'Mint', 'from': '0x0000000000000000000000000000000000000000', 'to': '0xa0E981792Dc04258b26FA3be9755ffC0F3dA21FF', 'transactionHash': '0xe9cff646354d4c3da664daf95e41ecd6e452a234dde264d873c176929b92db99', 'blockNumber': 42378913, 'operator': '0xa0E981792Dc04258b26FA3be9755ffC0F3dA21FF'}]}
+ 2023-06-25 11:39:30 I     4.75ms 200   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-25 11:39:36 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 11:39:36 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 11:39:36 I   res: <class 'dict'>,{'contractAddress': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'network': 'polygon', 'tokenId': '72782624731666412354988373537424362100091203464653780819061485792367296380934', 'logs': [{'event': 'Mint', 'from': '0x0000000000000000000000000000000000000000', 'to': '0xa0E981792Dc04258b26FA3be9755ffC0F3dA21FF', 'transactionHash': '0xe9cff646354d4c3da664daf95e41ecd6e452a234dde264d873c176929b92db99', 'blockNumber': 42378913, 'operator': '0xa0E981792Dc04258b26FA3be9755ffC0F3dA21FF'}]}
+ 2023-06-25 11:39:36 I     8.00ms 200   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-25 11:40:59 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 11:40:59 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 11:40:59 I   res: <class 'dict'>,{'contractAddress': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'network': 'polygon', 'tokenId': '72782624731666412354988373537424362100091203464653780819061485792367296380934', 'logs': [{'event': 'Mint', 'from': '0x0000000000000000000000000000000000000000', 'to': '0xa0E981792Dc04258b26FA3be9755ffC0F3dA21FF', 'transactionHash': '0xe9cff646354d4c3da664daf95e41ecd6e452a234dde264d873c176929b92db99', 'blockNumber': 42378913, 'operator': '0xa0E981792Dc04258b26FA3be9755ffC0F3dA21FF'}]}
+ 2023-06-25 11:40:59 I     6.16ms 200   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-25 11:41:05 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 11:41:05 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 11:41:05 E   Future exception was never retrieved
+    future: <Future finished exception=MissingArgumentError()>
+    Traceback (most recent call last):
+      File "/Users/van/projects/likn/event-tracker/venv/lib/python3.9/site-packages/tornado/gen.py", line 216, in wrapper
+        result = ctx_run(func, *args, **kwargs)
+      File "/Users/van/projects/likn/event-tracker/handlers/base_handler.py", line 165, in check_auth
+        app_key = self.get_argument('app_key')
+      File "/Users/van/projects/likn/event-tracker/venv/lib/python3.9/site-packages/tornado/web.py", line 456, in get_argument
+        return self._get_argument(name, default, self.request.arguments, strip)
+      File "/Users/van/projects/likn/event-tracker/venv/lib/python3.9/site-packages/tornado/web.py", line 539, in _get_argument
+        raise MissingArgumentError(name)
+    tornado.web.MissingArgumentError: HTTP 400: Bad Request (Missing argument app_key)
+ 2023-06-25 11:41:05 I   res: <class 'dict'>,{'contractAddress': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'network': 'polygon', 'tokenId': '72782624731666412354988373537424362100091203464653780819061485792367296380934', 'logs': [{'event': 'Mint', 'from': '0x0000000000000000000000000000000000000000', 'to': '0xa0E981792Dc04258b26FA3be9755ffC0F3dA21FF', 'transactionHash': '0xe9cff646354d4c3da664daf95e41ecd6e452a234dde264d873c176929b92db99', 'blockNumber': 42378913, 'operator': '0xa0E981792Dc04258b26FA3be9755ffC0F3dA21FF'}]}
+ 2023-06-25 11:41:05 I     8.27ms 200   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-25 11:42:01 I   [0;32mservive start listening on 127.0.0.1:8090
+ 2023-06-25 11:42:04 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 11:42:04 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 11:42:04 E   Future exception was never retrieved
+    future: <Future finished exception=MissingArgumentError()>
+    Traceback (most recent call last):
+      File "/Users/van/projects/likn/event-tracker/venv/lib/python3.9/site-packages/tornado/gen.py", line 216, in wrapper
+        result = ctx_run(func, *args, **kwargs)
+      File "/Users/van/projects/likn/event-tracker/handlers/base_handler.py", line 165, in check_auth
+        app_key = self.get_argument('app_key')
+      File "/Users/van/projects/likn/event-tracker/venv/lib/python3.9/site-packages/tornado/web.py", line 456, in get_argument
+        return self._get_argument(name, default, self.request.arguments, strip)
+      File "/Users/van/projects/likn/event-tracker/venv/lib/python3.9/site-packages/tornado/web.py", line 539, in _get_argument
+        raise MissingArgumentError(name)
+    tornado.web.MissingArgumentError: HTTP 400: Bad Request (Missing argument app_key)
+ 2023-06-25 11:42:04 I   res: <class 'dict'>,{'contractAddress': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'network': 'polygon', 'tokenId': '72782624731666412354988373537424362100091203464653780819061485792367296380934', 'logs': [{'event': 'Mint', 'from': '0x0000000000000000000000000000000000000000', 'to': '0xa0E981792Dc04258b26FA3be9755ffC0F3dA21FF', 'transactionHash': '0xe9cff646354d4c3da664daf95e41ecd6e452a234dde264d873c176929b92db99', 'blockNumber': 42378913, 'operator': '0xa0E981792Dc04258b26FA3be9755ffC0F3dA21FF'}]}
+ 2023-06-25 11:42:04 I    46.60ms 200   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-25 11:43:01 I   [0;32mservive start listening on 127.0.0.1:8090
+ 2023-06-25 11:43:03 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 11:43:03 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 11:43:03 E   Future exception was never retrieved
+    future: <Future finished exception=Finish(b'{"status": 400, "msg": "Parameters Error!", "data": {}}')>
+    Traceback (most recent call last):
+      File "/Users/van/projects/likn/event-tracker/venv/lib/python3.9/site-packages/tornado/gen.py", line 216, in wrapper
+        result = ctx_run(func, *args, **kwargs)
+      File "/Users/van/projects/likn/event-tracker/handlers/base_handler.py", line 167, in check_auth
+        self.fail(400)
+      File "/Users/van/projects/likn/event-tracker/handlers/base_handler.py", line 95, in fail
+        self.finish_with_json(
+      File "/Users/van/projects/likn/event-tracker/handlers/base_handler.py", line 266, in finish_with_json
+        raise Finish(json.dumps(data).encode())
+    tornado.web.Finish: b'{"status": 400, "msg": "Parameters Error!", "data": {}}'
+ 2023-06-25 11:43:03 I   res: <class 'dict'>,{'contractAddress': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'network': 'polygon', 'tokenId': '72782624731666412354988373537424362100091203464653780819061485792367296380934', 'logs': [{'event': 'Mint', 'from': '0x0000000000000000000000000000000000000000', 'to': '0xa0E981792Dc04258b26FA3be9755ffC0F3dA21FF', 'transactionHash': '0xe9cff646354d4c3da664daf95e41ecd6e452a234dde264d873c176929b92db99', 'blockNumber': 42378913, 'operator': '0xa0E981792Dc04258b26FA3be9755ffC0F3dA21FF'}]}
+ 2023-06-25 11:43:03 I    20.48ms 200   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-25 11:44:33 I   [0;32mservive start listening on 127.0.0.1:8090
+ 2023-06-25 11:44:36 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 11:44:36 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 11:44:36 I   res: <class 'dict'>,{'contractAddress': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'network': 'polygon', 'tokenId': '72782624731666412354988373537424362100091203464653780819061485792367296380934', 'logs': [{'event': 'Mint', 'from': '0x0000000000000000000000000000000000000000', 'to': '0xa0E981792Dc04258b26FA3be9755ffC0F3dA21FF', 'transactionHash': '0xe9cff646354d4c3da664daf95e41ecd6e452a234dde264d873c176929b92db99', 'blockNumber': 42378913, 'operator': '0xa0E981792Dc04258b26FA3be9755ffC0F3dA21FF'}]}
+ 2023-06-25 11:44:36 I    25.78ms 200   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-25 11:46:06 I   [0;32mservive start listening on 127.0.0.1:8090
+ 2023-06-25 11:46:10 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 11:46:10 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 11:46:10 I   res: <class 'dict'>,{'contractAddress': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'network': 'polygon', 'tokenId': '72782624731666412354988373537424362100091203464653780819061485792367296380934', 'logs': [{'event': 'Mint', 'from': '0x0000000000000000000000000000000000000000', 'to': '0xa0E981792Dc04258b26FA3be9755ffC0F3dA21FF', 'transactionHash': '0xe9cff646354d4c3da664daf95e41ecd6e452a234dde264d873c176929b92db99', 'blockNumber': 42378913, 'operator': '0xa0E981792Dc04258b26FA3be9755ffC0F3dA21FF'}]}
+ 2023-06-25 11:46:10 I    25.35ms 200   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-25 11:46:21 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 11:46:21 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 11:46:21 I   res: <class 'dict'>,{'contractAddress': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'network': 'polygon', 'tokenId': '72782624731666412354988373537424362100091203464653780819061485792367296380934', 'logs': [{'event': 'Mint', 'from': '0x0000000000000000000000000000000000000000', 'to': '0xa0E981792Dc04258b26FA3be9755ffC0F3dA21FF', 'transactionHash': '0xe9cff646354d4c3da664daf95e41ecd6e452a234dde264d873c176929b92db99', 'blockNumber': 42378913, 'operator': '0xa0E981792Dc04258b26FA3be9755ffC0F3dA21FF'}]}
+ 2023-06-25 11:46:21 I     7.71ms 200   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-25 11:46:50 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 11:46:50 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 11:46:50 I   res: <class 'dict'>,{'contractAddress': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'network': 'polygon', 'tokenId': '72782624731666412354988373537424362100091203464653780819061485792367296380934', 'logs': [{'event': 'Mint', 'from': '0x0000000000000000000000000000000000000000', 'to': '0xa0E981792Dc04258b26FA3be9755ffC0F3dA21FF', 'transactionHash': '0xe9cff646354d4c3da664daf95e41ecd6e452a234dde264d873c176929b92db99', 'blockNumber': 42378913, 'operator': '0xa0E981792Dc04258b26FA3be9755ffC0F3dA21FF'}]}
+ 2023-06-25 11:46:50 I     3.50ms 200   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-25 11:47:23 I   [0;32mservive start listening on 127.0.0.1:8090
+ 2023-06-25 11:47:25 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 11:47:25 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 11:47:25 I   res: <class 'dict'>,{'contractAddress': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'network': 'polygon', 'tokenId': '72782624731666412354988373537424362100091203464653780819061485792367296380934', 'logs': [{'event': 'Mint', 'from': '0x0000000000000000000000000000000000000000', 'to': '0xa0E981792Dc04258b26FA3be9755ffC0F3dA21FF', 'transactionHash': '0xe9cff646354d4c3da664daf95e41ecd6e452a234dde264d873c176929b92db99', 'blockNumber': 42378913, 'operator': '0xa0E981792Dc04258b26FA3be9755ffC0F3dA21FF'}]}
+ 2023-06-25 11:47:25 I    35.47ms 200   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-25 11:48:05 I   [0;32mservive start listening on 127.0.0.1:8090
+ 2023-06-25 11:48:09 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 11:48:09 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 11:48:09 E   Future exception was never retrieved
+    future: <Future finished exception=Finish(b'{"status": 400, "msg": "Parameters Error!", "data": {}}')>
+    Traceback (most recent call last):
+      File "/Users/van/projects/likn/event-tracker/venv/lib/python3.9/site-packages/tornado/gen.py", line 216, in wrapper
+        result = ctx_run(func, *args, **kwargs)
+      File "/Users/van/projects/likn/event-tracker/handlers/base_handler.py", line 165, in check_auth
+        self.fail(400)
+      File "/Users/van/projects/likn/event-tracker/handlers/base_handler.py", line 95, in fail
+        self.finish_with_json(
+      File "/Users/van/projects/likn/event-tracker/handlers/base_handler.py", line 264, in finish_with_json
+        raise Finish(json.dumps(data).encode())
+    tornado.web.Finish: b'{"status": 400, "msg": "Parameters Error!", "data": {}}'
+ 2023-06-25 11:48:09 I   res: <class 'dict'>,{'contractAddress': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'network': 'polygon', 'tokenId': '72782624731666412354988373537424362100091203464653780819061485792367296380934', 'logs': [{'event': 'Mint', 'from': '0x0000000000000000000000000000000000000000', 'to': '0xa0E981792Dc04258b26FA3be9755ffC0F3dA21FF', 'transactionHash': '0xe9cff646354d4c3da664daf95e41ecd6e452a234dde264d873c176929b92db99', 'blockNumber': 42378913, 'operator': '0xa0E981792Dc04258b26FA3be9755ffC0F3dA21FF'}]}
+ 2023-06-25 11:48:09 I    22.99ms 200   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-25 11:49:07 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 11:49:07 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 11:49:07 E   Future exception was never retrieved
+    future: <Future finished exception=Finish(b'{"status": 400, "msg": "Parameters Error!", "data": {}}')>
+    Traceback (most recent call last):
+      File "/Users/van/projects/likn/event-tracker/venv/lib/python3.9/site-packages/tornado/gen.py", line 216, in wrapper
+        result = ctx_run(func, *args, **kwargs)
+      File "/Users/van/projects/likn/event-tracker/handlers/base_handler.py", line 165, in check_auth
+        self.fail(400)
+      File "/Users/van/projects/likn/event-tracker/handlers/base_handler.py", line 95, in fail
+        self.finish_with_json(
+      File "/Users/van/projects/likn/event-tracker/handlers/base_handler.py", line 264, in finish_with_json
+        raise Finish(json.dumps(data).encode())
+    tornado.web.Finish: b'{"status": 400, "msg": "Parameters Error!", "data": {}}'
+ 2023-06-25 11:49:07 I   res: <class 'dict'>,{'contractAddress': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'network': 'polygon', 'tokenId': '72782624731666412354988373537424362100091203464653780819061485792367296380934', 'logs': [{'event': 'Mint', 'from': '0x0000000000000000000000000000000000000000', 'to': '0xa0E981792Dc04258b26FA3be9755ffC0F3dA21FF', 'transactionHash': '0xe9cff646354d4c3da664daf95e41ecd6e452a234dde264d873c176929b92db99', 'blockNumber': 42378913, 'operator': '0xa0E981792Dc04258b26FA3be9755ffC0F3dA21FF'}]}
+ 2023-06-25 11:49:07 I     5.04ms 200   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-25 11:49:25 I   [0;32mservive start listening on 127.0.0.1:8090
+ 2023-06-25 11:49:31 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 11:49:31 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 11:50:24 E   Future exception was never retrieved
+    future: <Future finished exception=Finish(b'{"status": 400, "msg": "Parameters Error!", "data": {}}')>
+    Traceback (most recent call last):
+      File "/Users/van/projects/likn/event-tracker/venv/lib/python3.9/site-packages/tornado/gen.py", line 216, in wrapper
+        result = ctx_run(func, *args, **kwargs)
+      File "/Users/van/projects/likn/event-tracker/handlers/base_handler.py", line 165, in check_auth
+        self.fail(400)
+      File "/Users/van/projects/likn/event-tracker/handlers/base_handler.py", line 95, in fail
+        self.finish_with_json(
+      File "/Users/van/projects/likn/event-tracker/handlers/base_handler.py", line 264, in finish_with_json
+        raise Finish(json.dumps(data).encode())
+    tornado.web.Finish: b'{"status": 400, "msg": "Parameters Error!", "data": {}}'
+ 2023-06-25 11:51:31 I   [0;32mservive start listening on 127.0.0.1:8090
+ 2023-06-25 11:51:35 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 11:51:35 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 11:51:35 I     0.65ms 200   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-25 11:51:47 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 11:51:47 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 11:51:47 I     2.50ms 200   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-25 11:51:51 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 11:51:51 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 11:51:51 I   res: <class 'dict'>,{'contractAddress': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'network': 'polygon', 'tokenId': '72782624731666412354988373537424362100091203464653780819061485792367296380934', 'logs': [{'event': 'Mint', 'from': '0x0000000000000000000000000000000000000000', 'to': '0xa0E981792Dc04258b26FA3be9755ffC0F3dA21FF', 'transactionHash': '0xe9cff646354d4c3da664daf95e41ecd6e452a234dde264d873c176929b92db99', 'blockNumber': 42378913, 'operator': '0xa0E981792Dc04258b26FA3be9755ffC0F3dA21FF'}]}
+ 2023-06-25 11:51:51 I    44.10ms 200   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-25 11:51:58 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 11:51:58 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 11:51:58 I     0.48ms 200   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-25 11:51:59 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 11:51:59 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 11:51:59 I     1.45ms 200   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-25 11:52:04 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 11:52:04 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 11:52:04 I     2.00ms 200   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-25 11:52:13 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 11:52:13 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 11:52:13 I   res: <class 'dict'>,{'contractAddress': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'network': 'polygon', 'tokenId': '72782624731666412354988373537424362100091203464653780819061485792367296380934', 'logs': [{'event': 'Mint', 'from': '0x0000000000000000000000000000000000000000', 'to': '0xa0E981792Dc04258b26FA3be9755ffC0F3dA21FF', 'transactionHash': '0xe9cff646354d4c3da664daf95e41ecd6e452a234dde264d873c176929b92db99', 'blockNumber': 42378913, 'operator': '0xa0E981792Dc04258b26FA3be9755ffC0F3dA21FF'}]}
+ 2023-06-25 11:52:13 I     4.31ms 200   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-25 12:03:46 I   [0;32mservive start listening on 127.0.0.1:8090
+ 2023-06-25 12:03:55 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 12:03:55 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 12:03:55 I   res: <class 'dict'>,{'contractAddress': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'network': 'polygon', 'tokenId': '72782624731666412354988373537424362100091203464653780819061485792367296380934', 'logs': [{'event': 'Mint', 'from': '0x0000000000000000000000000000000000000000', 'to': '0xa0E981792Dc04258b26FA3be9755ffC0F3dA21FF', 'transactionHash': '0xe9cff646354d4c3da664daf95e41ecd6e452a234dde264d873c176929b92db99', 'blockNumber': 42378913, 'operator': '0xa0E981792Dc04258b26FA3be9755ffC0F3dA21FF'}]}
+ 2023-06-25 12:03:55 I    41.05ms 200   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-25 15:29:59 I   [0;32mservive start listening on 127.0.0.1:8090
+ 2023-06-25 15:30:54 I   [0;32mservive start listening on 127.0.0.1:8090
+ 2023-06-25 15:31:37 I   [0;32mservive start listening on 127.0.0.1:8090
+[I 230625 15:33:47 main:40] [0;32mservive start listening on 127.0.0.1:8090
+ 2023-06-25 15:34:17 I   [0;32mservive start listening on 127.0.0.1:8090
+ 2023-06-25 15:35:50 I   [0;32mservive start listening on 127.0.0.1:8090
+ 2023-06-25 15:38:03 I   [0;32mservive start listening on 127.0.0.1:8090
+ 2023-06-25 15:45:13 I   [0;32mservive start listening on 127.0.0.1:8090
+ 2023-06-25 15:45:27 I   [0;32mservive start listening on 127.0.0.1:8090
+ 2023-06-25 15:46:16 I   [0;32mservive start listening on 127.0.0.1:8090
+ 2023-06-25 15:53:09 I   [0;32mservive start listening on 127.0.0.1:8090
+ 2023-06-25 15:53:37 I   [0;32mservive start listening on 127.0.0.1:8090
+ 2023-06-25 15:54:32 D   Using selector: KqueueSelector
+ 2023-06-25 15:54:32 I   [0;32mservive start listening on 127.0.0.1:8090
+ 2023-06-25 15:55:34 D   Using selector: KqueueSelector
+ 2023-06-25 15:55:34 I   [0;32mservive start listening on 127.0.0.1:8090
+ 2023-06-25 15:57:22 I   [0;32mservive start listening on 127.0.0.1:8090
+ 2023-06-25 15:57:36 I   [0;32mservive start listening on 127.0.0.1:8090
+ 2023-06-25 15:58:22 I   servive start listening on 127.0.0.1:8090
+ 2023-06-25 15:59:52 D   Using selector: KqueueSelector
+ 2023-06-25 15:59:52 I   servive start listening on 127.0.0.1:8090
+ 2023-06-25 15:59:57 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 15:59:57 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 15:59:57 I   res: <class 'dict'>,{'contractAddress': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'network': 'polygon', 'tokenId': '72782624731666412354988373537424362100091203464653780819061485792367296380934', 'logs': [{'event': 'Mint', 'from': '0x0000000000000000000000000000000000000000', 'to': '0xa0E981792Dc04258b26FA3be9755ffC0F3dA21FF', 'transactionHash': '0xe9cff646354d4c3da664daf95e41ecd6e452a234dde264d873c176929b92db99', 'blockNumber': 42378913, 'operator': '0xa0E981792Dc04258b26FA3be9755ffC0F3dA21FF'}]}
+ 2023-06-25 15:59:57 I    33.70ms 200   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-25 16:00:55 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 16:00:55 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 16:00:55 I   res: <class 'dict'>,{'contractAddress': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'network': 'polygon', 'tokenId': '72782624731666412354988373537424362100091203464653780819061485792367296380934', 'logs': [{'event': 'Mint', 'from': '0x0000000000000000000000000000000000000000', 'to': '0xa0E981792Dc04258b26FA3be9755ffC0F3dA21FF', 'transactionHash': '0xe9cff646354d4c3da664daf95e41ecd6e452a234dde264d873c176929b92db99', 'blockNumber': 42378913, 'operator': '0xa0E981792Dc04258b26FA3be9755ffC0F3dA21FF'}]}
+ 2023-06-25 16:00:55 I     8.38ms 200   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-25 16:01:51 I   servive start listening on 127.0.0.1:8090
+ 2023-06-25 16:01:58 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 16:01:58 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 16:01:58 I   res: <class 'dict'>,{'contractAddress': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'network': 'polygon', 'tokenId': '72782624731666412354988373537424362100091203464653780819061485792367296380934', 'logs': [{'event': 'Mint', 'from': '0x0000000000000000000000000000000000000000', 'to': '0xa0E981792Dc04258b26FA3be9755ffC0F3dA21FF', 'transactionHash': '0xe9cff646354d4c3da664daf95e41ecd6e452a234dde264d873c176929b92db99', 'blockNumber': 42378913, 'operator': '0xa0E981792Dc04258b26FA3be9755ffC0F3dA21FF'}]}
+ 2023-06-25 16:01:58 I    56.75ms 200   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-25 16:04:48 I   servive start listening on 127.0.0.1:8090
+ 2023-06-25 16:09:21 I   servive start listening on 127.0.0.1:8090
+ 2023-06-25 16:10:03 I   servive start listening on 127.0.0.1:8090
+ 2023-06-25 16:12:26 I   servive start listening on 127.0.0.1:8090
+ 2023-06-25 16:14:58 I   servive start listening on 127.0.0.1:8090
+ 2023-06-25 16:56:00 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 16:56:00 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 16:56:01 I   res: <class 'dict'>,{'contractAddress': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'network': 'polygon', 'tokenId': '72782624731666412354988373537424362100091203464653780819061485792367296380934', 'logs': [{'event': 'Mint', 'from': '0x0000000000000000000000000000000000000000', 'to': '0xa0E981792Dc04258b26FA3be9755ffC0F3dA21FF', 'transactionHash': '0xe9cff646354d4c3da664daf95e41ecd6e452a234dde264d873c176929b92db99', 'blockNumber': 42378913, 'operator': '0xa0E981792Dc04258b26FA3be9755ffC0F3dA21FF'}]}
+ 2023-06-25 16:56:01 I    42.50ms 200   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-25 16:56:02 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 16:56:02 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 16:56:02 I   res: <class 'dict'>,{'contractAddress': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'network': 'polygon', 'tokenId': '72782624731666412354988373537424362100091203464653780819061485792367296380934', 'logs': [{'event': 'Mint', 'from': '0x0000000000000000000000000000000000000000', 'to': '0xa0E981792Dc04258b26FA3be9755ffC0F3dA21FF', 'transactionHash': '0xe9cff646354d4c3da664daf95e41ecd6e452a234dde264d873c176929b92db99', 'blockNumber': 42378913, 'operator': '0xa0E981792Dc04258b26FA3be9755ffC0F3dA21FF'}]}
+ 2023-06-25 16:56:02 I     5.29ms 200   POST       127.0.0.1  /nft/event_logs 
+ 2023-06-25 16:56:02 I   request params: {'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 16:56:02 I   request_body:{'contract_address': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'token_id': '72782624731666412354988373537424362100091203464653780819061485792367296380934'}
+ 2023-06-25 16:56:02 I   res: <class 'dict'>,{'contractAddress': '0xA2D9Ded6115b7B7208459450D676f0127418ae7A', 'network': 'polygon', 'tokenId': '72782624731666412354988373537424362100091203464653780819061485792367296380934', 'logs': [{'event': 'Mint', 'from': '0x0000000000000000000000000000000000000000', 'to': '0xa0E981792Dc04258b26FA3be9755ffC0F3dA21FF', 'transactionHash': '0xe9cff646354d4c3da664daf95e41ecd6e452a234dde264d873c176929b92db99', 'blockNumber': 42378913, 'operator': '0xa0E981792Dc04258b26FA3be9755ffC0F3dA21FF'}]}
+ 2023-06-25 16:56:02 I     5.38ms 200   POST       127.0.0.1  /nft/event_logs 
