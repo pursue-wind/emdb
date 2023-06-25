@@ -1,6 +1,3 @@
-import json
-import time
-from tornado.log import app_log
 
 from . import mg
 from tornado import ioloop, gen

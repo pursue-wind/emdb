@@ -6,9 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="4f527025-d355-4092-a53e-d21a55c2ce17" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/utils/log_ext.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/utils/log_ext.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -273,7 +270,7 @@
       <workItem from="1687081168933" duration="86608000" />
       <workItem from="1687344274356" duration="61000" />
       <workItem from="1687344380591" duration="12000" />
-      <workItem from="1687344418584" duration="41976000" />
+      <workItem from="1687344418584" duration="42639000" />
     </task>
     <servers />
   </component>
