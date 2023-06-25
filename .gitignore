@@ -2,3 +2,4 @@
 venv/*
 logs/*
 test.py
+handlers/test.py
