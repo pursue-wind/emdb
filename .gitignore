@@ -3,3 +3,4 @@ venv/*
 logs/*
 test.py
 handlers/test.py
+.DS_Store
