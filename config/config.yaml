@@ -20,7 +20,7 @@ mysql:
 mongo:
   client:
     dev: "mongodb://admin:event_logs.likn.co@localhost:27017/admin"
-    prod: "mongodb://admin:event_logs.likn.co@localhost:27017/admin"
+    prod: "mongodb://event:t1E8RPiTyYOOzm0H188f7fc79aa@172.31.29.206:27017/admin"
   db:
     dev: "event_logs"
     prod: "event_logs"

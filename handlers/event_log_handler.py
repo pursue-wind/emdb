@@ -17,7 +17,7 @@ class EventLogListHandler(BaseHandler):
         yield self.check_auth()
         if not web3.Web3.is_address(args.contract_address):
             self.fail(400)
-        res = yield self.mg.query_nft_flow(args.contract_address, args.token_id)
+        res = yield self.mg.query_nft_flow(args.contract_address, args.token_id, args.network)
         if res is not None:
             log_list = []
             event_logs = res["logs"]

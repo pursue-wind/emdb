@@ -11,9 +11,9 @@ class NftFlowLog(MongoBase):
     """Nft Flow Logs"""
 
     @gen.coroutine
-    def query_nft_flow(self, address, token_id):
+    def query_nft_flow(self, address, token_id, network):
         result = yield self.nftFlowLog.find_one(
-            dict(contractAddress=address, tokenId=token_id), projection=dict(_id=0, updateTime=0))
+            dict(contractAddress=address, tokenId=token_id, network=network), projection=dict(_id=0, updateTime=0))
         return result
 
     @gen.coroutine

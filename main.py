@@ -7,7 +7,7 @@ from lib.logger import init_log
 from routes import ROUTES as routes
 from config import CFG as cfg
 from db.mongo import init_mongo
-from lib.generate import get_appkey, create_token,get_appsecret
+from lib.generate import get_appkey, create_token, get_appsecret
 def log_function(handler):
     """
     日志处理
