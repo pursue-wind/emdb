@@ -13,20 +13,29 @@ class EventLogListHandler(BaseHandler):
     @gen.coroutine
     def post(self):
         app_log.info(f"request params: {json.loads(self.request.body.decode())}")
-        args = self.parse_json_arguments('contract_address', 'token_id')
+        args = self.parse_json_arguments('contract_address', 'token_id', 'network')
         yield self.check_auth()
         if not web3.Web3.is_address(args.contract_address):
             self.fail(400)
         res = yield self.mg.query_nft_flow(args.contract_address, args.token_id)
         if res is not None:
             log_list = []
-            event_logs = res['logs']
+            event_logs = res["logs"]
             for e in event_logs:
                 if e["from"] == web3.constants.ADDRESS_ZERO:
                     e["event"] = "Mint"
                 if e["to"] == web3.constants.ADDRESS_ZERO:
                     e["event"] = "Burn"
                 log_list.append(e)
+            log_list.sort(key=self.sort_key, reverse=True)
             res["logs"] = log_list
         app_log.info(f"res: {type(res)},{res}")
         self.success(data=res)
+
+    def sort_key(self, params):
+        """
+        Sort list order by "blockNumber"
+        :param params: dict
+        :return:
+        """
+        return params["blockNumber"]

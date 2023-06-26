@@ -40,7 +40,7 @@ scan_blocks:
     eth: 17506153
     polygon: 42372999
   scan_time_gap: 5
-  scan_block_gap: 10000
+  scan_block_gap: 1000
 contracts:
   ## Rarible
   contract_1:

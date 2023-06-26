@@ -44,7 +44,7 @@ def record_event_logs(event_logs, network_name, w3_obj):
         raise TypeError("Unknow result type,there is an error with fetch_event_log!")
 
 @gen.coroutine
-def get_transfer_logs(w3_obj, contract_info, network_name):
+def get_event_logs(w3_obj, contract_info, network_name):
     """
     :param w3_obj: "Web3 Object"
     :param contract_info: "contract from config"
@@ -55,7 +55,7 @@ def get_transfer_logs(w3_obj, contract_info, network_name):
     current_block_height = w3_obj.get_current_block_height()
     # contracts = cfg.convert(cfg.contracts)
     event_types = contract_info["event"]
-    block_gap = 1000
+    block_gap = cfg.scan_blocks.scan_block_gap
     print(f"event_types:{event_types}")
     for event_name in event_types:
         scaned_block_height = yield mg.query_scaned_block_height(event_name, network_name)
@@ -74,7 +74,6 @@ def get_transfer_logs(w3_obj, contract_info, network_name):
             yield gen.sleep(12)
         logger.info(
             f"event_name:{event_name},from_block:{from_block}, to_block:{end_block}, current_block_height:{current_block_height}")
-        # app_log.info(f"event_name:{event_name},from_block:{from_block}, to_block:{end_block}, current_block_height:{current_block_height}")
         try:
             abi = w3_obj.get_abi_content(contract_info["abi_file"])
             contract_address = w3_obj.checksum_address(get_contract_address(contract_info, network_name))
@@ -133,12 +132,13 @@ def fetch_event_log():
     while True:
         try:
             for contract_info in contracts.values():
-                yield [get_transfer_logs(eht_provider, contract_info, network.get("eth")),
-                       get_transfer_logs(polygon_provider, contract_info, network.get("polygon"))]
+                yield [get_event_logs(eht_provider, contract_info, network.get("eth")),
+                       get_event_logs(polygon_provider, contract_info, network.get("polygon"))]
 
                 # yield get_transfer_logs(eht_provider, contract_info, network.get("eth"))
                 # yield get_transfer_logs(polygon_provider, contract_info, network.get("polygon"))
         except Exception as e:
+            logger.error(e)
             logger.error(e.args)
             break
         yield gen.sleep(scan_time_gap)  # second
