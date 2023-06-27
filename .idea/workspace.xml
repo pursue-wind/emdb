@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f527025-d355-4092-a53e-d21a55c2ce17" name="Changes" comment="update config">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="4f527025-d355-4092-a53e-d21a55c2ce17" name="Changes" comment="update initial block height">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/logger.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/logger.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -271,7 +272,7 @@
       <workItem from="1687081168933" duration="86608000" />
       <workItem from="1687344274356" duration="61000" />
       <workItem from="1687344380591" duration="12000" />
-      <workItem from="1687344418584" duration="60084000" />
+      <workItem from="1687344418584" duration="60651000" />
     </task>
     <task id="LOCAL-00001" summary="update config">
       <created>1687788866060</created>
@@ -294,7 +295,14 @@
       <option name="project" value="LOCAL" />
       <updated>1687834950566</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="update initial block height">
+      <created>1687836349900</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1687836349900</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -305,7 +313,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="update config" />
-    <option name="LAST_COMMIT_MESSAGE" value="update config" />
+    <MESSAGE value="update initial block height" />
+    <option name="LAST_COMMIT_MESSAGE" value="update initial block height" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

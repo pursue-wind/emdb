@@ -6,7 +6,7 @@ log:
 server:
   host:
     dev: 127.0.0.1
-    prod: 127.0.0.1
+    prod: 35.72.181.5
   port:
     dev: 8090
     prod: 8090
