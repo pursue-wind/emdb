@@ -72,16 +72,14 @@ def get_event_logs(w3_obj, contract_info, network_name):
             end_block = current_block_height
         if from_block == end_block:
             yield gen.sleep(12)
-        logger.info(
-            f"event_name:{event_name},from_block:{from_block}, to_block:{end_block}, current_block_height:{current_block_height}")
+
         try:
             abi = w3_obj.get_abi_content(contract_info["abi_file"])
             contract_address = w3_obj.checksum_address(get_contract_address(contract_info, network_name))
             logger.info(
                 f"contract_address:{contract_address},event_name:{event_name},from_block:{from_block}, to_block:{end_block}, current_block_height:{current_block_height}")
             event_logs = yield w3_obj.get_contract_event_logs(contract_address, abi, event_name, int(from_block), int(end_block))
-            # print(f"length of result:{len(event_logs)}, result:{event_logs}")
-            # print(f"length of result:{len(event_logs)}")
+
             if contract_info["is_proxy"] is True:
                 logs_list = list()
                 for logs in event_logs:
@@ -107,8 +105,7 @@ def get_event_logs(w3_obj, contract_info, network_name):
             else:
                 record_event_logs(event_logs, network_name, w3_obj)
             yield mg.update_block_height({"eventName": event_name, "network": network_name}, {"scanedBlockHeight": end_block})
-            # from_block = end_block + 1
-            # end_block = from_block + block_gap
+
         except Exception as e:
             logger.error(e)
             logger.error(e.args)

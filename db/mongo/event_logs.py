@@ -28,7 +28,6 @@ class LogsTasks(MongoBase):
 
     @gen.coroutine
     def insert_logs(self, logs):
-        print(f"insert_logs: {logs}")
         self.logs.insert_many(logs)
 
 
