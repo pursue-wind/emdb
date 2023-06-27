@@ -1,3 +1,7 @@
+- code: 0
+  msg: Success!
+- code: 1
+  msg: Fail!
 - code: 400
   msg: Parameters Error!
 - code: 403
