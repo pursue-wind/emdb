@@ -118,5 +118,3 @@ def get_appkey(user_id):
 
 def get_appsecret():
     return hashlib.md5(str(time.time()).encode()).hexdigest()
-
-print(get_appkey(1))

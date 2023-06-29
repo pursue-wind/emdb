@@ -22,13 +22,14 @@ def init_mongo():
     # MS_CLIENT.blockHeight.drop_indexes()
     MS_CLIENT.blockHeight.create_index('height')
 
-    # MS_CLIENT.account.drop_indexes()
-    MS_CLIENT.account.create_index('address')
+    MS_CLIENT.account.drop_indexes()
+    MS_CLIENT.account.create_index('user_address')
 
     MS_CLIENT.nftFlowLog.drop_indexes()
     MS_CLIENT.nftFlowLog.create_index([('network', 1), ('contractAddress', 1), ('tokenId', 1)])
 
-
+    MS_CLIENT.collections.create_index('address')
+    MS_CLIENT.user_logs.create_index('user_addr')
 
 
 

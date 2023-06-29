@@ -15,6 +15,27 @@ network = {
     "polygon": "polygon"
 }
 
+@gen.coroutine
+def record_user_addr_info(event_logs, network_name, w3_obj):
+    """
+    record user's nft tokenId and amount
+    :param event_logs: "List of ArtributeDict"
+    :param network_name: "eth", "polygon".
+    :param w3_obj: Web3 Object
+    :return:
+    """
+    if isinstance(event_logs, list):
+        if len(event_logs) == 0:
+            return
+        log_list = []
+        for logs in event_logs:
+            # account_info = list()
+            token_id = logs.args['id']
+            operator = logs.args['operator']
+            to_addr = logs.args['to']
+            from_addr = logs.args['from']
+
+
 
 @gen.coroutine
 def record_event_logs(event_logs, network_name, w3_obj):

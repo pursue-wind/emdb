@@ -32,6 +32,8 @@ OPERATORS = {
     '$neq': lambda x, y: x != y,
 }
 
+AUTH_INFO = {"2gqcy4qbrm56": "feed0f24e31a08b7e4bed1fec4dd2655"}
+
 token_list = ['DJy87FAUwpIYn4KC188f099b152']
 
 base64_pattern = re.compile(r'^[0-9a-zA-Z+/]+=*$')
@@ -159,12 +161,19 @@ class BaseHandler(RequestHandler):
     def check_auth(self, **kwargs):
         """Check auth."""
         headers = self.request.headers
-        app_key = headers.get("app_key", None)
-        # app_key = self.get_argument('app_key', None)
-        if not app_key:
-            self.fail(400)
-        if app_key not in token_list:
+        auth_header = headers.get("Authorization", None)
+        try:
+            auth_mode, auth_base64 = auth_header.split(' ', 1)
+            auth_info = base64.b64decode(auth_base64)
+            app_id, app_key = auth_info.decode('utf-8').split(":")
+            # print(f"app_id:{app_id}")
+            # print(f"app_key:{app_key}")
+            if AUTH_INFO[app_id] != app_key:
+                self.fail(403)
+        except Exception as e:
+            app_log.error(e)
             self.fail(403)
+
 
 
     def parse_form_arguments(self, *enforced_keys, **optional_keys):

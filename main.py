@@ -31,7 +31,7 @@ class Application(tornado.web.Application):
         super(Application, self).__init__(handlers=routes, log_function=log_function, **cfg.application)
         init_log()
         init_mongo()
-        cfg.show()
+        # cfg.show()
 
 
 if __name__ == "__main__":
