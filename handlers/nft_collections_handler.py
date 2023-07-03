@@ -26,10 +26,17 @@ class UserNftCollectionsHandler(BaseHandler):
         for res in result:
             del res["userAddr"]
             del res["network"]
+            mint_res = yield self.mg.query_nft_flow_to_user(res["collectionAddr"], res["tokenId"],
+                                                            network, user_address)
+            print(mint_res)
+            mint_amount = 0
+            for _mint in mint_res:
+                _amount = _mint["amount"]
+                mint_amount += _amount
+            res["amount"] = res["amount"] - mint_amount
             collections.append(res)
         res_dict["collections"] = collections
         self.success(data=res_dict)
-
 
 
 
@@ -49,6 +56,8 @@ class NftSupplyHandler(BaseHandler):
         self.success(data=dict(
             contractAddress=result["contractAddress"],
             tokenId=result["tokenId"],
-            supply=result["supply"]
+            supply=result["supply"],
+            mint=result["mint"],
+            burn=result["burn"]
         ))
 

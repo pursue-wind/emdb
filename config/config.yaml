@@ -49,8 +49,8 @@ contracts:
     abi_file: "./lib/contract_abi/rarible_abi.json"
     is_proxy: False
     initial_height:
-      eth: 17116493
-      polygon: 41897428
+      eth: 16782087
+      polygon: 39418653
   ## LiknCloneFactory
   contract_2:
     event: ["Create1155RaribleUserProxy"]
@@ -59,8 +59,8 @@ contracts:
       polygon: "0xfa63EA28fB0F6901d76E9B418eB4350281a89c62"
     abi_file: "./lib/contract_abi/likn_clone_factory_abi.json"
     initial_height:
-      eth: 17116493
-      polygon: 41897428
+      eth: 16782087
+      polygon: 39418653
     is_proxy: True
 likn_collection_contracts:
   # LiknUpgradeable_v3
