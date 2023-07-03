@@ -56,22 +56,16 @@ status() {
     fi
 }
 
-case $1 in
+case "$1" in
     start)
-        start_process "$VENV_NAME" "$2" "$2.py"
-        ;;
+        start "$@" ;;
     stop)
-        stop_process "$2"
-        ;;
+        stop "$@" ;;
     restart)
-        restart_process "$2"
-        ;;
+        restart "$@" ;;
     status)
-        status_process "$2"
-        ;;
+        status "$@" ;;
     *)
-        echo "Usage: $0 {start|stop|restart|status} <process>"
-        exit 1
+        echo "Usage: $0 {start|stop|restart|status} {main|run_sync|all}"
+        exit 1 ;;
 esac
-
-
