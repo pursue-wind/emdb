@@ -5,6 +5,7 @@ source /usr/local/bin/virtualenvwrapper.sh
 
 APP_NAME="event-tracker"
 APP_PATH="/data/event-tracker/event-tracker"
+LOGS_DIR="/data/event-tracker/event-tracker/logs"
 
 VENV_NAME="event-tracker"
 
@@ -15,11 +16,11 @@ start() {
     echo "$2"
     if [ "$2" = "main" ]; then
         cd "$APP_PATH" || exit
-        python3 main.py &
+        python3 main.py >> "$LOGS_DIR/$APP_NAME.log" 2>&1 &
         echo "Started $APP_NAME"
     elif [ "$2" = "run_sync" ]; then
         cd "$APP_PATH" || exit
-        python3 run_sync.py &
+        python3 run_sync.py >> "$LOGS_DIR/run_sync.log" 2>&1 &
         echo "Started run_sync"
     else
         echo "Invalid process specified"
