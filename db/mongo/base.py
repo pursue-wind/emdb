@@ -21,10 +21,15 @@ class MongoBase():
     def _init_collection(self):
         # nft event logs collection
         self.logs = MC.logs
-        self.blockHeight = MC.blockHeight
-        self.account = MC.account
-        self.nftFlowLog = MC.nftFlowLog
-        self.status_message = MC.statusMessage
+        self.block_height = MC.block_height
+        self.user = MC.user
+        self.nft_flow_log = MC.nft_flow_log
+        self.status_message = MC.status_message
+        self.nft_collections = MC.nft_collections
+        self.user_logs = MC.user_logs
+        self.block_timestamp = MC.block_timestamp
+
+        # self.nftFlowLogTest = MC.nftFlowLogTest
 
 
 

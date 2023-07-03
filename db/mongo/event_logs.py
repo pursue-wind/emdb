@@ -17,7 +17,7 @@ class LogsTasks(MongoBase):
         return result
 
     @gen.coroutine
-    def set_logs(self, address, logs):
+    def update_logs(self, address, logs):
         self.logs.update_one(
             dict(address=address),
             {'$set': {
@@ -28,7 +28,7 @@ class LogsTasks(MongoBase):
 
     @gen.coroutine
     def insert_logs(self, logs):
-        self.logs.insert_many(logs)
+        yield self.logs.insert_many(logs)
 
 
 

@@ -4,5 +4,8 @@
   msg: Fail!
 - code: 400
   msg: Parameters Error!
-- code: 403
+- code: 401
   msg: Auth Error!
+- code: 403
+  msg: Unsupport Network!
+

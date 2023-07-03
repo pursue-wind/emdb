@@ -169,10 +169,10 @@ class BaseHandler(RequestHandler):
             # print(f"app_id:{app_id}")
             # print(f"app_key:{app_key}")
             if AUTH_INFO[app_id] != app_key:
-                self.fail(403)
+                self.fail(401)
         except Exception as e:
             app_log.error(e)
-            self.fail(403)
+            self.fail(401)
 
 
 

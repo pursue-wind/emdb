@@ -12,25 +12,32 @@ class EventLogListHandler(BaseHandler):
 
     @gen.coroutine
     def post(self):
-        app_log.info(f"request params: {json.loads(self.request.body.decode())}")
         args = self.parse_json_arguments('contract_address', 'token_id', 'network')
         yield self.check_auth()
         if not web3.Web3.is_address(args.contract_address):
             self.fail(400)
-        res = yield self.mg.query_nft_flow(args.contract_address, args.token_id, args.network)
-        if res is not None:
+        res = yield self.mg.query_nft_flow_logs(args.contract_address, args.token_id, args.network)
+        res_dict = dict()
+        if res:
             log_list = []
-            event_logs = res["logs"]
-            for e in event_logs:
-                if e["from"] == web3.constants.ADDRESS_ZERO:
-                    e["event"] = "Mint"
-                if e["to"] == web3.constants.ADDRESS_ZERO:
-                    e["event"] = "Burn"
-                log_list.append(e)
-            log_list.sort(key=self.sort_key, reverse=True)
-            res["logs"] = log_list
-        app_log.info(f"res: {type(res)},{res}")
-        self.success(data=res)
+            for event in res:
+                inner_dict = dict()
+                if event["from"] == web3.constants.ADDRESS_ZERO:
+                    inner_dict["event"] = "Mint"
+                if event["to"] == web3.constants.ADDRESS_ZERO:
+                    inner_dict["event"] = "Burn"
+                inner_dict["from"] = event["from"]
+                inner_dict["to"] = event["to"]
+                inner_dict["transactionHash"] = event["transactionHash"]
+                inner_dict["blockNumber"] = event["blockNumber"]
+                inner_dict["operator"] = event["operator"]
+                inner_dict["timestamp"] = event["timestamp"]
+                log_list.append(inner_dict)
+            res_dict["contractAddress"] = args.contract_address
+            res_dict["tokenId"] = args.token_id
+            res_dict["network"] = args.network
+            res_dict["logs"] = log_list
+        self.success(data=res_dict)
 
     def sort_key(self, params):
         """

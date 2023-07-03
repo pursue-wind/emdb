@@ -14,7 +14,7 @@ class Web3Utils:
         w3_provider.middleware_onion.inject(geth_poa_middleware, layer=0)
         return w3_provider
 
-    def checksum_address(self, address):
+    def to_checksum_address(self, address):
         w3 = self.get_provider()
         check_address = w3.to_checksum_address(address)
         return check_address
@@ -25,11 +25,23 @@ class Web3Utils:
             abi_content = f.read()
         return abi_content
 
+    def get_block_info(self, block_number):
+        w3 = self.get_provider()
+        block_info = w3.eth.get_block(block_number)
+        return block_info
+
+    # @gen.coroutine
     def get_current_block_height(self):
         w3 = self.get_provider()
         current_block = w3.eth.get_block('latest')
         height = current_block.number
         return height
+    # @gen.coroutine
+    def get_block_timestamp(self, block_number):
+        w3 = self.get_provider()
+        block = w3.eth.get_block(block_number)
+        timestamp = block.timestamp
+        return timestamp
 
     @gen.coroutine
     def get_contract_event_logs(self, contract_address, abi_content, event_name, from_block, to_block):

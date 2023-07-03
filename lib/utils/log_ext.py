@@ -26,8 +26,9 @@ class Logger(object):
                 os.makedirs(self.log_path)
             print(self.log_path)
             # 创建一个handler,用于写入日志文件
-            fh = logging.FileHandler(self.log_path + '/run_sync' + '.log.' + time.strftime("%Y-%m-%d", time.localtime()),
-                                     encoding='utf-8')
+            # fh = logging.FileHandler(self.log_path + '/run_sync' + '.log.' + time.strftime("%Y-%m-%d", time.localtime()),
+            #                          encoding='utf-8')
+            fh = logging.FileHandler(self.log_path + '/run_sync' + '.log', encoding='utf-8')
             fh.setLevel(logging.INFO)
             # 定义handler的输出格式
             formatter = logging.Formatter('%(asctime)s %(levelname)1.1s %(message)s')
