@@ -10,7 +10,9 @@ VENV_NAME="event-tracker"
 
 start() {
     workon "$VENV_NAME"  # 切换到虚拟环境
-    echo "work in $VENV_NAME"
+    echo "work in VENV: $VENV_NAME"
+    echo "$1"
+    echo "$2"
     if [ "$2" = "main" ]; then
         cd "$APP_PATH" || exit
         python3 main.py &
@@ -54,16 +56,22 @@ status() {
     fi
 }
 
-if [ "$1" = "start" ]; then
-    start "$2"
-elif [ "$1" = "stop" ]; then
-    stop "$2"
-elif [ "$1" = "restart" ]; then
-    restart "$2"
-elif [ "$1" = "status" ]; then
-    status "$2"
-else
-    echo "Invalid command"
-    exit 1
-fi
+case $1 in
+    start)
+        start_process "$VENV_NAME" "$2" "$2.py"
+        ;;
+    stop)
+        stop_process "$2"
+        ;;
+    restart)
+        restart_process "$2"
+        ;;
+    status)
+        status_process "$2"
+        ;;
+    *)
+        echo "Usage: $0 {start|stop|restart|status} <process>"
+        exit 1
+esac
+
 
