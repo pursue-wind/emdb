@@ -9,7 +9,6 @@ APP_PATH="/data/event-tracker/event-tracker"
 VENV_NAME="event-tracker"
 
 start() {
-
     workon "$VENV_NAME"  # 切换到虚拟环境
     echo "work in $VENV_NAME"
     if [ "$2" = "main" ]; then
@@ -25,7 +24,6 @@ start() {
         exit 1
     fi
 }
-
 stop() {
     if [ "$2" = "main" ]; then
         pkill -f "python main.py"
@@ -55,3 +53,17 @@ status() {
         echo "Process is not running"
     fi
 }
+
+if [ "$1" = "start" ]; then
+    start "$2"
+elif [ "$1" = "stop" ]; then
+    stop "$2"
+elif [ "$1" = "restart" ]; then
+    restart "$2"
+elif [ "$1" = "status" ]; then
+    status "$2"
+else
+    echo "Invalid command"
+    exit 1
+fi
+
