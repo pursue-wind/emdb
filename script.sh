@@ -11,9 +11,7 @@ VENV_NAME="event-tracker"
 
 start() {
     workon "$VENV_NAME"  # 切换到虚拟环境
-    echo "work in VENV: $VENV_NAME"
-    echo "$1"
-    echo "$2"
+    echo "work in VENV: $VENV_NAME, ENV: $ENV"
     if [ "$2" = "main" ]; then
         cd "$APP_PATH" || exit
         python3 main.py >> "$LOGS_DIR/$APP_NAME.log" 2>&1 &
@@ -22,6 +20,12 @@ start() {
         cd "$APP_PATH" || exit
         python3 run_sync.py >> "$LOGS_DIR/run_sync.log" 2>&1 &
         echo "Started run_sync"
+    elif [ "$2" = "all" ]; then
+      cd "$APP_PATH" || exit
+      python3 main.py >> "$LOGS_DIR/$APP_NAME.log" 2>&1 &
+      echo "Started $APP_NAME"
+      python3 run_sync.py >> "$LOGS_DIR/run_sync.log" 2>&1 &
+      echo "Started run_sync"
     else
         echo "Invalid process specified"
         exit 1
@@ -29,11 +33,16 @@ start() {
 }
 stop() {
     if [ "$2" = "main" ]; then
-        pkill -f "python main.py"
+        pkill -f "python3 main.py"
         echo "Stopped $APP_NAME"
     elif [ "$2" = "run_sync" ]; then
-        pkill -f "python run_sync.py"
+        pkill -f "python3 run_sync.py"
         echo "Stopped run_sync"
+    elif [ "$2" = "all" ]; then
+      pkill -f "python3 main.py"
+      echo "Stopped $APP_NAME"
+      pkill -f "python3 run_sync.py"
+      echo "Stopped run_sync"
     else
         echo "Invalid process name"
         exit 1
@@ -46,11 +55,11 @@ restart() {
 }
 
 status() {
-    if [ "$2" = "main" ] && pgrep -f "python main.py" >/dev/null; then
+    if [ "$2" = "main" ] && pgrep -f "python3 main.py" >/dev/null; then
         echo "$APP_NAME is running"
-    elif [ "$2" = "run_sync" ] && pgrep -f "python run_sync.py" >/dev/null; then
+    elif [ "$2" = "run_sync" ] && pgrep -f "python3 run_sync.py" >/dev/null; then
         echo "run_sync is running"
-    elif [ "$2" = "all" ] && pgrep -f "python main.py" >/dev/null && pgrep -f "python run_sync.py" >/dev/null; then
+    elif [ "$2" = "all" ] && pgrep -f "python3 main.py" >/dev/null && pgrep -f "python3 run_sync.py" >/dev/null; then
         echo "$APP_NAME and run_sync are running"
     else
         echo "Process is not running"
