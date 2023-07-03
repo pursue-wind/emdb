@@ -7,8 +7,34 @@ from tornado.log import app_log
 from handlers.base_handler import BaseHandler
 
 
-class NftCollectionsHandler(BaseHandler):
-    """User's nft collection"""
+class UserNftCollectionsHandler(BaseHandler):
+    """User's nft collections"""
+
+    @gen.coroutine
+    def post(self):
+        args = self.parse_json_arguments('user_address', 'network')
+        user_address = args.user_address
+        network = args.network
+        yield self.check_auth()
+        if not web3.Web3.is_address(user_address):
+            self.fail(400)
+        result = yield self.mg.query_user_nft_collections(user_address, network)
+        res_dict = dict()
+        res_dict["userAddress"] = user_address
+        res_dict["network"] = network
+        collections = list()
+        for res in result:
+            del res["userAddr"]
+            del res["network"]
+            collections.append(res)
+        res_dict["collections"] = collections
+        self.success(data=res_dict)
+
+
+
+
+class NftSupplyHandler(BaseHandler):
+    """query supply of nft"""
 
     @gen.coroutine
     def post(self):
@@ -19,4 +45,10 @@ class NftCollectionsHandler(BaseHandler):
         if not web3.Web3.is_address(contract_addr):
             self.fail(400)
         result = yield self.mg.query_nft_collection(contract_addr, token_id)
-        self.success(data=result)
+
+        self.success(data=dict(
+            contractAddress=result["contractAddress"],
+            tokenId=result["tokenId"],
+            supply=result["supply"]
+        ))
+

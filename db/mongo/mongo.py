@@ -30,16 +30,11 @@ def init_mongo():
 
     MS_CLIENT.nft_flow_log.drop_indexes()
     MS_CLIENT.nft_flow_log.create_index([('network', 1), ('contractAddress', 1), ('tokenId', 1)])
-    MS_CLIENT.nft_flow_log.create_index('transactionHash')
 
-    MS_CLIENT.nft_collections.create_index('collection_addr')
-    MS_CLIENT.nft_collections.create_index('collection_addr')
+    MS_CLIENT.nft_collections.create_index([('contractAddress', 1), ('tokenId', 1)])
 
     MS_CLIENT.user_logs.drop_indexes()
     MS_CLIENT.user_logs.create_index('user_address')
-    #
-    # MS_CLIENT.nftFlowLogTest.drop_indexes()
-    # MS_CLIENT.nftFlowLogTest.create_index([('network', 1), ('contractAddress', 1), ('tokenId', 1)])
 
     MS_CLIENT.block_timestamp.drop_indexes()
     MS_CLIENT.block_timestamp.create_index([('blockNumber', 1), ("network", 1)], unique=True)

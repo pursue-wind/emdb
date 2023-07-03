@@ -4,6 +4,9 @@ log:
   path: "../../logs/"
   level: "Info"
 server:
+  domain:
+    dev: 127.0.0.1
+    prod: https://tracker.likn.co
   host:
     dev: 127.0.0.1
     prod: 35.72.181.5

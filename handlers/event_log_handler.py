@@ -38,11 +38,3 @@ class EventLogListHandler(BaseHandler):
             res_dict["network"] = args.network
             res_dict["logs"] = log_list
         self.success(data=res_dict)
-
-    def sort_key(self, params):
-        """
-        Sort list order by "blockNumber"
-        :param params: dict
-        :return:
-        """
-        return params["blockNumber"]

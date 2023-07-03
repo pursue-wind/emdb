@@ -25,5 +25,5 @@ class CollectedNftAmountHandler(BaseHandler):
         for re in result:
             if re["to"] != ZERO_ADDRESS:
                 collected_cnt += re["amount"]
-        self.success(data=dict(owner_address=owner_address,contract_addr=contract_addr,
-                               token_id=token_id, collected_cnt=collected_cnt))
+        self.success(data=dict(ownerAddress=owner_address, contractAddr=contract_addr,
+                               tokenId=token_id, collectedCnt=collected_cnt))
