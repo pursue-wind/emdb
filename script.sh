@@ -11,7 +11,7 @@ VENV_NAME="event-tracker"
 start() {
 
     workon "$VENV_NAME"  # 切换到虚拟环境
-
+    echo "work in $VENV_NAME"
     if [ "$2" = "main" ]; then
         cd "$APP_PATH" || exit
         python3 main.py &
