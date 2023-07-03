@@ -23,7 +23,7 @@ def init_mongo():
     MS_CLIENT.logs.create_index('transactionHash')
 
     MS_CLIENT.block_height.drop_indexes()
-    MS_CLIENT.blockHeight.create_index('height')
+    MS_CLIENT.block_height.create_index('height')
 
     MS_CLIENT.user.drop_indexes()
     MS_CLIENT.user.create_index('user_address')
