@@ -5,7 +5,7 @@ source /usr/local/bin/virtualenvwrapper.sh
 
 APP_NAME="event-tracker"
 APP_PATH="/data/event-tracker/event-tracker"
-LOGS_DIR="/data/event-tracker/event-tracker/logs"
+#LOGS_DIR="/data/event-tracker/event-tracker/logs"
 
 VENV_NAME="event-tracker"
 
