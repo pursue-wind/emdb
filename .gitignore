@@ -1,7 +1,9 @@
+readme.txt
 .idea/
 venv/
 logs/
 test.py
+
 handlers/test.py
 *.DS_Store
 .gitignore
