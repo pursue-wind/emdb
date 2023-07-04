@@ -17,16 +17,6 @@ class LogsTasks(MongoBase):
         return result
 
     @gen.coroutine
-    def update_logs(self, address, logs):
-        self.logs.update_one(
-            dict(address=address),
-            {'$set': {
-                'log': logs,
-                'time': datetime.utcnow()
-            }},
-            upsert=True)
-
-    @gen.coroutine
     def insert_logs(self, logs):
         yield self.logs.insert_many(logs)
 

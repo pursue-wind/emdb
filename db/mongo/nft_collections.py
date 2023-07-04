@@ -17,9 +17,8 @@ class NftCollection(MongoBase):
         return result
 
     @gen.coroutine
-    def update_nft_collection(self, contract_address, token_id, network, update_info):
+    def update_nft_collection(self, contract_address, token_id, update_info):
         yield self.nft_collections.update_one({"contractAddress": contract_address,
-                                               "tokenId": token_id,
-                                               "network": network},
+                                               "tokenId": token_id},
                                               {'$set': update_info},
                                               upsert=True)

@@ -39,7 +39,6 @@ class UserNftCollectionsHandler(BaseHandler):
         self.success(data=res_dict)
 
 
-
 class NftSupplyHandler(BaseHandler):
     """query supply of nft"""
 
@@ -57,7 +56,7 @@ class NftSupplyHandler(BaseHandler):
             contractAddress=result["contractAddress"],
             tokenId=result["tokenId"],
             supply=result["supply"],
-            mint=result["mint"],
-            burn=result["burn"]
+            mint=result.get("mint", 0),
+            burn=result.get("burn", 0)
         ))
 

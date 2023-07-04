@@ -12,13 +12,6 @@ from db.mongo.base import MongoBase
 class NftFlowLog(MongoBase):
     """Nft Flow Logs"""
 
-    # @gen.coroutine
-    # async def query_nft_flow_logs(self, address, token_id, network):
-    #     result = self.nftFlowLog.find(
-    #         dict(contractAddress=address, tokenId=token_id, network=network), projection=dict(_id=0))
-    #     res_list = await result.to_list(length=1000)
-    #     return res_list
-
     @gen.coroutine
     def query_nft_flow_logs(self, address, token_id, network):
         result = self.nft_flow_log.find(

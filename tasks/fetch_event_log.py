@@ -70,7 +70,7 @@ def record_user_nft_info(event_logs, network_name):
                 else:
                     total_supply = amount_list[i]
                     total_mint = amount_list[i]
-                yield mg.update_nft_collection(collection_addr, token_ids[i], network_name, {"supply": total_supply, "mint": total_mint})
+                yield mg.update_nft_collection(collection_addr, token_ids[i], {"network": network_name, "supply": total_supply, "mint": total_mint})
 
             if to_addr != ZERO_ADDRESS:
                 user_info_to = yield mg.query_user_info(to_addr, collection_addr, token_ids[i], network_name)
@@ -90,7 +90,7 @@ def record_user_nft_info(event_logs, network_name):
                 else:
                     total_supply = amount_list[i]
                     total_burn = amount_list[i]
-                yield mg.update_nft_collection(collection_addr, token_ids[i], network_name, {"supply": total_supply, "burn": total_burn})
+                yield mg.update_nft_collection(collection_addr, token_ids[i], {"network": network_name, "supply": total_supply, "burn": total_burn})
 
 @gen.coroutine
 def record_event_logs(event_logs, network_name, w3_obj):
