@@ -175,7 +175,6 @@ class BaseHandler(RequestHandler):
             self.fail(401)
 
 
-
     def parse_form_arguments(self, *enforced_keys, **optional_keys):
         """Parse FORM argument like `get_argument`."""
 
@@ -201,7 +200,6 @@ class BaseHandler(RequestHandler):
         """Parse JSON argument like `get_argument`."""
 
         request_body = self.request.body
-        app_log.info(f"request_body:{json.loads(request_body.decode())}")
 
         if not request_body:
             request_body = b'{}'
@@ -210,6 +208,8 @@ class BaseHandler(RequestHandler):
 
         try:
             req = json.loads(request_body.decode())
+            app_log.info(f"request_body:{json.loads(request_body.decode())}")
+
         except json.JSONDecodeError as exception:
             dump_error('Exception:\n', request_body.decode())
             raise ParseJSONError(exception.doc)
