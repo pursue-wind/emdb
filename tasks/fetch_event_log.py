@@ -1,4 +1,5 @@
 import web3
+from tornado.log import app_log
 
 from . import mg
 from tornado import ioloop, gen
@@ -6,7 +7,7 @@ import web3.constants
 
 from web3_utils.get_event_logs import Web3Utils
 from config import CFG as cfg
-from lib.utils.log_ext import logger
+# from lib.utils.log_ext import logger
 
 initial_block_height = cfg.scan_blocks.initial_height
 scan_time_gap = cfg.scan_blocks.scan_time_gap
@@ -100,7 +101,7 @@ def record_event_logs(event_logs, network_name, w3_obj):
     :return:
     """
     if not isinstance(event_logs, list):
-        logger.error(event_logs)
+        # app_log.error(event_logs)
         raise TypeError("Unknow result type,there is an error with fetch_event_log!")
     if len(event_logs) == 0:
         return
@@ -164,7 +165,7 @@ def get_event_logs(w3_obj, contract_info, network_name):
 
     event_types = contract_info["event"]
     block_gap = cfg.scan_blocks.scan_block_gap
-    print(f"event_types:{event_types}")
+    app_log.info(f"event_types:{event_types}")
     contract_address = get_contract_address(contract_info, network_name)
 
     for event_name in event_types:
@@ -172,7 +173,7 @@ def get_event_logs(w3_obj, contract_info, network_name):
         if not scaned_block_height:
             from_block = contract_info["initial_height"][network_name]
         else:
-            print(f"scaned_block_height:{scaned_block_height['scanedBlockHeight']}")
+            app_log.info(f"scaned_block_height:{scaned_block_height['scanedBlockHeight']}")
             from_block = scaned_block_height["scanedBlockHeight"] + 1
         end_block = int(from_block) + block_gap
 
@@ -186,7 +187,7 @@ def get_event_logs(w3_obj, contract_info, network_name):
         try:
             abi = w3_obj.get_abi_content(contract_info["abi_file"])
 
-            logger.info(f"contract_address:{contract_address},event_name:{event_name},from_block:{from_block}, "
+            app_log.info(f"contract_address:{contract_address},event_name:{event_name},from_block:{from_block}, "
                         f"to_block:{end_block}, current_block_height:{current_block_height}")
 
             event_logs = yield w3_obj.get_contract_event_logs(contract_address, abi, event_name, int(from_block),
@@ -221,7 +222,7 @@ def get_event_logs(w3_obj, contract_info, network_name):
                             {"eventName": _event_name, "network": network_name, "contractAddress": address_proxy},
                             {"scanedBlockHeight": end_block})
 
-                        logger.info(f"create1155_proxy_event_logs : {address_proxy, _event_name, from_block, end_block}")
+                        app_log.info(f"create1155_proxy_event_logs : {address_proxy, _event_name, from_block, end_block}")
 
                         yield record_event_logs(create1155_proxy_event_logs, network_name, w3_obj)
                         yield record_user_nft_info(create1155_proxy_event_logs, network_name)
@@ -235,8 +236,8 @@ def get_event_logs(w3_obj, contract_info, network_name):
                                          {"scanedBlockHeight": end_block})
 
         except Exception as e:
-            logger.error(e)
-            logger.error(e.args)
+            app_log.error(e)
+            app_log.error(e.args)
             # if isinstance(e.args[0], dict) and str(e.args[0]["code"]) == "-32005":
             #     if block_gap < 1:
             #         return
@@ -265,7 +266,7 @@ def fetch_event_log():
 
             # 扫描动态创建的合约地址事件
             likn_collection_contracts = yield mg.query_proxy_address()
-            print(likn_collection_contracts)
+            app_log.info(likn_collection_contracts)
             for likn_contract in likn_collection_contracts:
                 _likn_c = dict()
                 _address = dict()
@@ -282,31 +283,10 @@ def fetch_event_log():
                     raise TypeError("Unknow network!")
                 yield get_event_logs(_provider, _likn_c, likn_contract["network"])
         except Exception as e:
-            logger.error(e)
-            logger.error(e.args)
+            app_log.error(e)
+            app_log.error(e.args)
             break
         yield gen.sleep(scan_time_gap)  # second
-
-
-# def parse_user_info(event_logs):
-#     user_info = dict()
-#     operator = event_logs.args['operator']
-#     to_addr = event_logs.args['to']
-#     from_addr = event_logs.args['from']
-#     nft_addr = event_logs.address
-#     event = event_logs.event
-#     token_ids = list()
-#     amount_list = list()
-#     if event == "TransferBatch":
-#         token_ids = event_logs.args["ids"]
-#         amount_list = event_logs.args.values
-#     else:
-#         token_ids.append(event_logs.args.id)
-#         amount_list.append(event_logs.args.value)
-#     user_info["user_addr"] = from_addr
-#     user_info["collection_addr"] = nft_addr
-#     for i in len(token_ids):
-#         user_info[token_ids[i]] = amount_list[i]
 
 
 def parse_transfer_event_logs(event_logs, network_name):
@@ -333,29 +313,6 @@ def parse_transfer_event_logs(event_logs, network_name):
     if "operator" in event_logs["args"].keys():
         flow_log["operator"] = event_logs["args"]["operator"]
     return flow_log
-
-
-# def parse_transfer_event_logs(event_logs, network_name):
-#     if not isinstance(event_logs, dict):
-#         return None
-#     flow_log = dict()
-#     inner_dict = dict()
-#     flow_log["network"] = network_name
-#     flow_log["contractAddress"] = event_logs["address"]
-#     # flow_log["event"] = event_logs["event"]
-#     flow_log["tokenId"] = event_logs["args"]["id"]
-#
-#     inner_dict["event"] = event_logs["event"]
-#     inner_dict["from"] = event_logs["args"]["from"]
-#     inner_dict["to"] = event_logs["args"]["to"]
-#     inner_dict["amount"] = event_logs["args"]["value"]
-#     inner_dict["transactionHash"] = event_logs["transactionHash"]
-#     inner_dict["blockNumber"] = event_logs["blockNumber"]
-#     if "operator" in event_logs["args"].keys():
-#         inner_dict["operator"] = event_logs["args"]["operator"]
-#     flow_log["logs"] = inner_dict
-#
-#     return flow_log
 
 
 def parse_create1155_event_logs(event_logs, network_name):

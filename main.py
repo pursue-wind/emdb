@@ -29,7 +29,7 @@ def log_function(handler):
 class Application(tornado.web.Application):
     def __init__(self):
         super(Application, self).__init__(handlers=routes, log_function=log_function, **cfg.application)
-        init_log()
+        init_log(log_name="main")
         init_mongo()
         # cfg.show()
 
