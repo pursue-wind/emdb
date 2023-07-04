@@ -14,17 +14,17 @@ start() {
     echo "work in VENV: $VENV_NAME, ENV: $ENV"
     if [ "$2" = "main" ]; then
         cd "$APP_PATH" || exit
-        python3 main.py >> "$LOGS_DIR/$APP_NAME.log" 2>&1 &
+        python3 main.py  >/dev/null 2>&1 &
         echo "Started $APP_NAME"
     elif [ "$2" = "run_sync" ]; then
         cd "$APP_PATH" || exit
-        python3 run_sync.py >> "$LOGS_DIR/run_sync.log" 2>&1 &
+        python3 run_sync.py >/dev/null 2>&1 &
         echo "Started run_sync"
     elif [ "$2" = "all" ]; then
       cd "$APP_PATH" || exit
-      python3 main.py >> "$LOGS_DIR/$APP_NAME.log" 2>&1 &
+      python3 main.py  >/dev/null 2>&1 &
       echo "Started $APP_NAME"
-      python3 run_sync.py >> "$LOGS_DIR/run_sync.log" 2>&1 &
+      python3 run_sync.py  >/dev/null 2>&1 &
       echo "Started run_sync"
     else
         echo "Invalid process specified"
