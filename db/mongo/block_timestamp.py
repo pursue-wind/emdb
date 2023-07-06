@@ -19,5 +19,12 @@ class BlockTimestamp(MongoBase):
         info = dict(timestamp=timestamp)
         yield self.block_timestamp.update_one(dict(blockNumber=block_number, network=network), {'$set': info}, upsert=True)
 
-
+    @gen.coroutine
+    def insert_block_timestamp(self, block_number, network, timestamp):
+        info = dict(
+            blockNumber=block_number,
+            network=network,
+            timestamp=timestamp
+        )
+        yield self.block_timestamp.insert_one(info)
 

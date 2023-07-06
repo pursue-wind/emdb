@@ -25,18 +25,20 @@ class Web3Utils:
             abi_content = f.read()
         return abi_content
 
+    @gen.coroutine
     def get_block_info(self, block_number):
         w3 = self.get_provider()
         block_info = w3.eth.get_block(block_number)
         return block_info
 
-    # @gen.coroutine
+    @gen.coroutine
     def get_current_block_height(self):
         w3 = self.get_provider()
         current_block = w3.eth.get_block('latest')
         height = current_block.number
         return height
-    # @gen.coroutine
+
+    @gen.coroutine
     def get_block_timestamp(self, block_number):
         w3 = self.get_provider()
         block = w3.eth.get_block(block_number)

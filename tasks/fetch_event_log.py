@@ -1,3 +1,5 @@
+import time
+
 import web3
 from tornado.log import app_log
 
@@ -52,13 +54,13 @@ def record_user_nft_info(event_logs, network_name):
         for i in range(len(token_ids)):
             user_info[token_ids[i]] = amount_list[i]
             if from_addr != ZERO_ADDRESS:
-                user_info_from = yield mg.query_user_info(from_addr, collection_addr, token_ids[i], network_name)
+                user_info_from = yield mg.query_user_info(network_name, token_ids[i], from_addr, collection_addr)
                 if user_info_from:
                     _amount_from = user_info_from.get("amount", 0)
                     amount_from = _amount_from - amount_list[i]
                 else:
                     amount_from = amount_list[i]
-                yield mg.update_user_info(from_addr, collection_addr, token_ids[i], network_name,
+                yield mg.update_user_info(network_name, from_addr, collection_addr, token_ids[i],
                                                {"amount": amount_from})
             else:
                 nft_collection = yield mg.query_nft_collection(collection_addr, token_ids[i])
@@ -126,8 +128,7 @@ def record_event_logs(event_logs, network_name, w3_obj):
         logs_list.append(log_dict)
         nft_flow_log_list.append(nft_flow_log)
     if len(logs_list) > 0:
-        yield mg.insert_logs(logs_list)
-        yield mg.insert_nft_flow_logs(nft_flow_log_list)
+        yield [mg.insert_logs(logs_list), mg.insert_nft_flow_logs(nft_flow_log_list)]
 
 
 @gen.coroutine
@@ -142,8 +143,8 @@ def get_block_timestamp(w3_obj, block_number, network_name):
     timestamp_obj = yield mg.query_block_timestamp(block_number, network_name)
     if not timestamp_obj:
         # get timestamp from chain second
-        timestamp = w3_obj.get_block_timestamp(block_number)
-        yield mg.update_block_timestamp(block_number, network_name, timestamp)
+        timestamp = yield w3_obj.get_block_timestamp(block_number)
+        yield mg.insert_block_timestamp(block_number, network_name, timestamp)
     else:
         timestamp = timestamp_obj.get("timestamp", None)
     return timestamp
@@ -157,7 +158,7 @@ def get_event_logs(w3_obj, contract_info, network_name):
     :param network_name: "eth", "polygon"
     :return: None
     """
-    current_block_info = w3_obj.get_block_info('latest')
+    current_block_info = yield w3_obj.get_block_info('latest')
     current_block_height = current_block_info.number
     current_block_timestamp = current_block_info.timestamp
     # record block timestamp
@@ -192,7 +193,8 @@ def get_event_logs(w3_obj, contract_info, network_name):
 
             event_logs = yield w3_obj.get_contract_event_logs(contract_address, abi, event_name, int(from_block),
                                                               int(end_block))
-
+            app_log.info(f"length event_logs: {len(event_logs)}")
+            # app_log.info(f"event_logs :{event_logs}")
             if contract_info["is_proxy"]:
                 logs_list = list()
                 for logs in event_logs:
@@ -224,27 +226,24 @@ def get_event_logs(w3_obj, contract_info, network_name):
 
                         app_log.info(f"create1155_proxy_event_logs : {address_proxy, _event_name, from_block, end_block}")
 
-                        yield record_event_logs(create1155_proxy_event_logs, network_name, w3_obj)
-                        yield record_user_nft_info(create1155_proxy_event_logs, network_name)
+                        # yield record_event_logs(create1155_proxy_event_logs, network_name, w3_obj)
+                        # yield record_user_nft_info(create1155_proxy_event_logs, network_name)
+                        yield [record_event_logs(create1155_proxy_event_logs, network_name, w3_obj),
+                               record_user_nft_info(create1155_proxy_event_logs, network_name)]
 
                 if len(logs_list) > 0:
                     yield mg.insert_logs(logs_list)
             else:
-                yield record_event_logs(event_logs, network_name, w3_obj)
-                yield record_user_nft_info(event_logs, network_name)
+                # yield record_event_logs(event_logs, network_name, w3_obj)
+                # yield record_user_nft_info(event_logs, network_name)
+                yield [record_event_logs(event_logs, network_name, w3_obj), record_user_nft_info(event_logs, network_name)]
             yield mg.update_block_height({"eventName": event_name, "network": network_name, "contractAddress": contract_address},
                                          {"scanedBlockHeight": end_block})
 
         except Exception as e:
             app_log.error(e)
             app_log.error(e.args)
-            # if isinstance(e.args[0], dict) and str(e.args[0]["code"]) == "-32005":
-            #     if block_gap < 1:
-            #         return
-            #     block_gap /= 2
-            #     block_gap = int(block_gap)
-            #     # end_block = from_block + block_gap
-            #     yield time.sleep(0.5)
+
 
 
 @gen.coroutine
@@ -286,6 +285,7 @@ def fetch_event_log():
             app_log.error(e)
             app_log.error(e.args)
             break
+        app_log.info(f"*******************sleep:{scan_time_gap} seconds***********************")
         yield gen.sleep(scan_time_gap)  # second
 
 
