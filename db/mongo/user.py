@@ -12,8 +12,8 @@ class User(MongoBase):
 
     @gen.coroutine
     def query_user_info(self, user_addr, collection_addr, token_id, network):
-        result = yield self.user.find_one({"user_addr": user_addr, "collection_addr": collection_addr,
-                                           "token_id": token_id, "network": network})
+        result = yield self.user.find_one({"userAddr": user_addr, "collectionAddr": collection_addr,
+                                           "tokenId": token_id, "network": network})
         return result
 
     @gen.coroutine
