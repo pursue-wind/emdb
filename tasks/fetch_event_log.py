@@ -54,13 +54,13 @@ def record_user_nft_info(event_logs, network_name):
         for i in range(len(token_ids)):
             user_info[token_ids[i]] = amount_list[i]
             if from_addr != ZERO_ADDRESS:
-                user_info_from = yield mg.query_user_info(network_name, token_ids[i], from_addr, collection_addr)
+                user_info_from = yield mg.query_user_info(from_addr,collection_addr, token_ids[i], network_name)
                 if user_info_from:
                     _amount_from = user_info_from.get("amount", 0)
                     amount_from = _amount_from - amount_list[i]
                 else:
                     amount_from = amount_list[i]
-                yield mg.update_user_info(network_name, from_addr, collection_addr, token_ids[i],
+                yield mg.update_user_info(from_addr, collection_addr, token_ids[i], network_name,
                                                {"amount": amount_from})
             else:
                 nft_collection = yield mg.query_nft_collection(collection_addr, token_ids[i])
