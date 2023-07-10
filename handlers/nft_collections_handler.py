@@ -51,12 +51,19 @@ class NftSupplyHandler(BaseHandler):
         if not web3.Web3.is_address(contract_addr):
             self.fail(400)
         result = yield self.mg.query_nft_collection(contract_addr, token_id)
-
-        self.success(data=dict(
-            contractAddress=result["contractAddress"],
-            tokenId=result["tokenId"],
-            supply=result["supply"],
-            mint=result.get("mint", 0),
-            burn=result.get("burn", 0)
-        ))
-
+        if result:
+            self.success(data=dict(
+                contractAddress=contract_addr,
+                tokenId=token_id,
+                supply=result.get("supply", 0),
+                mint=result.get("mint", 0),
+                burn=result.get("burn", 0)
+            ))
+        else:
+            self.success(data=dict(
+                contractAddress=contract_addr,
+                tokenId=token_id,
+                supply=0,
+                mint=0,
+                burn=0
+            ))
