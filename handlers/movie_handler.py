@@ -5,7 +5,7 @@ from tornado import gen
 
 from db.pgsql.enums.enums import get_key_by_value, GenresType
 from db.pgsql.movie_key_words import query_movie_keywords
-from db.pgsql.movies import query_movie_by_name, query_movie_by_tmdb_id
+from db.pgsql.movies import query_movie_by_name, query_movie_by_tmdb_id, query_movie_by_company_id
 from db.pgsql.production_company import query_company_by_name, query_company_by_ids
 from handlers.base_handler import BaseHandler
 from service.fetch_moive_info import fetch_movie_info
@@ -17,6 +17,7 @@ class SearchMovie(BaseHandler):
     search by name or tmdb movie id
     :returns movies
     """
+
     @gen.coroutine
     def post(self, *_args, **_kwargs):
         args = self.parse_form_arguments('movie_name')
@@ -44,7 +45,7 @@ class SearchMovie(BaseHandler):
             production_companies = yield query_company_by_ids(production_company_ids)
             mv["production_companies"] = production_companies["data"]["companies"]
             keywords_list = yield query_movie_keywords(mv["id"])
-            mv["keywords"] =keywords_list.get("data")
+            mv["keywords"] = keywords_list.get("data")
         self.success(data=dict(movies=movies))
 
 
@@ -52,6 +53,7 @@ class AddMovie(BaseHandler):
     """
     add movie by tmdb movie id
     """
+
     @gen.coroutine
     def post(self, *_args, **_kwargs):
         args = self.parse_form_arguments('tmdb_movie_id')
@@ -95,6 +97,7 @@ class SearchCompanyMoviesOnTmdb(BaseHandler):
     search all movies of a company by company id in tmdb
     :returns movies list
     """
+
     @gen.coroutine
     def post(self, *_args, **_kwargs):
         args = self.parse_form_arguments('tmdb_company_id')
@@ -111,25 +114,42 @@ class SearchCompanyMovies(BaseHandler):
     """
     search all movie of company
     """
+
     @gen.coroutine
     def post(self, *_args, **_kwargs):
-        args = self.parse_form_arguments('tmdb_company_id')
+        args = self.parse_form_arguments('tmdb_company_id', 'page_num', "page_size", movie_name=None)
         tmdb_company_id = args.tmdb_company_id
+        print(args)
+        movie_name = args.movie_name
         yield self.check_auth()
-        res = yield search_company_movies(tmdb_company_id)
-        if res["code"] != 0:
-            self.success(data=dict(movies=[]))
-        movies = res["data"]["results"]
-        self.success(data=dict(movies=movies))
-
-
-
-
-
-
-
-
-
-
-
-
+        result = yield query_movie_by_company_id(tmdb_company_id, movie_name=args.movie_name,
+                                                 page_num=args.page_num,
+                                                 page_size=args.page_size)
+        print(result)
+        if "status" in result and result["status"] != 0:
+            self.fail(1)
+        data = result.get('data', None)
+        # if not data:
+        #     self.success(data=dict())
+        movies = list()
+        for mv in data["movies"]:
+            mv["release_date"] = mv['release_date'].strftime('%Y-%m-%d %H:%M:%S')
+            mv["vote_average"] = float(mv["vote_average"])
+            mv["popularity"] = float(mv["popularity"])
+            movies.append(mv)
+            # get genres
+            genres_ids = mv["genres"]
+            genres_value = []
+            for gen in genres_ids:
+                value = get_key_by_value(GenresType, gen)
+                genres_value.append(value)
+            mv["genres"] = genres_value
+            production_company_ids = mv["production_companies"]
+            production_companies = yield query_company_by_ids(production_company_ids)
+            mv["production_companies"] = production_companies["data"]["companies"]
+            keywords_list = yield query_movie_keywords(mv["id"])
+            mv["keywords"] = keywords_list.get("data")
+        self.success(data=dict(page_num=args.page_num,
+                               page_size=args.page_size,
+                               total=data.get('total', 0),
+                               movies=movies))
