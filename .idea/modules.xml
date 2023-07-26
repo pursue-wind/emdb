@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../eth-api/.idea/eth-api.iml" filepath="$PROJECT_DIR$/../eth-api/.idea/eth-api.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/event-tracker.iml" filepath="$PROJECT_DIR$/.idea/event-tracker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/emdb.iml" filepath="$PROJECT_DIR$/.idea/emdb.iml" />
     </modules>
   </component>
 </project>

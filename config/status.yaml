@@ -8,4 +8,11 @@
   msg: Auth Error!
 - code: 403
   msg: Unsupport Network!
+- code: 404
+  msg: Not Found!
+- code: 405
+  msg: Add Movie Fail!
+- code: 407
+  msg: Movie Already Exists!
+
 

@@ -17,7 +17,6 @@ from config.status import NS
 from lib.arguments import Arguments
 from lib.errors import ParseJSONError
 from lib.logger import dump_error, dump_out
-from db.mongo import Mongo
 
 
 ENFORCED = True
@@ -44,7 +43,6 @@ class BaseHandler(RequestHandler):
 
     def __init__(self, application, request, **kwargs):
         super(BaseHandler, self).__init__(application, request, **kwargs)
-        self.mg = Mongo()
         self.params = None
         self.lang = None
 
@@ -142,22 +140,6 @@ class BaseHandler(RequestHandler):
             pass
 
     @gen.coroutine
-    def get_params(self, **kwargs):
-        """Check user status."""
-        token = self.get_argument('usertoken', '')
-
-        if not token:
-            return None
-        # user_id = token_bar.get_token(token)
-        # if not user_id:
-        #     return None
-        # token_bar.set_token(token)
-        # params = yield self.get_user_info(user_id)
-        # return Arguments(params)
-        # todo
-
-
-    @gen.coroutine
     def check_auth(self, **kwargs):
         """Check auth."""
         headers = self.request.headers
@@ -166,14 +148,11 @@ class BaseHandler(RequestHandler):
             auth_mode, auth_base64 = auth_header.split(' ', 1)
             auth_info = base64.b64decode(auth_base64)
             app_id, app_key = auth_info.decode('utf-8').split(":")
-            # print(f"app_id:{app_id}")
-            # print(f"app_key:{app_key}")
             if AUTH_INFO[app_id] != app_key:
                 self.fail(401)
         except Exception as e:
             app_log.error(e)
             self.fail(401)
-
 
     def parse_form_arguments(self, *enforced_keys, **optional_keys):
         """Parse FORM argument like `get_argument`."""
@@ -301,7 +280,6 @@ class BaseHandler(RequestHandler):
 
         raise Finish(data)
 
-
     @gen.coroutine
     def wait(self, func, worker_mode=True, args=None, kwargs=None, **kw):
         """Method to waiting celery result."""
@@ -350,10 +328,3 @@ class BaseHandler(RequestHandler):
             args=args, kwargs=dict(kwargs, meta=meta), **kw)
 
         return
-
-    @staticmethod
-    def qipa_round(num, digit=2, mod=math.floor):
-        rate = 10**digit
-        huge_num = rate * num
-        res_num = mod(huge_num)
-        return round(res_num / rate, 2)

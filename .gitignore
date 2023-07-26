@@ -3,7 +3,7 @@ readme.txt
 venv/
 logs/
 test.py
-
+*test.py
 handlers/test.py
 *.DS_Store
 .gitignore

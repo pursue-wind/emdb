@@ -1,12 +1,11 @@
 # coding:utf-8
 """Here is some status defination."""
 from config import CFG as cfg
-from pymongo import MongoClient
 import yaml
 
-MS_CLIENT = MongoClient(cfg.mongo.client).__getattr__(
-    cfg.mongo.db)
-
+# MS_CLIENT = MongoClient(cfg.mongo.client).__getattr__(
+#     cfg.mongo.db)
+#
 
 class NormalStatus:
     """To be generated."""
@@ -22,32 +21,6 @@ class NormalStatus:
 
         for item in STATUS:
             self._status[item['code']] = item['msg']
-
-        for status in STATUS:
-            self._set_status(
-                status['code'],
-                dict(
-                    msg=status.get('msg')))
-        self._update_status()
-
-    def _set_status(self, status, message_dict):
-        MS_CLIENT.status_message.update_one(
-            dict(status=status), {'$set': message_dict}, upsert=True)
-
-    def _get_status(self, status):
-        result = MS_CLIENT.status_message.find_ones(
-            dict(status=status), projection=dict(_id=0))
-        return result
-
-    def _update_status(self):
-        self.cn_status = dict()
-        result = MS_CLIENT.status_message.find(
-            dict(
-                status={'$exists': True},
-                msg={'$exists': True}),
-            projection=dict(_id=0, status=1, msg=1))
-        for item in result:
-            self._status[item['status']] = item['msg']
 
     def get_status_message(self, code):
         if code == -1:

@@ -1,8 +1,11 @@
 project:
-  name: Event-Tracker
+  name: emdb
 log:
   path: "../../logs/"
   level: "Info"
+debug:
+  dev: true
+  prod: false
 server:
   domain:
     dev: 127.0.0.1
@@ -11,61 +14,21 @@ server:
     dev: 127.0.0.1
     prod: 35.72.181.5
   port:
-    dev: 8090
-    prod: 8090
+    dev: 8088
+    prod: 8088
   pass_mixin: "0x00544"
-
-mysql:
+pgsql:
   dev:  >-
-    mysql+pymysql://username:pwd@host:port/db_name?charset=utf8mb4
+    postgresql://postgres:emdb2scjdl@localhost:5432/emdb
   prod: >-
-    mysql+pymysql://username:pwd@host:port/db_name?charset=utf8mb4
+    postgresql://postgres:pwd@host:port/db_name?charset=utf8mb4
 mongo:
   client:
     dev: "mongodb://admin:event_logs.likn.co@localhost:27017/admin"
-    prod: "mongodb://event:t1E8RPiTyYOOzm0H188f7fc79aa@172.31.29.206:27017/admin"
+    prod: "mongodb://admin:event_logs.likn.co@localhost:27017/admin"
   db:
-    dev: "event_logs"
-    prod: "event_logs"
-debug:
-  dev: true
-  prod: false
-
-### Config Of Get Event Logs
-web3_provider:
-  infura:
-    eth: "https://mainnet.infura.io/v3/c2d6f727c31447e4a364c8b3523e7bfd"
-  alchemy:
-    eth: "https://eth-mainnet.g.alchemy.com/v2/eFxKPxLsMhNJJoe6QA5WTdo_zHDkieER"
-    polygon: "https://polygon-mainnet.g.alchemy.com/v2/dKBNqE6MBiVnwvtyuO2SyGmpQhLi51V7"
-
-contracts:
-  ## Rarible
-  contract_1:
-    event: ["TransferSingle", "TransferBatch"]
-    address:
-      eth: "0xB66a603f4cFe17e3D27B87a8BfCaD319856518B8"
-      polygon: "0xa2d9ded6115b7b7208459450d676f0127418ae7a"
-    abi_file: "./lib/contract_abi/rarible_abi.json"
-    is_proxy: False
-    initial_height:
-      eth: 16782087
-      polygon: 39418653
-  ## LiknCloneFactory
-  contract_2:
-    event: ["Create1155RaribleUserProxy"]
-    address:
-      eth: "0x6a26E902E41B31c91701bBbf33773Ead8BF1691d"
-      polygon: "0xfa63EA28fB0F6901d76E9B418eB4350281a89c62"
-    abi_file: "./lib/contract_abi/likn_clone_factory_abi.json"
-    initial_height:
-      eth: 16782087
-      polygon: 39418653
-    is_proxy: True
-likn_collection_contracts:
-  # LiknUpgradeable_v3
-  proxy_abi_file: "./lib/contract_abi/liknv_upgradeable_v3_abi.json"
-  event: ["TransferSingle", "TransferBatch"]
-scan_blocks:
-  scan_time_gap: 5
-  scan_block_gap: 1000
+    dev: "emdb"
+    prod: "emdb"
+swagger:
+  path: '/path/to/swagger'
+  ui_path: '/path/to/swagger-ui'

@@ -1,13 +1,17 @@
-import logging
-import sys
 
 import tornado.web
+import tornado_swagger
+from tornado_swagger._handlers import SwaggerSpecHandler, SwaggerUiHandler
 from tornado.log import access_log, app_log
+
+from db.pgsql.mysql_models import init_db
+# from db.pgsql.base import init_db
 from lib.logger import init_log
 from routes import ROUTES as routes
 from config import CFG as cfg
-from db.mongo import init_mongo
-from lib.generate import get_appkey, create_token, get_appsecret
+from tornado_swagger.setup import setup_swagger
+
+
 def log_function(handler):
     """
     日志处理
@@ -28,10 +32,25 @@ def log_function(handler):
 
 class Application(tornado.web.Application):
     def __init__(self):
+
+        # setup_swagger(
+        #     routes,
+        #     swagger_url="/docs",
+        #     api_base_url="/api",
+        #     description="",
+        #     api_version="1.0.0",
+        #     title="EMDB API",
+        #     # contact="van@van.com",
+        #     schemes=["https"],
+        #     security_definitions={
+        #         "BasicAuth": {"type": "basic", "description": "HTTP Basic Authentication"}
+        #     },
+        # )
+
         super(Application, self).__init__(handlers=routes, log_function=log_function, **cfg.application)
         init_log(log_name="main")
-        init_mongo()
         # cfg.show()
+        init_db()
 
 
 if __name__ == "__main__":

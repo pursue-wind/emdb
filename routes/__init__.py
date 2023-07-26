@@ -1,5 +1,6 @@
-from .event_log_list import INDEX_ROUTE
+from .routes import MOVIE_ROUTE, COMPANY_ROUTE
 
 ROUTES = sum([
-    INDEX_ROUTE,
+    COMPANY_ROUTE,
+    MOVIE_ROUTE
 ], [])
