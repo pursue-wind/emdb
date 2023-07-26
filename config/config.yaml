@@ -9,10 +9,10 @@ debug:
 server:
   domain:
     dev: 127.0.0.1
-    prod: https://tracker.likn.co
+    prod: https://emdb.api.co
   host:
     dev: 127.0.0.1
-    prod: 35.72.181.5
+    prod: 43.207.219.44
   port:
     dev: 8088
     prod: 8088
@@ -21,14 +21,7 @@ pgsql:
   dev:  >-
     postgresql://postgres:emdb2scjdl@localhost:5432/emdb
   prod: >-
-    postgresql://postgres:pwd@host:port/db_name?charset=utf8mb4
-mongo:
-  client:
-    dev: "mongodb://admin:event_logs.likn.co@localhost:27017/admin"
-    prod: "mongodb://admin:event_logs.likn.co@localhost:27017/admin"
-  db:
-    dev: "emdb"
-    prod: "emdb"
+    postgresql://postgres:8BR53B9ErGweQH@43.207.219.44:5432/emdb
 swagger:
   path: '/path/to/swagger'
   ui_path: '/path/to/swagger-ui'
