@@ -3,11 +3,10 @@ export WORKON_HOME=$HOME/.virtualenvs
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 source /usr/local/bin/virtualenvwrapper.sh
 
-APP_NAME="event-tracker"
-APP_PATH="/data/event-tracker/event-tracker"
-#LOGS_DIR="/data/event-tracker/event-tracker/logs"
+APP_NAME="emdb"
+APP_PATH="/data/emdb/emdb"
 
-VENV_NAME="event-tracker"
+VENV_NAME="emdb"
 
 start() {
     workon "$VENV_NAME"  # 切换到虚拟环境

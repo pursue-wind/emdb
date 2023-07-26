@@ -1,7 +1,5 @@
 
 import tornado.web
-import tornado_swagger
-from tornado_swagger._handlers import SwaggerSpecHandler, SwaggerUiHandler
 from tornado.log import access_log, app_log
 
 from db.pgsql.mysql_models import init_db
