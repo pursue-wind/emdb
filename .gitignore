@@ -7,4 +7,3 @@ test.py
 handlers/test.py
 *.DS_Store
 .gitignore
-kk

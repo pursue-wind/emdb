@@ -31,7 +31,7 @@ OPERATORS = {
     '$neq': lambda x, y: x != y,
 }
 
-AUTH_INFO = {"2gqcy4qbrm56": "feed0f24e31a08b7e4bed1fec4dd2655"}
+AUTH_INFO = {"2gqcvdlkqbrm56": "feed0f24e31a235gd8b7e4bed1fec4dd2655"}
 
 token_list = ['DJy87FAUwpIYn4KC188f099b152']
 
