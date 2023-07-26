@@ -119,6 +119,10 @@ class SearchCompanyMovies(BaseHandler):
     def post(self, *_args, **_kwargs):
         args = self.parse_form_arguments('tmdb_company_id', 'page_num', "page_size", movie_name=None)
         tmdb_company_id = args.tmdb_company_id
+        page_num = args.page_num
+        page_size = args.page_size
+        if not all([tmdb_company_id, page_size, page_num]):
+            self.fail(402)
         print(args)
         movie_name = args.movie_name
         yield self.check_auth()

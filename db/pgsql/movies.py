@@ -12,7 +12,7 @@ from db.pgsql.base import exc_handler, datetime_handler
 @exc_handler
 def query_movie_by_name(movie_name, **kwargs):
     sess = kwargs.get('sess')
-    movie_list = sess.query(Movies).filter(Movies.title.ilike(f"%{movie_name}%")).all()
+    movie_list = sess.query(Movies).filter(Movies.original_title.ilike(f"%{movie_name}%")).all()
     # movie_list = [json.dumps(movie.to_dict(), default=datetime_handler) for movie in results]
     if len(movie_list) > 0:
         movie_list = [movie.to_dict() for movie in movie_list]
@@ -39,7 +39,7 @@ def query_movie_by_company_id(tmdb_company_id, **kwargs):
     movie_name = kwargs.get("movie_name")
     query = sess.query(Movies).filter(Movies.production_companies.any(tmdb_company_id))
     if movie_name:
-        query = query.filter(Movies.title.ilike(f"%{movie_name}%"))
+        query = query.filter(Movies.original_title.ilike(f"%{movie_name}%"))
 
     total = query.count()
 

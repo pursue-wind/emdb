@@ -6,6 +6,8 @@
   msg: Parameters Error!
 - code: 401
   msg: Auth Error!
+- code: 402
+  msg: Bad Requests!
 - code: 403
   msg: Unsupport Network!
 - code: 404
