@@ -11,8 +11,8 @@ MOVIE_ROUTE = [
     ("/api/movie/release_dates", MovieReleaseDates),
     ("/api/movie/images", MovieImages),
     ("/api/movie/videos", MovieVideos),
-
 ]
+
 
 COMPANY_ROUTE = [
     ("/api/company/search", SearchCompany),

@@ -51,7 +51,6 @@ class BaseHandler(RequestHandler):
         return f'{self.request.method.rjust(6, s)} {self.request.remote_ip.rjust(15, s)}  {self.request.path} '
 
 
-
     def log_exception(self, typ, value, tb):
         """Override to customize logging of uncaught exceptions.
 
@@ -80,8 +79,8 @@ class BaseHandler(RequestHandler):
     def options(self, *_args, **_kwargs):
         self.set_header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE')
         self.set_header('Access-Control-Allow-Headers', 'Content-Type')
-        self.success()
 
+        self.success()
 
     def fail(self, status, data=None, polyfill=None, msg=None, **_kwargs):
         """assemble and return error data."""
@@ -93,14 +92,14 @@ class BaseHandler(RequestHandler):
             data = dict()
 
         self.finish_with_json(
-            dict(status=status, msg=msg, data=data or dict(), **_kwargs))
+            dict(code=status, msg=msg, data=data or dict(), **_kwargs))
 
     def success(self, msg='Successfully.', data=None, **_kwargs):
         """assemble and return error data."""
         if data is None:
             data = dict()
 
-        self.finish_with_json(dict(status=0, msg=msg, data=data))
+        self.finish_with_json(dict(code=0, msg=msg, data=data))
 
     @gen.coroutine
     def fetch(self,
@@ -259,12 +258,12 @@ class BaseHandler(RequestHandler):
                 self.write(line)
             self.finish(
                 json.dumps(
-                    dict(status=status_code, msg=self._reason,
+                    dict(code=status_code, msg=self._reason,
                          data={})).encode())
         else:
             self.finish(
                 json.dumps(
-                    dict(status=status_code, msg=self._reason,
+                    dict(code=status_code, msg=self._reason,
                          data={})).encode())
 
     def finish_with_bytes(self, data, content_type='text/plain'):
