@@ -1,6 +1,7 @@
 from tornado.web import url
 
-from handlers.movie_extra_info import MovieAlternativeTitles, MovieCredits, MovieReleaseDates, MovieImages, MovieVideos
+from handlers.movie_extra_info import MovieAlternativeTitles, MovieCredits, MovieReleaseDates, MovieImages, MovieVideos, \
+    MovieTranslations
 from handlers.movie_handler import SearchMovie, SearchCompany, AddMovie, SearchCompanyMovies
 
 MOVIE_ROUTE = [
@@ -11,6 +12,7 @@ MOVIE_ROUTE = [
     ("/api/movie/release_dates", MovieReleaseDates),
     ("/api/movie/images", MovieImages),
     ("/api/movie/videos", MovieVideos),
+    ("/api/movie/translations", MovieTranslations)
 ]
 
 

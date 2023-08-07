@@ -9,10 +9,12 @@ from db.pgsql.base import exc_handler
 @exc_handler
 def query_movie_translations(movie_id, **kwargs):
     sess = kwargs.get('sess')
-    res = sess.query(MoviesTranslations).filter(MoviesTranslations.id == movie_id).first()
-    if res:
+    result = sess.query(MoviesTranslations).filter(MoviesTranslations.movie_id == movie_id).all()
+    translations_list = []
+    for res in result:
         res = res.to_dict()
-    return res
+        translations_list.append(res)
+    return translations_list
 
 
 @gen.coroutine

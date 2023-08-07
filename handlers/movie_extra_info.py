@@ -4,6 +4,7 @@ from db.pgsql.movie_alternative_titles import query_alternative_title
 from db.pgsql.movie_credits_relations import query_movie_credits_by_movie_id
 from db.pgsql.movie_images import query_movie_images
 from db.pgsql.movie_release_dates import query_movie_release_dates
+from db.pgsql.movie_translations import query_movie_translations
 from db.pgsql.movie_videos import query_movie_videos
 from handlers.base_handler import BaseHandler
 
@@ -81,9 +82,17 @@ class MovieVideos(BaseHandler):
         self.success(data=result["data"])
 
 
-
-
-
+class MovieTranslations(BaseHandler):
+    """
+    movie translations
+    """
+    @gen.coroutine
+    def get(self,*_args, **_kwargs):
+        args = self.parse_form_arguments('movie_id')
+        movie_id = args.movie_id
+        yield self.check_auth()
+        result = yield query_movie_translations(movie_id)
+        self.success(data=result['data'])
 
 
 
