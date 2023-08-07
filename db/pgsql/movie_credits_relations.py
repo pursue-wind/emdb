@@ -45,6 +45,10 @@ def query_movie_credits_by_movie_id(movie_id, **kwargs):
         credit_info["movie_id"] = relation.movie_id
         credit_info["order"] = relation.order
         credit_info["name"] = credit_detail.name
+        credit_info["tmdb_id"] = credit_detail.tmdb_id
+        credit_info["adult"] = credit_detail.adult
+        credit_info["sex"] = credit_detail.gender
+
         if relation.type == CreditType.cast.value:
             credit_info["character"] = relation.character
             cast.append(credit_info)

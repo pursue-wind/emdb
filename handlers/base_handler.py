@@ -78,7 +78,7 @@ class BaseHandler(RequestHandler):
     @gen.coroutine
     def options(self, *_args, **_kwargs):
         self.set_header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE')
-        self.set_header('Access-Control-Allow-Headers', 'Content-Type')
+        self.set_header('Access-Control-Allow-Headers', 'Content-Type, authorization')
 
         self.success()
 
