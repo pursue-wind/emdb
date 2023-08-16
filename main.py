@@ -12,7 +12,7 @@ from tornado_swagger.setup import setup_swagger
 
 def log_function(handler):
     """
-    日志处理
+    log handler
     :param handler:
     :return:
     """

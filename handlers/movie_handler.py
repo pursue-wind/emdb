@@ -69,7 +69,6 @@ class AddMovie(BaseHandler):
             self.success(data=dict(movie_id=movie_id))
         else:
             self.fail(405)
-    # todo 添加到一半时失败，有部分数据成功。新建一张表，记录每个部分是否获取成功，成功为1，失败为0
 
 
 class SearchCompany(BaseHandler):
@@ -124,7 +123,7 @@ class SearchCompanyMovies(BaseHandler):
         if not all([tmdb_company_id, page_size, page_num]):
             self.fail(402)
         print(args)
-        movie_name = args.movie_name
+        # movie_name = args.movie_name
         yield self.check_auth()
         result = yield query_movie_by_company_id(tmdb_company_id, movie_name=args.movie_name,
                                                  page_num=args.page_num,

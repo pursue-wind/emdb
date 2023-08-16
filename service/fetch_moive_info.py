@@ -42,7 +42,9 @@ def fetch_movie_info(tmdb_mv_id, lang=None, country=None):
     production_company_ids = [item["id"] for item in production_companies]
     spoken_languages_iso6391 = [item["iso_639_1"] for item in spoken_languages]
     production_country_ids = [item["iso_3166_1"] for item in production_countries]
-
+    release_date = mv_detail["release_date"]
+    if release_date == "":
+        mv_detail["release_date"] = None
     mv_detail["genres"] = genres_ids
     mv_detail["production_companies"] = production_company_ids
     mv_detail["production_countries"] = production_country_ids

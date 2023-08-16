@@ -8,8 +8,8 @@ from db.pgsql.base import Base, DB_ENGINE
 
 
 def init_db():
-    # 删除所有表格
-    # Base.metadata.drop_all(bind=DB_ENGINE)
+    # drop all tables
+    Base.metadata.drop_all(bind=DB_ENGINE)
     Base.metadata.create_all(bind=DB_ENGINE)
 
 
@@ -40,7 +40,7 @@ class Movies(Base):
     original_title = Column(String(128), nullable=False)
     overview = Column(Text)
     adult = Column(Boolean, nullable=False)
-    popularity = Column(Numeric(5, 3))
+    popularity = Column(Numeric(10, 3))
     poster_path = Column(String(128))
     production_companies = Column(ARRAY(Integer), doc="制片公司")
     production_countries = Column(ARRAY(String(5)))
@@ -69,9 +69,9 @@ class MovieAlternativeTitles(Base):
     __tablename__ = 'movie_alternative_titles'
     id = Column(Integer, Sequence('movie_alternative_titles_seq'), primary_key=True)
     movie_id = Column(Integer, nullable=False, index=True)
-    iso_3166_1 = Column(String(5))
-    title = Column(String(100), nullable=False)
-    type = Column(String(32))
+    iso_3166_1 = Column(String(30))
+    title = Column(String(200), nullable=False)
+    type = Column(String(200))
 
     __table_args__ = (
         UniqueConstraint('movie_id', 'iso_3166_1', "title"),
@@ -82,15 +82,15 @@ class MoviesTranslations(Base):
     __tablename__ = 'movie_translations'
     id = Column(Integer, Sequence('movie_translations_seq'), primary_key=True)
     movie_id = Column(Integer, nullable=False, index=True)
-    iso_3166_1 = Column(String(5), index=True)
-    iso_639_1 = Column(String(5), index=True)
+    iso_3166_1 = Column(String(30), index=True)
+    iso_639_1 = Column(String(30), index=True)
     name = Column(String(255))
     english_name = Column(String(255))
-    homepage = Column(String(255))
+    homepage = Column(String(500))
     overview = Column(Text)
     runtime = Column(Integer)
-    tagline = Column(String(255))
-    title = Column(String(255))
+    tagline = Column(String(300))
+    title = Column(String(300))
 
     __table_args__ = (
         UniqueConstraint('iso_3166_1', 'iso_639_1'),
@@ -104,12 +104,12 @@ class MovieCreditsRelation(Base):
     id = Column(Integer, Sequence('movie_credits_relation_seq'), primary_key=True)
     movie_id = Column(Integer, ForeignKey('movies.id'), nullable=False, index=True)
     credit_id = Column(Integer, ForeignKey('movie_credits.id'), nullable=False, index=True)
-    tmdb_credit_id = Column(String(255),nullable=False, unique=True)
+    tmdb_credit_id = Column(String(255), nullable=False, unique=True)
     order = Column(Integer)
     character = Column(String(255), default=None)
     department = Column(String(255), default=None)
     job = Column(String(255), default=None)
-    type = Column(Integer, index=True, doc="1:演员，2：工作人员")
+    type = Column(Integer, index=True, doc="1:cast，2：crew")
 
     movie = relationship("Movies")
     credit = relationship("MoviesCredits")
@@ -122,21 +122,20 @@ class MoviesCredits(Base):
     # type = Column(Integer, index=True, doc="1:演员，2：工作人员")
     name = Column(String(255), index=True)
     original_name = Column(String(255))
-    popularity = Column(Numeric(6, 3))
+    popularity = Column(Numeric(10, 3))
     gender = Column(Integer)
     known_for_department = Column(String(255))
     adult = Column(Boolean)
     profile_path = Column(String(255))
     cast_id = Column(Integer, default=None)
-    # credit_id = Column(String(255))
 
 
 class ReleaseDate(Base):
     __tablename__ = 'movie_release_date'
     id = Column(Integer, Sequence('movie_release_date_seq'), primary_key=True)
     movie_id = Column(Integer, nullable=False, index=True)
-    iso_3166_1 = Column(String(5), doc="country")
-    iso_639_1 = Column(String(5), doc="language")
+    iso_3166_1 = Column(String(30), doc="country")
+    iso_639_1 = Column(String(30), doc="language")
     certification = Column(String(255))
     descriptors = Column(ARRAY(String(20)))
     note = Column(String(255))
@@ -152,7 +151,7 @@ class Imgs(Base):
     __tablename__ = 'imgs'
     id = Column(Integer, Sequence('imgs_seq'), primary_key=True)
     movie_id = Column(Integer, nullable=False, index=True)
-    iso_639_1 = Column(String(5))
+    iso_639_1 = Column(String(30))
     url = Column(String(128))
     type = Column(Integer, nullable=False, index=True)
 
@@ -167,8 +166,8 @@ class Videos(Base):
     movie_id = Column(Integer, nullable=False, index=True)
     name = Column(String(128), nullable=False)
     type = Column(String(20), doc="视频类型")
-    iso_3166_1 = Column(String(5))
-    iso_639_1 = Column(String(5))
+    iso_3166_1 = Column(String(30))
+    iso_639_1 = Column(String(30))
     url = Column(String(128))
     site = Column(String(32), doc="Vimeo/Youtube")
     key = Column(String(128), nullable=False, doc="第三方视频平台的key")

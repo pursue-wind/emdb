@@ -59,6 +59,9 @@ def insert_movies(movie_info, **kwargs):
     sess = kwargs.get('sess')
 
     movie_data = {k: v for k, v in movie_info.items() if v is not None}
+    existing_movie = sess.query(Movies).filter(Movies.tmdb_id == movie_info['tmdb_id']).first()
+    if existing_movie:
+        return dict(movie_id=existing_movie.id)
     movie = Movies(**movie_data)
     sess.add(movie)
     sess.commit()
