@@ -12,7 +12,7 @@ from lib.utils.excels import read_excel
 from service.search_online import search_company_by_name, add_company_movies_to_emdb
 import requests
 
-init_log(log_name="import-company")
+init_log(log_name="import-company_to_emmai")
 
 file_path = "docs/movies.xlsx"
 emmai_server_base_url = "http://emmai-api.likn.co"
