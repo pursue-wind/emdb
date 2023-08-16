@@ -1,6 +1,8 @@
 certifi==2023.5.7
 charset-normalizer==3.2.0
+et-xmlfile==1.1.0
 idna==3.4
+openpyxl==3.1.2
 psycopg2-binary==2.9.6
 PyMySQL==1.1.0
 PyYAML==6.0
@@ -8,6 +10,7 @@ requests==2.31.0
 SQLAlchemy==2.0.18
 tmdbsimple==2.9.1
 tornado==6.3.2
+tornado-cors==0.6.0
 tornado-swagger==1.4.5
 typing_extensions==4.7.1
 urllib3==1.26.7
