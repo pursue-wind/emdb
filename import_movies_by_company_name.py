@@ -7,7 +7,7 @@ from service.search_online import add_company_movies_to_emdb
 init_log(log_name="run_sync")
 # language = "zh"
 # country = "CN"
-company_name = "优酷"
+company_name = "儒意"
 
 
 if __name__ == '__main__':

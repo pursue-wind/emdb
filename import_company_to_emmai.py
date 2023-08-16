@@ -1,4 +1,5 @@
 import json
+import logging
 import time
 
 import tornado.gen
@@ -14,29 +15,30 @@ import requests
 init_log(log_name="import-company")
 
 file_path = "docs/movies.xlsx"
-# emmai_server_base_url = "http://emmai-api.likn.co"
-emmai_server_base_url = "http://localhost:8000"
+emmai_server_base_url = "http://emmai-api.likn.co"
+# emmai_server_base_url = "http://localhost:8000"
 
 
 @tornado.gen.coroutine
 def add_companies_to_emmai():
-    company_list = []
     add_company_url = "/api/v1/company/import"
     company_data = read_excel(file_path, "companys")
+
+    url = emmai_server_base_url + add_company_url
+    headers = {"Content-Type": "application/json"}
+
     for i in range(1, len(company_data)):
         company_name = company_data[i][1]
-        print(f"company_name:{company_name}")
-        print(f"******** start add movie to emdb ********")
-        # add company's movies to emdb
-        yield add_company_movies_to_emdb(company_name)
-        print(f"******** end add movie to emdb ********")
-
+        logging.info(f"company_name:{company_name}")
         company_info = yield search_company_by_name(company_name)
+
         if company_info:
             companies = company_info.get("data")
-            print(companies)
+            logging.info(f"companies:{companies}")
             if not companies:
                 continue
+
+            company_list = []
             for comp in companies:
                 company = {}
                 company["country"] = comp["origin_country"]
@@ -49,13 +51,11 @@ def add_companies_to_emmai():
                     logo_path = None
                 company["logoImage"] = logo_path
                 company_list.append(company)
-    print(f"company_list:{company_list}")
+            logging.info(f"company_list:{company_list}")
 
-    url = emmai_server_base_url + add_company_url
-    headers = {"Content-Type": "application/json"}
-    data = {"productionCompanies": company_list}
-    res = requests.post(url, json=data, headers=headers)
-    print(res.text)
+            data = {"productionCompanies": company_list}
+            res = requests.post(url, json=data, headers=headers)
+            logging.info(res.text)
 
 
 if __name__ == '__main__':

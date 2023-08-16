@@ -30,8 +30,8 @@ def search_company_movies(company_id, **kwargs):
 
 @gen.coroutine
 def add_movie_to_emdb(tmdb_movie_id):
-    # emdb_url = "http://embd.likn.co/api/movie/add"
-    emdb_url = "http://127.0.0.1:8088/api/movie/add"
+    emdb_url = "http://embd.likn.co/api/movie/add"
+    # emdb_url = "http://127.0.0.1:8088/api/movie/add"
     params = {"tmdb_movie_id": tmdb_movie_id}
     headers = {'Authorization': 'Basic MmdxY3ZkbGtxYnJtNTY6ZmVlZDBmMjRlMzFhMjM1Z2Q4YjdlNGJlZDFmZWM0ZGQyNjU1'}
     res = requests.post(emdb_url, data=params, headers=headers)
@@ -46,7 +46,7 @@ def add_company_movies_to_emdb(company_name):
 
     # 1. search company by name
     results = yield search_company_by_name(company_name)
-    print(f"search_company_by_name: {results}")
+    logging.info(f"search_company_by_name: {results}")
     companies = results.get("data")
     if not companies:
         return False
@@ -55,15 +55,15 @@ def add_company_movies_to_emdb(company_name):
         page = 1
         # 2. get movies by tmdb company id
         movies_result = yield search_company_movies(company_tmdb_id, page=page)
-        print(f"movies_result:{movies_result}")
+        logging.info(f"movies_result:{movies_result}")
         if movies_result["code"] != 0:
-            print(f"get movies error, company_tmdb_id:{company_tmdb_id}", company_tmdb_id)
+            logging.info(f"get movies error, company_tmdb_id:{company_tmdb_id}", company_tmdb_id)
             continue
         movies = movies_result.get("data")
         total_pages = movies["total_pages"]
         total_results = movies["total_results"]
 
-        print(f"total_pages:{total_pages}, total_results:{total_results}, len:{len(movies['results'])}")
+        logging.info(f"total_pages:{total_pages}, total_results:{total_results}, len:{len(movies['results'])}")
         # 3. add movie to emdb
         for movie in movies.get("results"):
             movie_tmdb_id = movie["id"]
@@ -75,7 +75,7 @@ def add_company_movies_to_emdb(company_name):
             page += 1
             movies_result = yield search_company_movies(company_tmdb_id, page=page)
             movies = movies_result.get("data")
-            print(f"len:{len(movies['results'])}")
+            logging.info(f"len:{len(movies['results'])}")
             for movie in movies.get("results"):
                 movie_tmdb_id = movie["id"]
                 # yield fetch_movie_info(movie_tmdb_id)
