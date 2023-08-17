@@ -8,7 +8,7 @@ from db.pgsql.base import exc_handler
 @exc_handler
 def query_movie_videos(movie_id, **kwargs):
     sess = kwargs.get('sess')
-    results = sess.query(Videos).filter(Videos.id == movie_id).all()
+    results = sess.query(Videos).filter(Videos.movie_id == movie_id).all()
     videos_list = []
     for video in results:
         video = video.to_dict()
