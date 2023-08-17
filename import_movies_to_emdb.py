@@ -15,7 +15,7 @@ import requests
 init_log(log_name="import-movie")
 
 file_path = "docs/movies.xlsx"
-emmai_server_base_url = "http://emmai-api.likn.co"
+emmai_server_base_url = "https://emmai-api.likn.co"
 # emmai_server_base_url = "http://localhost:8000"
 
 
