@@ -24,7 +24,7 @@ def import_movie_to_emmai():
     # company_list = []
     # add_company_url = "/api/v1/company/import"
     company_data = read_excel(file_path, "companys")
-    for i in range(51, len(company_data)):
+    for i in range(1, len(company_data)):
         company_name = company_data[i][1]
         logging.info(f"company_name:{company_name}")
         logging.info(f"******** start add movie to emdb ********")
