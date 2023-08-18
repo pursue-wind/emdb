@@ -10,6 +10,33 @@ from service.fetch_moive_info import Tmdb, fetch_movie_info
 
 @gen.coroutine
 @handle_exceptions
+def search_movie_by_name(movie_name, lang, page=1):
+    e_tmdb = Tmdb()
+    result = e_tmdb.search.movie(languag=lang, query=movie_name, page=page)
+    logging.info(f"search movies results:{result}")
+    # result:{'page': 1, 'results': [], 'total_pages': 1, 'total_results': 0}
+    movies = result.get("results", [])
+    if not movies:
+        return []
+    total_results = result.get("total_results")
+    total_pages = result.get("total_pages")
+    page = result.get("page")
+    logging.info(f"current page: {page}, total_pages:{total_pages}, total_results:{total_results}")
+    while total_pages and page < total_pages:
+        page += 1
+        result = e_tmdb.search.movie(languag=lang, query=movie_name, page=page)
+        logging.info(f"search movies results:{result}")
+        # result:{'page': 1, 'results': [], 'total_pages': 1, 'total_results': 0}
+        next_page_movies = result.get("results", [])
+        logging.info(f"current_page:{page}, result:{next_page_movies}")
+        movies.extend(next_page_movies)
+    return movies
+
+
+
+
+@gen.coroutine
+@handle_exceptions
 def search_company_by_name(company_name):
     e_tmdb = Tmdb()
     result = e_tmdb.search_company(query=company_name)
@@ -31,7 +58,7 @@ def search_company_movies(company_id, **kwargs):
 @gen.coroutine
 def add_movie_to_emdb(tmdb_movie_id):
     emdb_url = "https://embd.likn.co/api/movie/add"
-    # emdb_url = "https://127.0.0.1:8088/api/movie/add"
+    # emdb_url = "http://127.0.0.1:8088/api/movie/add"
     params = {"tmdb_movie_id": tmdb_movie_id}
     headers = {'Authorization': 'Basic MmdxY3ZkbGtxYnJtNTY6ZmVlZDBmMjRlMzFhMjM1Z2Q4YjdlNGJlZDFmZWM0ZGQyNjU1'}
     res = requests.post(emdb_url, data=params, headers=headers)

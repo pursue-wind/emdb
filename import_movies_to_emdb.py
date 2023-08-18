@@ -20,7 +20,7 @@ emmai_server_base_url = "https://emmai-api.likn.co"
 
 
 @tornado.gen.coroutine
-def import_movie_to_emmai():
+def import_movie_to_emdb():
     # company_list = []
     # add_company_url = "/api/v1/company/import"
     company_data = read_excel(file_path, "companys")
@@ -61,4 +61,4 @@ def import_movie_to_emmai():
 
 if __name__ == '__main__':
     io_loop = ioloop.IOLoop.current()
-    io_loop.run_sync(lambda: import_movie_to_emmai())
+    io_loop.run_sync(lambda: import_movie_to_emdb())
