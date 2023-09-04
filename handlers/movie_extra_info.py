@@ -103,14 +103,16 @@ class GetMoviRealeseCertifications(BaseHandler):
     """
     @gen.coroutine
     def get(self,*_args, **_kwargs):
+        yield self.check_auth()
         args = self.parse_form_arguments('country')
         country = args.country
         with open("docs/tmdb/movie_certifications.json", "r") as file:
             data = json.load(file)
         res = data['certifications'].get(country)
         certifications = list()
-        for ct in res:
-            certifications.append(ct.get("certification"))
+        if res:
+            for ct in res:
+                certifications.append(ct.get("certification"))
         self.success(data=certifications)
 
 
