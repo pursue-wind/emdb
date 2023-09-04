@@ -1,3 +1,5 @@
+import json
+
 from tornado import gen
 
 from db.pgsql.movie_alternative_titles import query_alternative_title
@@ -95,8 +97,21 @@ class MovieTranslations(BaseHandler):
         self.success(data=result['data'])
 
 
-
-
+class GetMoviRealeseCertifications(BaseHandler):
+    """
+    get all movie release certification by country
+    """
+    @gen.coroutine
+    def get(self,*_args, **_kwargs):
+        args = self.parse_form_arguments('country')
+        country = args.country
+        with open("docs/tmdb/movie_certifications.json", "r") as file:
+            data = json.load(file)
+        res = data['certifications'].get(country)
+        certifications = list()
+        for ct in res:
+            certifications.append(ct.get("certification"))
+        self.success(data=certifications)
 
 
 
