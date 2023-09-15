@@ -102,7 +102,7 @@ class GetMoviRealeseCertifications(BaseHandler):
     get all movie release certification by country
     """
     @gen.coroutine
-    def get(self,*_args, **_kwargs):
+    def get(self, *_args, **_kwargs):
         yield self.check_auth()
         args = self.parse_form_arguments('country')
         country = args.country

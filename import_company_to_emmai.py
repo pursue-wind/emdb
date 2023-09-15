@@ -22,7 +22,7 @@ emmai_server_base_url = "https://emmai-api.likn.co"
 @tornado.gen.coroutine
 def add_companies_to_emmai():
     add_company_url = "/api/v1/company/import"
-    company_data = read_excel(file_path, "companys")
+    company_data = read_excel(file_path, "newcpy")
 
     url = emmai_server_base_url + add_company_url
     headers = {"Content-Type": "application/json"}
@@ -58,6 +58,7 @@ def add_companies_to_emmai():
             logging.info(res.text)
 
 
+## import company to emmai by company name
 if __name__ == '__main__':
     io_loop = ioloop.IOLoop.current()
     io_loop.run_sync(lambda: add_companies_to_emmai())
