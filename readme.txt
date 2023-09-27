@@ -1,3 +1,4 @@
+Tornado 6.3 requires Python 3.8 or newer
 1.chmod +x script.sh
 2.start server
    ./script.sh start main
