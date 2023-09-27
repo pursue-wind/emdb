@@ -6,22 +6,28 @@ log:
 debug:
   dev: true
   prod: false
+  release: false
 server:
   domain:
     dev: 127.0.0.1
     prod: https://emdb.api.co
+    release: https://emdb.api.co
   host:
     dev: 127.0.0.1
     prod: 43.207.219.44
+    release: 8.218.184.1
   port:
     dev: 8088
     prod: 8088
+    release: 8088
   pass_mixin: "0x00544"
 pgsql:
   dev:  >-
     postgresql://postgres:emdb2scjdl@localhost:5432/emdb
   prod: >-
     postgresql://postgres:8BR53B9ErGweQH@43.207.219.44:5432/emdb
+  release: >-
+    postgresql://emmai:fsv33inhTeHkhY5@pgm-j6ch0p61yvj4fk25.pg.rds.aliyuncs.com:5432/emdb
 swagger:
   path: '/path/to/swagger'
   ui_path: '/path/to/swagger-ui'
