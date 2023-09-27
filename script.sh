@@ -1,6 +1,6 @@
 #!/bin/bash
 export WORKON_HOME=$HOME/.virtualenvs
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3.9
 source /usr/local/bin/virtualenvwrapper.sh
 
 APP_NAME="emdb"
