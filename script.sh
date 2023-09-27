@@ -5,6 +5,7 @@ source /usr/local/bin/virtualenvwrapper.sh
 
 APP_NAME="emdb"
 APP_PATH="/data/emdb/emdb"
+LOGPATH="/data/emdb/emdb/start.log"
 
 VENV_NAME="emdb"
 
@@ -13,7 +14,7 @@ start() {
     echo "work in VENV: $VENV_NAME, ENV: $ENV"
     if [ "$2" = "main" ]; then
         cd "$APP_PATH" || exit
-        python3 main.py  >/dev/null 2>&1 &
+        python3 main.py  >$LOGPATH 2>&1 &
         echo "Started $APP_NAME"
     elif [ "$2" = "run_sync" ]; then
         cd "$APP_PATH" || exit
