@@ -5,12 +5,9 @@ import time
 import tornado.gen
 from tornado import ioloop
 
-from service import Tmdb
-
 from lib.logger import init_log
 from lib.utils.excels import read_excel
 from service.search_online import search_company_by_name, add_company_movies_to_emdb
-import requests
 
 init_log(log_name="import-movie")
 

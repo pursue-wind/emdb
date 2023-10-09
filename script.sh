@@ -5,7 +5,7 @@ source /usr/local/bin/virtualenvwrapper.sh
 
 APP_NAME="emdb"
 APP_PATH="/data/emdb/emdb"
-LOGPATH="/data/emdb/emdb/start.log"
+LOGPATH="/data/emdb/logs/start.log"
 
 VENV_NAME="emdb"
 

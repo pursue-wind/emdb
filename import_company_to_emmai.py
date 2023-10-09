@@ -22,7 +22,7 @@ emmai_server_base_url = "https://emmai-api.likn.co"
 @tornado.gen.coroutine
 def add_companies_to_emmai():
     add_company_url = "/api/v1/company/import"
-    company_data = read_excel(file_path, "newcpy")
+    company_data = read_excel(file_path, "companys")
 
     url = emmai_server_base_url + add_company_url
     headers = {"Content-Type": "application/json"}
