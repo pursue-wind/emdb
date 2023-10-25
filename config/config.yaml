@@ -31,3 +31,9 @@ pgsql:
 swagger:
   path: '/path/to/swagger'
   ui_path: '/path/to/swagger-ui'
+emmai-server:
+  base_url:
+    dev: http://localhost:8000
+    prod: https://emmai-api.likn.co
+    release: https://emmai-api.likn.co
+

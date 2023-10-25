@@ -33,8 +33,6 @@ def search_movie_by_name(movie_name, lang, page=1):
     return movies
 
 
-
-
 @gen.coroutine
 @handle_exceptions
 def search_company_by_name(company_name):
