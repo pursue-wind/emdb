@@ -6,7 +6,7 @@ import tornado.gen
 from tornado import ioloop
 
 from service import Tmdb
-
+from config.config import CFG as cfg
 from lib.logger import init_log
 from lib.utils.excels import read_excel
 from service.search_online import search_company_by_name, add_company_movies_to_emdb
@@ -15,7 +15,9 @@ import requests
 init_log(log_name="import-company_to_emmai")
 
 file_path = "docs/movies.xlsx"
-emmai_server_base_url = "https://emmai-api.likn.co"
+# emmai_server_base_url = "https://emmai-api.likn.co"
+# emmai_server_base_url = "https://api.emmai.com"
+
 # emmai_server_base_url = "http://localhost:8000"
 
 
@@ -24,7 +26,7 @@ def add_companies_to_emmai():
     add_company_url = "/api/v1/company/import"
     company_data = read_excel(file_path, "companys")
 
-    url = emmai_server_base_url + add_company_url
+    url = cfg.emmai.base_url + add_company_url
     headers = {"Content-Type": "application/json"}
 
     for i in range(1, len(company_data)):

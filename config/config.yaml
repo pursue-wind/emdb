@@ -9,7 +9,7 @@ debug:
   release: false
 server:
   domain:
-    dev: 127.0.0.1
+    dev: http://127.0.0.1
     prod: https://emdb.api.co
     release: https://emdb.api.co
   host:
@@ -23,7 +23,7 @@ server:
   pass_mixin: "0x00544"
 pgsql:
   dev:  >-
-    postgresql://postgres:emdb2scjdl@localhost:5432/emdb
+    postgresql://postgres:emdb2scjdl@localhost:5432/emdb2
   prod: >-
     postgresql://postgres:8BR53B9ErGweQH@43.207.219.44:5432/emdb
   release: >-
@@ -31,7 +31,7 @@ pgsql:
 swagger:
   path: '/path/to/swagger'
   ui_path: '/path/to/swagger-ui'
-emmai-server:
+emmai:
   base_url:
     dev: http://localhost:8000
     prod: https://emmai-api.likn.co

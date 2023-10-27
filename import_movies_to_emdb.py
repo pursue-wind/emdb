@@ -12,7 +12,8 @@ from service.search_online import search_company_by_name, add_company_movies_to_
 init_log(log_name="import-movie")
 
 file_path = "docs/movies.xlsx"
-emmai_server_base_url = "https://emmai-api.likn.co"
+# emmai_server_base_url = "https://emmai-api.likn.co"
+emmai_server_base_url = "https://api.emmai.com"
 # emmai_server_base_url = "http://localhost:8000"
 
 
