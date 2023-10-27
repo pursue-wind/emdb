@@ -11,7 +11,7 @@ server:
   domain:
     dev: http://127.0.0.1
     prod: https://emdb.api.co
-    release: https://emdb.api.co
+    release: https://emdb.emmai.com
   host:
     dev: 127.0.0.1
     prod: 43.207.219.44
