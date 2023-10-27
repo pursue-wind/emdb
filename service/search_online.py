@@ -54,9 +54,10 @@ def search_company_movies(company_id, **kwargs):
 
 
 @gen.coroutine
-def add_movie_to_emdb(tmdb_movie_id):
-    emdb_url = "https://embd.likn.co/api/movie/add"
-    # emdb_url = "http://127.0.0.1:8088/api/movie/add"
+def add_movie_to_emdb(tmdb_movie_id, emdb_url):
+    # # emdb_url = "https://embd.likn.co/api/movie/add"
+    # emdb_url = "https://emdb.emmai.com/api/movie/add"
+    # # emdb_url = "http://127.0.0.1:8088/api/movie/add"
     params = {"tmdb_movie_id": tmdb_movie_id}
     headers = {'Authorization': 'Basic MmdxY3ZkbGtxYnJtNTY6ZmVlZDBmMjRlMzFhMjM1Z2Q4YjdlNGJlZDFmZWM0ZGQyNjU1'}
     res = requests.post(emdb_url, data=params, headers=headers)
