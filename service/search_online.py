@@ -6,7 +6,7 @@ from tornado import gen
 
 from service import handle_exceptions
 from service.fetch_moive_info import Tmdb, fetch_movie_info
-
+from config.config import CFG as cfg
 
 @gen.coroutine
 @handle_exceptions
@@ -69,7 +69,7 @@ def add_company_movies_to_emdb(company_name):
     """
     add movie to emdb by company name
     """
-
+    emdb_add_movie_url = cfg.server.domain + "/api/movie/add"
     # 1. search company by name
     results = yield search_company_by_name(company_name)
     logging.info(f"search_company_by_name: {results}")
@@ -95,7 +95,7 @@ def add_company_movies_to_emdb(company_name):
             movie_tmdb_id = movie["id"]
             # yield fetch_movie_info(movie_tmdb_id)
 
-            yield add_movie_to_emdb(movie_tmdb_id)
+            yield add_movie_to_emdb(movie_tmdb_id,emdb_add_movie_url)
 
         while total_pages > 1 and total_pages > page:
             page += 1
@@ -105,7 +105,7 @@ def add_company_movies_to_emdb(company_name):
             for movie in movies.get("results"):
                 movie_tmdb_id = movie["id"]
                 # yield fetch_movie_info(movie_tmdb_id)
-                yield add_movie_to_emdb(movie_tmdb_id)
+                yield add_movie_to_emdb(movie_tmdb_id,emdb_add_movie_url)
 
 
 
