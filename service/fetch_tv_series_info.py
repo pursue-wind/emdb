@@ -1,10 +1,18 @@
-from tornado import ioloop, gen
+from tornado import gen
 from tornado.log import app_log
 import db.pgsql.movies as mv
 import db.pgsql.tv_seasons as tv_seasons
 import db.pgsql.tv_series_additional as tv_series
+from db.pgsql.enums.enums import CreditType, ImagesType, SourceType
+from db.pgsql.movie_alternative_titles import insert_movie_alternative_titles
+from db.pgsql.movie_credits import insert_movie_credits, query_movie_credit_by_tmdb_id
+from db.pgsql.movie_credits_relations import insert_batch_movie_credits_relation
+from db.pgsql.movie_images import insert_movie_images
+from db.pgsql.movie_key_words import insert_movie_key_words
+from db.pgsql.production_company import batch_insert_production_company
 from db.pgsql.tv_episodes import insert_tv_episodes_list
 from service import Tmdb
+from service.fetch_moive_info import parse_credit_info, fetch_movie_videos, fetch_movie_translations
 
 
 @gen.coroutine
@@ -20,19 +28,22 @@ def get_tv_detail(tmdb_series_id, lang=None, country=None):
     e_tmdb = Tmdb()
     img_base_url = e_tmdb.IMAGE_BASE_URL
     tv = e_tmdb.tv_series(tmdb_series_id)
+
     tv_series_detail = tv.info(language=language)
     print(tv_series_detail)
     # external ids
     external_ids = tv.external_ids()
-    emdb_movie_id = 0
-    for season_info in tv_series_detail["seasons"]:
+    # emdb_movie_id = 0
+    tv_seasons_info = tv_series_detail["seasons"]
+    for season_info in tv_seasons_info:
+
         tv_detail = parse_tv_detail(tv_series_detail, season_info, external_ids, img_base_url)
 
         # 1.insert tv season detail to movie
         res = yield mv.insert_movies(tv_detail)
         print(f"insert movie table res：{res}")
         if res["status"] == 1:
-            _movie_info = yield mv.query_movie_by_tmdb_id(tv_detail)
+            _movie_info = yield mv.query_movie_by_tmdb_id(season_info["id"])
             emdb_movie_id = _movie_info["data"]["movie_info"].get("id")
         elif res["status"] == 0:
             emdb_movie_id = res["data"]["movie_id"]
@@ -45,11 +56,8 @@ def get_tv_detail(tmdb_series_id, lang=None, country=None):
         res = yield tv_series.insert_tv_additional_info(tv_additional_info)
         print(f"insert_tv_additional_info res:{res}")
 
-    if emdb_movie_id == 0:
-        return
     # 4.insert seasons info
-    tv_seasons_info = tv_series_detail["seasons"]
-    for season_info in tv_seasons_info:
+    # for season_info in tv_seasons_info:
         tv_season_obj = e_tmdb.tv_season(tv_series_detail["id"], season_info["season_number"])
         tv_season_external_ids = tv_season_obj.external_ids()
         season_info["external_ids"] = tv_season_external_ids
@@ -61,18 +69,115 @@ def get_tv_detail(tmdb_series_id, lang=None, country=None):
         yield insert_tv_episodes_list(episodes)
 
         # 6.credits
-        credits = tv_season_obj.credits()
+        tv_season_credits = tv_season_obj.credits()
+        # movie_credits = movie.credits()
+        origin_credits_info_list = list()
+        insert_credits_list = list()
+        # cast info
+        _cast_list = tv_season_credits["cast"]
+
+        for cast in _cast_list:
+            cast["type"] = CreditType.cast.value
+            origin_credits_info_list.append(cast)
+
+            cast_info = parse_credit_info(cast)
+            insert_credits_list.append(cast_info)
+        # crew info
+        _crew_list = tv_season_credits["crew"]
+        for crew in _crew_list:
+            crew["type"] = CreditType.crew.value
+            origin_credits_info_list.append(crew)
+            crew_info = parse_credit_info(crew)
+
+            insert_credits_list.append(crew_info)
+        credits_ids = yield insert_movie_credits(insert_credits_list)
+        tv_credits_relation = list()
+        for credit in origin_credits_info_list:
+            emdb_credit_id = credits_ids["data"].get(credit["id"], None)
+            if emdb_credit_id is None:
+                query_credit_info_res = yield query_movie_credit_by_tmdb_id(credit["id"])
+                emdb_credit_id = query_credit_info_res["data"].get("id")
+            temp_dict = dict(
+                movie_id=emdb_movie_id,
+                credit_id=emdb_credit_id,
+                order=credit.get("order", None),
+                character=credit.get("character", None),
+                department=credit.get("department", None),
+                job=credit.get("job", None),
+                type=credit.get("type"),
+                tmdb_credit_id=credit.get("credit_id")
+            )
+            tv_credits_relation.append(temp_dict)
+
+        yield [insert_batch_movie_credits_relation(tv_credits_relation),
+               save_alternative_titles(tv, emdb_movie_id),
+               save_movie_images(tv_season_obj, tv, emdb_movie_id),
+               fetch_movie_videos(tv_season_obj, emdb_movie_id),
+               fetch_movie_translations(tv, emdb_movie_id)]
+    # here the save_tv_seasons_info because of 'season_info["external_ids"] = tv_season_external_ids'
+    yield save_tv_seasons_info(tv_seasons_info, tmdb_series_id, img_base_url)
+
+    # 7.save production company
+    production_companies = tv_series_detail.get("production_companies")
+    _production_company_list = []
+    for pc in production_companies:
+        pc["tmdb_id"] = pc.pop("id")
+        if pc["logo_path"]:
+            pc["logo_path"] = img_base_url + pc["logo_path"]
+        _production_company_list.append(pc)
+    yield batch_insert_production_company(_production_company_list)
+
+    # 8.save keywords
+    key_words = tv.keywords()
+    _key_words_list = key_words["results"]
+    key_words_list = [{"tmdb_id": d["id"], "name": d["name"], "movie_id": emdb_movie_id} for d in _key_words_list]
+    yield insert_movie_key_words(key_words_list)
+
+    return
 
 
+@gen.coroutine
+def save_alternative_titles(tv_obj, emdb_movie_id):
+    # movie_id: emdb movie id
+    _alternative_titles = tv_obj.alternative_titles()
+    alternative_titles = list()
+    for at in _alternative_titles["results"]:
+        at["movie_id"] = emdb_movie_id
+        alternative_titles.append(at)
+    yield insert_movie_alternative_titles(alternative_titles)
 
-    yield save_tv_seasons_info(tv_seasons_info, emdb_movie_id, img_base_url)
+
+@gen.coroutine
+def save_movie_images(tv_season_obj, tv_obj, emdb_movie_id):
+    images = tv_season_obj.images()
+    tv_series_images = tv_obj.images()
+    backdrops = tv_series_images["backdrops"]
+    logos = tv_series_images["logos"]
+    posters = images["posters"]
+    all_images = backdrops + logos + posters
+    images_list = list()
+    for img in all_images:
+        img_dict = dict()
+        img_dict["movie_id"] = emdb_movie_id
+        if img["iso_639_1"] is None:
+            img_dict["iso_639_1"] = "all"
+        else:
+            img_dict["iso_639_1"] = img["iso_639_1"]
+        img_dict["url"] = Tmdb.IMAGE_BASE_URL + img.get("file_path")
+        if img in logos:
+            img_dict['type'] = ImagesType.Logo.value
+        elif img in posters:
+            img_dict['type'] = ImagesType.Poster.value
+        elif img in backdrops:
+            img_dict['type'] = ImagesType.Backdrop.value
+        images_list.append(img_dict)
+    yield insert_movie_images(images_list)
 
 
 
 def parse_tv_episode_info(season_episode_info, tmdb_series_id, tmdb_season_id, img_base_url):
     episodes = list()
     for episode_info in season_episode_info:
-        print(episode_info["still_path"])
         if episode_info["still_path"]:
             still_path = img_base_url+episode_info["still_path"]
         else:
@@ -98,11 +203,12 @@ def parse_tv_episode_info(season_episode_info, tmdb_series_id, tmdb_season_id, i
 
 
 
+
 @gen.coroutine
-def save_tv_seasons_info(tv_seasons_info, emdb_movie_id, img_base_url):
+def save_tv_seasons_info(tv_seasons_info, tmdb_series_id, img_base_url):
     tv_seasons_list = list()
     for season in tv_seasons_info:
-        season["season_id"] = emdb_movie_id
+        season["tmdb_series_id"] = tmdb_series_id
         season["tmdb_season_id"] = season["id"]
         season["poster_path"] = img_base_url + season["poster_path"]
         del season["id"]
@@ -171,4 +277,5 @@ def parse_tv_detail(tv_series_detail, season_info, external_ids, img_base_url):
     tv_detail["release_date"] = season_info["air_date"]
     tv_detail["vote_average"] = season_info.get("vote_average")
     tv_detail["overview"] = season_info.get("overview")
+    tv_detail["source_type"] = SourceType.Tv.value
     return tv_detail

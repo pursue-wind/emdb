@@ -114,16 +114,17 @@ class SearchCompanyMovies(BaseHandler):
 
     @gen.coroutine
     def post(self, *_args, **_kwargs):
-        args = self.parse_form_arguments('tmdb_company_id', 'page_num', "page_size", movie_name=None)
+        args = self.parse_form_arguments('tmdb_company_id', 'source_type', page_num=1, page_size=10, movie_name=None)
         tmdb_company_id = args.tmdb_company_id
-        page_num = args.page_num
-        page_size = args.page_size
-        if not all([tmdb_company_id, page_size, page_num]):
+        # page_num = args.page_num
+        # page_size = args.page_size
+        source_type = int(args.source_type)
+        if not all([tmdb_company_id, source_type]):
             self.fail(402)
         print(args)
         # movie_name = args.movie_name
         yield self.check_auth()
-        result = yield query_movie_by_company_id(tmdb_company_id, movie_name=args.movie_name,
+        result = yield query_movie_by_company_id(tmdb_company_id, source_type, movie_name=args.movie_name,
                                                  page_num=args.page_num,
                                                  page_size=args.page_size)
         print(result)

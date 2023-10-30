@@ -6,6 +6,14 @@ def get_key_by_value(enum_class, value):
     return enum_dict.get(value)
 
 
+class SourceType(Enum):
+    """
+    source type
+    """
+    Movie = 1
+    Tv = 2
+
+
 class ReleaseTypes(Enum):
     """Release types"""
     Premiere = 1  # 首映

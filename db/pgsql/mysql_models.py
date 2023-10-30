@@ -38,7 +38,7 @@ class TVSeasons(Base):
     __tablename__ = 'tv_seasons'
     id = Column(Integer, Sequence("tv_seasons_seq"), primary_key=True)
     tmdb_season_id = Column(Integer, nullable=False, index=True, unique=True)
-    season_id = Column(Integer, nullable=False, index=True)
+    tmdb_series_id = Column(Integer, nullable=False, index=True)
     air_date = Column(DateTime)
     episode_count = Column(Integer)
     name = Column(String)
@@ -111,7 +111,7 @@ class Movies(Base):
     video = Column(Boolean, default=False)
     vote_average = Column(Numeric(5, 3))
     vote_count = Column(Integer)
-
+    source_type = Column(Integer, default=1)   # 新增字段
     external_ids = Column(JSONB, doc="其他视频平台id")
 
 
@@ -151,7 +151,7 @@ class MoviesTranslations(Base):
     title = Column(String(300))
 
     __table_args__ = (
-        UniqueConstraint('iso_3166_1', 'iso_639_1'),
+        UniqueConstraint('movie_id','iso_3166_1', 'iso_639_1'),
     )
 
 

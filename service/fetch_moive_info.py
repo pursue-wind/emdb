@@ -3,7 +3,7 @@ from tornado import gen
 from tornado.log import app_log
 
 import db.pgsql.movies as mv
-from db.pgsql.enums.enums import CreditType, ImagesType, VideoSiteUlr
+from db.pgsql.enums.enums import CreditType, ImagesType, VideoSiteUlr,SourceType
 from db.pgsql.movie_alternative_titles import insert_movie_alternative_titles
 from db.pgsql.movie_credits_relations import insert_batch_movie_credits_relation
 from db.pgsql.movie_images import insert_movie_images
@@ -57,7 +57,7 @@ def fetch_movie_info(tmdb_mv_id, lang=None, country=None):
     # external ids
     external_ids = movie.external_ids()
     mv_detail["external_ids"] = external_ids
-
+    mv_detail["source_type"] = SourceType.Movie.value
     res = yield mv.insert_movies(mv_detail)
     if res["status"] == 1:
         _movie_info = yield mv.query_movie_by_tmdb_id(tmdb_mv_id)

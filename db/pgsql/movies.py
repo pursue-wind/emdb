@@ -32,12 +32,12 @@ def query_movie_by_tmdb_id(tmdb_movie_id, **kwargs):
 
 @gen.coroutine
 @exc_handler
-def query_movie_by_company_id(tmdb_company_id, **kwargs):
+def query_movie_by_company_id(tmdb_company_id, source_type, **kwargs):
     sess = kwargs.get('sess')
     page_num = kwargs.get("page_num")
     page_size = kwargs.get("page_size")
     movie_name = kwargs.get("movie_name")
-    query = sess.query(Movies).filter(Movies.production_companies.any(tmdb_company_id))
+    query = sess.query(Movies).filter(Movies.source_type == source_type and Movies.production_companies.any(tmdb_company_id))
     if movie_name:
         query = query.filter(Movies.original_title.ilike(f"%{movie_name}%"))
 
