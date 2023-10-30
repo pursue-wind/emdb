@@ -9,7 +9,6 @@ import yaml
 
 class NormalStatus:
     """To be generated."""
-
     def __init__(self):
         try:
             with open('config/status.yaml', 'r', encoding='utf-8') as status:

@@ -9,8 +9,65 @@ from db.pgsql.base import Base, DB_ENGINE
 
 def init_db():
     # drop all tables
-    ### Base.metadata.drop_all(bind=DB_ENGINE)
+    Base.metadata.drop_all(bind=DB_ENGINE)
     Base.metadata.create_all(bind=DB_ENGINE)
+
+
+class TVSeriesAdditional(Base):
+    __tablename__ = 'tv_series_additional'
+    id = Column(Integer, Sequence("tv_series_seq"), primary_key=True)
+    tmdb_series_id = Column(Integer, nullable=False, index=True, unique=True)
+    created_by = Column(JSONB)
+    episode_run_time = Column(ARRAY(Integer))
+    first_air_date = Column(DateTime)
+    in_production = Column(Boolean)
+    last_air_date = Column(DateTime)
+    last_episode_to_air = Column(JSONB)
+    networks = Column(JSONB)
+    overview = Column(Text)
+
+    number_of_episodes = Column(Integer)
+    number_of_seasons = Column(Integer)
+    type = Column(String(30))
+    external_ids = Column(JSONB, doc="其他视频平台id")
+
+
+
+
+class TVSeasons(Base):
+    __tablename__ = 'tv_seasons'
+    id = Column(Integer, Sequence("tv_seasons_seq"), primary_key=True)
+    tmdb_season_id = Column(Integer, nullable=False, index=True, unique=True)
+    season_id = Column(Integer, nullable=False, index=True)
+    air_date = Column(DateTime)
+    episode_count = Column(Integer)
+    name = Column(String)
+    overview = Column(Text)
+    # poster_path = Column(String)
+    season_number = Column(Integer)
+    # vote_average = Column(Numeric(5, 3))
+    external_ids = Column(JSONB, doc="其他视频平台id")
+
+
+class TVEpisodes(Base):
+    __tablename__ = 'tv_episodes'
+    id = Column(Integer, Sequence("tv_episodes_seq"), primary_key=True)
+    tmdb_series_id = Column(Integer, nullable=False, index=True)
+    tmdb_season_id = Column(Integer, nullable=False, index=True)
+    tmdb_episode_id = Column(Integer, nullable=False, index=True)
+
+    air_date = Column(DateTime)
+    episode_number = Column(Integer)
+    episode_type = Column(String(20))
+    name = Column(String(200))
+    overview = Column(Text)
+    production_code = Column(String)
+    runtime = Column(Integer)
+    season_number = Column(Integer)
+    # show_id = Column(Integer)
+    still_path = Column(String)
+    vote_average = Column(Numeric(10,5))
+    vote_count = Column(Integer)
 
 
 class ProductionCompany(Base):
@@ -30,10 +87,11 @@ class Movies(Base):
     id = Column(Integer, Sequence("movies_seq"), primary_key=True)
     tmdb_id = Column(Integer, nullable=False, index=True, unique=True)
     imdb_id = Column(String(10), index=True)
+    tmdb_series_id = Column(Integer, nullable=False, index=True)
     title = Column(String(255), nullable=False, index=True)
     backdrop_path = Column(String(200))
     belongs_to_collection = Column(JSONB)
-    budget = Column(Integer)
+    budget = Column(Integer, default=0)
     genres = Column(ARRAY(Integer))
     homepage = Column(String(200))
     original_language = Column(String(20), nullable=False)
@@ -45,12 +103,12 @@ class Movies(Base):
     production_companies = Column(ARRAY(Integer), doc="制片公司")
     production_countries = Column(ARRAY(String(5)))
     release_date = Column(DateTime)
-    revenue = Column(Integer)
-    runtime = Column(Integer)
+    revenue = Column(Integer, default=0)
+    runtime = Column(Integer, default=0)
     spoken_languages = Column(ARRAY(String(5)))
     status = Column(String(32), nullable=False)
     tagline = Column(Text)
-    video = Column(Boolean)
+    video = Column(Boolean, default=False)
     vote_average = Column(Numeric(5, 3))
     vote_count = Column(Integer)
 

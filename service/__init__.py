@@ -15,6 +15,14 @@ class Tmdb:
     tmdb.REQUESTS_SESSION = requests.Session()
     search = tmdb.Search()
 
+    def tv_series(self, tv_series_id):
+        _tv_series = tmdb.TV(tv_series_id)
+        return _tv_series
+
+    def tv_season(self, tv_series_id, season_number):
+        _tv_seasons = tmdb.TV_Seasons(tv_series_id, season_number)
+        return _tv_seasons
+
     def moive(self, moive_id):
         _movie = tmdb.Movies(moive_id)
         return _movie

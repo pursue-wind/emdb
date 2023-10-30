@@ -17,7 +17,6 @@ class SearchMovie(BaseHandler):
     search by name or tmdb movie id
     :returns movies
     """
-
     @gen.coroutine
     def post(self, *_args, **_kwargs):
         args = self.parse_form_arguments('movie_name')
@@ -53,7 +52,6 @@ class AddMovie(BaseHandler):
     """
     add movie by tmdb movie id
     """
-
     @gen.coroutine
     def post(self, *_args, **_kwargs):
         args = self.parse_form_arguments('tmdb_movie_id')
