@@ -9,7 +9,7 @@ from db.pgsql.base import Base, DB_ENGINE
 
 def init_db():
     # drop all tables
-    Base.metadata.drop_all(bind=DB_ENGINE)
+    # Base.metadata.drop_all(bind=DB_ENGINE)
     Base.metadata.create_all(bind=DB_ENGINE)
 
 
