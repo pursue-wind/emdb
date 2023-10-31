@@ -3,6 +3,7 @@ from tornado.web import url
 from handlers.movie_extra_info import MovieAlternativeTitles, MovieCredits, MovieReleaseDates, MovieImages, MovieVideos, \
     MovieTranslations, GetMoviRealeseCertifications
 from handlers.movie_handler import SearchMovie, SearchCompany, AddMovie, SearchCompanyMovies
+from handlers.tv_handler import SearchCompanyTV
 
 MOVIE_ROUTE = [
     ("/api/movie/search", SearchMovie),
@@ -20,5 +21,6 @@ MOVIE_ROUTE = [
 COMPANY_ROUTE = [
     ("/api/company/search", SearchCompany),
     ("/api/company/movies", SearchCompanyMovies),
+    ("/api/company/tv", SearchCompanyTV),
 
 ]
