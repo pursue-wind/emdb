@@ -210,7 +210,8 @@ def save_tv_seasons_info(tv_seasons_info, tmdb_series_id, img_base_url):
     for season in tv_seasons_info:
         season["tmdb_series_id"] = tmdb_series_id
         season["tmdb_season_id"] = season["id"]
-        season["poster_path"] = img_base_url + season["poster_path"]
+        # if season["poster_path"]:
+        #     season["poster_path"] = img_base_url + season["poster_path"]
         del season["id"]
         del season["poster_path"]
         del season["vote_average"]
@@ -243,8 +244,11 @@ def parse_tv_detail(tv_series_detail, season_info, external_ids, img_base_url):
     tv_detail["tmdb_series_id"] = tv_series_detail["id"]
     if tv_series_detail["backdrop_path"]:
         tv_detail["backdrop_path"] = img_base_url + tv_series_detail["backdrop_path"]
-    if tv_series_detail["poster_path"]:
+    if season_info["poster_path"]:
         tv_detail["poster_path"] = img_base_url + season_info["poster_path"]
+    elif tv_series_detail["poster_path"]:
+        tv_detail["poster_path"] = img_base_url + tv_series_detail["poster_path"]
+
     tv_detail["external_ids"] = external_ids
 
     genres = tv_series_detail.get("genres")  # 电影类型，喜剧、动作等
@@ -270,7 +274,10 @@ def parse_tv_detail(tv_series_detail, season_info, external_ids, img_base_url):
     tv_detail["popularity"] = tv_series_detail.get("popularity")
     # tv_detail["poster_path"] = tv_series_detail.get("poster_path")
     tv_detail["revenue"] = tv_series_detail.get("revenue")
-    tv_detail["runtime"] = tv_series_detail["episode_run_time"][0]
+    if len(tv_series_detail["episode_run_time"]) > 0:
+        tv_detail["runtime"] = tv_series_detail["episode_run_time"][0]
+    else:
+        tv_detail["runtime"] = 0
     tv_detail["status"] = tv_series_detail.get("status")
     tv_detail["tagline"] = tv_series_detail.get("tagline")
     tv_detail["vote_count"] = tv_series_detail.get("vote_count")

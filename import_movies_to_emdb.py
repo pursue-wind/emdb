@@ -17,6 +17,9 @@ emmai_server_base_url = "https://api.emmai.com"
 # emmai_server_base_url = "http://localhost:8000"
 
 
+"""
+import movie to emdb by company name
+"""
 @tornado.gen.coroutine
 def import_movie_to_emdb():
     # company_list = []
@@ -29,32 +32,6 @@ def import_movie_to_emdb():
         # add company's movies to emdb
         yield add_company_movies_to_emdb(company_name)
         logging.info(f"******** end add movie to emdb ********")
-
-        # company_info = yield search_company_by_name(company_name)
-        # if company_info:
-        #     companies = company_info.get("data")
-        #     logging.info(companies)
-        #     if not companies:
-        #         continue
-        #     for comp in companies:
-        #         company = {}
-        #         company["country"] = comp["origin_country"]
-        #         company["location"] = None
-        #         company["title"] = comp["name"]
-        #         company["sourceId"] = str(comp["id"])
-        #         if comp["logo_path"]:
-        #             logo_path = Tmdb.IMAGE_BASE_URL + comp["logo_path"]
-        #         else:
-        #             logo_path = None
-        #         company["logoImage"] = logo_path
-        #         company_list.append(company)
-    # logging.info(f"company_list:{company_list}")
-    #
-    # url = emmai_server_base_url + add_company_url
-    # headers = {"Content-Type": "application/json"}
-    # data = {"productionCompanies": company_list}
-    # res = requests.post(url, json=data, headers=headers)
-    # logging.info(res.text)
 
 
 if __name__ == '__main__':
