@@ -1,6 +1,6 @@
 import json
 
-from sqlalchemy import cast, Integer
+from sqlalchemy import cast, Integer, and_
 from sqlalchemy.dialects.postgresql import insert, ARRAY
 from tornado import gen
 
@@ -18,6 +18,7 @@ def query_movie_by_name(movie_name, **kwargs):
         movie_list = [movie.to_dict() for movie in movie_list]
 
     return dict(movies=movie_list)
+
 
 @gen.coroutine
 @exc_handler
@@ -37,7 +38,8 @@ def query_movie_by_company_id(tmdb_company_id, source_type, **kwargs):
     page_num = kwargs.get("page_num")
     page_size = kwargs.get("page_size")
     movie_name = kwargs.get("movie_name")
-    query = sess.query(Movies).filter(Movies.source_type == source_type and Movies.production_companies.any(tmdb_company_id))
+    query = sess.query(Movies).filter(
+        and_(Movies.source_type == source_type, Movies.production_companies.any(tmdb_company_id)))
     if movie_name:
         query = query.filter(Movies.original_title.ilike(f"%{movie_name}%"))
 
@@ -71,7 +73,7 @@ def insert_movies(movie_info, **kwargs):
 
 @gen.coroutine
 @exc_handler
-def insert_movie_info(movie_info, key_words_list, production_company_list, credits,  **kwargs):
+def insert_movie_info(movie_info, key_words_list, production_company_list, credits, **kwargs):
     """Query User Info."""
     sess = kwargs.get('sess')
 

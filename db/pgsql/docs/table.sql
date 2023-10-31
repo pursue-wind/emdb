@@ -36,6 +36,7 @@ CREATE TABLE movies (
     video BOOLEAN,
     vote_average NUMERIC(5, 3),
     vote_count INTEGER,
+    source_type INTEGER,
     external_ids JSONB
 );
 
