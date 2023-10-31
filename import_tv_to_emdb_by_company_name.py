@@ -4,10 +4,13 @@ import logging
 import requests
 from tornado import ioloop, gen
 
+from lib.logger import init_log
 from lib.utils.excels import read_excel
 from service.fetch_tv_series_info import get_tv_detail
 from service.search_online import search_company_by_name, add_company_movies_to_emdb
 from service import Tmdb
+
+init_log(log_name="import-tv-to-emdb")
 
 @gen.coroutine
 def import_tv_to_emdb_by_company_name():
