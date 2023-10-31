@@ -1,4 +1,6 @@
 from db.pgsql.movies import query_movie_by_company_id
+from db.pgsql.tv_episodes import get_tv_episodes_list
+from db.pgsql.tv_seasons import get_tv_season_params
 from handlers.base_handler import BaseHandler
 from tornado import gen
 from db.pgsql.enums.enums import get_key_by_value, GenresType
@@ -10,7 +12,6 @@ from db.pgsql.enums.enums import SourceType
 class SearchCompanyTV(BaseHandler):
     @gen.coroutine
     def post(self, *_args, **_kwargs):
-        print(12323413451345234534523452345)
 
         args = self.parse_form_arguments('tmdb_company_id', page_num=1, page_size=10, tv_name=None)
         tmdb_company_id = args.tmdb_company_id
@@ -45,8 +46,31 @@ class SearchCompanyTV(BaseHandler):
             tv['production_companies'] = production_companies['data']['companies']
             keyword_list = yield query_movie_keywords(tv['id'])
             tv['keywords'] = keyword_list.get('data')
+            season_name = yield get_tv_season_params(tv['tmdb_id'])
+            tv['name'] = season_name['data']['name']
+            tv['episode_count'] = season_name['data']['episode_count']
             tvs.append(tv)
         self.success(data=dict(page_num=args.page_num,
                                page_size=args.page_size,
                                total=data.get('total', 0),
                                tvs=tvs))
+
+
+class GetTVEpisodes(BaseHandler):
+    @gen.coroutine
+    def post(self, *_args, **_kwargs):
+        args = self.parse_form_arguments('tmdb_season_id')
+        tmdb_season_id = args.tmdb_season_id
+        result = yield get_tv_episodes_list(tmdb_season_id)
+        data = result.get('data')
+        episodes = []
+        for episode in data['episodes_list']:
+            if episode['air_date'] is not None:
+                air_date = episode['air_date'].strftime('%Y-%m-%d %H:%M:%S')
+            else:
+                air_date = None
+            episode['air_date'] = air_date
+            episode['vote_average'] = float(episode['vote_average'])
+            episodes.append(episode)
+
+        self.success(data=dict(episodes_list=episodes,total=data.get('total')))
