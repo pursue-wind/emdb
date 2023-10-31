@@ -1,4 +1,5 @@
 from db.pgsql.movies import query_movie_by_company_id
+from db.pgsql.tv_seasons import get_tv_season_name
 from handlers.base_handler import BaseHandler
 from tornado import gen
 from db.pgsql.enums.enums import get_key_by_value, GenresType
@@ -10,7 +11,6 @@ from db.pgsql.enums.enums import SourceType
 class SearchCompanyTV(BaseHandler):
     @gen.coroutine
     def post(self, *_args, **_kwargs):
-        print(12323413451345234534523452345)
 
         args = self.parse_form_arguments('tmdb_company_id', page_num=1, page_size=10, tv_name=None)
         tmdb_company_id = args.tmdb_company_id
@@ -45,6 +45,8 @@ class SearchCompanyTV(BaseHandler):
             tv['production_companies'] = production_companies['data']['companies']
             keyword_list = yield query_movie_keywords(tv['id'])
             tv['keywords'] = keyword_list.get('data')
+            season_name = yield get_tv_season_name(tv['tmdb_id'])
+            tv['name'] = season_name['data']['name']
             tvs.append(tv)
         self.success(data=dict(page_num=args.page_num,
                                page_size=args.page_size,
