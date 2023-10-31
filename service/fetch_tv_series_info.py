@@ -225,9 +225,11 @@ def parse_tv_adddition_info(tv_series_detail):
     tv_detail["tmdb_series_id"] = tv_series_detail["id"]
     tv_detail["created_by"] = tv_series_detail.get("created_by")
     tv_detail["episode_run_time"] = tv_series_detail.get("episode_run_time")
-    tv_detail["first_air_date"] = tv_series_detail.get("first_air_date")
     tv_detail["in_production"] = tv_series_detail.get("in_production")
-    tv_detail["last_air_date"] = tv_series_detail.get("last_air_date")
+    if tv_series_detail.get("first_air_date"):
+        tv_detail["first_air_date"] = tv_series_detail.get("first_air_date")
+    if tv_series_detail.get("last_air_date"):
+        tv_detail["last_air_date"] = tv_series_detail.get("last_air_date")
     tv_detail["last_episode_to_air"] = tv_series_detail.get("last_episode_to_air")
     tv_detail["networks"] = tv_series_detail.get("networks")
     tv_detail["number_of_episodes"] = tv_series_detail.get("number_of_episodes")
