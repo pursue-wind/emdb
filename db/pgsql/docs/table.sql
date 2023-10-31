@@ -146,3 +146,55 @@ CREATE TABLE movie_tasks (
     translations BOOLEAN NOT NULL DEFAULT FALSE,
     production_companies BOOLEAN NOT NULL DEFAULT FALSE
 );
+
+
+-- 新增表
+-- TVSeriesAdditional
+CREATE TABLE tv_series_additional (
+    id SERIAL PRIMARY KEY,
+    tmdb_series_id INT NOT NULL UNIQUE,
+    created_by JSONB,
+    episode_run_time INT[],
+    first_air_date TIMESTAMP,
+    in_production BOOLEAN,
+    last_air_date TIMESTAMP,
+    last_episode_to_air JSONB,
+    networks JSONB,
+    overview TEXT,
+    number_of_episodes INT,
+    number_of_seasons INT,
+    type VARCHAR(30),
+    external_ids JSONB
+);
+
+-- TVSeasons
+CREATE TABLE tv_seasons (
+    id SERIAL PRIMARY KEY,
+    tmdb_season_id INT NOT NULL UNIQUE,
+    tmdb_series_id INT NOT NULL,
+    air_date TIMESTAMP,
+    episode_count INT,
+    name VARCHAR,
+    overview TEXT,
+    season_number INT,
+    external_ids JSONB
+);
+
+-- TVEpisodes
+CREATE TABLE tv_episodes (
+    id SERIAL PRIMARY KEY,
+    tmdb_series_id INT NOT NULL,
+    tmdb_season_id INT NOT NULL,
+    tmdb_episode_id INT NOT NULL,
+    air_date TIMESTAMP,
+    episode_number INT,
+    episode_type VARCHAR(20),
+    name VARCHAR(200),
+    overview TEXT,
+    production_code VARCHAR,
+    runtime INT,
+    season_number INT,
+    still_path VARCHAR,
+    vote_average NUMERIC(10,5),
+    vote_count INT
+);
