@@ -9,7 +9,7 @@ from db.pgsql.base import Base, DB_ENGINE
 
 def init_db():
     # drop all tables
-    # Base.metadata.drop_all(bind=DB_ENGINE)
+    ### Base.metadata.drop_all(bind=DB_ENGINE)
     Base.metadata.create_all(bind=DB_ENGINE)
 
 
@@ -43,9 +43,7 @@ class TVSeasons(Base):
     episode_count = Column(Integer)
     name = Column(String)
     overview = Column(Text)
-    # poster_path = Column(String)
     season_number = Column(Integer)
-    # vote_average = Column(Numeric(5, 3))
     external_ids = Column(JSONB, doc="其他视频平台id")
 
 
@@ -151,7 +149,7 @@ class MoviesTranslations(Base):
     title = Column(String(300))
 
     __table_args__ = (
-        UniqueConstraint('movie_id','iso_3166_1', 'iso_639_1'),
+        UniqueConstraint('movie_id', 'iso_3166_1', 'iso_639_1'),
     )
 
 
