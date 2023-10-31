@@ -19,9 +19,9 @@ def insert_tv_seasons(tv_seasons_list, **kwargs):
 
 @gen.coroutine
 @exc_handler
-def get_tv_season_name(season_id, **kwargs):
+def get_tv_season_params(season_id, **kwargs):
     sess = kwargs.get('sess')
 
     query = sess.query(TVSeasons).filter(TVSeasons.tmdb_season_id == season_id).first()
 
-    return dict(name=query.name)
+    return dict(name=query.name,episode_count=query.episode_count)
