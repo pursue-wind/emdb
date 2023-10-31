@@ -39,8 +39,8 @@ def import_tv_to_emdb_by_company_name():
             company_tv_result = tmdb.discover_company_tv(with_companies=company_ids, page=page)
             total_result = company_tv_result["total_results"]
             total_pages = company_tv_result["total_pages"]
-            print(f"Search Company's Tv result：{company_tv_result}")
-            print(f"total_result:{total_result},total_pages:{total_pages} ")
+            logging.info(f"Search Company's Tv result：{company_tv_result}")
+            logging.info(f"total_result:{total_result},total_pages:{total_pages} ")
             if total_result == 0:
                 continue
             company_ts_shows = company_tv_result["results"]
