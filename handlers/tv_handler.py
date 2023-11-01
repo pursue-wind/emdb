@@ -147,15 +147,14 @@ class SearchCompanyTV(BaseHandler):
             tv['production_companies'] = production_companies['data']['companies']
             keyword_list = yield query_movie_keywords(tv['id'])
             tv['keywords'] = keyword_list.get('data')
-            season_name = yield get_tv_season_params(tv['tmdb_id'])
-            # tv['name'] = season_name['data']['name']
-            # tv['episode_count'] = season_name['data']['episode_count']
-            # tv['season_external_ids'] = season_name['data']['external_ids']
-            # tv['season_number'] = season_name['data']['season_number']
-            tv['episode_detail'] = dict(name=season_name['data']['name'],
-                                        episode_count=season_name['data']['episode_count'],
-                                        season_external_ids=season_name['data']['external_ids'],
-                                        season_number=season_name['data']['season_number'])
+            result = yield get_tv_season_params(tv['tmdb_id'])
+            season_detail = result.get('data')
+            if season_detail['air_date'] is not None:
+                season_detail['air_date'] = season_detail['air_date'].strftime('%Y-%m-%d %H:%M:%S')
+            else:
+                season_detail['air_date'] = None
+
+            tv['episode_detail'] = season_detail
             result = yield get_tv_additional_info(tv['tmdb_series_id'])
 
             additional_info = result.get('data')['data']

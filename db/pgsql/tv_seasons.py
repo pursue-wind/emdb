@@ -24,5 +24,4 @@ def get_tv_season_params(season_id, **kwargs):
 
     query = sess.query(TVSeasons).filter(TVSeasons.tmdb_season_id == season_id).first()
 
-    return dict(name=query.name,episode_count=query.episode_count
-                ,external_ids=query.external_ids,season_number=query.season_number)
+    return dict(query.to_dict())
