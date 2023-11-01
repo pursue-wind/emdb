@@ -116,13 +116,15 @@ class SearchCompanyTV(BaseHandler):
 
         args = self.parse_form_arguments('tmdb_company_id', page_num=1, page_size=10, tv_name=None)
         tmdb_company_id = args.tmdb_company_id
+        page_num = int(args.page_num)
+        page_size = int(args.page_size)
         if not all([tmdb_company_id]):
             self.fail(402)
         print(args)
         yield self.check_auth()
         result = yield query_movie_by_company_id(tmdb_company_id, SourceType.Tv.value, movie_name=args.tv_name,
-                                                 page_num=args.page_num,
-                                                 page_size=args.page_size)
+                                                 page_num=page_num,
+                                                 page_size=page_size)
         print(result)
         if "status" in result and result["status"] != 0:
             self.fail(1)
@@ -153,8 +155,8 @@ class SearchCompanyTV(BaseHandler):
             tv['season_external_ids'] = season_name['data']['external_ids']
             tv['season_number'] = season_name['data']['season_number']
             tvs.append(tv)
-        self.success(data=dict(page_num=args.page_num,
-                               page_size=args.page_size,
+        self.success(data=dict(page_num=page_num,
+                               page_size=page_size,
                                total=data.get('total', 0),
                                tvs=tvs))
 

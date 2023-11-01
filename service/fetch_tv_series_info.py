@@ -186,7 +186,7 @@ def parse_tv_episode_info(season_episode_info, tmdb_series_id, tmdb_season_id, i
             'tmdb_series_id': tmdb_series_id,
             'tmdb_season_id': tmdb_season_id,
             'tmdb_episode_id': episode_info["id"],
-            'air_date': episode_info["air_date"],
+            'air_date': episode_info["air_date"] if episode_info["air_date"] else None,
             'episode_number': episode_info["episode_number"],
             'episode_type': episode_info["episode_type"],
             'name': episode_info["name"],
@@ -283,7 +283,8 @@ def parse_tv_detail(tv_series_detail, season_info, external_ids, img_base_url):
     tv_detail["status"] = tv_series_detail.get("status")
     tv_detail["tagline"] = tv_series_detail.get("tagline")
     tv_detail["vote_count"] = tv_series_detail.get("vote_count")
-    tv_detail["release_date"] = season_info["air_date"]
+    if season_info["air_date"]:
+        tv_detail["release_date"] = season_info["air_date"]
     tv_detail["vote_average"] = season_info.get("vote_average")
     tv_detail["overview"] = season_info.get("overview")
     tv_detail["source_type"] = SourceType.Tv.value
