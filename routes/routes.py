@@ -3,7 +3,8 @@ from tornado.web import url
 from handlers.movie_extra_info import MovieAlternativeTitles, MovieCredits, MovieReleaseDates, MovieImages, MovieVideos, \
     MovieTranslations, GetMoviRealeseCertifications
 from handlers.movie_handler import SearchMovie, SearchCompany, AddMovie, SearchCompanyMovies
-from handlers.tv_handler import SearchCompanyTV, GetTVEpisodes
+from handlers.tv_extra_info import TVAlternativeTitles, TVCredits, TVReleaseDates, TVImages, TVVideos, TVTranslations
+from handlers.tv_handler import SearchCompanyTV, GetTVEpisodes, SearchTV, AddTV
 
 MOVIE_ROUTE = [
     ("/api/movie/search", SearchMovie),
@@ -16,14 +17,14 @@ MOVIE_ROUTE = [
     ("/api/movie/translations", MovieTranslations),
     ("/api/movie/certifications", GetMoviRealeseCertifications),
 
-    ("/api/tv/search", SearchMovie),
-    ("/api/tv/add", AddMovie),
-    ("/api/tv/alternative_titles", MovieAlternativeTitles),
-    ("/api/tv/credits", MovieCredits),
-    ("/api/tv/release_dates", MovieReleaseDates),
-    ("/api/tv/images", MovieImages),
-    ("/api/tv/videos", MovieVideos),
-    ("/api/tv/translations", MovieTranslations),
+    ("/api/tv/search", SearchTV),
+    ("/api/tv/add", AddTV),
+    ("/api/tv/alternative_titles", TVAlternativeTitles),
+    ("/api/tv/credits", TVCredits),
+    ("/api/tv/release_dates", TVReleaseDates),
+    ("/api/tv/images", TVImages),
+    ("/api/tv/videos", TVVideos),
+    ("/api/tv/translations", TVTranslations),
     ("/api/tv/certifications", GetMoviRealeseCertifications),
     ("/api/tv/episodes", GetTVEpisodes)
 
