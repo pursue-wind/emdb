@@ -63,7 +63,7 @@ class TVImages(BaseHandler):
     """
     @gen.coroutine
     def get(self, *_args, **_kwargs):
-        args = self.parse_form_arguments('v_id')
+        args = self.parse_form_arguments('tv_id')
         tv_id = args.tv_id
         yield self.check_auth()
         result = yield query_movie_images(tv_id)
