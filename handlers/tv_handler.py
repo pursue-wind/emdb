@@ -17,6 +17,7 @@ class SearchTV(BaseHandler):
     search by name or tmdb tv id
     :returns tvs
     """
+
     @gen.coroutine
     def post(self, *_args, **_kwargs):
         args = self.parse_form_arguments('tv_name')
@@ -52,6 +53,7 @@ class AddTV(BaseHandler):
     """
     add tv by tmdb tv id
     """
+
     @gen.coroutine
     def post(self, *_args, **_kwargs):
         args = self.parse_form_arguments('tmdb_tv_id')
@@ -107,10 +109,6 @@ class SearchCompanyTVsOnTmdb(BaseHandler):
         self.success(data=dict(tvs=tvs))
 
 
-
-
-
-
 class SearchCompanyTV(BaseHandler):
     @gen.coroutine
     def post(self, *_args, **_kwargs):
@@ -150,10 +148,14 @@ class SearchCompanyTV(BaseHandler):
             keyword_list = yield query_movie_keywords(tv['id'])
             tv['keywords'] = keyword_list.get('data')
             season_name = yield get_tv_season_params(tv['tmdb_id'])
-            tv['name'] = season_name['data']['name']
-            tv['episode_count'] = season_name['data']['episode_count']
-            tv['season_external_ids'] = season_name['data']['external_ids']
-            tv['season_number'] = season_name['data']['season_number']
+            # tv['name'] = season_name['data']['name']
+            # tv['episode_count'] = season_name['data']['episode_count']
+            # tv['season_external_ids'] = season_name['data']['external_ids']
+            # tv['season_number'] = season_name['data']['season_number']
+            tv['episode_detail'] = dict(name=season_name['data']['name'],
+                                        episode_count=season_name['data']['episode_count'],
+                                        season_external_ids=season_name['data']['external_ids'],
+                                        season_number=season_name['data']['season_number'])
             result = yield get_tv_additional_info(tv['tmdb_series_id'])
 
             additional_info = result.get('data')['data']
@@ -168,7 +170,8 @@ class SearchCompanyTV(BaseHandler):
             else:
                 last_air_date = None
             additional_info['last_air_date'] = last_air_date
-            tv['additional_info']=additional_info
+            del additional_info['external_ids']
+            tv['additional_info'] = additional_info
 
             tvs.append(tv)
         self.success(data=dict(page_num=page_num,
@@ -194,4 +197,4 @@ class GetTVEpisodes(BaseHandler):
             episode['vote_average'] = float(episode['vote_average'])
             episodes.append(episode)
 
-        self.success(data=dict(episodes_list=episodes,total=data.get('total')))
+        self.success(data=dict(episodes_list=episodes, total=data.get('total')))
