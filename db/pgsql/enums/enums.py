@@ -25,7 +25,7 @@ class ReleaseTypes(Enum):
 
 
 class GenresType(Enum):
-    """Movie Types"""
+    """Movie And Tv Genres Types"""
     Action = 28
     Adventure = 12
     Animation = 16
@@ -45,6 +45,14 @@ class GenresType(Enum):
     Thriller = 53
     War = 10752
     Western = 37
+    ActionAdventure = 10759
+    Kids = 10762
+    News = 10763
+    Reality = 10764
+    SciFiFantasy = 10765
+    Soap = 10766
+    Talk = 10767
+    WarPolitics = 10768
 
 
 class VideoType(Enum):

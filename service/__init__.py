@@ -14,6 +14,11 @@ class Tmdb:
     tmdb.REQUESTS_TIMEOUT = 10
     tmdb.REQUESTS_SESSION = requests.Session()
     search = tmdb.Search()
+    discover = tmdb.Discover()
+
+    def discover_company_tv(self, **kwargs):
+        tv_series = self.discover.tv(**kwargs)
+        return tv_series
 
     def tv_series(self, tv_series_id):
         _tv_series = tmdb.TV(tv_series_id)
