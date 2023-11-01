@@ -9,12 +9,12 @@ from db.pgsql.base import exc_handler
 @exc_handler
 def query_movie_release_dates(movie_id, **kwargs):
     sess = kwargs.get('sess')
-    results = sess.query(ReleaseDate).filter(ReleaseDate.id == movie_id).all()
+    results = sess.query(ReleaseDate).filter(ReleaseDate.movie_id == movie_id).all()
     release_dates_list = []
     for res in results:
         res = res.to_dict()
-        # res["type"] = get_key_by_value(ReleaseTypes, res.get("type", 1))
-        res["release_date"] = res["release_date"].strftime('%Y-%m-%d %H:%M:%S')
+        if res["release_date"]:
+            res["release_date"] = res["release_date"].strftime('%Y-%m-%d %H:%M:%S')
         release_dates_list.append(res)
     return dict(release_date=release_dates_list)
 

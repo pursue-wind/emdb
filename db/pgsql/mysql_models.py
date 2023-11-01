@@ -33,7 +33,6 @@ class TVSeriesAdditional(Base):
 
 
 
-
 class TVSeasons(Base):
     __tablename__ = 'tv_seasons'
     id = Column(Integer, Sequence("tv_seasons_seq"), primary_key=True)

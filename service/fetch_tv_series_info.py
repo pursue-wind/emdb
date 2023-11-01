@@ -3,12 +3,14 @@ from tornado.log import app_log
 import db.pgsql.movies as mv
 import db.pgsql.tv_seasons as tv_seasons
 import db.pgsql.tv_series_additional as tv_series
+from db.pgsql.enums import enums
 from db.pgsql.enums.enums import CreditType, ImagesType, SourceType
 from db.pgsql.movie_alternative_titles import insert_movie_alternative_titles
 from db.pgsql.movie_credits import insert_movie_credits, query_movie_credit_by_tmdb_id
 from db.pgsql.movie_credits_relations import insert_batch_movie_credits_relation
 from db.pgsql.movie_images import insert_movie_images
 from db.pgsql.movie_key_words import insert_movie_key_words
+from db.pgsql.movie_release_dates import insert_movie_release_dates
 from db.pgsql.production_company import batch_insert_production_company
 from db.pgsql.tv_episodes import insert_tv_episodes_list
 from service import Tmdb
@@ -133,7 +135,26 @@ def get_tv_detail(tmdb_series_id, lang=None, country=None):
     key_words_list = [{"tmdb_id": d["id"], "name": d["name"], "movie_id": emdb_movie_id} for d in _key_words_list]
     yield insert_movie_key_words(key_words_list)
 
+    # 9. save content_ratings
+    yield save_content_ratings(tv, emdb_movie_id)
+
     return
+
+
+@gen.coroutine
+def save_content_ratings(tv_obj, emdb_movie_id):
+    content_ratings = tv_obj.content_ratings()
+    content_rating_list = list()
+    for cr in content_ratings["results"]:
+        content_rate = dict()
+        country = cr["iso_3166_1"]
+        content_rate["movie_id"] = emdb_movie_id
+        content_rate['iso_3166_1'] = country
+        content_rate["descriptors"] = cr["descriptors"]
+        content_rate["certification"] = cr["rating"]
+        content_rate["type"] = enums.ReleaseTypes.Default.value
+        content_rating_list.append(content_rate)
+    yield insert_movie_release_dates(content_rating_list)
 
 
 @gen.coroutine
