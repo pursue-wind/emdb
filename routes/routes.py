@@ -15,6 +15,16 @@ MOVIE_ROUTE = [
     ("/api/movie/videos", MovieVideos),
     ("/api/movie/translations", MovieTranslations),
     ("/api/movie/certifications", GetMoviRealeseCertifications),
+
+    ("/api/tv/search", SearchMovie),
+    ("/api/tv/add", AddMovie),
+    ("/api/tv/alternative_titles", MovieAlternativeTitles),
+    ("/api/tv/credits", MovieCredits),
+    ("/api/tv/release_dates", MovieReleaseDates),
+    ("/api/tv/images", MovieImages),
+    ("/api/tv/videos", MovieVideos),
+    ("/api/tv/translations", MovieTranslations),
+    ("/api/tv/certifications", GetMoviRealeseCertifications),
     ("/api/tv/episodes", GetTVEpisodes)
 
 ]
