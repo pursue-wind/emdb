@@ -22,6 +22,7 @@ class ReleaseTypes(Enum):
     Digital = 4  # 数字
     Physical = 5  # 实体
     TV = 6  # 电视
+    Default = 99
 
 
 class GenresType(Enum):
