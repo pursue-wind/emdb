@@ -18,10 +18,10 @@ class TVAlternativeTitles(BaseHandler):
     """
     @gen.coroutine
     def get(self, *_args, **_kwargs):
-        args = self.parse_form_arguments('movie_id')
-        movie_id = args.movie_id
+        args = self.parse_form_arguments('tv_id')
+        tv_id = args.tv_id
         yield self.check_auth()
-        res = yield query_alternative_title(movie_id=movie_id, lang=None)
+        res = yield query_alternative_title(movie_id=tv_id, lang=None)
 
         self.success(data=dict(alternative_titles=res["data"]))
 
@@ -33,10 +33,10 @@ class TVCredits(BaseHandler):
     """
     @gen.coroutine
     def get(self, *_args, **_kwargs):
-        args = self.parse_form_arguments('movie_id')
-        movie_id = args.movie_id
+        args = self.parse_form_arguments('tv_id')
+        tv_id = args.tv_id
         yield self.check_auth()
-        res = yield query_movie_credits_by_movie_id(movie_id, lang=None)
+        res = yield query_movie_credits_by_movie_id(tv_id, lang=None)
 
         self.success(data=dict(credits=res["data"]))
 
@@ -48,10 +48,10 @@ class TVReleaseDates(BaseHandler):
     """
     @gen.coroutine
     def get(self, *_args, **_kwargs):
-        args = self.parse_form_arguments('movie_id')
-        movie_id = args.movie_id
+        args = self.parse_form_arguments('tv_id')
+        tv_id = args.tv_id
         yield self.check_auth()
-        result = yield query_movie_release_dates(movie_id)
+        result = yield query_movie_release_dates(tv_id)
         self.success(data=result["data"])
 
 
@@ -63,10 +63,10 @@ class TVImages(BaseHandler):
     """
     @gen.coroutine
     def get(self, *_args, **_kwargs):
-        args = self.parse_form_arguments('movie_id')
-        movie_id = args.movie_id
+        args = self.parse_form_arguments('v_id')
+        tv_id = args.tv_id
         yield self.check_auth()
-        result = yield query_movie_images(movie_id)
+        result = yield query_movie_images(tv_id)
         self.success(data=result["data"])
 
 
@@ -77,10 +77,10 @@ class TVVideos(BaseHandler):
     """
     @gen.coroutine
     def get(self, *_args, **_kwargs):
-        args = self.parse_form_arguments('movie_id')
-        movie_id = args.movie_id
+        args = self.parse_form_arguments('tv_id')
+        tv_id = args.tv_id
         yield self.check_auth()
-        result = yield query_movie_videos(movie_id)
+        result = yield query_movie_videos(tv_id)
         self.success(data=result["data"])
 
 
@@ -90,10 +90,10 @@ class TVTranslations(BaseHandler):
     """
     @gen.coroutine
     def get(self,*_args, **_kwargs):
-        args = self.parse_form_arguments('movie_id')
-        movie_id = args.movie_id
+        args = self.parse_form_arguments('tv_id')
+        tv_id = args.tv_id
         yield self.check_auth()
-        result = yield query_movie_translations(movie_id)
+        result = yield query_movie_translations(tv_id)
         self.success(data=result['data'])
 
 
