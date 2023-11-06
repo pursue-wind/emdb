@@ -31,7 +31,10 @@ OPERATORS = {
     '$neq': lambda x, y: x != y,
 }
 
-AUTH_INFO = {"2gqcvdlkqbrm56": "feed0f24e31a235gd8b7e4bed1fec4dd2655"}
+AUTH_INFO = {
+    "2gqcvdlkqbrm56": "feed0f24e31a235gd8b7e4bed1fec4dd2655",
+    "2aqcldlkq1rm57": "feed0ff4e31g235gd8b7e4bed1fec4dd2651"
+}
 
 token_list = ['DJy87FAUwpIYn4KC188f099b152']
 
@@ -49,7 +52,6 @@ class BaseHandler(RequestHandler):
     def _request_summary(self):
         s = ' '
         return f'{self.request.method.rjust(6, s)} {self.request.remote_ip.rjust(15, s)}  {self.request.path} '
-
 
     def log_exception(self, typ, value, tb):
         """Override to customize logging of uncaught exceptions.
