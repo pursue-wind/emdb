@@ -125,7 +125,7 @@ class GetTVRealeseCertifications(BaseHandler):
         yield self.check_auth()
         args = self.parse_form_arguments('country')
         country = args.country
-        with open("docs/tmdb/movie_certifications.json", "r") as file:
+        with open("docs/tmdb/tv_certifications.json", "r") as file:
             data = json.load(file)
         res = data['certifications'].get(country)
         certifications = list()
