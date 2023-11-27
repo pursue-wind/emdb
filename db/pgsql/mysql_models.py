@@ -51,7 +51,7 @@ class TVEpisodes(Base):
     id = Column(Integer, Sequence("tv_episodes_seq"), primary_key=True)
     tmdb_series_id = Column(Integer, nullable=False, index=True)
     tmdb_season_id = Column(Integer, nullable=False, index=True)
-    tmdb_episode_id = Column(Integer, nullable=False, index=True)
+    tmdb_episode_id = Column(Integer, nullable=False, index=True, unique=True)
 
     air_date = Column(DateTime)
     episode_number = Column(Integer)

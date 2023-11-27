@@ -1,5 +1,6 @@
 from tornado.web import url
 
+from handlers.emmai_handler import CountCompanyMovies
 from handlers.movie_extra_info import MovieAlternativeTitles, MovieCredits, MovieReleaseDates, MovieImages, MovieVideos, \
     MovieTranslations, GetMoviRealeseCertifications
 from handlers.movie_handler import SearchMovie, SearchCompany, AddMovie, SearchCompanyMovies
@@ -35,5 +36,9 @@ COMPANY_ROUTE = [
     ("/api/company/search", SearchCompany),
     ("/api/company/movies", SearchCompanyMovies),
     ("/api/company/tv", SearchCompanyTV),
+]
 
+
+EMMAI_ROUTE = [
+    ("/api/media/count", CountCompanyMovies)
 ]

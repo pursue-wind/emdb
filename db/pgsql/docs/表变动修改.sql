@@ -11,13 +11,15 @@ ALTER COLUMN runtime SET DEFAULT 0;
 
 -- 新增字段
 ALTER TABLE movies
-ADD COLUMN video BOOLEAN DEFAULT false;
+ALTER COLUMN video set DEFAULT false;
 
 ---- movie_translations table:
 -- 删除旧索引
-DROP INDEX IF EXISTS unique_movie_translations on movie_translations;
+ALTER TABLE movie_translations DROP CONSTRAINT movie_translations_iso_3166_1_iso_639_1_key;
 -- 创建新唯一索引
 CREATE UNIQUE INDEX unique_movie_translations ON movie_translations (movie_id, iso_3166_1, iso_639_1);
+
+
 
 
 
@@ -58,7 +60,7 @@ CREATE TABLE tv_episodes (
     id SERIAL PRIMARY KEY,
     tmdb_series_id INT NOT NULL,
     tmdb_season_id INT NOT NULL,
-    tmdb_episode_id INT NOT NULL,
+    tmdb_episode_id INT NOT NULL UNIQUE,
     air_date TIMESTAMP,
     episode_number INT,
     episode_type VARCHAR(20),

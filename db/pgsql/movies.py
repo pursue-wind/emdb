@@ -1,6 +1,6 @@
 import json
 
-from sqlalchemy import cast, Integer, and_
+from sqlalchemy import cast, Integer, and_, func
 from sqlalchemy.dialects.postgresql import insert, ARRAY
 from tornado import gen
 
@@ -29,6 +29,18 @@ def query_movie_by_tmdb_id(tmdb_movie_id, **kwargs):
         return dict(movie_info=dict())
     movie = results.to_dict()
     return dict(movie_info=movie)
+
+
+@gen.coroutine
+@exc_handler
+def count_movies_of_company(tmdb_company_id, source_type, **kwargs):
+    sess = kwargs.get("sess")
+    total_count = sess.query(func.count(Movies.id)).filter(
+        and_(Movies.source_type == source_type, Movies.production_companies.any(tmdb_company_id))).scalar()
+    if total_count is None:
+        total_count = 0
+    return dict(total_count=total_count)
+
 
 
 @gen.coroutine
