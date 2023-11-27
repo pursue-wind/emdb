@@ -22,7 +22,9 @@ class TVAlternativeTitles(BaseHandler):
         tv_id = args.tv_id
         yield self.check_auth()
         res = yield query_alternative_title(movie_id=tv_id, lang=None)
-
+        for i in res["data"]:
+            i['tv_id']= i['movie_id']
+            del i['movie_id']
         self.success(data=dict(alternative_titles=res["data"]))
 
 
@@ -37,7 +39,12 @@ class TVCredits(BaseHandler):
         tv_id = args.tv_id
         yield self.check_auth()
         res = yield query_movie_credits_by_movie_id(tv_id, lang=None)
-
+        for i in res["data"]['cast']:
+            i['tv_id']= i['movie_id']
+            del i['movie_id']
+        for i in res["data"]['crew']:
+            i['tv_id']= i['movie_id']
+            del i['movie_id']
         self.success(data=dict(credits=res["data"]))
 
 
@@ -52,6 +59,9 @@ class TVReleaseDates(BaseHandler):
         tv_id = args.tv_id
         yield self.check_auth()
         result = yield query_movie_release_dates(tv_id)
+        for i in result["data"]['release_date']:
+            i['tv_id']= i['movie_id']
+            del i['movie_id']
         self.success(data=result["data"])
 
 
@@ -67,6 +77,9 @@ class TVImages(BaseHandler):
         tv_id = args.tv_id
         yield self.check_auth()
         result = yield query_movie_images(tv_id)
+        for i in result["data"]['images']:
+            i['tv_id'] = i['movie_id']
+            del i['movie_id']
         self.success(data=result["data"])
 
 
@@ -81,6 +94,9 @@ class TVVideos(BaseHandler):
         tv_id = args.tv_id
         yield self.check_auth()
         result = yield query_movie_videos(tv_id)
+        for i in result["data"]['videos']:
+            i['tv_id'] = i['movie_id']
+            del i['movie_id']
         self.success(data=result["data"])
 
 
@@ -94,6 +110,9 @@ class TVTranslations(BaseHandler):
         tv_id = args.tv_id
         yield self.check_auth()
         result = yield query_movie_translations(tv_id)
+        for i in result["data"]:
+            i['tv_id'] = i['movie_id']
+            del i['movie_id']
         self.success(data=result['data'])
 
 

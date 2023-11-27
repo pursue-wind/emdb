@@ -29,7 +29,7 @@ class SearchTV(BaseHandler):
         if not data:
             self.success(data=dict())
         tvs = list()
-        for mv in data["tvs"]:
+        for mv in data["movies"]:
             mv["release_date"] = mv['release_date'].strftime('%Y-%m-%d %H:%M:%S')
             mv["vote_average"] = float(mv["vote_average"])
             mv["popularity"] = float(mv["popularity"])
@@ -46,7 +46,7 @@ class SearchTV(BaseHandler):
             mv["production_companies"] = production_companies["data"]["companies"]
             keywords_list = yield query_movie_keywords(mv["id"])
             mv["keywords"] = keywords_list.get("data")
-        self.success(data=dict(tvs=tvs))
+        self.success(data=dict(tv=tvs))
 
 
 class AddTV(BaseHandler):
