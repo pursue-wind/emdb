@@ -11,9 +11,9 @@ debug:
 server:
   domain:
     local: http://127.0.0.1
-    dev: https://emdb.likn.co
-    test: https://test-emdb.emmai.com
-    release: https://emdb.emmai.com
+    dev: https://xmdb.likn.co
+    test: https://test-xmdb.emmai.com
+    release: https://xmdb.emmai.com
   host:
     local: 127.0.0.1
     dev: 127.0.0.1
