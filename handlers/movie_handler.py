@@ -30,7 +30,10 @@ class SearchMovie(BaseHandler):
             self.success(data=dict())
         movies = list()
         for mv in data["movies"]:
-            mv["release_date"] = mv['release_date'].strftime('%Y-%m-%d %H:%M:%S')
+            if mv["release_date"] is not None:
+                mv["release_date"] = mv['release_date'].strftime('%Y-%m-%d %H:%M:%S')
+            else:
+                mv["release_date"] = None
             mv["vote_average"] = float(mv["vote_average"])
             mv["popularity"] = float(mv["popularity"])
             movies.append(mv)

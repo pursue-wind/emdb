@@ -1,3 +1,4 @@
+import os
 
 import tornado.web
 from tornado.log import access_log, app_log
@@ -54,7 +55,11 @@ class Application(tornado.web.Application):
 if __name__ == "__main__":
     app = Application()
     app.listen(cfg.server.port)
+    app_log.info("*"*40)
     app_log.info(f"servive start listening on {cfg.server.host}:{cfg.server.port}")
+    _ENV = os.getenv('ENV')
+    app_log.info(f"current ENV：{_ENV}")
+    app_log.info("*"*40)
     io_loop = tornado.ioloop.IOLoop.current()
     io_loop.start()
 

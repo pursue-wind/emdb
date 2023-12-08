@@ -4,36 +4,43 @@ log:
   path: "../../logs/"
   level: "Info"
 debug:
+  local: true
   dev: true
-  prod: false
+  test: false
   release: false
 server:
   domain:
-    dev: http://127.0.0.1
-    prod: https://emdb.api.co
+    local: http://127.0.0.1
+    dev: https://emdb.likn.co
+    test: https://test-emdb.emmai.com
     release: https://emdb.emmai.com
   host:
+    local: 127.0.0.1
     dev: 127.0.0.1
-    prod: 43.207.219.44
-    release: 8.218.184.1
+    test: 127.0.0.1
+    release: 127.0.0.1
   port:
+    local: 8088
     dev: 8088
-    prod: 8088
+    test: 8088
     release: 8088
   pass_mixin: "0x00544"
 pgsql:
-  dev:  >-
+  local: >-
     postgresql://postgres:emdb2scjdl@localhost:5432/emdb2
-  prod: >-
+  dev:  >-
     postgresql://postgres:8BR53B9ErGweQH@43.207.219.44:5432/emdb
-  release: >-
+  test: >-
     postgresql://emmai:fsv33inhTeHkhY5@pgm-j6ch0p61yvj4fk25.pg.rds.aliyuncs.com:5432/emdb
+  release: >-
+    postgresql://user:pwd@host:5432/emdb
 swagger:
   path: '/path/to/swagger'
   ui_path: '/path/to/swagger-ui'
 emmai:
   base_url:
-    dev: http://localhost:8000
-    prod: https://emmai-api.likn.co
+    local: http://localhost:8000
+    dev: https://emmai-api.likn.co
+    test: https://test-api.emmai.com
     release: https://api.emmai.com
 

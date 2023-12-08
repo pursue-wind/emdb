@@ -149,6 +149,8 @@ class BaseHandler(RequestHandler):
             auth_mode, auth_base64 = auth_header.split(' ', 1)
             auth_info = base64.b64decode(auth_base64)
             app_id, app_key = auth_info.decode('utf-8').split(":")
+            if app_id not in AUTH_INFO:
+                self.fail(401)
             if AUTH_INFO[app_id] != app_key:
                 self.fail(401)
         except Exception as e:
