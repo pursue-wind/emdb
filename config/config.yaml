@@ -11,7 +11,7 @@ debug:
 server:
   domain:
     local: http://127.0.0.1
-    dev: https://xmdb.likn.co
+    dev: https://dev-xmdb.emmai.com
     test: https://test-xmdb.emmai.com
     release: https://xmdb.emmai.com
   host:
@@ -40,7 +40,7 @@ swagger:
 emmai:
   base_url:
     local: http://localhost:8000
-    dev: https://emmai-api.likn.co
+    dev: https://dev-api.emmai.com
     test: https://test-api.emmai.com
     release: https://api.emmai.com
 
