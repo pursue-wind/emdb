@@ -9,7 +9,7 @@ from tornado.log import app_log
 from lib.arguments import Arguments
 
 _ENV = os.getenv('ENV')
-# print(f"current ENV：{_ENV}")
+print(f"current ENV：{_ENV}")
 app_log.info(f"current ENV：{_ENV}")
 if not _ENV:
     raise EnvironmentError("ENV is not available！")

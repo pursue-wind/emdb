@@ -17,7 +17,7 @@ from . import Tmdb
 
 
 @gen.coroutine
-def fetch_movie_info(tmdb_mv_id, lang=None, country=None):
+def fetch_movie_info(tmdb_mv_id, company_id=None, lang=None, country=None):
 
     if lang is None or country is None:
         language = None
@@ -47,6 +47,8 @@ def fetch_movie_info(tmdb_mv_id, lang=None, country=None):
         mv_detail["release_date"] = None
     mv_detail["genres"] = genres_ids
     mv_detail["production_companies"] = production_company_ids
+    if company_id is not None:
+        mv_detail["production_companies"].append(company_id)
     mv_detail["production_countries"] = production_country_ids
     mv_detail["spoken_languages"] = spoken_languages_iso6391
     if mv_detail["backdrop_path"]:
@@ -58,6 +60,7 @@ def fetch_movie_info(tmdb_mv_id, lang=None, country=None):
     external_ids = movie.external_ids()
     mv_detail["external_ids"] = external_ids
     mv_detail["source_type"] = SourceType.Movie.value
+
     res = yield mv.insert_movies(mv_detail)
     if res["status"] == 1:
         _movie_info = yield mv.query_movie_by_tmdb_id(tmdb_mv_id)

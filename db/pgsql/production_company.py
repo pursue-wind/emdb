@@ -7,6 +7,18 @@ from db.pgsql.base import exc_handler
 
 @gen.coroutine
 @exc_handler
+def insert_production_company(production_company_info, **kwargs):
+    sess = kwargs.get('sess')
+
+    pc_data = {k: v for k, v in production_company_info.items() if v is not None}
+    pc = ProductionCompany(**pc_data)
+    sess.add(pc)
+    sess.commit()
+    return dict()
+
+
+@gen.coroutine
+@exc_handler
 def batch_insert_production_company(production_company_list, **kwargs):
     sess = kwargs.get('sess')
 

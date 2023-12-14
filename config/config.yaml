@@ -11,7 +11,8 @@ debug:
 server:
   domain:
     local: http://127.0.0.1
-    dev: https://dev-xmdb.emmai.com
+    dev: https://
+
     test: https://test-xmdb.emmai.com
     release: https://xmdb.emmai.com
   host:
@@ -28,7 +29,7 @@ server:
 pgsql:
   local: >-
     postgresql://postgres:emdb2scjdl@localhost:5432/emdb2
-  dev:  >-
+  dev: >-
     postgresql://postgres:8BR53B9ErGweQH@43.207.219.44:5432/emdb
   test: >-
     postgresql://emmai:fsv33inhTeHkhY5@pgm-j6ch0p61yvj4fk25.pg.rds.aliyuncs.com:5432/emdb

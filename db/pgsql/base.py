@@ -16,7 +16,7 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from config.config import CFG as cfg
 
-
+print(cfg.pgsql)
 
 DB_ENGINE = create_engine(
     cfg.pgsql,

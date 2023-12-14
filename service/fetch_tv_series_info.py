@@ -18,7 +18,13 @@ from service.fetch_moive_info import parse_credit_info, fetch_movie_videos, fetc
 
 
 @gen.coroutine
-def get_tv_detail(tmdb_series_id, lang=None, country=None):
+def import_tv_emdb_by_series_id(tmdb_series_id_list, company_id=None, lang=None, country=None):
+    for id in tmdb_series_id_list:
+        get_tv_detail(id, company_id)
+
+
+@gen.coroutine
+def get_tv_detail(tmdb_series_id, company_id=None, lang=None, country=None):
     """
     get tv series deatil
     """
@@ -40,6 +46,8 @@ def get_tv_detail(tmdb_series_id, lang=None, country=None):
     for season_info in tv_seasons_info:
 
         tv_detail = parse_tv_detail(tv_series_detail, season_info, external_ids, img_base_url)
+        if company_id is not None:
+            tv_detail["production_companies"].append(company_id)
 
         # 1.insert tv season detail to movie
         res = yield mv.insert_movies(tv_detail)
