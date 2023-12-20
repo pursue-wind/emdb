@@ -1,10 +1,11 @@
 import json
+from operator import or_
 
 from sqlalchemy import cast, Integer, and_, func
 from sqlalchemy.dialects.postgresql import insert, ARRAY
 from tornado import gen
 
-from db.pgsql.mysql_models import Imgs, Movies, MovieKeyWords, ProductionCompany, MoviesCredits
+from db.pgsql.mysql_models import Imgs, Movies, MovieKeyWords, ProductionCompany, MoviesCredits, MovieAlternativeTitles
 from db.pgsql.base import exc_handler, datetime_handler
 
 
@@ -50,15 +51,18 @@ def query_movie_by_company_id(tmdb_company_id, source_type, **kwargs):
     page_num = kwargs.get("page_num")
     page_size = kwargs.get("page_size")
     movie_name = kwargs.get("movie_name")
-    query = sess.query(Movies).filter(
-        and_(Movies.source_type == source_type, Movies.production_companies.any(tmdb_company_id)))
+    query = sess.query(Movies).outerjoin(MovieAlternativeTitles, Movies.id == MovieAlternativeTitles.movie_id).filter(
+        and_(Movies.source_type == source_type,
+             Movies.production_companies.any(tmdb_company_id)
+             ))
     if movie_name:
-        query = query.filter(Movies.original_title.ilike(f"%{movie_name}%"))
+        query = query.filter(or_(Movies.original_title.ilike(f"%{movie_name}%"),
+                                 MovieAlternativeTitles.title.ilike(f"%{movie_name}%")))
 
-    total = query.count()
+    total = query.distinct().count()
 
     offset = (int(page_num) - 1) * int(page_size)
-    movie_list = query.offset(offset).limit(page_size).all()
+    movie_list = query.offset(offset).limit(page_size).distinct().all()
     _movie_list = []
     for movie in movie_list:
         movie = movie.to_dict()
