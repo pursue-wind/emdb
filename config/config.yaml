@@ -34,7 +34,7 @@ pgsql:
   test: >-
     postgresql://emmai:fsv33inhTeHkhY5@8.218.184.1:54321/emdb
   release: >-
-    postgresql://user:pwd@host:5432/emdb
+    postgresql://emmai_prod:nhTeHkhY5MaqdpW2b@pgm-j6c277hnh814e491.pg.rds.aliyuncs.com/emdb
 swagger:
   path: '/path/to/swagger'
   ui_path: '/path/to/swagger-ui'
