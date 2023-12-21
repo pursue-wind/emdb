@@ -56,7 +56,8 @@ def query_movie_by_company_id(tmdb_company_id, source_type, **kwargs):
              Movies.production_companies.any(tmdb_company_id)
              ))
     if movie_name:
-        query = query.filter(or_(Movies.original_title.ilike(f"%{movie_name}%"),
+        query = query.filter(or_(or_(Movies.original_title.ilike(f"%{movie_name}%"),
+                                 Movies.title.ilike(f"%{movie_name}")),
                                  MovieAlternativeTitles.title.ilike(f"%{movie_name}%")))
 
     total = query.distinct().count()
