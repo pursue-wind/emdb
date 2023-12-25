@@ -10,9 +10,8 @@ debug:
   release: false
 server:
   domain:
-    local: http://127.0.0.1
+    local: http://127.0.0.1:8088
     dev: https://dev-xmdb.emmai.com
-
     test: https://test-xmdb.emmai.com
     release: https://xmdb.emmai.com
   host:

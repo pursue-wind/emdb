@@ -60,7 +60,7 @@ def add_movie_to_emdb(tmdb_movie_id, emdb_url, company_id=None):
     params = {"tmdb_movie_id": tmdb_movie_id, "company_id": company_id}
     headers = {'Authorization': 'Basic MmdxY3ZkbGtxYnJtNTY6ZmVlZDBmMjRlMzFhMjM1Z2Q4YjdlNGJlZDFmZWM0ZGQyNjU1'}
     res = requests.post(emdb_url, data=params, headers=headers)
-    logging.info(res.content)
+    logging.info(f"add movie response: {res.text}")
 
 
 @gen.coroutine
