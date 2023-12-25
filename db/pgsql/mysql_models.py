@@ -84,7 +84,7 @@ class Movies(Base):
     id = Column(Integer, Sequence("movies_seq"), primary_key=True)
     tmdb_id = Column(Integer, nullable=False, index=True, unique=True)
     imdb_id = Column(String(10), index=True)
-    tmdb_series_id = Column(Integer, nullable=False, index=True)
+    tmdb_series_id = Column(Integer, nullable=True, index=True)
     title = Column(String(255), nullable=False, index=True)
     backdrop_path = Column(String(200))
     belongs_to_collection = Column(JSONB)

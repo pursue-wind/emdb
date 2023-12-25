@@ -38,6 +38,6 @@ def import_movie_by_name(company_id=None):
 if __name__ == '__main__':
     company_id = 100000006
     io_loop = ioloop.IOLoop.current()
-    io_loop.run_sync(lambda : import_movie_by_name(company_id))
+    io_loop.run_sync(lambda: import_movie_by_name(company_id))
 
 
