@@ -114,7 +114,7 @@ class SearchCompanyTV(BaseHandler):
     @gen.coroutine
     def post(self, *_args, **_kwargs):
 
-        args = self.parse_form_arguments('tmdb_company_id', page_num=1, page_size=10, tv_name=None)
+        args = self.parse_json_arguments('tmdb_company_id', page_num=1, page_size=10, tv_name=None)
         tmdb_company_id = args.tmdb_company_id
         page_num = int(args.page_num)
         page_size = int(args.page_size)
