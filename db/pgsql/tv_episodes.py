@@ -23,7 +23,6 @@ def insert_tv_episodes_list(tv_episodes_list, **kwargs):
     stmt = insert(TVEpisodes).values(tv_episodes_list).on_conflict_do_nothing()
     sess.execute(stmt)
     sess.commit()
-
     return dict()
 
 
@@ -31,7 +30,8 @@ def insert_tv_episodes_list(tv_episodes_list, **kwargs):
 @exc_handler
 def get_tv_episodes_list(tmdb_season_id, **kwargs):
     sess = kwargs.get('sess')
-    result = sess.query(TVEpisodes).filter(TVEpisodes.tmdb_season_id == tmdb_season_id)
+    result = (sess.query(TVEpisodes).filter(TVEpisodes.tmdb_season_id == tmdb_season_id).
+              order_by(TVEpisodes.episode_number))
     total = result.count()
     episodes_list = result.all()
     episodes=[]
