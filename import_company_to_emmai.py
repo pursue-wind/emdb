@@ -24,7 +24,7 @@ file_path = "docs/movies.xlsx"
 @tornado.gen.coroutine
 def add_companies_to_emmai():
     add_company_url = "/api/v1/company/import"
-    company_data = read_excel(file_path, "companys")
+    company_data = read_excel(file_path, "company")
 
     url = cfg.emmai.base_url + add_company_url
     print(f"request url:{url}")
