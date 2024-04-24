@@ -27,15 +27,15 @@ def import_movie_by_name(company_id=None):
     ids = [movie_id[0] for movie_id in movies[1:]]
     for mv in movies[1:]:
         movie_name = mv[1]
-        logging.info(f"******** start search movie_name:{movie_name} ********")
+        # logging.info(f"******** start search movie_name:{movie_name} ********")
         # add movies to emdb
         movies = yield search_movie_by_name(movie_name, language)
-        logging.info(f"******** end add movie:{movie_name} to emdb ********")
-        logging.info(f"total movies：{len(movies['data'])}")
-        logging.info(movies)
+        # logging.info(f"******** end add movie:{movie_name} to emdb ********")
+        # logging.info(f"total movies：{len(movies['data'])}")
         for movie in movies["data"]:
             tmdb_id = movie["id"]
             if tmdb_id in ids:
+                logging.info(f"success:{tmdb_id}")
                 yield fetch_movie_info(tmdb_id, company_id,language)
 
 
