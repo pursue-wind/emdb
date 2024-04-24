@@ -84,7 +84,6 @@ def insert_movies(movie_info, **kwargs):
         existing_movie.poster_path = movie_info["poster_path"]
         existing_movie.overview = movie_info["overview"]
 
-        sess.update()
         sess.commit()
         return dict(movie_id=existing_movie.id)
     movie = Movies(**movie_data)
