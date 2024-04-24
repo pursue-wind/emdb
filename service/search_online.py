@@ -11,7 +11,7 @@ from config.config import CFG as cfg
 @handle_exceptions
 def search_movie_by_name(movie_name, lang, page=1):
     e_tmdb = Tmdb()
-    result = e_tmdb.search.movie(languag=lang, query=movie_name, page=page)
+    result = e_tmdb.search.movie(language=lang, query=movie_name, page=page)
     logging.info(f"search movies results:{result}")
     # result:{'page': 1, 'results': [], 'total_pages': 1, 'total_results': 0}
     movies = result.get("results", [])
@@ -23,7 +23,7 @@ def search_movie_by_name(movie_name, lang, page=1):
     logging.info(f"current page: {page}, total_pages:{total_pages}, total_results:{total_results}")
     while total_pages and page < total_pages:
         page += 1
-        result = e_tmdb.search.movie(languag=lang, query=movie_name, page=page)
+        result = e_tmdb.search.movie(language=lang, query=movie_name, page=page)
         logging.info(f"search movies results:{result}")
         # result:{'page': 1, 'results': [], 'total_pages': 1, 'total_results': 0}
         next_page_movies = result.get("results", [])

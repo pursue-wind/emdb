@@ -10,7 +10,8 @@ class Tmdb:
     Get moive info from tmdb
     """
     IMAGE_BASE_URL = "https://image.tmdb.org/t/p/original"
-    tmdb.API_KEY = "fb5642b7e0b6d36ad5ebcdf78a52f14c"
+    # tmdb.API_KEY = "fb5642b7e0b6d36ad5ebcdf78a52f14c"
+    tmdb.API_KEY = "f7cae5cb2f797c78f8efd0e550c182a6"
     tmdb.REQUESTS_TIMEOUT = 10
     tmdb.REQUESTS_SESSION = requests.Session()
     search = tmdb.Search()
