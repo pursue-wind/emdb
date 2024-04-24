@@ -12,7 +12,7 @@ from config.config import CFG as cfg
 def search_movie_by_name(movie_name, lang, page=1):
     e_tmdb = Tmdb()
     result = e_tmdb.search.movie(language=lang, query=movie_name, page=page)
-    logging.info(f"search movies results:{result}")
+    # logging.info(f"search movies results:{result}")
     # result:{'page': 1, 'results': [], 'total_pages': 1, 'total_results': 0}
     movies = result.get("results", [])
     if not movies:
@@ -20,14 +20,14 @@ def search_movie_by_name(movie_name, lang, page=1):
     total_results = result.get("total_results")
     total_pages = result.get("total_pages")
     page = result.get("page")
-    logging.info(f"current page: {page}, total_pages:{total_pages}, total_results:{total_results}")
+    # logging.info(f"current page: {page}, total_pages:{total_pages}, total_results:{total_results}")
     while total_pages and page < total_pages:
         page += 1
         result = e_tmdb.search.movie(language=lang, query=movie_name, page=page)
-        logging.info(f"search movies results:{result}")
+        # logging.info(f"search movies results:{result}")
         # result:{'page': 1, 'results': [], 'total_pages': 1, 'total_results': 0}
         next_page_movies = result.get("results", [])
-        logging.info(f"current_page:{page}, result:{next_page_movies}")
+        # logging.info(f"current_page:{page}, result:{next_page_movies}")
         movies.extend(next_page_movies)
     return movies
 
