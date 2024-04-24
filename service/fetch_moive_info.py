@@ -66,6 +66,7 @@ def fetch_movie_info(tmdb_mv_id, company_id=None, lang=None, country=None):
     mv_detail["external_ids"] = external_ids
     mv_detail["source_type"] = SourceType.Movie.value
 
+    del mv_detail["origin_country"]
     res = yield mv.insert_movies(mv_detail)
     if res["status"] == 1:
         _movie_info = yield mv.query_movie_by_tmdb_id(tmdb_mv_id)
