@@ -169,7 +169,7 @@ def get_tv_detail(tmdb_series_id, company_id=None, lang=None, country=None):
     tv = e_tmdb.tv_series(tmdb_series_id)
 
     tv_series_detail = tv.info(language=language)
-    print(tv_series_detail)
+    # print(tv_series_detail)
     # external ids
     external_ids = tv.external_ids()
     # emdb_movie_id = 0
@@ -182,7 +182,7 @@ def get_tv_detail(tmdb_series_id, company_id=None, lang=None, country=None):
 
         # 1.insert tv season detail to movie
         res = yield mv.insert_movies(tv_detail)
-        print(f"insert movie table res：{res}")
+        # print(f"insert movie table res：{res}")
         if res["status"] == 1:
             _movie_info = yield mv.query_movie_by_tmdb_id(season_info["id"])
             emdb_movie_id = _movie_info["data"]["movie_info"].get("id")
@@ -195,7 +195,7 @@ def get_tv_detail(tmdb_series_id, company_id=None, lang=None, country=None):
         tv_additional_info = parse_tv_adddition_info(tv_series_detail)
         tv_additional_info["external_ids"] = external_ids
         res = yield tv_series.insert_tv_additional_info(tv_additional_info)
-        print(f"insert_tv_additional_info res:{res}")
+        # print(f"insert_tv_additional_info res:{res}")
 
     # 4.insert seasons info
     # for season_info in tv_seasons_info:
@@ -377,7 +377,7 @@ def save_tv_seasons_info(tv_seasons_info, tmdb_series_id, img_base_url):
         del season["vote_average"]
         tv_seasons_list.append(season)
     res = yield tv_seasons.insert_tv_seasons(tv_seasons_list)
-    print(f"insert_tv_seasons res:{res}")
+    # print(f"insert_tv_seasons res:{res}")
 
 
 def parse_tv_adddition_info(tv_series_detail):
