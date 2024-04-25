@@ -74,7 +74,7 @@ def exc_handler(function):
                     params=exception.params,
                     orig=str(exception.orig)))
             session.rollback()
-            print(dir(exception))
+            # print(dir(exception))
         except exc.ProgrammingError as exception:
             res = dict(status=2, msg=str(exception.orig))
             app_log.error(f"Op dbs error!：{res},{exception}")

@@ -47,7 +47,10 @@ def get_tv_detail_filter_season(tmdb_series_id,season_id, company_id=None, lang=
     tv_seasons_info = tv_series_detail["seasons"]
     is_exist = False
     for season_info in tv_seasons_info:
-
+        if season_info['season_number']!=season_id:
+            break
+        print(tmdb_series_id)
+        print(season_id)
         tv_detail = parse_tv_detail(tv_series_detail, season_info, external_ids, img_base_url)
         if company_id is not None and season_info['season_number']==season_id:
             is_exist =True
