@@ -40,20 +40,22 @@ def get_tv_detail_filter_season(tmdb_series_id,season_id, company_id=None, lang=
     tv = e_tmdb.tv_series(tmdb_series_id)
 
     tv_series_detail = tv.info(language=language)
-    print(tv_series_detail)
+    # print(tv_series_detail)
     # external ids
     external_ids = tv.external_ids()
     # emdb_movie_id = 0
     tv_seasons_info = tv_series_detail["seasons"]
+    is_exist = False
     for season_info in tv_seasons_info:
 
         tv_detail = parse_tv_detail(tv_series_detail, season_info, external_ids, img_base_url)
         if company_id is not None and season_info['season_number']==season_id:
+            is_exist =True
             tv_detail["production_companies"].append(company_id)
 
         # 1.insert tv season detail to movie
         res = yield mv.insert_movies(tv_detail)
-        print(f"insert movie table res：{res}")
+        # print(f"insert movie table res：{res}")
         if res["status"] == 1:
             _movie_info = yield mv.query_movie_by_tmdb_id(season_info["id"])
             emdb_movie_id = _movie_info["data"]["movie_info"].get("id")
@@ -66,7 +68,7 @@ def get_tv_detail_filter_season(tmdb_series_id,season_id, company_id=None, lang=
         tv_additional_info = parse_tv_adddition_info(tv_series_detail)
         tv_additional_info["external_ids"] = external_ids
         res = yield tv_series.insert_tv_additional_info(tv_additional_info)
-        print(f"insert_tv_additional_info res:{res}")
+        # print(f"insert_tv_additional_info res:{res}")
 
     # 4.insert seasons info
     # for season_info in tv_seasons_info:
@@ -127,6 +129,9 @@ def get_tv_detail_filter_season(tmdb_series_id,season_id, company_id=None, lang=
                fetch_movie_videos(tv_season_obj, emdb_movie_id),
                fetch_movie_translations(tv, emdb_movie_id)]
     # here the save_tv_seasons_info because of 'season_info["external_ids"] = tv_season_external_ids'
+    if not is_exist:
+        print("...........",tmdb_series_id,"........",season_id)
+
     yield save_tv_seasons_info(tv_seasons_info, tmdb_series_id, img_base_url)
 
     # 7.save production company
