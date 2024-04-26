@@ -45,16 +45,14 @@ def get_tv_detail_filter_season(tmdb_series_id,season_id, company_id=None, lang=
     external_ids = tv.external_ids()
     # emdb_movie_id = 0
     tv_seasons_info = tv_series_detail["seasons"]
-    is_exist = False
     for season_info in tv_seasons_info:
         if season_info['season_number']!=season_id:
-            break
-        print(tmdb_series_id)
-        print(season_id)
+            continue
+
         tv_detail = parse_tv_detail(tv_series_detail, season_info, external_ids, img_base_url)
         if company_id is not None and season_info['season_number']==season_id:
-            is_exist =True
             tv_detail["production_companies"].append(company_id)
+            print(".............................................."+tmdb_series_id+">>"+season_id+".....................................")
 
         # 1.insert tv season detail to movie
         res = yield mv.insert_movies(tv_detail)
@@ -132,8 +130,6 @@ def get_tv_detail_filter_season(tmdb_series_id,season_id, company_id=None, lang=
                fetch_movie_videos(tv_season_obj, emdb_movie_id),
                fetch_movie_translations(tv, emdb_movie_id)]
     # here the save_tv_seasons_info because of 'season_info["external_ids"] = tv_season_external_ids'
-    if not is_exist:
-        print("...........",tmdb_series_id,"........",season_id)
 
     yield save_tv_seasons_info(tv_seasons_info, tmdb_series_id, img_base_url)
 
