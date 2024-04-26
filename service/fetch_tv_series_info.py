@@ -52,7 +52,7 @@ def get_tv_detail_filter_season(tmdb_series_id,season_id, company_id=None, lang=
         tv_detail = parse_tv_detail(tv_series_detail, season_info, external_ids, img_base_url)
         if company_id is not None and season_info['season_number']==season_id:
             tv_detail["production_companies"].append(company_id)
-            print(".............................................."+tmdb_series_id+">>"+season_id+".....................................")
+            print(".............................................."+str(tmdb_series_id)+">>"+str(season_id)+".....................................")
 
         # 1.insert tv season detail to movie
         res = yield mv.insert_movies(tv_detail)
