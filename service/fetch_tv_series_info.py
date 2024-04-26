@@ -20,8 +20,9 @@ from service.fetch_moive_info import parse_credit_info, fetch_movie_videos, fetc
 @gen.coroutine
 def import_tv_emdb_by_series_id(tmdb_series_id_list,season_id_list, company_id=None, lang=None, country=None):
     for i in range(0,len(tmdb_series_id_list)):
+        if tmdb_series_id_list[i] is None:
+            break
         get_tv_detail_filter_season(tmdb_series_id_list[i],season_id_list[i], company_id)
-
     # for id in tmdb_series_id_list:
     #     get_tv_detail(id, company_id)
 

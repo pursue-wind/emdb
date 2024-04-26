@@ -42,6 +42,10 @@ if __name__ == '__main__':
     #         season = 7
     #     elif "第八季" in series_name or "S8" in series_name:
     #         season = 8
+    #     elif "第九季" in series_name or "S8" in series_name:
+    #         season = 9
+    #     elif "第十季" in series_name or "S8" in series_name:
+    #         season = 10
     #
     #     # 填写第三列季数信息
     #     tvs.at[i, '季数'] = season
