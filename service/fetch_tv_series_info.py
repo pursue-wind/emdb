@@ -22,7 +22,8 @@ def import_tv_emdb_by_series_id(tmdb_series_id_list,season_id_list, company_id=N
     for i in range(0,len(tmdb_series_id_list)):
         if tmdb_series_id_list[i] is None:
             break
-        get_tv_detail_filter_season(tmdb_series_id_list[i],season_id_list[i], company_id)
+        # get_tv_detail_filter_season(tmdb_series_id_list[i],season_id_list[i], company_id)
+        get_tv_detail(tmdb_series_id_list[i])
     # for id in tmdb_series_id_list:
     #     get_tv_detail(id, company_id)
 
@@ -44,7 +45,7 @@ def get_tv_detail_filter_season(tmdb_series_id,season_id, company_id=None, lang=
     # print(tv_series_detail)
     # external ids
     external_ids = tv.external_ids()
-    # emdb_movie_id = 0
+    emdb_movie_id = 0
     tv_seasons_info = tv_series_detail["seasons"]
     for season_info in tv_seasons_info:
         if season_info['season_number']!=season_id:
@@ -163,7 +164,7 @@ def get_tv_detail(tmdb_series_id, company_id=None, lang=None, country=None):
         language = None
     else:
         language = lang.lower() + "-" + country.upper()
-    # language = 'zh'
+    language = 'zh'
     e_tmdb = Tmdb()
     img_base_url = e_tmdb.IMAGE_BASE_URL
     tv = e_tmdb.tv_series(tmdb_series_id)
