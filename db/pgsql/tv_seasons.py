@@ -10,8 +10,13 @@ from db.pgsql.mysql_models import TVSeasons
 def insert_tv_seasons(tv_seasons_list, **kwargs):
     sess = kwargs.get('sess')
 
-    stmt = insert(TVSeasons).values(tv_seasons_list).on_conflict_do_nothing()
-    sess.execute(stmt)
+    # stmt = insert(TVSeasons).values(tv_seasons_list).on_conflict_do_nothing()
+    # sess.execute(stmt)
+    # sess.commit()
+    stmt = insert(TVSeasons)
+    for tv_season in tv_seasons_list:
+        stmt = stmt.values(**tv_season).on_conflict_do_nothing()
+        sess.execute(stmt)
     sess.commit()
 
     return dict()
