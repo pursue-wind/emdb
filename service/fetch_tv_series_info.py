@@ -47,7 +47,7 @@ def get_tv_detail_filter_season(tmdb_series_id, season_id, company_id=None, lang
     # print(tv_series_detail)
     # external ids
     external_ids = tv.external_ids()
-    # emdb_movie_id = 0
+    emdb_movie_id = 0
     tv_seasons_info = tv_series_detail["seasons"]
     for season_info in tv_seasons_info:
         if season_info['season_number'] != season_id:
@@ -152,8 +152,10 @@ def get_tv_detail_filter_season(tmdb_series_id, season_id, company_id=None, lang
     # 8.save keywords
     key_words = tv.keywords()
     _key_words_list = key_words["results"]
-    key_words_list = [{"tmdb_id": d["id"], "name": d["name"], "movie_id": emdb_movie_id} for d in _key_words_list]
-    yield insert_movie_key_words(key_words_list)
+    if emdb_movie_id != 0:
+        key_words_list = [{"tmdb_id": d["id"], "name": d["name"], "movie_id": emdb_movie_id} for d in _key_words_list]
+
+        yield insert_movie_key_words(key_words_list)
 
     # 9. save content_ratings
     yield save_content_ratings(tv, emdb_movie_id)
