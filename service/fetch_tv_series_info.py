@@ -18,17 +18,19 @@ from service.fetch_moive_info import parse_credit_info, fetch_movie_videos, fetc
 
 
 @gen.coroutine
-def import_tv_emdb_by_series_id(tmdb_series_id_list,season_id_list, company_id=None, lang=None, country=None):
-    for i in range(0,len(tmdb_series_id_list)):
+def import_tv_emdb_by_series_id(tmdb_series_id_list, season_id_list, company_id=None, lang=None, country=None):
+    for i in range(0, len(tmdb_series_id_list)):
         if tmdb_series_id_list[i] is None:
-            break
-        # get_tv_detail_filter_season(tmdb_series_id_list[i],season_id_list[i], company_id)
-        get_tv_detail(tmdb_series_id_list[i])
+            get_tv_detail_filter_season(tmdb_series_id_list[i],season_id_list[i], company_id)
+        # get_tv_detail(tmdb_series_id_list[i])
+        break
+
     # for id in tmdb_series_id_list:
     #     get_tv_detail(id, company_id)
 
+
 @gen.coroutine
-def get_tv_detail_filter_season(tmdb_series_id,season_id, company_id=None, lang=None, country=None):
+def get_tv_detail_filter_season(tmdb_series_id, season_id, company_id=None, lang=None, country=None):
     """
     get tv series deatil
     """
@@ -45,16 +47,17 @@ def get_tv_detail_filter_season(tmdb_series_id,season_id, company_id=None, lang=
     # print(tv_series_detail)
     # external ids
     external_ids = tv.external_ids()
-    emdb_movie_id = 0
+    # emdb_movie_id = 0
     tv_seasons_info = tv_series_detail["seasons"]
     for season_info in tv_seasons_info:
-        if season_info['season_number']!=season_id:
+        if season_info['season_number'] != season_id:
             continue
 
         tv_detail = parse_tv_detail(tv_series_detail, season_info, external_ids, img_base_url)
-        if company_id is not None and season_info['season_number']==season_id:
-            tv_detail["production_companies"].append(company_id)
-            print(".............................................."+str(tmdb_series_id)+">>"+str(season_id)+".....................................")
+        # if company_id is not None and season_info['season_number'] == season_id:
+        #     tv_detail["production_companies"].append(company_id)
+        print(".............................................." + str(tmdb_series_id) + ">>" + str(
+            season_id) + ".....................................")
 
         # 1.insert tv season detail to movie
         res = yield mv.insert_movies(tv_detail)
@@ -65,6 +68,7 @@ def get_tv_detail_filter_season(tmdb_series_id,season_id, company_id=None, lang=
         elif res["status"] == 0:
             emdb_movie_id = res["data"]["movie_id"]
         else:
+            print("emdb_movie_id errror")
             app_log.error(f"insert movie error: {res}")
             return
         # 2. insert tv adddition_info
@@ -73,8 +77,8 @@ def get_tv_detail_filter_season(tmdb_series_id,season_id, company_id=None, lang=
         res = yield tv_series.insert_tv_additional_info(tv_additional_info)
         # print(f"insert_tv_additional_info res:{res}")
 
-    # 4.insert seasons info
-    # for season_info in tv_seasons_info:
+        # 4.insert seasons info
+        # for season_info in tv_seasons_info:
         tv_season_obj = e_tmdb.tv_season(tv_series_detail["id"], season_info["season_number"])
         tv_season_external_ids = tv_season_obj.external_ids()
         season_info["external_ids"] = tv_season_external_ids
@@ -155,6 +159,8 @@ def get_tv_detail_filter_season(tmdb_series_id,season_id, company_id=None, lang=
     yield save_content_ratings(tv, emdb_movie_id)
 
     return
+
+
 @gen.coroutine
 def get_tv_detail(tmdb_series_id, company_id=None, lang=None, country=None):
     """
@@ -198,8 +204,8 @@ def get_tv_detail(tmdb_series_id, company_id=None, lang=None, country=None):
         res = yield tv_series.insert_tv_additional_info(tv_additional_info)
         # print(f"insert_tv_additional_info res:{res}")
 
-    # 4.insert seasons info
-    # for season_info in tv_seasons_info:
+        # 4.insert seasons info
+        # for season_info in tv_seasons_info:
         tv_season_obj = e_tmdb.tv_season(tv_series_detail["id"], season_info["season_number"])
         tv_season_external_ids = tv_season_obj.external_ids()
         season_info["external_ids"] = tv_season_external_ids
@@ -335,12 +341,11 @@ def save_movie_images(tv_season_obj, tv_obj, emdb_movie_id):
     yield insert_movie_images(images_list)
 
 
-
 def parse_tv_episode_info(season_episode_info, tmdb_series_id, tmdb_season_id, img_base_url):
     episodes = list()
     for episode_info in season_episode_info:
         if episode_info["still_path"]:
-            still_path = img_base_url+episode_info["still_path"]
+            still_path = img_base_url + episode_info["still_path"]
         else:
             still_path = None
         single_epidose = {
@@ -361,8 +366,6 @@ def parse_tv_episode_info(season_episode_info, tmdb_series_id, tmdb_season_id, i
         }
         episodes.append(single_epidose)
     return episodes
-
-
 
 
 @gen.coroutine
