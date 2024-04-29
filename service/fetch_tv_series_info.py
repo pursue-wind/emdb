@@ -23,7 +23,7 @@ def import_tv_emdb_by_series_id(tmdb_series_id_list, season_id_list, company_id=
         if tmdb_series_id_list[i] is None:
             break
         # get_tv_detail_filter_season(tmdb_series_id_list[i],season_id_list[i], company_id)
-        get_tv_detail(tmdb_series_id_list[i])
+        get_tv_detail_title(tmdb_series_id_list[i])
 
     # for id in tmdb_series_id_list:
     #     get_tv_detail(id, company_id)
@@ -289,6 +289,36 @@ def get_tv_detail(tmdb_series_id, company_id=None, lang=None, country=None):
     return
 
 
+@gen.coroutine
+def get_tv_detail_title(tmdb_series_id, company_id=None, lang=None, country=None):
+    """
+    get tv series deatil
+    """
+    if lang is None or country is None:
+        language = None
+    else:
+        language = lang.lower() + "-" + country.upper()
+    language = 'zh'
+    e_tmdb = Tmdb()
+    img_base_url = e_tmdb.IMAGE_BASE_URL
+    tv = e_tmdb.tv_series(tmdb_series_id)
+
+    tv_series_detail = tv.info(language=language)
+    # print(tv_series_detail)
+    # external ids
+    external_ids = tv.external_ids()
+    # emdb_movie_id = 0
+    tv_seasons_info = tv_series_detail["seasons"]
+    for season_info in tv_seasons_info:
+
+        tv_detail = parse_tv_detail(tv_series_detail, season_info, external_ids, img_base_url)
+        if company_id is not None:
+            tv_detail["production_companies"].append(company_id)
+
+        # 1.insert tv season detail to movie
+        res = yield mv.insert_movies(tv_detail)
+    print("------end")
+    return
 @gen.coroutine
 def save_content_ratings(tv_obj, emdb_movie_id):
     content_ratings = tv_obj.content_ratings()
