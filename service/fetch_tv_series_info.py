@@ -22,8 +22,8 @@ def import_tv_emdb_by_series_id(tmdb_series_id_list, season_id_list, company_id=
     for i in range(0, len(tmdb_series_id_list)):
         if tmdb_series_id_list[i] is None:
             break
-        get_tv_detail_filter_season(tmdb_series_id_list[i],season_id_list[i], company_id)
-        # get_tv_detail(tmdb_series_id_list[i])
+        # get_tv_detail_filter_season(tmdb_series_id_list[i],season_id_list[i], company_id)
+        get_tv_detail(tmdb_series_id_list[i])
 
     # for id in tmdb_series_id_list:
     #     get_tv_detail(id, company_id)
@@ -381,6 +381,9 @@ def save_tv_seasons_info(tv_seasons_info, tmdb_series_id, img_base_url):
         del season["id"]
         del season["poster_path"]
         del season["vote_average"]
+        if "external_ids" in season:
+
+            del season["external_ids"]
         tv_seasons_list.append(season)
     res = yield tv_seasons.insert_tv_seasons(tv_seasons_list)
     # print(f"insert_tv_seasons res:{res}")

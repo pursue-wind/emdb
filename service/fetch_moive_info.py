@@ -28,7 +28,7 @@ def fetch_movie_info(tmdb_mv_id, company_id=None, lang=None, country=None):
         language = lang
     else:
         language =None
-
+    language = 'zh'
     e_tmdb = Tmdb()
     movie = e_tmdb.moive(tmdb_mv_id)
     # try:
