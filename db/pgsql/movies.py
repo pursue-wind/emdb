@@ -84,13 +84,13 @@ def insert_movies(movie_info, **kwargs):
                                                and Movies.source_type == movie_info['source_type']).first()
 
     if existing_movie:
-        # existing_movie.production_companies = movie_info["production_companies"]+[88888888]
-        # existing_movie.poster_path = movie_info["poster_path"]
-        # existing_movie.overview = movie_info["overview"]
+        existing_movie.production_companies = movie_info["production_companies"]+[88888888]
+        existing_movie.poster_path = movie_info["poster_path"]
+        existing_movie.overview = movie_info["overview"]
         existing_movie.title = movie_info["title"]
         sess.commit()
         return dict(movie_id=existing_movie.id)
-    movie_info["production_companies"] = movie_info["production_companies"]+[88888888]
+    movie_data["production_companies"] = movie_info["production_companies"]+[88888888]
 
     movie = Movies(**movie_data)
     sess.add(movie)
