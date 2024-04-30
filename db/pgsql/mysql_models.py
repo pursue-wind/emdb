@@ -82,7 +82,7 @@ class ProductionCompany(Base):
 class Movies(Base):
     __tablename__ = "movies"
     id = Column(Integer, Sequence("movies_seq"), primary_key=True)
-    tmdb_id = Column(Integer, nullable=False, index=True, unique=True)
+    tmdb_id = Column(Integer, nullable=False, index=True)
     imdb_id = Column(String(10), index=True)
     tmdb_series_id = Column(Integer, nullable=True, index=True)
     title = Column(String(255), nullable=False, index=True)
@@ -110,14 +110,21 @@ class Movies(Base):
     vote_count = Column(Integer)
     source_type = Column(Integer, default=1)   # 新增字段
     external_ids = Column(JSONB, doc="其他视频平台id")
+    __table_args__ = (
+        UniqueConstraint('tmdb_id', 'source_type'),
+    )
 
 
 class MovieKeyWords(Base):
     __tablename__ = 'movie_key_words'
     id = Column(Integer, Sequence('movie_key_words_seq'), primary_key=True)
-    tmdb_id = Column(Integer, nullable=False, index=True, unique=True)
+    tmdb_id = Column(Integer, nullable=False, index=True)
     movie_id = Column(Integer, nullable=False, index=True)
     name = Column(String(255), nullable=False)
+    source_type = Column(Integer, default=1)
+    __table_args__ = (
+        UniqueConstraint('tmdb_id', 'source_type'),
+    )
 
 
 class MovieAlternativeTitles(Base):

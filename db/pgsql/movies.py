@@ -112,7 +112,7 @@ def insert_movie_info(movie_info, key_words_list, production_company_list, credi
     # sess.commit()
 
     # keywords
-    key_words_list = [{"tmdb_id": d["id"], "name": d["name"], "movie_id": movie.id} for d in key_words_list]
+    key_words_list = [{"tmdb_id": d["id"], "name": d["name"], "movie_id": movie.id, "source_type":movie.source_type} for d in key_words_list]
 
     stmt = insert(MovieKeyWords).values(key_words_list).on_conflict_do_nothing()
     sess.execute(stmt)
