@@ -150,8 +150,10 @@ class SearchCompanyTV(BaseHandler):
             tv['keywords'] = keyword_list.get('data')
             result = yield get_tv_season_params(tv['tmdb_id'])
             season_detail = result.get('data')
-            if season_detail['air_date'] is not None:
-                season_detail['air_date'] = season_detail['air_date'].strftime('%Y-%m-%d %H:%M:%S')
+            if season_detail:
+                if season_detail['air_date'] is not None:
+                    season_detail['air_date'] = season_detail['air_date'].strftime('%Y-%m-%d %H:%M:%S')
+                season_detail['air_date'] = None
             else:
                 season_detail['air_date'] = None
 
