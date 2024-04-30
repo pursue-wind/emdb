@@ -73,3 +73,6 @@ CREATE TABLE tv_episodes (
     vote_average NUMERIC(10,5),
     vote_count INT
 );
+
+
+
