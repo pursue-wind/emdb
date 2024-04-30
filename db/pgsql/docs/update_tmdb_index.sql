@@ -1,5 +1,5 @@
 
---20240430
+--20240430 新建表无需执行
 drop index if exists ix_movies_tmdb_id;
 CREATE UNIQUE INDEX ix_uni_movies_tmdb_id_source_type ON movies (tmdb_id,source_type);
 
