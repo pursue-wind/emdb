@@ -11,7 +11,7 @@ CREATE TABLE production_company (
 
 CREATE TABLE movies (
     id SERIAL PRIMARY KEY,
-    tmdb_id INTEGER NOT NULL UNIQUE,
+    tmdb_id INTEGER NOT NULL,
     imdb_id VARCHAR(10) INDEX,
     title VARCHAR(255) NOT NULL INDEX,
     backdrop_path VARCHAR(200),
@@ -39,13 +39,20 @@ CREATE TABLE movies (
     source_type INTEGER,
     external_ids JSONB
 );
+drop index if exists ix_uni_movies_tmdb_id_source_type;
+CREATE UNIQUE INDEX ix_uni_movies_tmdb_id_source_type ON movies (tmdb_id,source_type);
+
 
 CREATE TABLE movie_key_words (
     id SERIAL PRIMARY KEY,
-    tmdb_id INTEGER NOT NULL UNIQUE,
+    tmdb_id INTEGER NOT NULL,
     movie_id INTEGER NOT NULL,
-    name VARCHAR(255) NOT NULL
+    name VARCHAR(255) NOT NULL,
+    source_type INTEGER
 );
+drop index if EXISTS ix_uni_movie_key_words_tmdb_id_source_type;
+CREATE UNIQUE INDEX ix_uni_movie_key_words_tmdb_id_source_type ON movie_key_words (tmdb_id,source_type);
+
 
 CREATE TABLE movie_alternative_titles (
     id SERIAL PRIMARY KEY,
