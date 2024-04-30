@@ -4,7 +4,6 @@ from tornado import ioloop
 
 from lib.utils.excels import read_excel
 from service.fetch_tv_series_info import get_tv_detail, import_tv_emdb_by_series_id
-import pandas as pd
 language = "zh"
 # country = "CN"
 file_path = "docs/movies.xlsx"
