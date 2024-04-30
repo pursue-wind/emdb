@@ -11,7 +11,7 @@ CREATE TABLE production_company (
 
 CREATE TABLE movies (
     id SERIAL PRIMARY KEY,
-    tmdb_id INTEGER NOT NULL UNIQUE,
+    tmdb_id INTEGER NOT NULL,
     imdb_id VARCHAR(10) INDEX,
     title VARCHAR(255) NOT NULL INDEX,
     backdrop_path VARCHAR(200),
@@ -37,15 +37,21 @@ CREATE TABLE movies (
     vote_average NUMERIC(5, 3),
     vote_count INTEGER,
     source_type INTEGER,
-    external_ids JSONB
+    external_ids JSONB,
+    UNIQUE(tmdb_id,source_type)
 );
+
+
 
 CREATE TABLE movie_key_words (
     id SERIAL PRIMARY KEY,
-    tmdb_id INTEGER NOT NULL UNIQUE,
+    tmdb_id INTEGER NOT NULL,
     movie_id INTEGER NOT NULL,
-    name VARCHAR(255) NOT NULL
+    name VARCHAR(255) NOT NULL,
+    source_type INTEGER,
+    UNIQUE(tmdb_id,source_type)
 );
+
 
 CREATE TABLE movie_alternative_titles (
     id SERIAL PRIMARY KEY,
