@@ -61,7 +61,7 @@ class AddMovie(BaseHandler):
         args = self.parse_form_arguments('tmdb_movie_id')
         tmdb_movie_id = args.tmdb_movie_id
         yield self.check_auth()
-        res = yield query_movie_by_tmdb_id(tmdb_movie_id)
+        res = yield query_movie_by_tmdb_id(tmdb_movie_id, SourceType.Movie.value)
         if res['status'] == 0:
             if res["data"]["movie_info"]:
                 movie_id = res["data"]["movie_info"]["id"]

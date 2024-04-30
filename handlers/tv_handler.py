@@ -59,7 +59,7 @@ class AddTV(BaseHandler):
         args = self.parse_form_arguments('tmdb_tv_id')
         tmdb_tv_id = args.tmdb_tv_id
         yield self.check_auth()
-        res = yield query_movie_by_tmdb_id(tmdb_tv_id)
+        res = yield query_movie_by_tmdb_id(tmdb_tv_id, SourceType.Tv.value)
         if res['status'] == 0:
             if res["data"]["tv_info"]:
                 tv_id = res["data"]["tv_info"]["id"]

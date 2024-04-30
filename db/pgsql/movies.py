@@ -5,6 +5,7 @@ from sqlalchemy import cast, Integer, and_, func
 from sqlalchemy.dialects.postgresql import insert, ARRAY
 from tornado import gen
 
+from db.pgsql.enums.enums import SourceType
 from db.pgsql.mysql_models import Imgs, Movies, MovieKeyWords, ProductionCompany, MoviesCredits, MovieAlternativeTitles
 from db.pgsql.base import exc_handler, datetime_handler
 
@@ -23,9 +24,10 @@ def query_movie_by_name(movie_name, **kwargs):
 
 @gen.coroutine
 @exc_handler
-def query_movie_by_tmdb_id(tmdb_movie_id, **kwargs):
+def query_movie_by_tmdb_id(tmdb_movie_id, source_type, **kwargs):
     sess = kwargs.get('sess')
-    results = sess.query(Movies).filter(Movies.tmdb_id == tmdb_movie_id).first()
+    results = sess.query(Movies).filter(Movies.tmdb_id == tmdb_movie_id
+                                        and Movies.source_type == source_type).first()
     if not results:
         return dict(movie_info=dict())
     movie = results.to_dict()
@@ -78,7 +80,8 @@ def insert_movies(movie_info, **kwargs):
     sess = kwargs.get('sess')
 
     movie_data = {k: v for k, v in movie_info.items() if v is not None}
-    existing_movie = sess.query(Movies).filter(Movies.tmdb_id == movie_info['tmdb_id']).first()
+    existing_movie = sess.query(Movies).filter(Movies.tmdb_id == movie_info['tmdb_id']
+                                               and Movies.source_type == movie_info['source_type']).first()
 
     if existing_movie:
         # existing_movie.production_companies = movie_info["production_companies"]+[88888888]

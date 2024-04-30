@@ -69,7 +69,7 @@ def fetch_movie_info(tmdb_mv_id, company_id=None, lang=None, country=None):
     del mv_detail["origin_country"]
     res = yield mv.insert_movies(mv_detail)
     if res["status"] == 1:
-        _movie_info = yield mv.query_movie_by_tmdb_id(tmdb_mv_id)
+        _movie_info = yield mv.query_movie_by_tmdb_id(tmdb_mv_id, SourceType.Movie.value)
         emdb_movie_id = _movie_info["data"]["movie_info"].get("id")
     elif res["status"] == 0:
         emdb_movie_id = res["data"]["movie_id"]
