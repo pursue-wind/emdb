@@ -26,6 +26,7 @@ def import_tv_emdb_by_series_id(tmdb_series_id_list, season_id_list, company_id=
             break
         # get_tv_detail_filter_season(tmdb_series_id_list[i],season_id_list[i], company_id)
         get_tv_detail_filter_season(tmdb_series_id_list[i],season_id_list[i])
+        break
 
     # for id in tmdb_series_id_list:
     #     get_tv_detail(id, company_id)

@@ -50,6 +50,7 @@ def import_movie_by_ids(company_id=None):
     ids = [movie_id[0] for movie_id in movies[1:]]
     for mvId in ids:
         yield fetch_movie_info(mvId, company_id,language)
+        break
     print("------end")
 
 
