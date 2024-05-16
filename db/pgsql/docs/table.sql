@@ -123,6 +123,7 @@ CREATE TABLE imgs (
     type INTEGER NOT NULL,
     height INTEGER DEFAULT NULL,
     width INTEGER DEFAULT NULL,
+    ext VARCHAR(30),
     UNIQUE(movie_id, iso_639_1, url)
 );
 

@@ -215,6 +215,7 @@ class Imgs(Base):
     movie_id = Column(Integer, nullable=False, index=True)
     height = Column(Integer)
     width = Column(Integer)
+    ext = Column(String(30))
     iso_639_1 = Column(String(30))
     url = Column(String(128))
     type = Column(Integer, nullable=False, index=True)
