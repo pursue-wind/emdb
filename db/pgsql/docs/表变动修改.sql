@@ -75,4 +75,7 @@ CREATE TABLE tv_episodes (
 );
 
 
-
+-- 新增字段20240516
+ALTER TABLE imgs
+ADD COLUMN height INT DEFAULT NULL,
+ADD COLUMN width INT DEFAULT NULL;

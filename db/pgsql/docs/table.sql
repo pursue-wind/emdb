@@ -121,6 +121,8 @@ CREATE TABLE imgs (
     iso_639_1 VARCHAR(30),
     url VARCHAR(128),
     type INTEGER NOT NULL,
+    height INTEGER DEFAULT NULL,
+    width INTEGER DEFAULT NULL,
     UNIQUE(movie_id, iso_639_1, url)
 );
 

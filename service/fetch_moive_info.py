@@ -241,6 +241,8 @@ def fetch_movie_images(movie_obj, emdb_movie_id):
     for img in all_images:
         img_dict = dict()
         img_dict["movie_id"] = emdb_movie_id
+        img_dict["height"] = img["height"]
+        img_dict["width"] = img["width"]
         if img["iso_639_1"] is None:
             img_dict["iso_639_1"] = "all"
         else:

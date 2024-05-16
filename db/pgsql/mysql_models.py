@@ -213,6 +213,8 @@ class Imgs(Base):
     __tablename__ = 'imgs'
     id = Column(Integer, Sequence('imgs_seq'), primary_key=True)
     movie_id = Column(Integer, nullable=False, index=True)
+    height = Column(Integer)
+    width = Column(Integer)
     iso_639_1 = Column(String(30))
     url = Column(String(128))
     type = Column(Integer, nullable=False, index=True)
