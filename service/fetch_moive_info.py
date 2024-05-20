@@ -92,7 +92,7 @@ def fetch_movie_info(tmdb_mv_id, company_id=None, lang=None, country=None):
         if pc["logo_path"]:
             pc["logo_path"] = e_tmdb.IMAGE_BASE_URL + pc["logo_path"]
         _production_company_list.append(pc)
-    # yield batch_insert_production_company(_production_company_list)//used
+    yield batch_insert_production_company(_production_company_list)
 
     ## save cast/crew
     movie_credits = movie.credits()
@@ -146,13 +146,12 @@ def fetch_movie_info(tmdb_mv_id, company_id=None, lang=None, country=None):
     # # save movie translations
     # yield fetch_movie_translations(movie, emdb_movie_id)
 
-    # yield [insert_batch_movie_credits_relation(movie_credits_relation),
-    #        fetch_alternative_titles(movie, emdb_movie_id),
-    #        fetch_movie_images(movie, emdb_movie_id),
-    #        fetch_movie_videos(movie, emdb_movie_id),
-    #        fetch_movie_release_dates(movie, emdb_movie_id),
-    #        fetch_movie_translations(movie, emdb_movie_id)]
-    yield fetch_movie_images(movie, emdb_movie_id)
+    yield [insert_batch_movie_credits_relation(movie_credits_relation),
+           fetch_alternative_titles(movie, emdb_movie_id),
+           fetch_movie_images(movie, emdb_movie_id),
+           fetch_movie_videos(movie, emdb_movie_id),
+           fetch_movie_release_dates(movie, emdb_movie_id),
+           fetch_movie_translations(movie, emdb_movie_id)]
     return True, emdb_movie_id
     # except Exception as e:
     #     app_log.error(e)

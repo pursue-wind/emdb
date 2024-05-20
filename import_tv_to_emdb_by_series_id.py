@@ -17,7 +17,7 @@ if __name__ == '__main__':
     tvs = read_excel(file_path, "tvs")
     # tvs = pd.read_excel(file_path, "tvs")
 
-    tmdb_series_id_list = [serise_id[0] for serise_id in tvs[1:]]
+    tmdb_series_id_list = [serise_id[0] for serise_id in tvs[85:]]
     season_id_list = [season_id[2] for season_id in tvs[1:]]
 
     # for i in range(1, len(tvs)):
