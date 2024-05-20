@@ -47,7 +47,7 @@ def import_movie_by_ids(company_id=None):
     emdb_base_url = cfg.server.domain
     # add_movie_url = emdb_base_url + "/api/movie/add"
     # print(movies)
-    ids = [movie_id[0] for movie_id in movies[1:]]
+    ids = [movie_id[0] for movie_id in movies[82:]]
     for mvId in ids:
         yield fetch_movie_info(mvId, company_id,language)
         break
