@@ -79,7 +79,7 @@ def get_tv_detail_filter_season(tmdb_series_id, season_id=None, company_id=None,
         # 2. insert tv adddition_info
         tv_additional_info = parse_tv_adddition_info(tv_series_detail)
         tv_additional_info["external_ids"] = external_ids
-        res = yield tv_series.insert_tv_additional_info(tv_additional_info)
+        # res = yield tv_series.insert_tv_additional_info(tv_additional_info)#used
         # print(f"insert_tv_additional_info res:{res}")
 
         # 4.insert seasons info
@@ -92,7 +92,7 @@ def get_tv_detail_filter_season(tmdb_series_id, season_id=None, company_id=None,
         season_episode_info = tv_season_obj.info()
         episodes_info = season_episode_info["episodes"]
         episodes = parse_tv_episode_info(episodes_info, tmdb_series_id, season_info["id"], img_base_url)
-        yield insert_tv_episodes_list(episodes)
+        # yield insert_tv_episodes_list(episodes)#used
 
         # 6.credits
         tv_season_credits = tv_season_obj.credits()
@@ -116,24 +116,25 @@ def get_tv_detail_filter_season(tmdb_series_id, season_id=None, company_id=None,
             crew_info = parse_credit_info(crew)
 
             insert_credits_list.append(crew_info)
-        credits_ids = yield insert_movie_credits(insert_credits_list)
-        tv_credits_relation = list()
-        for credit in origin_credits_info_list:
-            emdb_credit_id = credits_ids["data"].get(credit["id"], None)
-            if emdb_credit_id is None:
-                query_credit_info_res = yield query_movie_credit_by_tmdb_id(credit["id"])
-                emdb_credit_id = query_credit_info_res["data"].get("id")
-            temp_dict = dict(
-                movie_id=emdb_movie_id,
-                credit_id=emdb_credit_id,
-                order=credit.get("order", None),
-                character=credit.get("character", None),
-                department=credit.get("department", None),
-                job=credit.get("job", None),
-                type=credit.get("type"),
-                tmdb_credit_id=credit.get("credit_id")
-            )
-            tv_credits_relation.append(temp_dict)
+        ##all used
+        # credits_ids = yield insert_movie_credits(insert_credits_list)
+        # tv_credits_relation = list()
+        # for credit in origin_credits_info_list:
+        #     emdb_credit_id = credits_ids["data"].get(credit["id"], None)
+        #     if emdb_credit_id is None:
+        #         query_credit_info_res = yield query_movie_credit_by_tmdb_id(credit["id"])
+        #         emdb_credit_id = query_credit_info_res["data"].get("id")
+        #     temp_dict = dict(
+        #         movie_id=emdb_movie_id,
+        #         credit_id=emdb_credit_id,
+        #         order=credit.get("order", None),
+        #         character=credit.get("character", None),
+        #         department=credit.get("department", None),
+        #         job=credit.get("job", None),
+        #         type=credit.get("type"),
+        #         tmdb_credit_id=credit.get("credit_id")
+        #     )
+        #     tv_credits_relation.append(temp_dict)
 
         yield save_movie_images(tv_season_obj, tv, emdb_movie_id)
         # yield [insert_batch_movie_credits_relation(tv_credits_relation),

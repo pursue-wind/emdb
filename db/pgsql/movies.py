@@ -86,8 +86,8 @@ def insert_movies(movie_info, **kwargs):
     if existing_movie:
         # if 88888888 not in existing_movie.production_companies:
         #     existing_movie.production_companies = movie_info["production_companies"] + [88888888]
-
-        existing_movie.poster_path = movie_info["poster_path"]
+        if "poster_path" in  movie_info:
+            existing_movie.poster_path = movie_info["poster_path"]
         existing_movie.overview = movie_info["overview"]
         existing_movie.title = movie_info["title"]
         sess.commit()
