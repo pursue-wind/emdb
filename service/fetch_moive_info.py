@@ -86,13 +86,13 @@ def fetch_movie_info(tmdb_mv_id, company_id=None, lang=None, country=None):
     yield insert_movie_key_words(key_words_list)#used
 
     # save production company
-    _production_company_list = []
-    for pc in production_companies:
-        pc["tmdb_id"] = pc.pop("id")
-        if pc["logo_path"]:
-            pc["logo_path"] = e_tmdb.IMAGE_BASE_URL + pc["logo_path"]
-        _production_company_list.append(pc)
-    yield batch_insert_production_company(_production_company_list)#used
+    # _production_company_list = []
+    # for pc in production_companies:
+    #     pc["tmdb_id"] = pc.pop("id")
+    #     if pc["logo_path"]:
+    #         pc["logo_path"] = e_tmdb.IMAGE_BASE_URL + pc["logo_path"]
+    #     _production_company_list.append(pc)
+    # yield batch_insert_production_company(_production_company_list)#used
 
     ## save cast/crew
     movie_credits = movie.credits()
