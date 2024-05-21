@@ -8,8 +8,8 @@ language = "zh"
 # country = "CN"
 file_path = "docs/movies.xlsx"
 
-# company_id = 100000007
-company_id = None
+company_id = 100000007
+# company_id = None
 if __name__ == '__main__':
     io_loop = ioloop.IOLoop.current()
     # io_loop.run_sync(lambda: get_tv_detail(122790, None))

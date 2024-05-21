@@ -25,7 +25,7 @@ def import_tv_emdb_by_series_id(tmdb_series_id_list, season_id_list, company_id=
         if tmdb_series_id_list[i] is None:
             break
         get_tv_detail_filter_season(tmdb_series_id_list[i],season_id_list[i], company_id)
-        break
+
         # get_tv_detail_filter_season(tmdb_series_id_list[i],season_id_list[i])
 
         # get_tv_detail_filter_season(tmdb_series_id_list[i])
@@ -93,8 +93,8 @@ def get_tv_detail_filter_season(tmdb_series_id, season_id=None, company_id=None,
         season_episode_info = tv_season_obj.info(language=language)
         episodes_info = season_episode_info["episodes"]
         episodes = parse_tv_episode_info(episodes_info, tmdb_series_id, season_info["id"], img_base_url)
-        yield insert_tv_episodes_list(episodes)#used
-        # yield update_tv_episodes_list(episodes)#used to change season
+        # yield insert_tv_episodes_list(episodes)#used
+        yield update_tv_episodes_list(episodes)#used to change season
 
         # 6.credits
         tv_season_credits = tv_season_obj.credits()
