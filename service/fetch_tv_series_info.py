@@ -14,7 +14,7 @@ from db.pgsql.movie_images import insert_movie_images
 from db.pgsql.movie_key_words import insert_movie_key_words
 from db.pgsql.movie_release_dates import insert_movie_release_dates
 from db.pgsql.production_company import batch_insert_production_company
-from db.pgsql.tv_episodes import insert_tv_episodes_list
+from db.pgsql.tv_episodes import insert_tv_episodes_list,update_tv_episodes_list
 from service import Tmdb
 from service.fetch_moive_info import parse_credit_info, fetch_movie_videos, fetch_movie_translations
 
@@ -25,6 +25,7 @@ def import_tv_emdb_by_series_id(tmdb_series_id_list, season_id_list, company_id=
         if tmdb_series_id_list[i] is None:
             break
         get_tv_detail_filter_season(tmdb_series_id_list[i],season_id_list[i], company_id)
+        break
         # get_tv_detail_filter_season(tmdb_series_id_list[i],season_id_list[i])
 
         # get_tv_detail_filter_season(tmdb_series_id_list[i])
@@ -93,6 +94,7 @@ def get_tv_detail_filter_season(tmdb_series_id, season_id=None, company_id=None,
         episodes_info = season_episode_info["episodes"]
         episodes = parse_tv_episode_info(episodes_info, tmdb_series_id, season_info["id"], img_base_url)
         yield insert_tv_episodes_list(episodes)#used
+        # yield update_tv_episodes_list(episodes)#used to change season
 
         # 6.credits
         tv_season_credits = tv_season_obj.credits()

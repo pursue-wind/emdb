@@ -28,6 +28,28 @@ def insert_tv_episodes_list(tv_episodes_list, **kwargs):
 
 @gen.coroutine
 @exc_handler
+def update_tv_episodes_list(tv_episodes_list, **kwargs):
+    sess = kwargs.get('sess')
+    for episode_data in tv_episodes_list:
+        tmdb_series_id = episode_data.get('tmdb_series_id')
+        tmdb_season_id = episode_data.get('tmdb_season_id')
+        tmdb_episode_id = episode_data.get('tmdb_episode_id')
+        existing_episode = sess.query(TVEpisodes).filter(
+            TVEpisodes.tmdb_series_id == tmdb_series_id,
+            TVEpisodes.tmdb_season_id == tmdb_season_id,
+            TVEpisodes.tmdb_episode_id == tmdb_episode_id
+        ).first()
+
+        if existing_episode:
+            for key, value in episode_data.items():
+                setattr(existing_episode, key, value)
+
+    sess.commit()
+    return dict()
+
+
+@gen.coroutine
+@exc_handler
 def get_tv_episodes_list(tmdb_season_id, **kwargs):
     sess = kwargs.get('sess')
     result = sess.query(TVEpisodes).filter(TVEpisodes.tmdb_season_id == tmdb_season_id).order_by(TVEpisodes.episode_number.asc())

@@ -20,6 +20,24 @@ def insert_tv_seasons(tv_seasons_list, **kwargs):
     # sess.commit()
 
     return dict()
+@gen.coroutine
+@exc_handler
+def update_tv_seasons(tv_seasons_list, **kwargs):
+    sess = kwargs.get('sess')
+    for episode_data in tv_seasons_list:
+        tmdb_series_id = episode_data.get('tmdb_series_id')
+        tmdb_season_id = episode_data.get('tmdb_season_id')
+        existing_season = sess.query(TVSeasons).filter(
+            TVSeasons.tmdb_series_id == tmdb_series_id,
+            TVSeasons.tmdb_season_id == tmdb_season_id
+        ).first()
+
+        if existing_season:
+            for key, value in episode_data.items():
+                setattr(existing_season, key, value)
+
+    sess.commit()
+    return dict()
 
 
 @gen.coroutine
