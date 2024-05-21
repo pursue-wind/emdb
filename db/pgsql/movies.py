@@ -92,7 +92,7 @@ def insert_movies(movie_info, **kwargs):
         existing_movie.title = movie_info["title"]
         sess.commit()
         return dict(movie_id=existing_movie.id)
-    # movie_data["production_companies"] = movie_info["production_companies"]+[88888888]
+    # movie_data["production_companies"] = existing_movie.production_companies+[100000007]
 
     movie = Movies(**movie_data)
     # sess.add(movie)

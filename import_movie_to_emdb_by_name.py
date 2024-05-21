@@ -40,17 +40,17 @@ sheet_name = "movie"
 
 @tornado.gen.coroutine
 def import_movie_by_ids(company_id=None):
-    # company_id = 88888888
+    company_id = 100000007
 
     """import movie to emdb by movie name"""
     movies = read_excel(file_path, sheet_name)
     emdb_base_url = cfg.server.domain
     # add_movie_url = emdb_base_url + "/api/movie/add"
     # print(movies)
-    ids = [movie_id[0] for movie_id in movies[82:]]
+    ids = [movie_id[0] for movie_id in movies[1:]]
     for mvId in ids:
         yield fetch_movie_info(mvId, company_id,language)
-        # break
+        break
     print("------end")
 
 
