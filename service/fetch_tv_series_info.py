@@ -89,7 +89,7 @@ def get_tv_detail_filter_season(tmdb_series_id, season_id=None, company_id=None,
         season_info["external_ids"] = tv_season_external_ids
 
         # 5. insert episodes
-        season_episode_info = tv_season_obj.info()
+        season_episode_info = tv_season_obj.info(language=language)
         episodes_info = season_episode_info["episodes"]
         episodes = parse_tv_episode_info(episodes_info, tmdb_series_id, season_info["id"], img_base_url)
         # yield insert_tv_episodes_list(episodes)#used
@@ -221,7 +221,7 @@ def get_tv_detail(tmdb_series_id, company_id=None, lang=None, country=None):
         season_info["external_ids"] = tv_season_external_ids
 
         # 5. insert episodes
-        season_episode_info = tv_season_obj.info()
+        season_episode_info = tv_season_obj.info(language=language)
         episodes_info = season_episode_info["episodes"]
         episodes = parse_tv_episode_info(episodes_info, tmdb_series_id, season_info["id"], img_base_url)
         yield insert_tv_episodes_list(episodes)
