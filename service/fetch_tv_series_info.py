@@ -79,7 +79,7 @@ def get_tv_detail_filter_season(tmdb_series_id, season_id=None, company_id=None,
         # 2. insert tv adddition_info
         tv_additional_info = parse_tv_adddition_info(tv_series_detail)
         tv_additional_info["external_ids"] = external_ids
-        # res = yield tv_series.insert_tv_additional_info(tv_additional_info)#used
+        res = yield tv_series.insert_tv_additional_info(tv_additional_info)#used
         # print(f"insert_tv_additional_info res:{res}")
 
         # 4.insert seasons info
@@ -92,7 +92,7 @@ def get_tv_detail_filter_season(tmdb_series_id, season_id=None, company_id=None,
         season_episode_info = tv_season_obj.info(language=language)
         episodes_info = season_episode_info["episodes"]
         episodes = parse_tv_episode_info(episodes_info, tmdb_series_id, season_info["id"], img_base_url)
-        # yield insert_tv_episodes_list(episodes)#used
+        yield insert_tv_episodes_list(episodes)#used
 
         # 6.credits
         tv_season_credits = tv_season_obj.credits()
