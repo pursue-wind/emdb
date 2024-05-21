@@ -83,7 +83,7 @@ def fetch_movie_info(tmdb_mv_id, company_id=None, lang=None, country=None):
     key_words = movie.keywords()
     _key_words_list = key_words["keywords"]
     key_words_list = [{"tmdb_id": d["id"], "name": d["name"], "movie_id": emdb_movie_id} for d in _key_words_list]
-    # yield insert_movie_key_words(key_words_list)#used
+    yield insert_movie_key_words(key_words_list)#used
 
     # save production company
     _production_company_list = []
@@ -92,7 +92,7 @@ def fetch_movie_info(tmdb_mv_id, company_id=None, lang=None, country=None):
         if pc["logo_path"]:
             pc["logo_path"] = e_tmdb.IMAGE_BASE_URL + pc["logo_path"]
         _production_company_list.append(pc)
-    # yield batch_insert_production_company(_production_company_list)#used
+    yield batch_insert_production_company(_production_company_list)#used
 
     ## save cast/crew
     movie_credits = movie.credits()
@@ -148,13 +148,13 @@ def fetch_movie_info(tmdb_mv_id, company_id=None, lang=None, country=None):
     # yield fetch_movie_translations(movie, emdb_movie_id)
 
     # all used
-    # yield [insert_batch_movie_credits_relation(movie_credits_relation),
-    #        fetch_alternative_titles(movie, emdb_movie_id),
-    #        fetch_movie_images(movie, emdb_movie_id),
-    #        fetch_movie_videos(movie, emdb_movie_id),
-    #        fetch_movie_release_dates(movie, emdb_movie_id),
-    #        fetch_movie_translations(movie, emdb_movie_id)]
-    yield fetch_movie_images(movie, emdb_movie_id)
+    yield [insert_batch_movie_credits_relation(movie_credits_relation),
+           fetch_alternative_titles(movie, emdb_movie_id),
+           fetch_movie_images(movie, emdb_movie_id),
+           fetch_movie_videos(movie, emdb_movie_id),
+           fetch_movie_release_dates(movie, emdb_movie_id),
+           fetch_movie_translations(movie, emdb_movie_id)]
+    # yield fetch_movie_images(movie, emdb_movie_id)//now
     return True, emdb_movie_id
     # except Exception as e:
     #     app_log.error(e)
