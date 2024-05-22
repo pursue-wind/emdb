@@ -269,13 +269,14 @@ def get_tv_detail(tmdb_series_id, company_id=None, lang=None, country=None):
             )
             tv_credits_relation.append(temp_dict)
 
-        yield [insert_batch_movie_credits_relation(tv_credits_relation),
-               save_alternative_titles(tv, emdb_movie_id),
-               save_movie_images(tv_season_obj, tv, emdb_movie_id),
-               fetch_movie_videos(tv_season_obj, emdb_movie_id),
-               fetch_movie_translations(tv, emdb_movie_id)]
+        # yield [insert_batch_movie_credits_relation(tv_credits_relation),
+        #        save_alternative_titles(tv, emdb_movie_id),
+        #        save_movie_images(tv_season_obj, tv, emdb_movie_id),
+        #        fetch_movie_videos(tv_season_obj, emdb_movie_id),
+        #        fetch_movie_translations(tv, emdb_movie_id)]
     # here the save_tv_seasons_info because of 'season_info["external_ids"] = tv_season_external_ids'
     yield save_tv_seasons_info(tv_seasons_info, tmdb_series_id, img_base_url)
+    return
 
     # 7.save production company
     production_companies = tv_series_detail.get("production_companies")
@@ -394,11 +395,12 @@ def save_tv_seasons_info(tv_seasons_info, tmdb_series_id, img_base_url):
         del season["id"]
         del season["poster_path"]
         del season["vote_average"]
-        if "external_ids" in season:
-
-            del season["external_ids"]
+        # if "external_ids" in season:
+        #
+        #     del season["external_ids"]
         tv_seasons_list.append(season)
-    res = yield tv_seasons.insert_tv_seasons(tv_seasons_list)
+    # res = yield tv_seasons.insert_tv_seasons(tv_seasons_list)
+    res = yield tv_seasons.update_tv_seasons(tv_seasons_list)
     # print(f"insert_tv_seasons res:{res}")
 
 

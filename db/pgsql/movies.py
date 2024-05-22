@@ -53,10 +53,12 @@ def query_movie_by_company_id(tmdb_company_id, source_type, **kwargs):
     page_num = kwargs.get("page_num")
     page_size = kwargs.get("page_size")
     movie_name = kwargs.get("movie_name")
+    # query = sess.query(Movies).outerjoin(MovieAlternativeTitles, Movies.id == MovieAlternativeTitles.movie_id).filter(
+    #     and_(Movies.source_type == source_type,
+    #          Movies.production_companies.any(tmdb_company_id)
+    #          ))
     query = sess.query(Movies).outerjoin(MovieAlternativeTitles, Movies.id == MovieAlternativeTitles.movie_id).filter(
-        and_(Movies.source_type == source_type,
-             Movies.production_companies.any(tmdb_company_id)
-             ))
+        Movies.source_type == source_type)
     if movie_name:
         query = query.filter(or_(or_(Movies.original_title.ilike(f"%{movie_name}%"),
                                  Movies.title.ilike(f"%{movie_name}")),
