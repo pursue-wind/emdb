@@ -25,6 +25,7 @@ def import_tv_emdb_by_series_id(tmdb_series_id_list, season_id_list, company_id=
         if tmdb_series_id_list[i] is None:
             break
         get_tv_detail_filter_season(tmdb_series_id_list[i],season_id_list[i], company_id)
+        break
 
         # get_tv_detail_filter_season(tmdb_series_id_list[i],season_id_list[i])
 
@@ -93,8 +94,9 @@ def get_tv_detail_filter_season(tmdb_series_id, season_id=None, company_id=None,
         season_episode_info = tv_season_obj.info(language=language)
         episodes_info = season_episode_info["episodes"]
         episodes = parse_tv_episode_info(episodes_info, tmdb_series_id, season_info["id"], img_base_url)
-        # yield insert_tv_episodes_list(episodes)#used
-        yield update_tv_episodes_list(episodes)#used to change season
+        yield insert_tv_episodes_list(episodes)#used
+        # yield update_tv_episodes_list(episodes)#used to change season
+        break
 
         # 6.credits
         tv_season_credits = tv_season_obj.credits()
@@ -269,14 +271,14 @@ def get_tv_detail(tmdb_series_id, company_id=None, lang=None, country=None):
             )
             tv_credits_relation.append(temp_dict)
 
-        # yield [insert_batch_movie_credits_relation(tv_credits_relation),
-        #        save_alternative_titles(tv, emdb_movie_id),
-        #        save_movie_images(tv_season_obj, tv, emdb_movie_id),
-        #        fetch_movie_videos(tv_season_obj, emdb_movie_id),
-        #        fetch_movie_translations(tv, emdb_movie_id)]
+        yield [insert_batch_movie_credits_relation(tv_credits_relation),
+               save_alternative_titles(tv, emdb_movie_id),
+               save_movie_images(tv_season_obj, tv, emdb_movie_id),
+               fetch_movie_videos(tv_season_obj, emdb_movie_id),
+               fetch_movie_translations(tv, emdb_movie_id)]
     # here the save_tv_seasons_info because of 'season_info["external_ids"] = tv_season_external_ids'
-    yield save_tv_seasons_info(tv_seasons_info, tmdb_series_id, img_base_url)
-    return
+    # yield save_tv_seasons_info(tv_seasons_info, tmdb_series_id, img_base_url)
+    # return
 
     # 7.save production company
     production_companies = tv_series_detail.get("production_companies")
