@@ -46,6 +46,18 @@ def count_movies_of_company(tmdb_company_id, source_type, **kwargs):
 
 
 
+@ gen.coroutine
+@ exc_handler
+def count_movies_of_all_company( source_type, **kwargs):
+    sess = kwargs.get("sess")
+    total_count = sess.query(func.count(Movies.id)).filter(
+        Movies.source_type == source_type).scalar()
+    if total_count is None:
+        total_count = 0
+    return dict(total_count=total_count)
+
+
+
 @gen.coroutine
 @exc_handler
 def query_movie_by_company_id(tmdb_company_id, source_type, **kwargs):
