@@ -16,15 +16,24 @@ class SearchMovieOnline(BaseHandler):
     """
     search by name or tmdb movie id
     :returns movies
+
+   eg: curl --location 'http://127.0.0.1:8088/api/emdb/movie/search' \
+        --header 'Content-Type: application/json' \
+        --header 'Authorization: Bearer MmdxY3ZkbGtxYnJtNTY6ZmVlZDBmMjRlMzFhMjM1Z2Q4YjdlNGJlZDFmZWM0ZGQyNjU1' \
+        --data '{
+            "movie_name": "教父",
+            "lang": "zh",
+            "page": 1,
+            "type": 1
+        }'
     """
+
     @auth
     async def post(self, *_args, **_kwargs):
-        args = self.parse_form_arguments('movie_name', 'lang', 'page')
-        movie_name = args.movie_name
-        lang = args.lang
-        page = args.page
+        args = self.parse_json_arguments('movie_name', optional_keys=['lang', 'page', 'type'])
+        movie_name, lang, page, typ = args.movie_name, args.lang, args.page, args.type
 
-        res = await search_movie_by_name(movie_name, lang=lang, page=page)
+        res = await search_movie_by_name(movie_name, lang=lang, page=page, typ=typ)
         self.success(data=res['data'])
 
 
@@ -40,7 +49,7 @@ class SearchMovie(BaseHandler):
         args = self.parse_form_arguments('movie_name')
         movie_name = args.movie_name
         # tmdb_movie_id = args.tmdb_movie_id
-        
+
         result = yield query_movie_by_name(movie_name)
         data = result.get('data', None)
         if not data:
@@ -73,12 +82,13 @@ class AddMovie(BaseHandler):
     """
     add movie by tmdb movie id
     """
+
     @auth
     @gen.coroutine
     def post(self, *_args, **_kwargs):
         args = self.parse_form_arguments('tmdb_movie_id')
         tmdb_movie_id = args.tmdb_movie_id
-        
+
         res = yield query_movie_by_tmdb_id(tmdb_movie_id, SourceType.Movie.value)
         if res['status'] == 0:
             if res["data"]["movie_info"]:
@@ -102,7 +112,7 @@ class SearchCompany(BaseHandler):
     def post(self, *_args, **_kwargs):
         args = self.parse_form_arguments('company_name')
         company_name = args.company_name
-        
+
         result = yield query_company_by_name(company_name)
         # print(f"re:{result}")
         data = result.get('data', None)
@@ -117,12 +127,13 @@ class SearchCompanyMoviesOnTmdb(BaseHandler):
     search all movies of a company by company id in tmdb
     :returns movies list
     """
+
     @auth
     @gen.coroutine
     def post(self, *_args, **_kwargs):
         args = self.parse_form_arguments('tmdb_company_id')
         tmdb_company_id = args.tmdb_company_id
-        
+
         res = yield search_company_movies(tmdb_company_id)
         if res["code"] != 0:
             self.success(data=dict(movies=[]))
@@ -134,6 +145,7 @@ class SearchCompanyMovies(BaseHandler):
     """
     search all movie of company
     """
+
     @auth
     @gen.coroutine
     def post(self, *_args, **_kwargs):
@@ -143,7 +155,7 @@ class SearchCompanyMovies(BaseHandler):
             self.fail(402)
         print(args)
         # movie_name = args.movie_name
-        
+
         result = yield query_movie_by_company_id(tmdb_company_id, SourceType.Movie.value, movie_name=args.movie_name,
                                                  page_num=args.page_num,
                                                  page_size=args.page_size)

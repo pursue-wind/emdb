@@ -10,9 +10,11 @@ from config.config import CFG as cfg
 
 @gen.coroutine
 @handle_exceptions
-def search_movie_by_name(movie_name, lang='en', page=1):
+def search_movie_by_name(movie_name, lang='en', page=1, typ=1):
     e_tmdb = Tmdb()
-    result = e_tmdb.search.movie(language=lang, query=movie_name, page=page)
+    search_method = e_tmdb.search.movie if typ is None or typ == 1 else e_tmdb.search.tv
+    result = search_method(language=lang, query=movie_name, page=page)
+
     # logging.info(f"search movies results:{result}")
     # result:{'page': 1, 'results': [], 'total_pages': 1, 'total_results': 0}
     movies = result.get("results", [])
