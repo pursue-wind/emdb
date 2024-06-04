@@ -1,5 +1,8 @@
+from tornado import gen
+
 from db.pgsql.enums.enums import SourceType
 from db.pgsql.movies import query_movie_by_tmdb_id
+from handlers.auth_decorators import auth
 from handlers.base_handler import BaseHandler
 from service.fetch_moive_info import fetch_movie_info
 
@@ -9,10 +12,11 @@ class AddMovie(BaseHandler):
     add movie by tmdb movie id
     """
     @gen.coroutine
+    @auth
     def post(self, *_args, **_kwargs):
         args = self.parse_form_arguments('tmdb_movie_id')
         tmdb_movie_id = args.tmdb_movie_id
-        yield self.check_auth()
+        
         res = yield query_movie_by_tmdb_id(tmdb_movie_id, SourceType.Movie.value)
         if res['status'] == 0:
             if res["data"]["movie_info"]:

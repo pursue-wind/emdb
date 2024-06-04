@@ -1,9 +1,11 @@
 from tornado import gen
+from tornado.web import authenticated
 
 from db.pgsql.enums.enums import get_key_by_value, GenresType
 from db.pgsql.movie_key_words import query_movie_keywords
 from db.pgsql.movies import query_movie_by_name, query_movie_by_tmdb_id, query_movie_by_company_id
 from db.pgsql.production_company import query_company_by_name, query_company_by_ids
+from handlers.auth_decorators import authenticated_async, auth
 from handlers.base_handler import BaseHandler
 from service.fetch_moive_info import fetch_movie_info
 from service.search_online import search_company_movies, search_movie_by_name
@@ -15,17 +17,14 @@ class SearchMovieOnline(BaseHandler):
     search by name or tmdb movie id
     :returns movies
     """
-
-    @gen.coroutine
-    def post(self, *_args, **_kwargs):
+    @auth
+    async def post(self, *_args, **_kwargs):
         args = self.parse_form_arguments('movie_name', 'lang', 'page')
         movie_name = args.movie_name
         lang = args.lang
         page = args.page
-        # tmdb_movie_id = args.tmdb_movie_id
-        yield self.check_auth()
 
-        res = yield search_movie_by_name(movie_name, lang=lang, page=page)
+        res = await search_movie_by_name(movie_name, lang=lang, page=page)
         self.success(data=res['data'])
 
 
@@ -35,12 +34,13 @@ class SearchMovie(BaseHandler):
     :returns movies
     """
 
+    @auth
     @gen.coroutine
     def post(self, *_args, **_kwargs):
         args = self.parse_form_arguments('movie_name')
         movie_name = args.movie_name
         # tmdb_movie_id = args.tmdb_movie_id
-        yield self.check_auth()
+        
         result = yield query_movie_by_name(movie_name)
         data = result.get('data', None)
         if not data:
@@ -73,12 +73,12 @@ class AddMovie(BaseHandler):
     """
     add movie by tmdb movie id
     """
-
+    @auth
     @gen.coroutine
     def post(self, *_args, **_kwargs):
         args = self.parse_form_arguments('tmdb_movie_id')
         tmdb_movie_id = args.tmdb_movie_id
-        yield self.check_auth()
+        
         res = yield query_movie_by_tmdb_id(tmdb_movie_id, SourceType.Movie.value)
         if res['status'] == 0:
             if res["data"]["movie_info"]:
@@ -98,10 +98,11 @@ class SearchCompany(BaseHandler):
 
     # @tornado_swagger.api_doc("API Endpoint Summary", "API Endpoint Description")
     @gen.coroutine
+    @auth
     def post(self, *_args, **_kwargs):
         args = self.parse_form_arguments('company_name')
         company_name = args.company_name
-        yield self.check_auth()
+        
         result = yield query_company_by_name(company_name)
         # print(f"re:{result}")
         data = result.get('data', None)
@@ -116,12 +117,12 @@ class SearchCompanyMoviesOnTmdb(BaseHandler):
     search all movies of a company by company id in tmdb
     :returns movies list
     """
-
+    @auth
     @gen.coroutine
     def post(self, *_args, **_kwargs):
         args = self.parse_form_arguments('tmdb_company_id')
         tmdb_company_id = args.tmdb_company_id
-        yield self.check_auth()
+        
         res = yield search_company_movies(tmdb_company_id)
         if res["code"] != 0:
             self.success(data=dict(movies=[]))
@@ -133,7 +134,7 @@ class SearchCompanyMovies(BaseHandler):
     """
     search all movie of company
     """
-
+    @auth
     @gen.coroutine
     def post(self, *_args, **_kwargs):
         args = self.parse_json_arguments('tmdb_company_id', page_num=1, page_size=10, movie_name=None)
@@ -142,7 +143,7 @@ class SearchCompanyMovies(BaseHandler):
             self.fail(402)
         print(args)
         # movie_name = args.movie_name
-        yield self.check_auth()
+        
         result = yield query_movie_by_company_id(tmdb_company_id, SourceType.Movie.value, movie_name=args.movie_name,
                                                  page_num=args.page_num,
                                                  page_size=args.page_size)

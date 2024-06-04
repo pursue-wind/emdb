@@ -7,6 +7,7 @@ from service import handle_exceptions
 from service.fetch_moive_info import Tmdb, fetch_movie_info
 from config.config import CFG as cfg
 
+
 @gen.coroutine
 @handle_exceptions
 def search_movie_by_name(movie_name, lang='en', page=1):
@@ -94,7 +95,7 @@ def add_company_movies_to_emdb(company_name):
             movie_tmdb_id = movie["id"]
             # yield fetch_movie_info(movie_tmdb_id)
 
-            yield add_movie_to_emdb(movie_tmdb_id,emdb_add_movie_url)
+            yield add_movie_to_emdb(movie_tmdb_id, emdb_add_movie_url)
 
         while total_pages > 1 and total_pages > page:
             page += 1
@@ -104,28 +105,4 @@ def add_company_movies_to_emdb(company_name):
             for movie in movies.get("results"):
                 movie_tmdb_id = movie["id"]
                 # yield fetch_movie_info(movie_tmdb_id)
-                yield add_movie_to_emdb(movie_tmdb_id,emdb_add_movie_url)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                yield add_movie_to_emdb(movie_tmdb_id, emdb_add_movie_url)
