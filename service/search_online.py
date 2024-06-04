@@ -9,7 +9,7 @@ from config.config import CFG as cfg
 
 @gen.coroutine
 @handle_exceptions
-def search_movie_by_name(movie_name, lang, page=1):
+def search_movie_by_name(movie_name, lang='en', page=1):
     e_tmdb = Tmdb()
     result = e_tmdb.search.movie(language=lang, query=movie_name, page=page)
     # logging.info(f"search movies results:{result}")

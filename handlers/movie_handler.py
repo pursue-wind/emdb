@@ -1,6 +1,3 @@
-import json
-
-import tornado_swagger
 from tornado import gen
 
 from db.pgsql.enums.enums import get_key_by_value, GenresType
@@ -9,8 +6,27 @@ from db.pgsql.movies import query_movie_by_name, query_movie_by_tmdb_id, query_m
 from db.pgsql.production_company import query_company_by_name, query_company_by_ids
 from handlers.base_handler import BaseHandler
 from service.fetch_moive_info import fetch_movie_info
-from service.search_online import search_company_movies
+from service.search_online import search_company_movies, search_movie_by_name
 from db.pgsql.enums.enums import SourceType
+
+
+class SearchMovieOnline(BaseHandler):
+    """
+    search by name or tmdb movie id
+    :returns movies
+    """
+
+    @gen.coroutine
+    def post(self, *_args, **_kwargs):
+        args = self.parse_form_arguments('movie_name', 'lang', 'page')
+        movie_name = args.movie_name
+        lang = args.lang
+        page = args.page
+        # tmdb_movie_id = args.tmdb_movie_id
+        yield self.check_auth()
+
+        res = yield search_movie_by_name(movie_name, lang=lang, page=page)
+        self.success(data=res['data'])
 
 
 class SearchMovie(BaseHandler):
@@ -18,6 +34,7 @@ class SearchMovie(BaseHandler):
     search by name or tmdb movie id
     :returns movies
     """
+
     @gen.coroutine
     def post(self, *_args, **_kwargs):
         args = self.parse_form_arguments('movie_name')
@@ -56,6 +73,7 @@ class AddMovie(BaseHandler):
     """
     add movie by tmdb movie id
     """
+
     @gen.coroutine
     def post(self, *_args, **_kwargs):
         args = self.parse_form_arguments('tmdb_movie_id')

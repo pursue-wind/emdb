@@ -3,11 +3,12 @@ from tornado.web import url
 from handlers.emmai_handler import CountCompanyMovies
 from handlers.movie_extra_info import MovieAlternativeTitles, MovieCredits, MovieReleaseDates, MovieImages, MovieVideos, \
     MovieTranslations, GetMoviRealeseCertifications
-from handlers.movie_handler import SearchMovie, SearchCompany, AddMovie, SearchCompanyMovies
+from handlers.movie_handler import *
 from handlers.tv_extra_info import TVAlternativeTitles, TVCredits, TVReleaseDates, TVImages, TVVideos, TVTranslations
 from handlers.tv_handler import SearchCompanyTV, GetTVEpisodes, SearchTV, AddTV
 
 MOVIE_ROUTE = [
+    ("/api/emdb/movie/search", SearchMovieOnline),
     ("/api/movie/search", SearchMovie),
     ("/api/movie/add", AddMovie),
     ("/api/movie/alternative_titles", MovieAlternativeTitles),

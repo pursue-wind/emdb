@@ -29,7 +29,7 @@ pgsql:
   local: >-
     postgresql://postgres:emdb2scjdl@localhost:5432/emdb2
   dev: >-
-    postgresql://emmai_dev:TeMaqdpWz6ctya3inh@pgm-j6ce6pcj427n7i5r.pg.rds.aliyuncs.com/emdb
+    postgresql://emmai_dev:TeMaqdpWz6ctya3inh@47.76.82.180:54321/emdb
   test: >-
     postgresql://emmai:fsv33inhTeHkhY5@8.218.184.1:54321/emdb
   release: >-
