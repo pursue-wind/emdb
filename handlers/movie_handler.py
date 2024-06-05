@@ -5,7 +5,7 @@ from db.pgsql.enums.enums import get_key_by_value, GenresType
 from db.pgsql.movie_key_words import query_movie_keywords
 from db.pgsql.movies import query_movie_by_name, query_movie_by_tmdb_id, query_movie_by_company_id
 from db.pgsql.production_company import query_company_by_name, query_company_by_ids
-from handlers.auth_decorators import authenticated_async, auth
+from handlers.auth_decorators import auth
 from handlers.base_handler import BaseHandler
 from service.fetch_moive_info import fetch_movie_info
 from service.search_online import search_company_movies, search_movie_by_name
@@ -30,8 +30,7 @@ class SearchMovieOnline(BaseHandler):
 
     @auth
     async def post(self, *_args, **_kwargs):
-        args = self.parse_json_arguments('movie_name', optional_keys=['lang', 'page', 'type'])
-        movie_name, lang, page, typ = args.movie_name, args.lang, args.page, args.type
+        movie_name, lang, page, typ = self.parse_body('movie_name', 'lang', 'page', 'type', required=['movie_name'])
 
         res = await search_movie_by_name(movie_name, lang=lang, page=page, typ=typ)
         self.success(data=res['data'])

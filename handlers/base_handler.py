@@ -176,6 +176,36 @@ class BaseHandler(RequestHandler):
 
         return Arguments(req)
 
+    def parse_body(self, *keys: str, required: list[str] = None, valid_func=None) -> []:
+        """Parse JSON argument like `get_argument`."""
+
+        request_body = self.request.body
+
+        if not request_body:
+            request_body = b'{}'
+        elif re.match(base64_pattern, request_body.decode()):
+            request_body = base64.b64decode(request_body)
+
+        try:
+            req = json.loads(request_body.decode())
+            app_log.info(f"request_body:{json.loads(request_body.decode())}")
+
+        except json.JSONDecodeError as exception:
+            dump_error('Exception:\n', request_body.decode())
+            raise ParseJSONError(exception.doc)
+
+        if not isinstance(req, dict):
+            dump_error('Exception:\n', request_body.decode())
+            raise ParseJSONError('Request should be a object.')
+
+        if required and req.keys() > set(required):
+            raise MissingArgumentError('Missing argument')
+
+        if valid_func and len(filter(valid_func(req), keys)) == 0:
+            raise MissingArgumentError('Missing argument')
+
+        return list(map(lambda k: req[k] if k in req.keys() else None, keys))
+
     @gen.coroutine
     def prepare(self, *_args, **_kwargs):
         pass
