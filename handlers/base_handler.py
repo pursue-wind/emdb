@@ -176,7 +176,16 @@ class BaseHandler(RequestHandler):
 
         return Arguments(req)
 
-    def parse_body(self, *keys: str, required: list[str] = None, valid_func=None) -> []:
+    def parse_form(self, *keys, required: list[str] = None, require_all: bool = False):
+        """Parse FORM argument like `get_argument`."""
+        if require_all:
+            required = keys
+        if required and any(miss_arg := list(filter(lambda r: not self.get_argument(r, None), required))):
+            raise MissingArgumentError(f': {miss_arg}')
+
+        return list(map(lambda k: self.get_argument(k, None), keys))
+
+    def parse_body(self, *keys: str, required: list[str] = None, require_all: bool = False, valid_func=None) -> []:
         """Parse JSON argument like `get_argument`."""
 
         request_body = self.request.body
@@ -189,7 +198,6 @@ class BaseHandler(RequestHandler):
         try:
             req = json.loads(request_body.decode())
             app_log.info(f"request_body:{json.loads(request_body.decode())}")
-
         except json.JSONDecodeError as exception:
             dump_error('Exception:\n', request_body.decode())
             raise ParseJSONError(exception.doc)
@@ -198,8 +206,11 @@ class BaseHandler(RequestHandler):
             dump_error('Exception:\n', request_body.decode())
             raise ParseJSONError('Request should be a object.')
 
-        if required and req.keys() > set(required):
-            raise MissingArgumentError('Missing argument')
+        if require_all:
+            required = keys
+
+        if required and len(miss_arg := set(required) - req.keys()) > 0:
+            raise MissingArgumentError(str(miss_arg))
 
         if valid_func and len(filter(valid_func(req), keys)) == 0:
             raise MissingArgumentError('Missing argument')

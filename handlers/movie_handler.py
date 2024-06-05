@@ -45,9 +45,7 @@ class SearchMovie(BaseHandler):
     @auth
     @gen.coroutine
     def post(self, *_args, **_kwargs):
-        args = self.parse_form_arguments('movie_name')
-        movie_name = args.movie_name
-        # tmdb_movie_id = args.tmdb_movie_id
+        movie_name = self.parse_form('movie_name', required=['movie_name'])
 
         result = yield query_movie_by_name(movie_name)
         data = result.get('data', None)
@@ -85,8 +83,7 @@ class AddMovie(BaseHandler):
     @auth
     @gen.coroutine
     def post(self, *_args, **_kwargs):
-        args = self.parse_form_arguments('tmdb_movie_id')
-        tmdb_movie_id = args.tmdb_movie_id
+        tmdb_movie_id = self.parse_form('tmdb_movie_id', required=['tmdb_movie_id'])
 
         res = yield query_movie_by_tmdb_id(tmdb_movie_id, SourceType.Movie.value)
         if res['status'] == 0:
