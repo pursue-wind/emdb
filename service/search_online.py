@@ -11,8 +11,11 @@ from config.config import CFG as cfg
 @gen.coroutine
 @handle_exceptions
 def search_movie_by_name(movie_name, lang='en', page=1, typ=1):
-    e_tmdb = Tmdb()
-    search_method = e_tmdb.search.movie if typ is None or typ == 1 else e_tmdb.search.tv
+    t = Tmdb()
+    search_method = (t.search.multi if typ is None or typ == 1 else
+                     t.search.movie if typ == 2 else
+                     t.search.tv if typ == 3 else
+                     t.search.multi)
     result = search_method(language=lang, query=movie_name, page=page)
 
     # logging.info(f"search movies results:{result}")
@@ -26,7 +29,7 @@ def search_movie_by_name(movie_name, lang='en', page=1, typ=1):
     # logging.info(f"current page: {page}, total_pages:{total_pages}, total_results:{total_results}")
     while total_pages and page < total_pages:
         page += 1
-        result = e_tmdb.search.movie(language=lang, query=movie_name, page=page)
+        result = t.search.movie(language=lang, query=movie_name, page=page)
         # logging.info(f"search movies results:{result}")
         # result:{'page': 1, 'results': [], 'total_pages': 1, 'total_results': 0}
         next_page_movies = result.get("results", [])

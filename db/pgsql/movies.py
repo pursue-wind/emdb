@@ -36,6 +36,19 @@ def query_movie_by_tmdb_id(tmdb_movie_id, source_type, **kwargs):
 
 @gen.coroutine
 @exc_handler
+def query_movie_by_tmdb_ids(tmdb_movie_ids: [int], source_type, **kwargs):
+    sess = kwargs.get('sess')
+
+    results = sess.query(Movies).filter(Movies.tmdb_id in tmdb_movie_ids,
+                                        Movies.source_type == source_type).first()
+    if not results:
+        return dict(movie_info=dict())
+    movie = results.to_dict()
+    return dict(movie_info=movie)
+
+
+@gen.coroutine
+@exc_handler
 def count_movies_of_company(tmdb_company_id, source_type, **kwargs):
     sess = kwargs.get("sess")
     total_count = sess.query(func.count(Movies.id)).filter(
@@ -45,17 +58,15 @@ def count_movies_of_company(tmdb_company_id, source_type, **kwargs):
     return dict(total_count=total_count)
 
 
-
-@ gen.coroutine
-@ exc_handler
-def count_movies_of_all_company( source_type, **kwargs):
+@gen.coroutine
+@exc_handler
+def count_movies_of_all_company(source_type, **kwargs):
     sess = kwargs.get("sess")
     total_count = sess.query(func.count(Movies.id)).filter(
         Movies.source_type == source_type).scalar()
     if total_count is None:
         total_count = 0
     return dict(total_count=total_count)
-
 
 
 @gen.coroutine
@@ -73,7 +84,7 @@ def query_movie_by_company_id(tmdb_company_id, source_type, **kwargs):
         Movies.source_type == source_type)
     if movie_name:
         query = query.filter(or_(or_(Movies.original_title.ilike(f"%{movie_name}%"),
-                                 Movies.title.ilike(f"%{movie_name}")),
+                                     Movies.title.ilike(f"%{movie_name}")),
                                  MovieAlternativeTitles.title.ilike(f"%{movie_name}%")))
 
     total = query.distinct().count()
@@ -100,7 +111,7 @@ def insert_movies(movie_info, **kwargs):
     if existing_movie:
         # if 88888888 not in existing_movie.production_companies:
         #     existing_movie.production_companies = movie_info["production_companies"] + [88888888]
-        if "poster_path" in  movie_info:
+        if "poster_path" in movie_info:
             existing_movie.poster_path = movie_info["poster_path"]
         existing_movie.overview = movie_info["overview"]
         existing_movie.title = movie_info["title"]
@@ -128,7 +139,8 @@ def insert_movie_info(movie_info, key_words_list, production_company_list, credi
     # sess.commit()
 
     # keywords
-    key_words_list = [{"tmdb_id": d["id"], "name": d["name"], "movie_id": movie.id, "source_type":movie.source_type} for d in key_words_list]
+    key_words_list = [{"tmdb_id": d["id"], "name": d["name"], "movie_id": movie.id, "source_type": movie.source_type}
+                      for d in key_words_list]
 
     stmt = insert(MovieKeyWords).values(key_words_list).on_conflict_do_nothing()
     sess.execute(stmt)

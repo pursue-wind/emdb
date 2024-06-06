@@ -8,7 +8,10 @@ from handlers.tv_extra_info import TVAlternativeTitles, TVCredits, TVReleaseDate
 from handlers.tv_handler import SearchCompanyTV, GetTVEpisodes, SearchTV, AddTV
 
 MOVIE_ROUTE = [
-    ("/api/emdb/movie/search", SearchMovieOnline),
+    ("/api/emdb/tv/details", TMDBTVDetails),
+    ("/api/emdb/discover", Discover),
+    ("/api/emdb/search", TMDBSearch),
+    ("/api/emdb/save", MovieHandler),
     ("/api/movie/search", SearchMovie),
     ("/api/movie/add", AddMovie),
     ("/api/movie/alternative_titles", MovieAlternativeTitles),

@@ -1,5 +1,4 @@
 from tornado import gen
-from tornado.web import authenticated
 
 from db.pgsql.enums.enums import get_key_by_value, GenresType
 from db.pgsql.movie_key_words import query_movie_keywords
@@ -8,11 +7,51 @@ from db.pgsql.production_company import query_company_by_name, query_company_by_
 from handlers.auth_decorators import auth
 from handlers.base_handler import BaseHandler
 from service.fetch_moive_info import fetch_movie_info
-from service.search_online import search_company_movies, search_movie_by_name
+from service.search_online import search_company_movies
 from db.pgsql.enums.enums import SourceType
+from service.search_service import SearchService
 
 
-class SearchMovieOnline(BaseHandler):
+class MovieHandler(BaseHandler):
+
+    @auth
+    async def post(self, *_args, **_kwargs):
+        """
+        add movie by tmdb_id
+        """
+
+        tmdb_movie_ids = self.parse_body('tmdb_movie_id', require_all=True)
+
+        res = []
+        for tmdb_movie_id in tmdb_movie_ids[0]:
+            res = await query_movie_by_tmdb_id(tmdb_movie_id, SourceType.Movie.value)
+            if res['status'] == 0:
+                if res["data"]["movie_info"]:
+                    movie_id = res["data"]["movie_info"]["id"]
+                    print("Already Exist!")
+                    continue
+            ok, movie_id = await fetch_movie_info(tmdb_movie_id)
+            res.append(movie_id)
+        self.success(data=res)
+
+
+class Discover(BaseHandler):
+    @auth
+    async def get(self, *_args, **_kwargs):
+        lang, page, media_type, include_adult = self.parse_form('lang', 'page', 'media_type', 'include_adult')
+        res = await SearchService().discover(lang=lang, page=page, media_type=media_type, include_adult=include_adult)
+        self.success(data=res)
+
+
+class TMDBTVDetails(BaseHandler):
+    @auth
+    async def get(self, *_args, **_kwargs):
+        lang, series_id = self.parse_form('lang', 'series_id')
+        res = await SearchService().tv_detail_by_series_id(lang=lang, series_id=series_id)
+        self.success(data=res)
+
+
+class TMDBSearch(BaseHandler):
     """
     search by name or tmdb movie id
     :returns movies
@@ -29,11 +68,16 @@ class SearchMovieOnline(BaseHandler):
     """
 
     @auth
-    async def post(self, *_args, **_kwargs):
-        movie_name, lang, page, typ = self.parse_body('movie_name', 'lang', 'page', 'type', required=['movie_name'])
+    async def get(self, *_args, **_kwargs):
+        movie_name, lang, page, media_type, include_adult, \
+            t_id = self.parse_form('movie_name', 'lang', 'page', 'media_type', 'include_adult', 't_id',
+                                   required=['media_type'])
 
-        res = await search_movie_by_name(movie_name, lang=lang, page=page, typ=typ)
-        self.success(data=res['data'])
+        if movie_name and t_id:
+            self.fail(status=400, msg='only name or id')
+
+        res = await SearchService().search(movie_name, lang=lang, page=page, media_type=media_type)
+        self.success(data=res)
 
 
 class SearchMovie(BaseHandler):
@@ -83,7 +127,7 @@ class AddMovie(BaseHandler):
     @auth
     @gen.coroutine
     def post(self, *_args, **_kwargs):
-        tmdb_movie_id = self.parse_form('tmdb_movie_id', required=['tmdb_movie_id'])
+        tmdb_movie_id = self.parse_form('tmdb_movie_id', require_all=True)
 
         res = yield query_movie_by_tmdb_id(tmdb_movie_id, SourceType.Movie.value)
         if res['status'] == 0:

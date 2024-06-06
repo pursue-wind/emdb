@@ -176,12 +176,16 @@ class BaseHandler(RequestHandler):
 
         return Arguments(req)
 
-    def parse_form(self, *keys, required: list[str] = None, require_all: bool = False):
+    def parse_form(self, *keys, required: list[str] = None, require_all: bool = False, valid_func=None):
         """Parse FORM argument like `get_argument`."""
         if require_all:
             required = keys
+
         if required and any(miss_arg := list(filter(lambda r: not self.get_argument(r, None), required))):
             raise MissingArgumentError(f': {miss_arg}')
+
+        if valid_func and valid_func():
+            raise MissingArgumentError('')
 
         return list(map(lambda k: self.get_argument(k, None), keys))
 
