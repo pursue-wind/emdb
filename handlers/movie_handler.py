@@ -140,7 +140,7 @@ class TMDBSearch(BaseHandler):
         if name and t_id:
             self.fail(status=400, msg='only name or id')
 
-        res = await SearchService().search(name, lang=lang, page=page, media_type=media_type)
+        res = await SearchService().search(name, lang=lang, page=page, media_type=media_type, t_id=t_id)
         self.success(data=res)
 
 
