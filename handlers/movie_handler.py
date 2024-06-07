@@ -1,4 +1,5 @@
 from tornado import gen
+from tornado_swagger.model import register_swagger_model
 
 from db.pgsql.enums.enums import get_key_by_value, GenresType
 from db.pgsql.movie_key_words import query_movie_keywords
@@ -35,40 +36,103 @@ class MovieHandler(BaseHandler):
         self.success(data=res)
 
 
+@register_swagger_model
 class Discover(BaseHandler):
     @auth
     async def get(self, *_args, **_kwargs):
+        """
+         ---
+         summary: Discover
+         description: 电影电视推荐接口
+         produces:
+         - application/json
+         parameters:
+         -   name: lang
+             description: lang
+             type: string
+         -   name: page
+             description: page
+             type: integer
+         -   name: media_type
+             description: 必传，电影类型：1，电视类型：2
+             required: true
+             type: integer
+         -   name: include_adult
+             description: 是否包含成人内容
+             required: false
+             type: boolean
+             default: true
+         responses:
+             200:
+               description: list of result
+         """
+
         lang, page, media_type, include_adult = self.parse_form('lang', 'page', 'media_type', 'include_adult')
         res = await SearchService().discover(lang=lang, page=page, media_type=media_type, include_adult=include_adult)
         self.success(data=res)
 
 
+@register_swagger_model
 class TMDBTVDetails(BaseHandler):
     @auth
     async def get(self, *_args, **_kwargs):
+        """
+        ---
+        summary: TVDetails
+        description: 通过series_id 获取 TVDetails
+        produces:
+          - application/json
+        parameters:
+          - name: series_id
+            description: series_id
+            type: integer
+          - name: lang
+            description: lang
+            type: string
+         """
         lang, series_id = self.parse_form('lang', 'series_id')
         res = await SearchService().tv_detail_by_series_id(lang=lang, series_id=series_id)
         self.success(data=res)
 
 
+@register_swagger_model
 class TMDBSearch(BaseHandler):
-    """
-    search by name or tmdb movie id
-    :returns movies
-
-   eg: curl --location 'http://127.0.0.1:8088/api/emdb/movie/search' \
-        --header 'Content-Type: application/json' \
-        --header 'Authorization: Bearer MmdxY3ZkbGtxYnJtNTY6ZmVlZDBmMjRlMzFhMjM1Z2Q4YjdlNGJlZDFmZWM0ZGQyNjU1' \
-        --data '{
-            "movie_name": "教父",
-            "lang": "zh",
-            "page": 1,
-            "type": 1
-        }'
-    """
 
     @auth
     async def get(self, *_args, **_kwargs):
+        """
+        ---
+        summary: Discover
+        description: 电影电视搜索接口
+        produces:
+          - application/json
+        parameters:
+          - name: name
+            description: 通过电影/电视名称搜索
+            type: string
+          - name: lang
+            description: lang
+            type: string
+          - name: page
+            description: page
+            required: true
+            type: integer
+          - name: media_type
+            description: 必传，电影类型：1，电视类型：2
+            required: true
+            type: integer
+          - name: include_adult
+            description: 是否包含成人内容
+            required: false
+            type: boolean
+            default: true
+          - name: t_id
+            description: tmdb_id / tmdb_series_id
+            type: integer
+        responses:
+          200:
+            description: list of result
+         """
         movie_name, lang, page, media_type, include_adult, \
             t_id = self.parse_form('movie_name', 'lang', 'page', 'media_type', 'include_adult', 't_id',
                                    required=['media_type'])
