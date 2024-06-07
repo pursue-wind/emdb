@@ -43,12 +43,12 @@ class SearchService:
                     total=result.get('total_results', 0),
                     data=data)
 
-    async def search(self, movie_name, lang='en', page=1, media_type=0, include_adult=True):
+    async def search(self, name, lang='en', page=1, media_type=0, include_adult=True):
         is_movie_type = self.movie_media_type_check_func(media_type)
 
         search_method = self.t.search.movie if is_movie_type else self.t.search.tv
 
-        result = search_method(language=lang, query=movie_name, page=page, include_adult=include_adult)
+        result = search_method(language=lang, query=name, page=page, include_adult=include_adult)
         # logging.info(f"search results:{result}")
         media_list = result.get("results", [])
 

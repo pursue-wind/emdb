@@ -133,14 +133,14 @@ class TMDBSearch(BaseHandler):
           200:
             description: list of result
          """
-        movie_name, lang, page, media_type, include_adult, \
-            t_id = self.parse_form('movie_name', 'lang', 'page', 'media_type', 'include_adult', 't_id',
+        name, lang, page, media_type, include_adult, \
+            t_id = self.parse_form('name', 'lang', 'page', 'media_type', 'include_adult', 't_id',
                                    required=['media_type'])
 
-        if movie_name and t_id:
+        if name and t_id:
             self.fail(status=400, msg='only name or id')
 
-        res = await SearchService().search(movie_name, lang=lang, page=page, media_type=media_type)
+        res = await SearchService().search(name, lang=lang, page=page, media_type=media_type)
         self.success(data=res)
 
 
