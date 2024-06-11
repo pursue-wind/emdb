@@ -36,7 +36,7 @@ class SearchService:
         media_list = result.get("results", [])
         exist_ids = await self.get_exist_ids(is_movie_type, media_list)
         data = list(map(lambda d: self.data_convent(d, exist_ids), media_list))
-        return dict(page_num=page,
+        return dict(page_num=int(page),
                     page_size=20,
                     total=result.get('total_results', 0),
                     data=data)

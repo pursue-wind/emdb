@@ -25,14 +25,15 @@ class MovieHandler(BaseHandler):
 
         res = []
         for tmdb_movie_id in tmdb_movie_ids[0]:
-            res = await query_movie_by_tmdb_id(tmdb_movie_id, SourceType.Movie.value if media_type == 1 else SourceType.Tv.value)
+            res = await query_movie_by_tmdb_id(tmdb_movie_id,
+                                               SourceType.Movie.value if media_type == 1 else SourceType.Tv.value)
             if res['status'] == 0:
                 if res["data"]["movie_info"]:
                     movie_id = res["data"]["movie_info"]["id"]
                     print("Already Exist!")
                     continue
 
-            #get_tv_detail_filter_season(tmdb_series_id_list[i], season_id_list[i], company_id)
+            # get_tv_detail_filter_season(tmdb_series_id_list[i], season_id_list[i], company_id)
             ok, movie_id = await fetch_movie_info(tmdb_movie_id)
             res.append(movie_id)
         self.success(data=res)
@@ -70,6 +71,8 @@ class Discover(BaseHandler):
          """
 
         lang, page, media_type, include_adult = self.parse_form('lang', 'page', 'media_type', 'include_adult')
+        if media_type not in ["movie", "tv"]:
+            self.fail(status=400, msg='media_type param err')
         res = await SearchService().discover(lang=lang, page=page, media_type=media_type, include_adult=include_adult)
         self.success(data=res)
 
@@ -138,7 +141,8 @@ class TMDBSearch(BaseHandler):
         name, lang, page, media_type, include_adult, \
             t_id = self.parse_form('name', 'lang', 'page', 'media_type', 'include_adult', 't_id',
                                    required=['media_type'])
-
+        if media_type not in ["movie", "tv"]:
+            self.fail(status=400, msg='media_type param err')
         if name and t_id:
             self.fail(status=400, msg='only name or id')
 
