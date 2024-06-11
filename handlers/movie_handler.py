@@ -18,19 +18,21 @@ class MovieHandler(BaseHandler):
     @auth
     async def post(self, *_args, **_kwargs):
         """
-        add movie by tmdb_id
+        数据入库：如果 电影类型：1，电视类型：2
         """
 
-        tmdb_movie_ids = self.parse_body('tmdb_movie_id', require_all=True)
+        tmdb_movie_ids, media_type = self.parse_body('ids', 'media_type', require_all=True)
 
         res = []
         for tmdb_movie_id in tmdb_movie_ids[0]:
-            res = await query_movie_by_tmdb_id(tmdb_movie_id, SourceType.Movie.value)
+            res = await query_movie_by_tmdb_id(tmdb_movie_id, SourceType.Movie.value if media_type == 1 else SourceType.Tv.value)
             if res['status'] == 0:
                 if res["data"]["movie_info"]:
                     movie_id = res["data"]["movie_info"]["id"]
                     print("Already Exist!")
                     continue
+
+            #get_tv_detail_filter_season(tmdb_series_id_list[i], season_id_list[i], company_id)
             ok, movie_id = await fetch_movie_info(tmdb_movie_id)
             res.append(movie_id)
         self.success(data=res)

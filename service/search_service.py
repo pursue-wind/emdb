@@ -6,14 +6,12 @@ from service.fetch_moive_info import Tmdb
 
 
 class SearchService:
-    MEDIA_TYPE_DICT = {1: 'movie', 2: 'tv'}
-
     def __init__(self):
         self.t = Tmdb
-        self.movie_media_type_check_func = (lambda media_type: media_type is not None and media_type == 1)
-        self.tv_media_type_check_func = (lambda media_type: media_type is not None and media_type == 2)
+        self.movie_media_type_check_func = (lambda media_type: media_type is not None and media_type == "movie")
+        self.tv_media_type_check_func = (lambda media_type: media_type is not None and media_type == "tv")
 
-    def data_convent(self, d: dict,exist_ids: set = None) -> dict:
+    def data_convent(self, d: dict, exist_ids: set = None) -> dict:
         def get_full_image_path(key: str) -> str:
             return self.t.IMAGE_BASE_URL + d[key] if key in d and d[key] else None
 
@@ -30,7 +28,7 @@ class SearchService:
         check_func = exist_ids_by_tmdb_ids if is_movie_type else exist_ids_by_tmdb_series_ids
         return await check_func(ids)
 
-    async def discover(self, lang='en', page=1, media_type=1, include_adult=True):
+    async def discover(self, lang='en', page=1, media_type="movie", include_adult=True):
         is_movie_type = self.movie_media_type_check_func(media_type)
         search_method = (self.t.discover.movie if is_movie_type else self.t.discover.tv)
         result = search_method(language=lang, page=page, include_adult=include_adult)
@@ -43,12 +41,12 @@ class SearchService:
                     total=result.get('total_results', 0),
                     data=data)
 
-    async def search(self, name, lang='en', page=1, media_type=0, include_adult=True, t_id=None):
+    async def search(self, name, lang='en', page=1, media_type="movie", include_adult=True, t_id=None):
         is_movie_type = self.movie_media_type_check_func(media_type)
         if t_id:
             res = self.t.tmdb.Movies(t_id).info(language=lang) if is_movie_type else self.t.tmdb.TV(t_id).info(
                 language=lang)
-            return dict(page_num=page,
+            return dict(page_num=int(page),
                         page_size=20,
                         total=1 if res else 0,
                         data=[self.data_convent(res)])
@@ -59,9 +57,9 @@ class SearchService:
         media_list = result.get("results", [])
 
         exist_ids = await self.get_exist_ids(is_movie_type, media_list)
-        data = list(map(lambda d: self.data_convent(d,  exist_ids), media_list))
+        data = list(map(lambda d: self.data_convent(d, exist_ids), media_list))
 
-        return dict(page_num=page,
+        return dict(page_num=int(page),
                     page_size=20,
                     total=result.get('total_results', 0),
                     data=data)
