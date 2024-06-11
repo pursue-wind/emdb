@@ -3,11 +3,13 @@ from tornado_swagger.model import register_swagger_model
 
 from db.pgsql.enums.enums import get_key_by_value, GenresType
 from db.pgsql.movie_key_words import query_movie_keywords
-from db.pgsql.movies import query_movie_by_name, query_movie_by_tmdb_id, query_movie_by_company_id
+from db.pgsql.movies import query_movie_by_name, query_movie_by_tmdb_id, query_movie_by_company_id, \
+    query_movie_by_tmdb_ids, exist_movie_by_tmdb_id
 from db.pgsql.production_company import query_company_by_name, query_company_by_ids
 from handlers.auth_decorators import auth
 from handlers.base_handler import BaseHandler
 from service.fetch_moive_info import fetch_movie_info
+from service.fetch_tv_series_info import get_tv_detail
 from service.search_online import search_company_movies
 from db.pgsql.enums.enums import SourceType
 from service.search_service import SearchService
@@ -18,25 +20,56 @@ class MovieHandler(BaseHandler):
     @auth
     async def post(self, *_args, **_kwargs):
         """
-        数据入库：如果 电影类型：1，电视类型：2
+        数据入库：必传，电影类型：movie，电视类型：tv
         """
 
-        tmdb_movie_ids, media_type = self.parse_body('ids', 'media_type', require_all=True)
+        tmdb_id, media_type, tv_season_num = self.parse_body('id', 'media_type', 'tv_season_num',
+                                                             required=['media_type'])
+        if media_type not in ["movie", "tv"]:
+            self.fail(status=400, msg='media_type param err')
+        is_movie_type = media_type == 'movie'
+        if not is_movie_type and not tv_season_num:
+            self.fail(status=400, msg='media_type param err')
 
-        res = []
-        for tmdb_movie_id in tmdb_movie_ids[0]:
-            res = await query_movie_by_tmdb_id(tmdb_movie_id,
-                                               SourceType.Movie.value if media_type == 1 else SourceType.Tv.value)
-            if res['status'] == 0:
-                if res["data"]["movie_info"]:
-                    movie_id = res["data"]["movie_info"]["id"]
-                    print("Already Exist!")
-                    continue
+        exist_id = await exist_movie_by_tmdb_id(tmdb_id,
+                                                SourceType.Movie.value if is_movie_type else SourceType.Tv.value)
 
-            # get_tv_detail_filter_season(tmdb_series_id_list[i], season_id_list[i], company_id)
-            ok, movie_id = await fetch_movie_info(tmdb_movie_id)
-            res.append(movie_id)
-        self.success(data=res)
+        # get_tv_detail_filter_season(tmdb_series_id_list[i], season_id_list[i], company_id)
+        if exist_id:
+            self.success(data=list())
+        if is_movie_type:
+            r = await fetch_movie_info(tmdb_id)
+            self.success(data=tmdb_id)
+        else:
+            r = await get_tv_detail(tmdb_id, season_id=[tv_season_num])
+            self.success(data=tmdb_id)
+
+
+class MovieMultiHandler(BaseHandler):
+
+    @auth
+    async def post(self, *_args, **_kwargs):
+        """
+        数据入库：必传，电影类型：movie，电视类型：tv
+        """
+
+        tmdb_movie_ids, media_type, tv_series_id = self.parse_body('ids', 'media_type', 'tv_series_id',
+                                                                   required=['media_type'])
+        if media_type not in ["movie", "tv"]:
+            self.fail(status=400, msg='media_type param err')
+        is_movie_type = media_type == 'movie'
+        exist_ids = await query_movie_by_tmdb_ids(tmdb_movie_ids,
+                                                  SourceType.Movie.value if is_movie_type else SourceType.Tv.value)
+
+        # get_tv_detail_filter_season(tmdb_series_id_list[i], season_id_list[i], company_id)
+        need_import = set(tmdb_movie_ids) - exist_ids['data']
+        if is_movie_type:
+            for id in need_import:
+                r = await fetch_movie_info(id)
+        else:
+            r = await get_tv_detail(tv_series_id, season_id=need_import)
+
+        self.success(data=list(need_import))
 
 
 @register_swagger_model
@@ -57,7 +90,7 @@ class Discover(BaseHandler):
              description: page
              type: integer
          -   name: media_type
-             description: 必传，电影类型：1，电视类型：2
+             description: 必传，电影类型：movie，电视类型：tv
              required: true
              type: integer
          -   name: include_adult
@@ -123,7 +156,7 @@ class TMDBSearch(BaseHandler):
             required: true
             type: integer
           - name: media_type
-            description: 必传，电影类型：1，电视类型：2
+            description: 必传，电影类型：movie，电视类型：tv
             required: true
             type: integer
           - name: include_adult

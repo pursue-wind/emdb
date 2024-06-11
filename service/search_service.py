@@ -44,12 +44,18 @@ class SearchService:
     async def search(self, name, lang='en', page=1, media_type="movie", include_adult=True, t_id=None):
         is_movie_type = self.movie_media_type_check_func(media_type)
         if t_id:
-            res = self.t.tmdb.Movies(t_id).info(language=lang) if is_movie_type else self.t.tmdb.TV(t_id).info(
-                language=lang)
-            return dict(page_num=int(page),
-                        page_size=20,
-                        total=1 if res else 0,
-                        data=[self.data_convent(res)])
+            try:
+                res = self.t.tmdb.Movies(t_id).info(language=lang) if is_movie_type else self.t.tmdb.TV(t_id).info(
+                    language=lang)
+                return dict(page_num=int(page),
+                            page_size=20,
+                            total=1 if res else 0,
+                            data=[self.data_convent(res)])
+            except Exception as e:
+                return dict(page_num=int(page),
+                            page_size=20,
+                            total=0,
+                            data=[])
         search_method = self.t.search.movie if is_movie_type else self.t.search.tv
 
         result = search_method(language=lang, query=name, page=page, include_adult=include_adult)

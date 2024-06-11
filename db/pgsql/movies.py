@@ -7,7 +7,7 @@ from tornado import gen
 
 from db.pgsql.enums.enums import SourceType
 from db.pgsql.mysql_models import Imgs, Movies, MovieKeyWords, ProductionCompany, MoviesCredits, MovieAlternativeTitles
-from db.pgsql.base import exc_handler, datetime_handler
+from db.pgsql.base import exc_handler, datetime_handler, Session
 
 
 @gen.coroutine
@@ -39,12 +39,23 @@ def query_movie_by_tmdb_id(tmdb_movie_id, source_type, **kwargs):
 def query_movie_by_tmdb_ids(tmdb_movie_ids: [int], source_type, **kwargs):
     sess = kwargs.get('sess')
 
-    results = sess.query(Movies).filter(Movies.tmdb_id in tmdb_movie_ids,
-                                        Movies.source_type == source_type).first()
+    results = (sess.query(Movies.tmdb_id)
+               .filter(Movies.tmdb_id.in_(tmdb_movie_ids), Movies.source_type == source_type)
+               .all())
     if not results:
-        return dict(movie_info=dict())
-    movie = results.to_dict()
-    return dict(movie_info=movie)
+        return set()
+    return set(map(lambda m: m[0], results))
+
+
+async def exist_movie_by_tmdb_id(tmdb_movie_id: int, source_type, **kwargs):
+    sess = Session()
+
+    result = (sess.query(Movies.tmdb_id)
+              .filter(Movies.tmdb_id == tmdb_movie_id, Movies.source_type == source_type)
+              .first())
+    if result:
+        return True
+    return False
 
 
 @gen.coroutine

@@ -12,7 +12,7 @@ MOVIE_ROUTE = [
     tornado.web.url("/api/emdb/tv/details", TMDBTVDetails),
     tornado.web.url("/api/emdb/discover", Discover),
     tornado.web.url("/api/emdb/search", TMDBSearch),
-    tornado.web.url("/api/emdb/save", MovieHandler),
+    tornado.web.url("/api/emdb/", MovieHandler),
     tornado.web.url("/api/movie/search", SearchMovie),
     tornado.web.url("/api/movie/add", AddMovie),
     tornado.web.url("/api/movie/alternative_titles", MovieAlternativeTitles),
