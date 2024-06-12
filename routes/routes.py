@@ -1,5 +1,4 @@
 import tornado
-from tornado.web import url
 
 from handlers.emmai_handler import CountCompanyMovies
 from handlers.movie_extra_info import MovieAlternativeTitles, MovieCredits, MovieReleaseDates, MovieImages, MovieVideos, \
@@ -13,6 +12,7 @@ MOVIE_ROUTE = [
     tornado.web.url("/api/emdb/discover", Discover),
     tornado.web.url("/api/emdb/search", TMDBSearch),
     tornado.web.url("/api/emdb/", MovieHandler),
+    tornado.web.url("/api/emdb/multi/", MovieMultiHandler),
     tornado.web.url("/api/movie/search", SearchMovie),
     tornado.web.url("/api/movie/add", AddMovie),
     tornado.web.url("/api/movie/alternative_titles", MovieAlternativeTitles),

@@ -12,15 +12,6 @@ class CountCompanyMovies(BaseHandler):
     @auth
     @gen.coroutine
     def get(self, *_args, **_kwargs):
-        args = self.parse_form_arguments('tmdb_company_id')
-        tmdb_company_id = args.tmdb_company_id
-        if tmdb_company_id is None:
-            self.fail(402)
-        # tmdb_company_id = int(tmdb_company_id)
-        # if tmdb_company_id == 0:
-        #     self.success(data=dict(movie_count=0, tv_count=0))
-
-        
         movie_count_res = yield count_movies_of_all_company(SourceType.Movie.value)
         print(movie_count_res)
         if "status" in movie_count_res and movie_count_res["status"] != 0:
