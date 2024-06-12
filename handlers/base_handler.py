@@ -4,7 +4,6 @@ import base64
 import json
 import re
 import time
-import math
 from urllib import parse
 import traceback
 
@@ -17,26 +16,6 @@ from config.status import NS
 from lib.arguments import Arguments
 from lib.errors import ParseJSONError
 from lib.logger import dump_error, dump_out
-
-
-ENFORCED = True
-OPTIONAL = False
-
-OPERATORS = {
-    '$eq': lambda x, y: x == y,
-    '$lt': lambda x, y: x < y,
-    '$gt': lambda x, y: x > y,
-    '$lte': lambda x, y: x <= y,
-    '$gte': lambda x, y: x >= y,
-    '$neq': lambda x, y: x != y,
-}
-
-AUTH_INFO = {
-    "2gqcvdlkqbrm56": "feed0f24e31a235gd8b7e4bed1fec4dd2655",
-    "2aqcldlkq1rm57": "feed0ff4e31g235gd8b7e4bed1fec4dd2651"
-}
-
-token_list = ['DJy87FAUwpIYn4KC188f099b152']
 
 base64_pattern = re.compile(r'^[0-9a-zA-Z+/]+=*$')
 
@@ -140,23 +119,6 @@ class BaseHandler(RequestHandler):
         except json.JSONDecodeError:
             pass
 
-    @gen.coroutine
-    def check_auth(self, **kwargs):
-        """Check auth."""
-        headers = self.request.headers
-        auth_header = headers.get("Authorization", None)
-        try:
-            auth_mode, auth_base64 = auth_header.split(' ', 1)
-            auth_info = base64.b64decode(auth_base64)
-            app_id, app_key = auth_info.decode('utf-8').split(":")
-            if app_id not in AUTH_INFO:
-                self.fail(401)
-            if AUTH_INFO[app_id] != app_key:
-                self.fail(401)
-        except Exception as e:
-            app_log.error(e)
-            self.fail(401)
-
     def parse_form_arguments(self, *enforced_keys, **optional_keys):
         """Parse FORM argument like `get_argument`."""
 
@@ -213,6 +175,51 @@ class BaseHandler(RequestHandler):
         req['request_time'] = int(time.time())
 
         return Arguments(req)
+
+    def parse_form(self, *keys, required: list[str] = None, require_all: bool = False, valid_func=None):
+        """Parse FORM argument like `get_argument`."""
+        if require_all:
+            required = keys
+
+        if required and any(miss_arg := list(filter(lambda r: not self.get_argument(r, None), required))):
+            raise MissingArgumentError(f': {miss_arg}')
+
+        if valid_func and valid_func():
+            raise MissingArgumentError('')
+
+        return list(map(lambda k: self.get_argument(k, None), keys))
+
+    def parse_body(self, *keys: str, required: list[str] = None, require_all: bool = False, valid_func=None) -> []:
+        """Parse JSON argument like `get_argument`."""
+
+        request_body = self.request.body
+
+        if not request_body:
+            request_body = b'{}'
+        elif re.match(base64_pattern, request_body.decode()):
+            request_body = base64.b64decode(request_body)
+
+        try:
+            req = json.loads(request_body.decode())
+            app_log.info(f"request_body:{json.loads(request_body.decode())}")
+        except json.JSONDecodeError as exception:
+            dump_error('Exception:\n', request_body.decode())
+            raise ParseJSONError(exception.doc)
+
+        if not isinstance(req, dict):
+            dump_error('Exception:\n', request_body.decode())
+            raise ParseJSONError('Request should be a object.')
+
+        if require_all:
+            required = keys
+
+        if required and len(miss_arg := set(required) - req.keys()) > 0:
+            raise MissingArgumentError(str(miss_arg))
+
+        if valid_func and len(filter(valid_func(req), keys)) == 0:
+            raise MissingArgumentError('Missing argument')
+
+        return list(map(lambda k: req[k] if k in req.keys() else None, keys))
 
     @gen.coroutine
     def prepare(self, *_args, **_kwargs):

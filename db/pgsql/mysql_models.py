@@ -32,7 +32,6 @@ class TVSeriesAdditional(Base):
     external_ids = Column(JSONB, doc="其他视频平台id")
 
 
-
 class TVSeasons(Base):
     __tablename__ = 'tv_seasons'
     id = Column(Integer, Sequence("tv_seasons_seq"), primary_key=True)
@@ -63,7 +62,7 @@ class TVEpisodes(Base):
     season_number = Column(Integer)
     # show_id = Column(Integer)
     still_path = Column(String)
-    vote_average = Column(Numeric(10,5))
+    vote_average = Column(Numeric(10, 5))
     vote_count = Column(Integer)
 
 
@@ -108,7 +107,7 @@ class Movies(Base):
     video = Column(Boolean, default=False)
     vote_average = Column(Numeric(5, 3))
     vote_count = Column(Integer)
-    source_type = Column(Integer, default=1)   # 新增字段
+    source_type = Column(Integer, default=1)  # 新增字段
     external_ids = Column(JSONB, doc="其他视频平台id")
     __table_args__ = (
         UniqueConstraint('tmdb_id', 'source_type'),
@@ -160,7 +159,6 @@ class MoviesTranslations(Base):
 
 
 class MovieCreditsRelation(Base):
-
     __tablename__ = 'movie_credits_relation'
 
     id = Column(Integer, Sequence('movie_credits_relation_seq'), primary_key=True)
@@ -254,4 +252,3 @@ class FetchMovieTasks(Base):
     release_date = Column(Boolean, nullable=False, default=False)
     translations = Column(Boolean, nullable=False, default=False)
     production_companies = Column(Boolean, nullable=False, default=False)
-

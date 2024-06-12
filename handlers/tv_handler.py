@@ -2,6 +2,7 @@ from db.pgsql.movies import query_movie_by_company_id, query_movie_by_name, quer
 from db.pgsql.tv_episodes import get_tv_episodes_list
 from db.pgsql.tv_seasons import get_tv_season_params
 from db.pgsql.tv_series_additional import get_tv_additional_info
+from handlers.auth_decorators import auth
 from handlers.base_handler import BaseHandler
 from tornado import gen
 from db.pgsql.enums.enums import get_key_by_value, GenresType
@@ -17,13 +18,13 @@ class SearchTV(BaseHandler):
     search by name or tmdb tv id
     :returns tvs
     """
-
+    @auth
     @gen.coroutine
     def post(self, *_args, **_kwargs):
         args = self.parse_form_arguments('tv_name')
         tv_name = args.tv_name
         # tmdb_tv_id = args.tmdb_tv_id
-        yield self.check_auth()
+        
         result = yield query_movie_by_name(tv_name)
         data = result.get('data', None)
         if not data:
@@ -53,12 +54,12 @@ class AddTV(BaseHandler):
     """
     add tv by tmdb tv id
     """
-
+    @auth
     @gen.coroutine
     def post(self, *_args, **_kwargs):
         args = self.parse_form_arguments('tmdb_tv_id')
         tmdb_tv_id = args.tmdb_tv_id
-        yield self.check_auth()
+        
         res = yield query_movie_by_tmdb_id(tmdb_tv_id, SourceType.Tv.value)
         if res['status'] == 0:
             if res["data"]["tv_info"]:
@@ -79,10 +80,11 @@ class SearchCompany(BaseHandler):
 
     # @tornado_swagger.api_doc("API Endpoint Summary", "API Endpoint Description")
     @gen.coroutine
+    @auth
     def post(self, *_args, **_kwargs):
         args = self.parse_form_arguments('company_name')
         company_name = args.company_name
-        yield self.check_auth()
+        
         result = yield query_company_by_name(company_name)
         # print(f"re:{result}")
         data = result.get('data', None)
@@ -97,12 +99,12 @@ class SearchCompanyTVsOnTmdb(BaseHandler):
     search all tvs of a company by company id in tmdb
     :returns tvs list
     """
-
+    @auth
     @gen.coroutine
     def post(self, *_args, **_kwargs):
         args = self.parse_form_arguments('tmdb_company_id')
         tmdb_company_id = args.tmdb_company_id
-        yield self.check_auth()
+        
         res = yield search_company_movies(tmdb_company_id)
         if res["code"] != 0:
             self.success(data=dict(tvs=[]))
@@ -112,6 +114,7 @@ class SearchCompanyTVsOnTmdb(BaseHandler):
 
 class SearchCompanyTV(BaseHandler):
     @gen.coroutine
+    @auth
     def post(self, *_args, **_kwargs):
 
         args = self.parse_json_arguments('tmdb_company_id', page_num=1, page_size=10, tv_name=None)
@@ -120,7 +123,7 @@ class SearchCompanyTV(BaseHandler):
         page_size = int(args.page_size)
         if not all([tmdb_company_id]):
             self.fail(402)
-        yield self.check_auth()
+        
         result = yield query_movie_by_company_id(tmdb_company_id, SourceType.Tv.value, movie_name=args.tv_name,
                                                  page_num=page_num,
                                                  page_size=page_size)

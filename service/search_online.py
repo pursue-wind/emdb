@@ -7,11 +7,17 @@ from service import handle_exceptions
 from service.fetch_moive_info import Tmdb, fetch_movie_info
 from config.config import CFG as cfg
 
+
 @gen.coroutine
 @handle_exceptions
-def search_movie_by_name(movie_name, lang, page=1):
-    e_tmdb = Tmdb()
-    result = e_tmdb.search.movie(language=lang, query=movie_name, page=page)
+def search_movie_by_name(movie_name, lang='en', page=1, typ=1):
+    t = Tmdb()
+    search_method = (t.search.multi if typ is None or typ == 1 else
+                     t.search.movie if typ == 2 else
+                     t.search.tv if typ == 3 else
+                     t.search.multi)
+    result = search_method(language=lang, query=movie_name, page=page)
+
     # logging.info(f"search movies results:{result}")
     # result:{'page': 1, 'results': [], 'total_pages': 1, 'total_results': 0}
     movies = result.get("results", [])
@@ -23,7 +29,7 @@ def search_movie_by_name(movie_name, lang, page=1):
     # logging.info(f"current page: {page}, total_pages:{total_pages}, total_results:{total_results}")
     while total_pages and page < total_pages:
         page += 1
-        result = e_tmdb.search.movie(language=lang, query=movie_name, page=page)
+        result = t.search.movie(language=lang, query=movie_name, page=page)
         # logging.info(f"search movies results:{result}")
         # result:{'page': 1, 'results': [], 'total_pages': 1, 'total_results': 0}
         next_page_movies = result.get("results", [])
@@ -94,7 +100,7 @@ def add_company_movies_to_emdb(company_name):
             movie_tmdb_id = movie["id"]
             # yield fetch_movie_info(movie_tmdb_id)
 
-            yield add_movie_to_emdb(movie_tmdb_id,emdb_add_movie_url)
+            yield add_movie_to_emdb(movie_tmdb_id, emdb_add_movie_url)
 
         while total_pages > 1 and total_pages > page:
             page += 1
@@ -104,28 +110,4 @@ def add_company_movies_to_emdb(company_name):
             for movie in movies.get("results"):
                 movie_tmdb_id = movie["id"]
                 # yield fetch_movie_info(movie_tmdb_id)
-                yield add_movie_to_emdb(movie_tmdb_id,emdb_add_movie_url)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                yield add_movie_to_emdb(movie_tmdb_id, emdb_add_movie_url)

@@ -11,6 +11,6 @@ SQLAlchemy==2.0.18
 tmdbsimple==2.9.1
 tornado==6.3.2
 tornado-cors==0.6.0
-tornado-swagger==1.4.5
+tornado-swagger==1.5.0
 typing_extensions==4.7.1
 urllib3==1.26.7

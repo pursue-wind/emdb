@@ -44,7 +44,7 @@ class LogFormatter(tornado.log.LogFormatter):
 
 def init_log(log_name):
     options.logging = cfg.log.level
-    options.log_file_prefix = os.path.join(os.path.dirname(__file__), f'../../logs/{log_name}.log')  # 存储路径
+    options.log_file_prefix = os.path.join(os.path.dirname(__file__), f'../logs/{log_name}.log')  # 存储路径
     options.log_rotate_mode = "time"  # 切割方式：按时间
     options.log_rotate_when = "D"  # 切割单位：天
     options.log_rotate_interval = 1  # 间隔值：1天

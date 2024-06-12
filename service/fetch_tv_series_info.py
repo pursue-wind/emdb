@@ -1,5 +1,7 @@
 import os
+import traceback
 
+from requests import HTTPError
 from tornado import gen
 from tornado.log import app_log
 import db.pgsql.movies as mv
@@ -14,7 +16,7 @@ from db.pgsql.movie_images import insert_movie_images
 from db.pgsql.movie_key_words import insert_movie_key_words
 from db.pgsql.movie_release_dates import insert_movie_release_dates
 from db.pgsql.production_company import batch_insert_production_company
-from db.pgsql.tv_episodes import insert_tv_episodes_list,update_tv_episodes_list
+from db.pgsql.tv_episodes import insert_tv_episodes_list, update_tv_episodes_list
 from service import Tmdb
 from service.fetch_moive_info import parse_credit_info, fetch_movie_videos, fetch_movie_translations
 
@@ -24,7 +26,7 @@ def import_tv_emdb_by_series_id(tmdb_series_id_list, season_id_list, company_id=
     for i in range(0, len(tmdb_series_id_list)):
         if tmdb_series_id_list[i] is None:
             break
-        get_tv_detail_filter_season(tmdb_series_id_list[i],season_id_list[i], company_id)
+        get_tv_detail_filter_season(tmdb_series_id_list[i], season_id_list[i], company_id)
         break
 
         # get_tv_detail_filter_season(tmdb_series_id_list[i],season_id_list[i])
@@ -81,7 +83,7 @@ def get_tv_detail_filter_season(tmdb_series_id, season_id=None, company_id=None,
         # 2. insert tv adddition_info
         tv_additional_info = parse_tv_adddition_info(tv_series_detail)
         tv_additional_info["external_ids"] = external_ids
-        res = yield tv_series.insert_tv_additional_info(tv_additional_info)#used
+        res = yield tv_series.insert_tv_additional_info(tv_additional_info)  # used
         # print(f"insert_tv_additional_info res:{res}")
 
         # 4.insert seasons info
@@ -94,7 +96,7 @@ def get_tv_detail_filter_season(tmdb_series_id, season_id=None, company_id=None,
         season_episode_info = tv_season_obj.info(language=language)
         episodes_info = season_episode_info["episodes"]
         episodes = parse_tv_episode_info(episodes_info, tmdb_series_id, season_info["id"], img_base_url)
-        yield insert_tv_episodes_list(episodes)#used
+        yield insert_tv_episodes_list(episodes)  # used
         # yield update_tv_episodes_list(episodes)#used to change season
         break
 
@@ -176,27 +178,27 @@ def get_tv_detail_filter_season(tmdb_series_id, season_id=None, company_id=None,
 
 
 @gen.coroutine
-def get_tv_detail(tmdb_series_id, company_id=None, lang=None, country=None):
+def get_tv_detail(tmdb_series_id, company_id=None, lang=None, country=None, season_id=[]):
     """
     get tv series deatil
     """
-    if lang is None or country is None:
-        language = None
-    else:
-        language = lang.lower() + "-" + country.upper()
-    language = 'zh'
     e_tmdb = Tmdb()
     img_base_url = e_tmdb.IMAGE_BASE_URL
-    tv = e_tmdb.tv_series(tmdb_series_id)
+    tv = e_tmdb.tmdb.TV(id=tmdb_series_id)
 
-    tv_series_detail = tv.info(language=language)
+    try:
+        tv_series_detail = tv.info(language=lang)
+    except HTTPError as e:
+        traceback.print_exc()
+        return
     # print(tv_series_detail)
     # external ids
     external_ids = tv.external_ids()
-    # emdb_movie_id = 0
+    emdb_movie_id = 0
     tv_seasons_info = tv_series_detail["seasons"]
     for season_info in tv_seasons_info:
-
+        if season_info['id'] not in season_id:
+            continue
         tv_detail = parse_tv_detail(tv_series_detail, season_info, external_ids, img_base_url)
         if company_id is not None:
             tv_detail["production_companies"].append(company_id)
@@ -225,7 +227,7 @@ def get_tv_detail(tmdb_series_id, company_id=None, lang=None, country=None):
         season_info["external_ids"] = tv_season_external_ids
 
         # 5. insert episodes
-        season_episode_info = tv_season_obj.info(language=language)
+        season_episode_info = tv_season_obj.info(language=lang)
         episodes_info = season_episode_info["episodes"]
         episodes = parse_tv_episode_info(episodes_info, tmdb_series_id, season_info["id"], img_base_url)
         yield insert_tv_episodes_list(episodes)
@@ -280,7 +282,10 @@ def get_tv_detail(tmdb_series_id, company_id=None, lang=None, country=None):
     # yield save_tv_seasons_info(tv_seasons_info, tmdb_series_id, img_base_url)
     # return
 
-    # 7.save production company
+    if emdb_movie_id == 0:
+        return
+
+        # 7.save production company
     production_companies = tv_series_detail.get("production_companies")
     _production_company_list = []
     for pc in production_companies:
@@ -293,6 +298,7 @@ def get_tv_detail(tmdb_series_id, company_id=None, lang=None, country=None):
     # 8.save keywords
     key_words = tv.keywords()
     _key_words_list = key_words["results"]
+    print(emdb_movie_id)
     key_words_list = [{"tmdb_id": d["id"], "name": d["name"], "movie_id": emdb_movie_id} for d in _key_words_list]
     yield insert_movie_key_words(key_words_list)
 

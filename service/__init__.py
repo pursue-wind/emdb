@@ -16,12 +16,13 @@ class Tmdb:
     tmdb.REQUESTS_SESSION = requests.Session()
     search = tmdb.Search()
     discover = tmdb.Discover()
+    tmdb = tmdb
 
     def discover_company_tv(self, **kwargs):
         tv_series = self.discover.tv(**kwargs)
         return tv_series
 
-    def tv_series(self, tv_series_id):
+    def tv_series(tv_series_id):
         _tv_series = tmdb.TV(tv_series_id)
         return _tv_series
 
@@ -61,4 +62,5 @@ def handle_exceptions(func):
         except Exception as e:
             logging.error(f"Unhandled Exception: {e}")
             return {"code": 500}
+
     return wrapper

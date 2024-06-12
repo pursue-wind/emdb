@@ -32,22 +32,18 @@ def log_function(handler):
 class Application(tornado.web.Application):
     def __init__(self):
 
-        # setup_swagger(
-        #     routes,
-        #     swagger_url="/docs",
-        #     api_base_url="/api",
-        #     description="",
-        #     api_version="1.0.0",
-        #     title="EMDB API",
-        #     # contact="van@van.com",
-        #     schemes=["https"],
-        #     security_definitions={
-        #         "BasicAuth": {"type": "basic", "description": "HTTP Basic Authentication"}
-        #     },
-        # )
+        setup_swagger(
+            routes=routes,
+            swagger_url="/docs",
+            api_base_url="/api",
+            description="",
+            api_version="1.0.0",
+            title="EMDB API",
+        )
 
         super(Application, self).__init__(handlers=routes, log_function=log_function, **cfg.application)
         init_log(log_name="main")
+
         # cfg.show()
         init_db()
 

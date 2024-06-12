@@ -1,5 +1,6 @@
 from db.pgsql.enums.enums import SourceType
 from db.pgsql.movies import count_movies_of_company, count_movies_of_all_company
+from handlers.auth_decorators import auth
 from handlers.base_handler import BaseHandler
 from tornado import gen
 
@@ -8,7 +9,7 @@ class CountCompanyMovies(BaseHandler):
     """
     return movie and tv shows number of company
     """
-
+    @auth
     @gen.coroutine
     def get(self, *_args, **_kwargs):
         args = self.parse_form_arguments('tmdb_company_id')
@@ -19,7 +20,7 @@ class CountCompanyMovies(BaseHandler):
         # if tmdb_company_id == 0:
         #     self.success(data=dict(movie_count=0, tv_count=0))
 
-        yield self.check_auth()
+        
         movie_count_res = yield count_movies_of_all_company(SourceType.Movie.value)
         print(movie_count_res)
         if "status" in movie_count_res and movie_count_res["status"] != 0:

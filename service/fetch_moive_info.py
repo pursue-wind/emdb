@@ -21,20 +21,11 @@ from . import Tmdb
 @gen.coroutine
 def fetch_movie_info(tmdb_mv_id, company_id=None, lang=None, country=None):
 
-    # if lang is None or country is None:
-    #     language = None
-    # else:
-    #     language = lang.lower() + "-" + country.upper()
 
-    if lang :
-        language = lang
-    else:
-        language =None
-    language = 'zh'
     e_tmdb = Tmdb()
     movie = e_tmdb.moive(tmdb_mv_id)
     # try:
-    mv_detail = movie.info(language=language)
+    mv_detail = movie.info(language=lang)
 
     mv_detail["tmdb_id"] = tmdb_mv_id
     del mv_detail["id"]
