@@ -1,5 +1,7 @@
 import os
+import traceback
 
+from requests import HTTPError
 from tornado import gen
 from tornado.log import app_log
 import db.pgsql.movies as mv
@@ -189,7 +191,11 @@ def get_tv_detail(tmdb_series_id, company_id=None, lang=None, country=None, seas
     img_base_url = e_tmdb.IMAGE_BASE_URL
     tv = e_tmdb.tmdb.TV(id=tmdb_series_id)
 
-    tv_series_detail = tv.info(language=language)
+    try:
+        tv_series_detail = tv.info(language=language)
+    except HTTPError as e:
+        traceback.print_exc()
+        return
     # print(tv_series_detail)
     # external ids
     external_ids = tv.external_ids()

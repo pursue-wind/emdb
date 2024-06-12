@@ -71,4 +71,11 @@ class SearchService:
                     data=data)
 
     async def tv_detail_by_series_id(self, series_id, lang='en'):
-        return self.t.tmdb.TV(series_id).info(language=lang)
+        r = self.t.tmdb.TV(series_id).info(language=lang)
+        seasons = r.get('seasons', None)
+        if not seasons:
+            return r
+        exist_ids = await self.get_exist_ids(False, seasons)
+        data = list(map(lambda d: self.data_convent(d, exist_ids), seasons))
+        r['sensons'] = data
+        return r
