@@ -23,8 +23,9 @@ class MovieHandler(BaseHandler):
         数据入库：必传，电影类型：movie，电视类型：tv
         """
 
-        tmdb_id, lang, media_type, tv_season_id = self.parse_body('id', 'lang', 'media_type', 'tv_season_id',
-                                                                  required=['media_type'])
+        tmdb_id, lang, media_type, tv_season_id, cover = self.parse_body('id', 'lang', 'media_type',
+                                                                         'tv_season_id', 'cover',
+                                                                         required=['id', 'lang', 'media_type'])
         if media_type not in ["movie", "tv"]:
             self.fail(status=400, msg='media_type param err')
 
@@ -35,12 +36,14 @@ class MovieHandler(BaseHandler):
         if not is_movie_type and not tv_season_id:
             self.fail(status=400, msg='media_type param err')
 
-        exist_id = await exist_movie_by_tmdb_id(tmdb_id,
-                                                SourceType.Movie.value if is_movie_type else SourceType.Tv.value)
+        # 强制覆盖的话，不检查是否已存在数据库
+        if not cover:
+            exist_id = await exist_movie_by_tmdb_id(tmdb_id,
+                                                    SourceType.Movie.value if is_movie_type else SourceType.Tv.value)
+            if exist_id:
+                self.success(data=list())
 
         # get_tv_detail_filter_season(tmdb_series_id_list[i], season_id_list[i], company_id)
-        if exist_id:
-            self.success(data=list())
         if is_movie_type:
             r = await fetch_movie_info(tmdb_id, lang=lang)
             self.success(data=tmdb_id)
