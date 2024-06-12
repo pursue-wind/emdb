@@ -121,8 +121,7 @@ class SearchCompanyTV(BaseHandler):
         tmdb_company_id = args.tmdb_company_id
         page_num = int(args.page_num)
         page_size = int(args.page_size)
-        if not all([tmdb_company_id]):
-            self.fail(402)
+
         
         result = yield query_movie_by_company_id(tmdb_company_id, SourceType.Tv.value, movie_name=args.tv_name,
                                                  page_num=page_num,

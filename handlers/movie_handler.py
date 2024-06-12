@@ -301,9 +301,7 @@ class SearchCompanyMovies(BaseHandler):
     def post(self, *_args, **_kwargs):
         args = self.parse_json_arguments('tmdb_company_id', page_num=1, page_size=10, movie_name=None)
         tmdb_company_id = args.tmdb_company_id
-        if not all([tmdb_company_id]):
-            self.fail(402)
-        print(args)
+
         # movie_name = args.movie_name
 
         result = yield query_movie_by_company_id(tmdb_company_id, SourceType.Movie.value, movie_name=args.movie_name,
