@@ -15,9 +15,9 @@ class CountCompanyMovies(BaseHandler):
         tmdb_company_id = args.tmdb_company_id
         if tmdb_company_id is None:
             self.fail(402)
-        tmdb_company_id = int(tmdb_company_id)
-        if tmdb_company_id == 0:
-            self.success(data=dict(movie_count=0, tv_count=0))
+        # tmdb_company_id = int(tmdb_company_id)
+        # if tmdb_company_id == 0:
+        #     self.success(data=dict(movie_count=0, tv_count=0))
 
         yield self.check_auth()
         movie_count_res = yield count_movies_of_all_company(SourceType.Movie.value)
