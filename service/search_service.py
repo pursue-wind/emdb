@@ -1,5 +1,6 @@
 import logging
 
+from db.pgsql.enums.enums import SourceType
 from db.pgsql.movies_dao import exist_ids_by_tmdb_ids
 from db.pgsql.tv_dao import exist_ids_by_tmdb_series_ids
 from service.fetch_moive_info import Tmdb
@@ -75,7 +76,8 @@ class SearchService:
         seasons = r.get('seasons', None)
         if not seasons:
             return r
-        exist_ids = await self.get_exist_ids(False, seasons)
+        ids = list(map(lambda d: d['id'], seasons))
+        exist_ids = await exist_ids_by_tmdb_ids(ids, source_type=SourceType.Tv.value)
         data = list(map(lambda d: self.data_convent(d, exist_ids), seasons))
         r['sensons'] = data
         return r
