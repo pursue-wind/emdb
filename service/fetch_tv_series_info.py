@@ -182,17 +182,12 @@ def get_tv_detail(tmdb_series_id, company_id=None, lang=None, country=None, seas
     """
     get tv series deatil
     """
-    if lang is None or country is None:
-        language = None
-    else:
-        language = lang.lower() + "-" + country.upper()
-    language = 'zh'
     e_tmdb = Tmdb()
     img_base_url = e_tmdb.IMAGE_BASE_URL
     tv = e_tmdb.tmdb.TV(id=tmdb_series_id)
 
     try:
-        tv_series_detail = tv.info(language=language)
+        tv_series_detail = tv.info(language=lang)
     except HTTPError as e:
         traceback.print_exc()
         return
@@ -232,7 +227,7 @@ def get_tv_detail(tmdb_series_id, company_id=None, lang=None, country=None, seas
         season_info["external_ids"] = tv_season_external_ids
 
         # 5. insert episodes
-        season_episode_info = tv_season_obj.info(language=language)
+        season_episode_info = tv_season_obj.info(language=lang)
         episodes_info = season_episode_info["episodes"]
         episodes = parse_tv_episode_info(episodes_info, tmdb_series_id, season_info["id"], img_base_url)
         yield insert_tv_episodes_list(episodes)
