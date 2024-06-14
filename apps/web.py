@@ -1,6 +1,3 @@
-# app/web.py
-
-import json
 from tornado.web import Application
 
 from apps.config.config import cfg

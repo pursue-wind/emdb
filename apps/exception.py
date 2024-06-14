@@ -1,5 +1,3 @@
-# app/exceptions.py
-
 class CustomException(Exception):
     def __init__(self, message, status_code=400):
         self.message = message
