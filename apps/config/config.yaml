@@ -1,0 +1,46 @@
+project:
+  name: emdb
+log:
+  path: "../../logs/"
+  level: "Info"
+debug:
+  local: true
+  dev: true
+  test: false
+  release: false
+server:
+  domain:
+    local: https://dev-xmdb.emmai.com
+    dev: https://dev-xmdb.emmai.com
+    test: https://test-xmdb.emmai.com
+    release: https://xmdb.emmai.com
+  host:
+    local: 127.0.0.1
+    dev: 127.0.0.1
+    test: 127.0.0.1
+    release: 127.0.0.1
+  port:
+    local: 8888
+    dev: 8088
+    test: 8088
+    release: 8088
+  pass_mixin: "0x00544"
+pgsql:
+  local: >-
+    postgresql+asyncpg://root:1234@127.0.0.1:5432/emdb
+  dev: >-
+    postgresql+asyncpg://emmai_dev:TeMaqdpWz6ctya3inh@47.76.82.180:54321/emdb
+  test: >-
+    postgresql+asyncpg://emmai:fsv33inhTeHkhY5@8.218.184.1:54321/emdb
+  release: >-
+    postgresql+asyncpg://emmai_prod:nhTeHkhY5MaqdpW2b@pgm-j6c277hnh814e491.pg.rds.aliyuncs.com/emdb
+swagger:
+  path: '/path/to/swagger'
+  ui_path: '/path/to/swagger-ui'
+emmai:
+  base_url:
+    local: https://dev-api.emmai.com
+    dev: https://dev-api.emmai.com
+    test: https://test-api.emmai.com
+    release: https://api.emmai.com
+
