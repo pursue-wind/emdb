@@ -23,7 +23,7 @@ class TVService(PeopleService):
 
     async def get_tv(self, tv_series_id: int, args: [str]) -> dict:
         query = select(TMDBTV)
-
+        j_seasons = joinedload(TMDBTV.seasons)
         joinedload_options = {
             'created_by': joinedload(TMDBTV.created_by),
             'last_episode_to_air': joinedload(TMDBTV.last_episode_to_air),
@@ -31,7 +31,10 @@ class TVService(PeopleService):
             'networks': joinedload(TMDBTV.networks),
             'production_companies': joinedload(TMDBTV.production_companies),
             'production_countries': joinedload(TMDBTV.production_countries),
-            'seasons': joinedload(TMDBTV.seasons),
+            'seasons': j_seasons,
+            'episodes': j_seasons.joinedload(TMDBTVSeason.episodes),
+            'season_cast': j_seasons.joinedload(TMDBTVSeason.tv_season_cast).joinedload(TMDBTVSeasonCast.people),
+            'season_crew': j_seasons.joinedload(TMDBTVSeason.tv_season_crew).joinedload(TMDBTVSeasonCrew.people),
             'spoken_languages': joinedload(TMDBTV.spoken_languages),
         }
 
@@ -257,5 +260,3 @@ class TVService(PeopleService):
                 credit_id=crew_data.get('credit_id')
             )
             self.session.add(crew)
-
-
