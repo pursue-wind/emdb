@@ -19,8 +19,7 @@ class PeopleService(BaseService):
         people = await self.session.get(TMDBPeople, people_id)
         if not people:
             lang = self._language()
-            people_info = await (tornado.ioloop.IOLoop.current()
-                                 .run_in_executor(None, lambda: tmdb.People(people_id).info(language=lang)))
+            people_info = await self._fetch(lambda: tmdb.People(people_id).info(language=lang))
             people = TMDBPeople(
                 id=people_info['id'],
                 adult=people_info['adult'],

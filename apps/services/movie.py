@@ -23,7 +23,6 @@ class MovieService(PeopleService):
         await self._store_movie(details, movie_credits)
 
     async def get_movie(self, movie_id: int):
-        print(self._language())
         result = await self.session.execute(
             select(TMDBMovie).options(
                 joinedload(TMDBMovie.genres),
@@ -33,7 +32,7 @@ class MovieService(PeopleService):
                 # joinedload(TMDBMovie.movie_crew),
             ).where(TMDBMovie.id == movie_id)
         )
-        r = result.unique().scalars().one()
+        r = result.unique().scalar_one_or_none()
         return self.to_primitive(r)
 
     async def _fetch_movie_details(self, movie):
@@ -80,7 +79,8 @@ class MovieService(PeopleService):
             movie.genres = await self._get_or_create_list(
                 TMDBGenre,
                 details.get('genres', []),
-                lambda x: {'id': x['id'], 'name': x['name']}
+                lambda x: {'id': x['id'], 'name': x['name']},
+                merge=True
             )
             # 关联 production_companies
             movie.production_companies = await self._get_or_create_list(
@@ -121,8 +121,9 @@ class MovieService(PeopleService):
                 tagline=details['tagline'],
                 homepage=details['homepage'],
             )
-            await self.session.merge(translation)
+
             await self.session.merge(movie)
+            await self.session.merge(translation)
             await self.session.flush()
 
             # 处理演员信息

@@ -1,5 +1,7 @@
+from typing import Any
+
 from sqlalchemy import ForeignKey, Table, ARRAY, create_engine, \
-    Column, Integer, String, Boolean, Float, Text, event
+    Column, Integer, String, Boolean, Float, Text, event, and_
 from sqlalchemy.orm import object_session, relationship, sessionmaker, declarative_base
 
 from apps.handlers.base import language_var
@@ -50,7 +52,6 @@ tmdb_movie_spoken_languages_table = Table(
            ForeignKey('tmdb_spoken_languages.iso_639_1'), primary_key=True),
 )
 
-# Many-to-Many relationship tables for TMDBTV
 tmdb_tv_created_by_table = Table(
     'tmdb_tv_created_by', Base.metadata,
     Column('tv_id', Integer, ForeignKey('tmdb_tv.id'), primary_key=True),
@@ -91,42 +92,17 @@ tmdb_tv_spoken_languages_table = Table(
 )
 
 
-#############
-class TMDBCast(Base):
-    __abstract__ = True
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    people_id = Column(Integer, ForeignKey('tmdb_people.id'))
-    character = Column(String, nullable=True, comment='角色')
-    order = Column(Integer, nullable=True, comment='排序')
-    credit_id = Column(String, nullable=True, comment='信用ID')
-    cast_id = Column(Integer, nullable=True, comment='演员ID')
+def load_translation(target, context, translation_model, foreign_key_field, attributes):
+    language = language_var.get()
+    if language:
+        session = object_session(target)
+        if session:
+            filters = {foreign_key_field: target.id, 'language': language}
+            translation = session.query(translation_model).filter_by(**filters).first()
 
-
-class TMDBMovieCast(TMDBCast):
-    __tablename__ = 'tmdb_movie_cast'
-
-    movie_id = Column(Integer, ForeignKey('tmdb_movies.id'))
-    # 关系
-    movie = relationship('TMDBMovie', back_populates='movie_cast')
-    people = relationship('TMDBPeople', back_populates='movie_cast')
-
-
-class TMDBTVEpisodeCast(TMDBCast):
-    __tablename__ = 'tmdb_tv_episodes_crew'
-
-    tv_episodes_id = Column(Integer, ForeignKey('tmdb_tv_episodes.id'))
-    # 关系
-    tv_episode = relationship('TMDBTVEpisode', back_populates='tv_episode_cast')
-    people = relationship('TMDBPeople', back_populates='tv_episode_cast')
-
-
-class TMDBTVSeasonCast(TMDBCast):
-    __tablename__ = 'tmdb_tv_season_crew'
-
-    tv_season_id = Column(Integer, ForeignKey('tmdb_tv_seasons.id'))
-    # 关系
-    tv_season = relationship('TMDBTVSeason', back_populates='tv_season_cast')
-    people = relationship('TMDBPeople', back_populates='tv_season_cast')
+            if translation:
+                for attr in attributes:
+                    setattr(target, attr, getattr(translation, attr))
 
 
 class TMDBCreatedBy(Base):
@@ -150,6 +126,78 @@ class TMDBGenre(Base):
     # 在关系表中添加back_populates，以双向连接关系。
     movies = relationship('TMDBMovie', secondary=tmdb_movie_genres_table, back_populates='genres')
     tv_shows = relationship('TMDBTV', secondary=tmdb_tv_genres_table, back_populates='genres')
+    translations = relationship('TMDBGenreTranslation', back_populates='genre')
+
+
+class TMDBGenreTranslation(Base):
+    __tablename__ = 'tmdb_genres_translations'
+
+    genre_id = Column(Integer, ForeignKey('tmdb_genres.id'), primary_key=True)
+    language = Column(String, primary_key=True, comment='语言代码')
+    name = Column(String, nullable=False, comment='名称')
+    # 关系
+    genre = relationship('TMDBGenre', back_populates='translations')
+
+
+@event.listens_for(TMDBGenre, 'load')
+def load_movie_translation(target, context):
+    load_translation(
+        target=target,
+        context=context,
+        translation_model=TMDBGenreTranslation,
+        foreign_key_field='genre_id',
+        attributes=['name']
+    )
+
+
+@event.listens_for(TMDBGenre, 'after_insert')
+def insert_genre_translation(mapper, connection, target):
+    language = language_var.get()
+    if language:
+        # 在插入之前，确保翻译数据也被插入
+        translation = TMDBGenreTranslation(
+            genre_id=target.id,
+            language=language,
+            name=target.name
+        )
+        session = object_session(target)
+        if session:
+            session.merge(translation)
+
+
+@event.listens_for(TMDBGenre, 'after_update')
+def update_genre_translation(mapper, connection, target):
+    language = language_var.get()
+    if language:
+        # 查询现有的翻译
+        translation = connection.execute(
+            TMDBGenreTranslation.__table__.select().where(
+                and_(
+                    TMDBGenreTranslation.genre_id == target.id,
+                    TMDBGenreTranslation.language == language
+                )
+            )
+        ).fetchone()
+
+        if translation:
+            # 更新翻译
+            connection.execute(
+                TMDBGenreTranslation.__table__.update().where(
+                    and_(
+                        TMDBGenreTranslation.genre_id == target.id,
+                        TMDBGenreTranslation.language == language
+                    )
+                ).values(name=target.name)
+            )
+        else:
+            # 插入新的翻译
+            connection.execute(
+                TMDBGenreTranslation.__table__.insert().values(
+                    genre_id=target.id,
+                    language=language,
+                    name=target.name
+                )
+            )
 
 
 class TMDBNetwork(Base):
@@ -223,6 +271,30 @@ class TMDBMovieTranslation(Base):
     movie = relationship('TMDBMovie', back_populates='translations')
 
 
+class TMDBTVTranslation(Base):
+    __tablename__ = 'tmdb_tv_translations'
+
+    tv_id = Column(Integer, ForeignKey('tmdb_tv.id'), primary_key=True)
+    language = Column(String, primary_key=True, comment='语言代码')
+    name = Column(String, nullable=False, comment='标题')
+    overview = Column(Text, nullable=False, comment='概述')
+    tagline = Column(String, nullable=False, comment='标语')
+    homepage = Column(String, nullable=False, comment='首页')
+    # 关系
+    tv_show = relationship('TMDBTV', back_populates='translations')
+
+
+class TMDBTVSeasonTranslation(Base):
+    __tablename__ = 'tmdb_tv_season_translations'
+
+    tv_season_id = Column(Integer, ForeignKey('tmdb_tv_seasons.id'), primary_key=True)
+    language = Column(String, primary_key=True, comment='语言代码')
+    name = Column(String, nullable=False, comment='标题')
+    overview = Column(Text, nullable=False, comment='概述')
+    # 关系
+    tv_season = relationship('TMDBTVSeason', back_populates='translations')
+
+
 class BaseMedia(Base):
     __abstract__ = True
     adult = Column(Boolean, nullable=False, comment='是否为成人')
@@ -270,20 +342,13 @@ class TMDBMovie(BaseMedia):
 
 @event.listens_for(TMDBMovie, 'load')
 def load_movie_translation(target, context):
-    # 获取所需的语言
-    language = language_var.get()
-    if language:
-        session = object_session(target)
-        if session:
-            # 从数据库中查询所需语言的翻译
-            translation = session.query(TMDBMovieTranslation).filter_by(
-                movie_id=target.id, language=language
-            ).first()
-
-            # 如果找到翻译，将其属性应用于目标对象
-            if translation:
-                for attr in ['title', 'overview', 'tagline', 'homepage']:
-                    setattr(target, attr, getattr(translation, attr))
+    load_translation(
+        target=target,
+        context=context,
+        translation_model=TMDBMovieTranslation,
+        foreign_key_field='movie_id',
+        attributes=['title', 'overview', 'tagline', 'homepage']
+    )
 
 
 class TMDBPeople(Base):
@@ -317,7 +382,8 @@ class TMDBTV(BaseMedia):
     __tablename__ = 'tmdb_tv'
 
     id = Column(Integer, primary_key=True, autoincrement=False)
-    created_by = relationship('TMDBCreatedBy', secondary=lambda: tmdb_tv_created_by_table, back_populates='tv_shows')
+    created_by = relationship('TMDBCreatedBy', secondary=lambda: tmdb_tv_created_by_table,
+                              back_populates='tv_shows')
     episode_run_time = Column(ARRAY(Integer), nullable=False, comment='每集时长')
     first_air_date = Column(String, nullable=True, comment='首播日期')
     genres = relationship('TMDBGenre', secondary=lambda: tmdb_tv_genres_table, back_populates='tv_shows')
@@ -331,17 +397,30 @@ class TMDBTV(BaseMedia):
     number_of_episodes = Column(Integer, nullable=False, comment='集数')
     number_of_seasons = Column(Integer, nullable=False, comment='季数')
     original_name = Column(String, nullable=True, comment='原名称')
-    title = Column(String, nullable=True, comment='标题')
     type = Column(String, nullable=True, comment='类型')
     networks = relationship('TMDBNetwork', secondary=lambda: tmdb_tv_networks_table, back_populates='tv_shows')
 
-    production_companies = relationship('TMDBProductionCompany', secondary=lambda: tmdb_tv_production_companies_table,
+    production_companies = relationship('TMDBProductionCompany',
+                                        secondary=lambda: tmdb_tv_production_companies_table,
                                         back_populates='tv_shows')
-    production_countries = relationship('TMDBProductionCountry', secondary=lambda: tmdb_tv_production_countries_table,
+    production_countries = relationship('TMDBProductionCountry',
+                                        secondary=lambda: tmdb_tv_production_countries_table,
                                         back_populates='tv_shows')
     seasons = relationship('TMDBTVSeason', back_populates='tv_show')
     spoken_languages = relationship('TMDBSpokenLanguage', secondary=lambda: tmdb_tv_spoken_languages_table,
                                     back_populates='tv_shows')
+    translations = relationship('TMDBTVTranslation', back_populates='tv_show')
+
+
+@event.listens_for(TMDBTV, 'load')
+def load_tv_translation(target, context):
+    load_translation(
+        target=target,
+        context=context,
+        translation_model=TMDBTVTranslation,
+        foreign_key_field='tv_id',
+        attributes=['name', 'overview', 'tagline', 'homepage']
+    )
 
 
 class TMDBTVSeason(Base):
@@ -350,8 +429,6 @@ class TMDBTVSeason(Base):
     id = Column(Integer, primary_key=True, autoincrement=False)
     air_date = Column(String, nullable=True, comment='播放日期')
     episode_count = Column(Integer, nullable=True, comment='集数')
-    name = Column(String, nullable=False, comment='名称')
-    overview = Column(Text, nullable=False, comment='概述')
     poster_path = Column(String, nullable=True, comment='海报路径')
     season_number = Column(Integer, nullable=False, comment='季数')
     vote_average = Column(Float, nullable=False, comment='平均评分')
@@ -361,6 +438,18 @@ class TMDBTVSeason(Base):
     # 关系
     tv_season_cast = relationship('TMDBTVSeasonCast', back_populates='tv_season')
     tv_season_crew = relationship('TMDBTVSeasonCrew', back_populates='tv_season')
+    translations = relationship('TMDBTVSeasonTranslation', back_populates='tv_season')
+
+
+@event.listens_for(TMDBTVSeason, 'load')
+def load_tv_season_translation(target, context):
+    load_translation(
+        target=target,
+        context=context,
+        translation_model=TMDBTVSeasonTranslation,
+        foreign_key_field='tv_season_id',
+        attributes=['name', 'overview']
+    )
 
 
 class TMDBTVEpisode(Base):
@@ -370,8 +459,6 @@ class TMDBTVEpisode(Base):
     air_date = Column(String, nullable=True, comment='播放日期')
     episode_number = Column(Integer, nullable=True, comment='集数')
     episode_type = Column(String, nullable=True, comment='类型')
-    name = Column(String, nullable=True, comment='名称')
-    overview = Column(Text, nullable=True, comment='概述')
     production_code = Column(String, nullable=True, comment='制作代码')
     runtime = Column(Integer, nullable=True, comment='时长（分钟）')
     season_number = Column(Integer, nullable=True, comment='季数')
@@ -383,6 +470,29 @@ class TMDBTVEpisode(Base):
     guest_stars = relationship('TMDBGuestStar', backref='tv_episode')
     tv_episode_cast = relationship('TMDBTVEpisodeCast', back_populates='tv_episode')
     tv_episode_crew = relationship('TMDBTVEpisodeCrew', back_populates='tv_episode')
+    translations = relationship('TMDBTVEpisodeTranslation', back_populates='tv_episode')
+
+
+class TMDBTVEpisodeTranslation(Base):
+    __tablename__ = 'tmdb_tv_episodes_translations'
+
+    tv_episode_id = Column(Integer, ForeignKey('tmdb_tv_episodes.id'), primary_key=True)
+    language = Column(String, primary_key=True, comment='语言代码')
+    name = Column(String, nullable=False, comment='标题')
+    overview = Column(Text, nullable=False, comment='概述')
+    # 关系
+    tv_episode = relationship('TMDBTVEpisode', back_populates='translations')
+
+
+@event.listens_for(TMDBTVEpisode, 'load')
+def load_tv_season_translation(target, context):
+    load_translation(
+        target=target,
+        context=context,
+        translation_model=TMDBTVEpisodeTranslation,
+        foreign_key_field='tv_episode_id',
+        attributes=['name', 'overview']
+    )
 
 
 class TMDBLastEpisodeToAir(Base):
@@ -457,3 +567,39 @@ class TMDBTVSeasonCrew(TMDBCrew):
     tv_season = relationship('TMDBTVSeason', back_populates='tv_season_crew')
 
 
+#############
+class TMDBCast(Base):
+    __abstract__ = True
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    people_id = Column(Integer, ForeignKey('tmdb_people.id'))
+    character = Column(String, nullable=True, comment='角色')
+    order = Column(Integer, nullable=True, comment='排序')
+    credit_id = Column(String, nullable=True, comment='信用ID')
+    cast_id = Column(Integer, nullable=True, comment='演员ID')
+
+
+class TMDBMovieCast(TMDBCast):
+    __tablename__ = 'tmdb_movie_cast'
+
+    movie_id = Column(Integer, ForeignKey('tmdb_movies.id'))
+    # 关系
+    movie = relationship('TMDBMovie', back_populates='movie_cast')
+    people = relationship('TMDBPeople', back_populates='movie_cast')
+
+
+class TMDBTVEpisodeCast(TMDBCast):
+    __tablename__ = 'tmdb_tv_episodes_crew'
+
+    tv_episodes_id = Column(Integer, ForeignKey('tmdb_tv_episodes.id'))
+    # 关系
+    tv_episode = relationship('TMDBTVEpisode', back_populates='tv_episode_cast')
+    people = relationship('TMDBPeople', back_populates='tv_episode_cast')
+
+
+class TMDBTVSeasonCast(TMDBCast):
+    __tablename__ = 'tmdb_tv_season_cast'
+
+    tv_season_id = Column(Integer, ForeignKey('tmdb_tv_seasons.id'))
+    # 关系
+    tv_season = relationship('TMDBTVSeason', back_populates='tv_season_cast')
+    people = relationship('TMDBPeople', back_populates='tv_season_cast')

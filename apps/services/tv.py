@@ -2,7 +2,9 @@
 
 import tmdbsimple as tmdb
 import tornado.ioloop
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.orm import joinedload
 
 from apps.handlers.base import language_var
 from apps.services.base import AsyncSessionLocal
@@ -11,15 +13,30 @@ from apps.domain.models import *
 
 # 配置 TMDB API 密钥
 tmdb.API_KEY = 'fb5642b7e0b6d36ad5ebcdf78a52f14c'
+#tmdb.API_KEY = '71424eb6e25b8d87dc683c59e7feaa88'
 
 
 class TVService(PeopleService):
     def __init__(self, session: AsyncSession):
         super().__init__(session)
 
+    async def get_tv(self, tv_series_id: int):
+        result = await self.session.execute(
+            select(TMDBTV).options(
+                joinedload(TMDBTV.genres),
+                joinedload(TMDBTV.production_companies),
+                joinedload(TMDBTV.production_countries),
+                joinedload(TMDBTV.spoken_languages),
+                joinedload(TMDBTV.seasons),
+            ).where(TMDBTV.id == tv_series_id)
+        )
+        r = result.unique().scalar_one_or_none()
+        return self.to_primitive(r)
+
     async def fetch_and_store_tv(self, tv_series_id: int):
         tv = tmdb.TV(tv_series_id)
-        details = await self._fetch(lambda: tv.info(language=self._language()))
+        lang = self._language()
+        details = await self._fetch(lambda: tv.info(language=lang))
         # credits = await self._fetch(lambda: tv.credits(language=self._language()))
         await self._store_tv(details)
 
@@ -32,7 +49,18 @@ class TVService(PeopleService):
         async with self.session.begin():
             tv = self._build_tv(details)
             await self._associate_entities(tv, details)
+
+            translation = TMDBTVTranslation(
+                tv_id=details['id'],
+                language=self._language(),
+                name=details['name'],
+                overview=details['overview'],
+                tagline=details['tagline'],
+                homepage=details['homepage'],
+            )
+
             await self.session.merge(tv)
+            await self.session.merge(translation)
             await self.session.flush()
 
     def _build_tv(self, details):
@@ -40,7 +68,6 @@ class TVService(PeopleService):
             id=details['id'],
             adult=details['adult'],
             backdrop_path=details.get('backdrop_path'),
-            homepage=details.get('homepage'),
             episode_run_time=details.get('episode_run_time'),
             first_air_date=details.get('first_air_date'),
             in_production=details.get('in_production'),
@@ -53,12 +80,9 @@ class TVService(PeopleService):
             original_language=details['original_language'],
             original_name=details['original_name'],
             origin_country=details['origin_country'],
-            overview=details.get('overview'),
             popularity=details['popularity'],
             poster_path=details.get('poster_path'),
             status=details.get('status'),
-            tagline=details.get('tagline'),
-            title=details.get('title'),
             vote_average=details['vote_average'],
             vote_count=details['vote_count'],
         )
@@ -67,7 +91,8 @@ class TVService(PeopleService):
         # 处理相关实体
         tv.genres = await self._get_or_create_list(
             TMDBGenre, details.get('genres', []),
-            lambda x: {'name': x['name']}
+            lambda x: {'id': x['id'], 'name': x['name']},
+            merge=True
         )
 
         tv.production_companies = await self._get_or_create_list(
@@ -130,51 +155,61 @@ class TVService(PeopleService):
 
     async def _fetch_and_store_season(self, tv_id: int, season_number: int):
         season = tmdb.TV_Seasons(tv_id, season_number)
-        season_details = await self._fetch(lambda: season.info(language=self._language()))
-        season_credits = await self._fetch(lambda: season.credits(language=self._language()))
+        lang = self._language()
+        season_details = await self._fetch(lambda: season.info(language=lang))
+        season_credits = await self._fetch(lambda: season.credits(language=lang))
         async with self.session.begin():
-            tv_season = self._build_tv_season(tv_id, season_details)
+            tv_season, tv_season_translation = self._build_tv_season_and_trans(tv_id, season_details)
             await self.session.merge(tv_season)
+            await self.session.merge(tv_season_translation)
             await self.session.flush()
             await self._process_season_episodes(tv_id, tv_season, season_details.get('episodes', []))
             await self._process_season_credits(tv_season, season_credits)
 
-    def _build_tv_season(self, tv_id, season_details):
+    def _build_tv_season_and_trans(self, tv_id, season_details):
         return TMDBTVSeason(
             id=season_details['id'],
             tv_show_id=tv_id,
             air_date=season_details.get('air_date'),
-            name=season_details['name'],
-            overview=season_details['overview'],
             poster_path=season_details['poster_path'],
             season_number=season_details['season_number'],
             vote_average=season_details.get('vote_average', 0)
+        ), TMDBTVSeasonTranslation(
+            tv_season_id=season_details['id'],
+            language=self._language(),
+            name=season_details['name'],
+            overview=season_details['overview'],
         )
 
     async def _process_season_episodes(self, tv_id, season, episodes):
         for episode_data in episodes:
-            tv_episode = self._build_tv_episode(season.id, episode_data)
+            tv_episode, tv_episode_trans = self._build_tv_episode_and_trans(season.id, episode_data)
             await self.session.merge(tv_episode)
+            await self.session.merge(tv_episode_trans)
             await self.session.flush()
+            lang = self._language()
             episode_credits = await self._fetch(
                 lambda: tmdb.TV_Episodes(tv_id, season.season_number, episode_data['episode_number'])
-                .credits(language=self._language())
+                .credits(language=lang)
             )
             await self._process_episode_credits(tv_episode, episode_credits)
 
-    def _build_tv_episode(self, tv_season_id, episode_data):
+    def _build_tv_episode_and_trans(self, tv_season_id, episode_data):
         return TMDBTVEpisode(
             id=episode_data['id'],
             tv_season_id=tv_season_id,
             air_date=episode_data.get('air_date'),
             episode_number=episode_data['episode_number'],
-            name=episode_data['name'],
-            overview=episode_data['overview'],
             production_code=episode_data.get('production_code'),
             runtime=episode_data.get('runtime'),
             season_number=episode_data['season_number'],
             vote_average=episode_data['vote_average'],
             vote_count=episode_data['vote_count']
+        ), TMDBTVEpisodeTranslation(
+            tv_episode_id=episode_data['id'],
+            language=self._language(),
+            name=episode_data['name'],
+            overview=episode_data['overview'],
         )
 
     async def _process_episode_credits(self, episode, credits):
