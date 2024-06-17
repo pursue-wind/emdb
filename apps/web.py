@@ -9,4 +9,7 @@ def make_app(session_factory):
     return Application([
         (r"/api/emdb/movie/([0-9]+)", MovieHandler, dict(session_factory=session_factory)),
         (r"/api/emdb/tv/([0-9]+)", TVHandler, dict(session_factory=session_factory)),
+
+        ### old
+        #("/api/company/movies", SearchCompanyMovies),
     ], debug=cfg.DEBUG)

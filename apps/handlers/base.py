@@ -30,6 +30,7 @@ class BaseHandler(RequestHandler):
     def success(self, data=None):
         if data:
             self.write({"code": 0, "msg": "success", "data": data})
+            return
         self.write({"code": 0, "msg": "success"})
 
     def parse_form(self, *keys, required: list[str] = None, require_all: bool = False, valid_func=None):

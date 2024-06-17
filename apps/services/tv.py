@@ -7,39 +7,56 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import joinedload
 
 from apps.handlers.base import language_var
-from apps.services.base import AsyncSessionLocal
 from apps.services.people import PeopleService
 from apps.domain.models import *
 
 # 配置 TMDB API 密钥
 tmdb.API_KEY = 'fb5642b7e0b6d36ad5ebcdf78a52f14c'
-#tmdb.API_KEY = '71424eb6e25b8d87dc683c59e7feaa88'
+
+
+# tmdb.API_KEY = '71424eb6e25b8d87dc683c59e7feaa88'
 
 
 class TVService(PeopleService):
     def __init__(self, session: AsyncSession):
         super().__init__(session)
 
-    async def get_tv(self, tv_series_id: int):
-        result = await self.session.execute(
-            select(TMDBTV).options(
-                joinedload(TMDBTV.genres),
-                joinedload(TMDBTV.production_companies),
-                joinedload(TMDBTV.production_countries),
-                joinedload(TMDBTV.spoken_languages),
-                joinedload(TMDBTV.seasons),
-            ).where(TMDBTV.id == tv_series_id)
-        )
+    async def get_tv(self, tv_series_id: int, args: [str]) -> dict:
+        query = select(TMDBTV)
+
+        joinedload_options = {
+            'created_by': joinedload(TMDBTV.created_by),
+            'last_episode_to_air': joinedload(TMDBTV.last_episode_to_air),
+            'genres': joinedload(TMDBTV.genres),
+            'networks': joinedload(TMDBTV.networks),
+            'production_companies': joinedload(TMDBTV.production_companies),
+            'production_countries': joinedload(TMDBTV.production_countries),
+            'seasons': joinedload(TMDBTV.seasons),
+            'spoken_languages': joinedload(TMDBTV.spoken_languages),
+        }
+
+        # Dynamically add the requested joinedloads to the query
+        for arg in args:
+            if arg in joinedload_options:
+                query = query.options(joinedload_options[arg])
+
+        result = await self.session.execute(query.where(TMDBTV.id == tv_series_id))
         r = result.unique().scalar_one_or_none()
+
         return self.to_primitive(r)
 
     async def fetch_and_store_tv(self, tv_series_id: int):
         tv = tmdb.TV(tv_series_id)
         lang = self._language()
         details = await self._fetch(lambda: tv.info(language=lang))
+        images = await self._fetch(lambda: tv.images(language=lang))
+        videos = await self._fetch(lambda: tv.videos(language=lang))
         # credits = await self._fetch(lambda: tv.credits(language=self._language()))
         await self._store_tv(details)
-
+        # 图片
+        await self._process_images(images, TMDBTVImage.build)
+        # 视频
+        await self._process_videos(videos, TMDBTVVideo.build)
         # 处理每一季和集的信息
         if 'seasons' in details:
             for season_data in details['seasons']:
@@ -242,12 +259,3 @@ class TVService(PeopleService):
             self.session.add(crew)
 
 
-async def main():
-    # 创建一个数据库会话实例
-    async with AsyncSessionLocal() as session:
-        tv_service = TVService(session)
-        await tv_service.fetch_and_store_tv(tv_series_id=500)  # 用 TV 的 ID 调用服务
-
-
-if __name__ == '__main__':
-    tornado.ioloop.IOLoop.current().run_sync(main)

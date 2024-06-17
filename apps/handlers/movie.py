@@ -10,5 +10,6 @@ class MovieHandler(BaseHandler):
 
     async def get(self, movie_id):
         async with await self.get_session() as session:
-            res = await MovieService(session).get_movie(int(movie_id))
+            args = self.get_arguments('join')
+            res = await MovieService(session).get_movie(int(movie_id), args)
             self.success(res)

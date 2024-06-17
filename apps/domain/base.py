@@ -1,8 +1,17 @@
-from sqlalchemy import ForeignKey, ARRAY, Column, Integer, String, Boolean, Float
-from sqlalchemy.orm import object_session
+import enum
 
-from apps.domain.models import Base
+from sqlalchemy import ForeignKey, ARRAY, Column, Integer, String, Boolean, Float, TIMESTAMP, text, Enum
+from sqlalchemy.orm import object_session, declarative_base, relationship
+
 from apps.handlers.base import language_var
+
+Base0 = declarative_base()
+
+
+class Base(Base0):
+    __abstract__ = True
+    created_at = Column(TIMESTAMP, server_default=text('CURRENT_TIMESTAMP'), nullable=False)
+    updated_at = Column(TIMESTAMP, server_default=text('CURRENT_TIMESTAMP'), nullable=False, onupdate=text('CURRENT_TIMESTAMP'))
 
 
 # 通用的翻译表事件加载方法
@@ -50,3 +59,39 @@ class TMDBCrew(Base):
     department = Column(String, nullable=True, comment='部门')
     job = Column(String, nullable=True, comment='职务')
     credit_id = Column(String, nullable=True, comment='信用ID')
+
+
+class TMDBImageTypeEnum(enum.Enum):
+    backdrop = 'backdrop'
+    logo = 'logo'
+    poster = 'poster'
+
+
+class TMDBImage(Base):
+    __abstract__ = True
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    file_path = Column(String(255), nullable=False)
+    image_type = Column(Enum(TMDBImageTypeEnum), nullable=False)
+    aspect_ratio = Column(Float, nullable=True)
+    height = Column(Integer, nullable=True)
+    width = Column(Integer, nullable=True)
+    iso_639_1 = Column(String(2), nullable=True)
+    vote_average = Column(Float, nullable=True)
+    vote_count = Column(Integer, nullable=True)
+
+
+
+class TMDBVideo(Base):
+    __abstract__ = True
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    iso_639_1 = Column(String(2), nullable=False)
+    iso_3166_1 = Column(String(2), nullable=False)
+    name = Column(String(255), nullable=False)
+    key = Column(String(255), nullable=False)
+    site = Column(String, nullable=False)
+    size = Column(Integer, nullable=False)
+    type = Column(String, nullable=False)
+    official = Column(Boolean, nullable=False)
+    published_at = Column(String, nullable=False)
+    tmdb_video_id = Column(String(255), nullable=False)  # Renamed to avoid conflict with PK

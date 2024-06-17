@@ -4,6 +4,7 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import joinedload
 
+from apps.domain.base import TMDBImageTypeEnum
 from apps.domain.models import *
 from apps.services.people import PeopleService
 
@@ -15,25 +16,43 @@ class MovieService(PeopleService):
     def __init__(self, session: AsyncSession):
         super().__init__(session)
 
+    async def get_movie(self, movie_id: int, args: [str]) -> dict:
+        query = select(TMDBMovie)
+
+        joinedload_options = {
+            'genres': joinedload(TMDBMovie.genres),
+            'production_companies': joinedload(TMDBMovie.production_companies),
+            'production_countries': joinedload(TMDBMovie.production_countries),
+            'cast': joinedload(TMDBMovie.movie_cast).joinedload(TMDBMovieCast.people),
+            'crew': joinedload(TMDBMovie.movie_crew).joinedload(TMDBMovieCrew.people),
+            'images': joinedload(TMDBMovie.images),
+            'videos': joinedload(TMDBMovie.videos)
+        }
+
+        # Dynamically add the requested joinedloads to the query
+        for arg in args:
+            if arg in joinedload_options:
+                query = query.options(joinedload_options[arg])
+
+        result = await self.session.execute(query.where(TMDBMovie.id == movie_id))
+        r = result.unique().scalar_one_or_none()
+
+        return self.to_primitive(r)
+
     async def fetch_and_store_movie(self, movie_id: int):
         movie = tmdb.Movies(movie_id)
         lang = self._language()
         details = await self._fetch(lambda: movie.info(language=lang))
-        movie_credits = await self._fetch(lambda: movie.credits(language=lang))
-        await self._store_movie(details, movie_credits)
+        credits = await self._fetch(lambda: movie.credits(language=lang))
+        images = await self._fetch(lambda: movie.images(language=lang))
+        videos = await self._fetch(lambda: movie.videos(language=lang))
 
-    async def get_movie(self, movie_id: int):
-        result = await self.session.execute(
-            select(TMDBMovie).options(
-                joinedload(TMDBMovie.genres),
-                joinedload(TMDBMovie.production_companies),
-                joinedload(TMDBMovie.production_countries),
-                # joinedload(TMDBMovie.movie_cast).joinedload(TMDBMovieCast.people),
-                # joinedload(TMDBMovie.movie_crew),
-            ).where(TMDBMovie.id == movie_id)
-        )
-        r = result.unique().scalar_one_or_none()
-        return self.to_primitive(r)
+        await self._store_movie(details)
+        await self._store_movie_credits(credits)
+        # 图片
+        await self._process_images(images, TMDBMovieImage.build)
+        # 视频
+        await self._process_videos(videos, TMDBMovieVideo.build)
 
     async def _fetch_movie_details(self, movie):
         return await tornado.ioloop.IOLoop.current().run_in_executor(None,
@@ -43,26 +62,9 @@ class MovieService(PeopleService):
         return await tornado.ioloop.IOLoop.current().run_in_executor(None,
                                                                      lambda: movie.credits(language=self._language()))
 
-    async def _store_movie(self, details, credits):
+    async def _store_movie(self, details):
         async with self.session.begin():
-            movie = TMDBMovie(
-                id=details['id'],
-                adult=details['adult'],
-                backdrop_path=details.get('backdrop_path'),
-                budget=details['budget'],
-                imdb_id=details.get('imdb_id'),
-                original_language=details['original_language'],
-                original_title=details.get('original_title'),
-                popularity=details['popularity'],
-                poster_path=details.get('poster_path'),
-                release_date=details.get('release_date'),
-                revenue=details.get('revenue'),
-                runtime=details.get('runtime'),
-                status=details.get('status'),
-                video=details['video'],
-                vote_average=details['vote_average'],
-                vote_count=details['vote_count']
-            )
+            movie = self._build_movie(details)
 
             # 关联 collection
             if details.get('belongs_to_collection'):
@@ -126,16 +128,39 @@ class MovieService(PeopleService):
             await self.session.merge(translation)
             await self.session.flush()
 
+    async def _store_movie_credits(self, credits):
+        async with self.session.begin():
             # 处理演员信息
-            await self._process_casts(movie, credits['cast'])
+            await self._process_casts(credits['id'], credits['cast'])
             # 处理剧组信息
-            await self._process_crews(movie, credits['crew'])
+            await self._process_crews(credits['id'], credits['crew'])
 
-    async def _process_casts(self, movie, casts):
+    def _build_movie(self, details):
+        movie = TMDBMovie(
+            id=details['id'],
+            adult=details['adult'],
+            backdrop_path=details.get('backdrop_path'),
+            budget=details['budget'],
+            imdb_id=details.get('imdb_id'),
+            original_language=details['original_language'],
+            original_title=details.get('original_title'),
+            popularity=details['popularity'],
+            poster_path=details.get('poster_path'),
+            release_date=details.get('release_date'),
+            revenue=details.get('revenue'),
+            runtime=details.get('runtime'),
+            status=details.get('status'),
+            video=details['video'],
+            vote_average=details['vote_average'],
+            vote_count=details['vote_count']
+        )
+        return movie
+
+    async def _process_casts(self, movie_id, casts):
         for cast_data in casts:
             people = await self.update_or_create_people(cast_data['id'])
             cast = TMDBMovieCast(
-                movie_id=movie.id,
+                movie_id=movie_id,
                 people_id=people.id,
                 character=cast_data.get('character'),
                 order=cast_data.get('order'),
@@ -144,11 +169,11 @@ class MovieService(PeopleService):
             )
             self.session.add(cast)
 
-    async def _process_crews(self, movie, crews):
+    async def _process_crews(self, movie_id, crews):
         for crew_data in crews:
             people = await self.update_or_create_people(crew_data['id'])
             crew = TMDBMovieCrew(
-                movie_id=movie.id,
+                movie_id=movie_id,
                 people_id=people.id,
                 department=crew_data.get('department'),
                 job=crew_data.get('job'),

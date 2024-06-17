@@ -7,26 +7,12 @@ from objtyping import to_primitive
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 import tornado.ioloop
 
+from apps.domain.base import TMDBImageTypeEnum
 from apps.domain.models import *
 from apps.handlers.base import language_var
 
 # 配置 TMDB API 密钥
 tmdb.API_KEY = 'fb5642b7e0b6d36ad5ebcdf78a52f14c'
-
-# 数据库连接配置
-DATABASE_URL = 'postgresql+asyncpg://root:1234@127.0.0.1:5432/emdb'
-# 创建一个引擎对象，指定数据库连接信息
-engine = create_engine('postgresql://root:1234@127.0.0.1:5432/emdb', echo=True)
-
-# 创建一个会话工厂
-Session = sessionmaker(bind=engine)
-# 异步数据库引擎和会话工厂
-async_engine = create_async_engine(DATABASE_URL, echo=True)
-AsyncSessionLocal = sessionmaker(
-    bind=async_engine,
-    class_=AsyncSession,
-    expire_on_commit=False
-)
 
 
 class BaseService:
@@ -62,3 +48,21 @@ class BaseService:
             await self.session.merge(instance)
 
         return instance
+
+    async def _process_images(self, images, build_func):
+        async with self.session.begin():
+            mid = images['id']
+            backdrops = images['backdrops']
+            logos = images['logos']
+            posters = images['posters']
+            b = list(map(lambda d: build_func(mid, TMDBImageTypeEnum.backdrop, d), backdrops))
+            l = list(map(lambda d: build_func(mid, TMDBImageTypeEnum.logo, d), logos))
+            p = list(map(lambda d: build_func(mid, TMDBImageTypeEnum.poster, d), posters))
+            self.session.add_all(b + l + p)
+
+    async def _process_videos(self, videos, build_func):
+        async with self.session.begin():
+            mid = videos.get('id')
+            v = videos.get('results', [])
+            b = list(map(lambda d: build_func(mid, d), v))
+            self.session.add_all(b)

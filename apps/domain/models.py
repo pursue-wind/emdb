@@ -1,10 +1,11 @@
-from sqlalchemy import ForeignKey, Table, ARRAY, Column, Integer, String, Boolean, Float, Text, event, and_
-from sqlalchemy.orm import object_session, relationship, declarative_base
+import enum
 
-from apps.domain.base import TMDBCast, load_translation, BaseMedia, TMDBCrew
+from sqlalchemy import ForeignKey, Table, ARRAY, Column, Integer, String, Boolean, Float, Text, event, and_, Enum, text, \
+    TIMESTAMP
+from sqlalchemy.orm import object_session, relationship
+
+from apps.domain.base import TMDBCast, load_translation, BaseMedia, TMDBCrew, Base, TMDBImage, TMDBVideo
 from apps.handlers.base import language_var
-
-Base = declarative_base()
 
 # Many-to-Many relationship tables for TMDBMovie
 tmdb_movie_created_by_table = Table(
@@ -285,31 +286,94 @@ class TMDBMovie(BaseMedia):
 
     id = Column(Integer, primary_key=True, autoincrement=False)
     belongs_to_collection_id = Column(Integer, ForeignKey('tmdb_belongs_to_collections.id'))
-    belongs_to_collection = relationship('TMDBBelongsToCollection', backref='tmdb_movies')
     budget = Column(Integer, nullable=False, comment='预算')
-    genres = relationship('TMDBGenre', secondary=lambda: tmdb_movie_genres_table, back_populates='movies')
 
     imdb_id = Column(String, nullable=True, comment='IMDb ID')
 
     original_title = Column(String, nullable=True, comment='原标题')
 
+    release_date = Column(String, nullable=True, comment='上映日期')
+    revenue = Column(Integer, nullable=False, comment='收入')
+    runtime = Column(Integer, nullable=True, comment='时长（分钟）')
+
+    video = Column(Boolean, nullable=False, comment='是否为视频')
+
+    belongs_to_collection = relationship('TMDBBelongsToCollection', backref='tmdb_movies')
+    genres = relationship('TMDBGenre', secondary=lambda: tmdb_movie_genres_table, back_populates='movies')
+
+    spoken_languages = relationship('TMDBSpokenLanguage', secondary=lambda: tmdb_movie_spoken_languages_table,
+                                    back_populates='movies')
     production_companies = relationship('TMDBProductionCompany',
                                         secondary=lambda: tmdb_movie_production_companies_table,
                                         back_populates='movies')
     production_countries = relationship('TMDBProductionCountry',
                                         secondary=lambda: tmdb_movie_production_countries_table,
                                         back_populates='movies')
-    release_date = Column(String, nullable=True, comment='上映日期')
-    revenue = Column(Integer, nullable=False, comment='收入')
-    runtime = Column(Integer, nullable=True, comment='时长（分钟）')
-    spoken_languages = relationship('TMDBSpokenLanguage', secondary=lambda: tmdb_movie_spoken_languages_table,
-                                    back_populates='movies')
-    video = Column(Boolean, nullable=False, comment='是否为视频')
-
     # 关系
     movie_cast = relationship('TMDBMovieCast', back_populates='movie')
     movie_crew = relationship('TMDBMovieCrew', back_populates='movie')
     translations = relationship('TMDBMovieTranslation', back_populates='movie')
+    images = relationship('TMDBMovieImage', back_populates='movie')
+    videos = relationship('TMDBMovieVideo', back_populates='movie')
+
+
+class TMDBMovieImage(TMDBImage):
+    __tablename__ = 'tmdb_movie_images'
+
+    movie_id = Column(Integer, ForeignKey('tmdb_movies.id'), nullable=False)
+    # 关系
+    movie = relationship('TMDBMovie', back_populates='images')
+
+    @staticmethod
+    def build(movie_id, image_type, d: dict):
+        img = TMDBMovieImage(**d)
+        img.movie_id = movie_id
+        img.image_type = image_type
+        return img
+
+
+class TMDBTVImage(TMDBImage):
+    __tablename__ = 'tmdb_tv_images'
+
+    tv_id = Column(Integer, ForeignKey('tmdb_tv.id'), nullable=False)
+    tv = relationship('TMDBTV', back_populates='images')
+
+    @staticmethod
+    def build(tv_id, image_type, d: dict):
+        img = TMDBTVImage(**d)
+        img.tv_id = tv_id
+        img.image_type = image_type
+        return img
+
+
+class TMDBMovieVideo(TMDBVideo):
+    __tablename__ = 'tmdb_movie_videos'
+
+    movie_id = Column(Integer, ForeignKey('tmdb_movies.id'), nullable=False)
+    movie = relationship('TMDBMovie', back_populates='videos')
+
+    @staticmethod
+    def build(mid, d: dict):
+        o = TMDBMovieVideo(**d)
+        o.movie_id = mid
+        o.tmdb_video_id = o.id
+        o.id = None
+        return o
+
+
+class TMDBTVVideo(TMDBVideo):
+    __tablename__ = 'tmdb_tv_videos'
+
+    tv_id = Column(Integer, ForeignKey('tmdb_tv.id'), nullable=False)
+    tv = relationship('TMDBTV', back_populates='videos')
+
+    @staticmethod
+    def build(tv_id, d: dict):
+        o = TMDBTVVideo(**d)
+        o.tv_id = tv_id
+        o.tmdb_video_id = o.id
+        o.id = None
+        return o
 
 
 @event.listens_for(TMDBMovie, 'load')
@@ -354,22 +418,23 @@ class TMDBTV(BaseMedia):
     __tablename__ = 'tmdb_tv'
 
     id = Column(Integer, primary_key=True, autoincrement=False)
-    created_by = relationship('TMDBCreatedBy', secondary=lambda: tmdb_tv_created_by_table,
-                              back_populates='tv_shows')
+
     episode_run_time = Column(ARRAY(Integer), nullable=False, comment='每集时长')
     first_air_date = Column(String, nullable=True, comment='首播日期')
-    genres = relationship('TMDBGenre', secondary=lambda: tmdb_tv_genres_table, back_populates='tv_shows')
     in_production = Column(Boolean, nullable=False, comment='是否在制作中')
     languages = Column(ARRAY(String), nullable=False, comment='语言')
     last_air_date = Column(String, nullable=True, comment='最近播放日期')
     last_episode_to_air_id = Column(Integer, ForeignKey('tmdb_last_episode_to_air.id'))
-    last_episode_to_air = relationship('TMDBLastEpisodeToAir')
     name = Column(String, nullable=False, comment='名称')
     next_episode_to_air = Column(String, nullable=True, comment='下一集')
     number_of_episodes = Column(Integer, nullable=False, comment='集数')
     number_of_seasons = Column(Integer, nullable=False, comment='季数')
     original_name = Column(String, nullable=True, comment='原名称')
     type = Column(String, nullable=True, comment='类型')
+    created_by = relationship('TMDBCreatedBy', secondary=lambda: tmdb_tv_created_by_table,
+                              back_populates='tv_shows')
+    last_episode_to_air = relationship('TMDBLastEpisodeToAir')
+    genres = relationship('TMDBGenre', secondary=lambda: tmdb_tv_genres_table, back_populates='tv_shows')
     networks = relationship('TMDBNetwork', secondary=lambda: tmdb_tv_networks_table, back_populates='tv_shows')
 
     production_companies = relationship('TMDBProductionCompany',
@@ -382,6 +447,8 @@ class TMDBTV(BaseMedia):
     spoken_languages = relationship('TMDBSpokenLanguage', secondary=lambda: tmdb_tv_spoken_languages_table,
                                     back_populates='tv_shows')
     translations = relationship('TMDBTVTranslation', back_populates='tv_show')
+    images = relationship('TMDBTVImage', back_populates='tv')
+    videos = relationship('TMDBTVVideo', back_populates='tv')
 
 
 @event.listens_for(TMDBTV, 'load')
