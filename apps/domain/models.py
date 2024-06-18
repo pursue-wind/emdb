@@ -3,7 +3,8 @@ from sqlalchemy import ForeignKey, Table, ARRAY, Column, Integer, String, Boolea
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import object_session, relationship
 
-from apps.domain.base import TMDBCast, load_translation, BaseMedia, TMDBCrew, Base, TMDBImage, TMDBVideo
+from apps.domain.base import TMDBCast, load_translation, BaseMedia, TMDBCrew, Base, TMDBImage, TMDBVideo, \
+    load_translation_by_iso_639_1
 from apps.handlers.base import language_var
 
 # Many-to-Many relationship tables for TMDBMovie
@@ -125,7 +126,7 @@ class TMDBGenreTranslation(Base):
 
 
 @event.listens_for(TMDBGenre, 'load')
-def load_movie_translation(target, context):
+def load_genre_translation(target, context):
     load_translation(
         target=target,
         context=context,
@@ -246,26 +247,33 @@ class TMDBBelongsToCollection(Base):
 class TMDBMovieTranslation(Base):
     __tablename__ = 'tmdb_movie_translations'
 
-    movie_id = Column(Integer, ForeignKey('tmdb_movies.id'), primary_key=True)
-    language = Column(String, primary_key=True, comment='语言代码')
-    title = Column(String, nullable=False, comment='标题')
-    overview = Column(Text, nullable=False, comment='概述')
-    tagline = Column(String, nullable=False, comment='标语')
-    homepage = Column(String, nullable=False, comment='首页')
-    # 关系
-    movie = relationship('TMDBMovie', back_populates='translations')
+    id = Column(Integer, primary_key=True, autoincrement=True, comment='翻译记录的唯一标识')
+    movie_id = Column(Integer, ForeignKey('tmdb_movies.id'), nullable=False, comment='关联电影的ID')
+    iso_3166_1 = Column(String(2), nullable=False, comment='国家的ISO 3166-1代码')
+    iso_639_1 = Column(String(2), nullable=False, comment='语言的ISO 639-1代码')
+    name = Column(String, nullable=True, comment='语言的本地名称')
+    english_name = Column(String, nullable=True, comment='语言的英语名称')
+    homepage = Column(String, nullable=True, comment='翻译版本的主页URL')
+    overview = Column(String, nullable=True, comment='翻译版本的概述')
+    runtime = Column(Integer, nullable=True, comment='翻译版本的运行时长，以分钟为单位')
+    tagline = Column(String, nullable=True, comment='翻译版本的标语')
+    title = Column(String, nullable=True, comment='翻译版本的标题')
 
+    movie = relationship("TMDBMovie", back_populates="translations")
 
 class TMDBTVTranslation(Base):
     __tablename__ = 'tmdb_tv_translations'
 
-    tv_id = Column(Integer, ForeignKey('tmdb_tv.id'), primary_key=True)
-    language = Column(String, primary_key=True, comment='语言代码')
-    name = Column(String, nullable=False, comment='标题')
-    overview = Column(Text, nullable=False, comment='概述')
-    tagline = Column(String, nullable=False, comment='标语')
-    homepage = Column(String, nullable=False, comment='首页')
+    iso_3166_1 = Column(String(2), nullable=False, comment='国家的ISO 3166-1代码')
+    iso_639_1 = Column(String(2), nullable=False, comment='语言的ISO 639-1代码')
+    lang_name = Column(String, nullable=True, comment='语言的本地名称')
+    english_name = Column(String, nullable=True, comment='语言的英语名称')
+    homepage = Column(String, nullable=True, comment='翻译版本的主页URL')
+    overview = Column(String, nullable=True, comment='翻译版本的概述')
+    tagline = Column(String, nullable=True, comment='翻译版本的标语')
+    name = Column(String, nullable=True, comment='翻译版本的标题')
     # 关系
+    tv_id = Column(Integer, ForeignKey('tmdb_tv.id'), primary_key=True)
     tv_show = relationship('TMDBTV', back_populates='translations')
 
 
@@ -408,7 +416,7 @@ class TMDBTVVideo(TMDBVideo):
 
 @event.listens_for(TMDBMovie, 'load')
 def load_movie_translation(target, context):
-    load_translation(
+    load_translation_by_iso_639_1(
         target=target,
         context=context,
         translation_model=TMDBMovieTranslation,
@@ -483,7 +491,7 @@ class TMDBTV(BaseMedia):
 
 @event.listens_for(TMDBTV, 'load')
 def load_tv_translation(target, context):
-    load_translation(
+    load_translation_by_iso_639_1(
         target=target,
         context=context,
         translation_model=TMDBTVTranslation,
@@ -545,17 +553,20 @@ class TMDBTVEpisode(Base):
 class TMDBTVEpisodeTranslation(Base):
     __tablename__ = 'tmdb_tv_episodes_translations'
 
-    tv_episode_id = Column(Integer, ForeignKey('tmdb_tv_episodes.id'), primary_key=True)
-    language = Column(String, primary_key=True, comment='语言代码')
-    name = Column(String, nullable=False, comment='标题')
-    overview = Column(Text, nullable=False, comment='概述')
+    iso_3166_1 = Column(String(2), nullable=False, comment='国家的ISO 3166-1代码')
+    iso_639_1 = Column(String(2), nullable=False, comment='语言的ISO 639-1代码')
+    lang_name = Column(String, nullable=True, comment='语言的本地名称')
+    english_name = Column(String, nullable=True, comment='语言的英语名称')
+    overview = Column(String, nullable=True, comment='翻译版本的概述')
+    name = Column(String, nullable=True, comment='翻译版本的标题')
     # 关系
+    tv_episode_id = Column(Integer, ForeignKey('tmdb_tv_episodes.id'), primary_key=True)
     tv_episode = relationship('TMDBTVEpisode', back_populates='translations')
 
 
 @event.listens_for(TMDBTVEpisode, 'load')
 def load_tv_season_translation(target, context):
-    load_translation(
+    load_translation_by_iso_639_1(
         target=target,
         context=context,
         translation_model=TMDBTVEpisodeTranslation,

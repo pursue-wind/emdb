@@ -20,7 +20,7 @@ server:
     test: 127.0.0.1
     release: 127.0.0.1
   port:
-    local: 8888
+    local: 8088
     dev: 8088
     test: 8088
     release: 8088

@@ -1,11 +1,8 @@
-# tv_services.py
-
 import tmdbsimple as tmdb
 from sqlalchemy.ext.asyncio import AsyncSession
-import tornado.ioloop
 
-from apps.services.base import BaseService
 from apps.domain.models import *
+from apps.services.base import BaseService
 
 # 配置 TMDB API 密钥
 tmdb.API_KEY = 'fb5642b7e0b6d36ad5ebcdf78a52f14c'

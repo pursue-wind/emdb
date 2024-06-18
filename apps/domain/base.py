@@ -29,6 +29,19 @@ def load_translation(target, context, translation_model, foreign_key_field, attr
                     setattr(target, attr, getattr(translation, attr))
 
 
+def load_translation_by_iso_639_1(target, context, translation_model, foreign_key_field, attributes):
+    language = language_var.get()
+    if language:
+        session = object_session(target)
+        if session:
+            filters = {foreign_key_field: target.id, 'iso_639_1': language}
+            translation = session.query(translation_model).filter_by(**filters).first()
+
+            if translation:
+                for attr in attributes:
+                    setattr(target, attr, getattr(translation, attr))
+
+
 class BaseMedia(Base):
     __abstract__ = True
     adult = Column(Boolean, nullable=False, comment='是否为成人')

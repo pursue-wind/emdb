@@ -52,10 +52,13 @@ class TVService(PeopleService):
         tv = tmdb.TV(tv_series_id)
         lang = self._language()
         details = await self._fetch(lambda: tv.info(language=lang))
+        translations = await self._fetch(lambda: tv.translations())
         images = await self._fetch(lambda: tv.images(language=lang))
         videos = await self._fetch(lambda: tv.videos(language=lang))
         # credits = await self._fetch(lambda: tv.credits(language=self._language()))
         await self._store_tv(details)
+        # 翻译
+        await self._process_tv_translations(translations)
         # 图片
         await self._process_images(images, TMDBTVImage.build)
         # 视频
@@ -69,18 +72,7 @@ class TVService(PeopleService):
         async with self.session.begin():
             tv = self._build_tv(details)
             await self._associate_entities(tv, details)
-
-            translation = TMDBTVTranslation(
-                tv_id=details['id'],
-                language=self._language(),
-                name=details['name'],
-                overview=details['overview'],
-                tagline=details['tagline'],
-                homepage=details['homepage'],
-            )
-
             await self.session.merge(tv)
-            await self.session.merge(translation)
             await self.session.flush()
 
     def _build_tv(self, details):
@@ -203,18 +195,22 @@ class TVService(PeopleService):
 
     async def _process_season_episodes(self, tv_id, season, episodes):
         for episode_data in episodes:
-            tv_episode, tv_episode_trans = self._build_tv_episode_and_trans(season.id, episode_data)
+            tv_episode = self._build_tv_episode(season.id, episode_data)
             await self.session.merge(tv_episode)
-            await self.session.merge(tv_episode_trans)
             await self.session.flush()
             lang = self._language()
             episode_credits = await self._fetch(
                 lambda: tmdb.TV_Episodes(tv_id, season.season_number, episode_data['episode_number'])
                 .credits(language=lang)
             )
+            episode_translations = await self._fetch(
+                lambda: tmdb.TV_Episodes(tv_id, season.season_number, episode_data['episode_number'])
+                .translations()
+            )
             await self._process_episode_credits(tv_episode, episode_credits)
+            await self._process_episode_translations(episode_translations)
 
-    def _build_tv_episode_and_trans(self, tv_season_id, episode_data):
+    def _build_tv_episode(self, tv_season_id, episode_data):
         return TMDBTVEpisode(
             id=episode_data['id'],
             tv_season_id=tv_season_id,
@@ -225,11 +221,6 @@ class TVService(PeopleService):
             season_number=episode_data['season_number'],
             vote_average=episode_data['vote_average'],
             vote_count=episode_data['vote_count']
-        ), TMDBTVEpisodeTranslation(
-            tv_episode_id=episode_data['id'],
-            language=self._language(),
-            name=episode_data['name'],
-            overview=episode_data['overview'],
         )
 
     async def _process_episode_credits(self, episode, credits):
@@ -260,3 +251,39 @@ class TVService(PeopleService):
                 credit_id=crew_data.get('credit_id')
             )
             self.session.add(crew)
+
+    async def _process_tv_translations(self, translations):
+        async with self.session.begin():
+            mid = translations['id']
+            translations_flat = [
+                TMDBTVTranslation(
+                    tv_id=mid,
+                    iso_3166_1=translation['iso_3166_1'],
+                    iso_639_1=translation['iso_639_1'],
+                    lang_name=translation['name'],
+                    english_name=translation['english_name'],
+                    homepage=translation['data']['homepage'],
+                    overview=translation['data']['overview'],
+                    tagline=translation['data']['tagline'],
+                    name=translation['data']['name'],
+                )
+                for translation in translations.get('translations', [])
+            ]
+            self.session.add_all(translations_flat)
+
+    async def _process_episode_translations(self, translations):
+        async with self.session.begin():
+            mid = translations['id']
+            translations_flat = [
+                TMDBTVEpisodeTranslation(
+                    tv_episode_id=mid,
+                    iso_3166_1=translation['iso_3166_1'],
+                    iso_639_1=translation['iso_639_1'],
+                    lang_name=translation['name'],
+                    english_name=translation['english_name'],
+                    overview=translation['data']['overview'],
+                    name=translation['data']['name'],
+                )
+                for translation in translations.get('translations', [])
+            ]
+            self.session.add_all(translations_flat)

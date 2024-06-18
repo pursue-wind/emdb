@@ -4,6 +4,7 @@ import json
 import re
 
 from objtyping import to_primitive
+from sqlalchemy.ext.asyncio import AsyncSession
 from tornado.web import RequestHandler, MissingArgumentError
 
 base64_pattern = re.compile(r'^[0-9a-zA-Z+/]+=*$')
@@ -25,7 +26,7 @@ class BaseHandler(RequestHandler):
         self.set_header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE')
         self.set_header('Access-Control-Allow-Headers', 'Content-Type, authorization')
 
-    async def get_session(self):
+    async def get_session(self) -> AsyncSession:
         return self.session_factory()
 
     def success(self, data=None):
@@ -45,7 +46,9 @@ class BaseHandler(RequestHandler):
         if valid_func and valid_func():
             raise MissingArgumentError('')
 
-        return list(map(lambda k: self.get_argument(k, None), keys))
+        res = list(map(lambda k: self.get_argument(k, None), keys))
+
+        return res[0] if len(res) == 1 else res
 
     def parse_body(self, *keys: str, required: list[str] = None, require_all: bool = False, valid_func=None) -> []:
         """Parse JSON argument like `get_argument`."""

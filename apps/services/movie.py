@@ -6,7 +6,6 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import joinedload
 
-from apps.domain.base import TMDBImageTypeEnum
 from apps.domain.models import *
 from apps.services.people import PeopleService
 
@@ -49,11 +48,18 @@ class MovieService(PeopleService):
         credits = await self._fetch(lambda: movie.credits(language=lang))
         images = await self._fetch(lambda: movie.images(language=lang))
         videos = await self._fetch(lambda: movie.videos(language=lang))
+        translations = await self._fetch(lambda: movie.translations())
         release_dates = await self._fetch(lambda: movie.release_dates(language=lang))
         alternative_titles = await self._fetch(lambda: movie.alternative_titles(language=lang))
 
         await self._store_movie(details)
+
+        # 翻译
+        await self._process_translations(translations)
+        # 演员信息
         await self._store_movie_credits(credits)
+        # 图片
+        await self._process_images(images, TMDBMovieImage.build)
         # 图片
         await self._process_images(images, TMDBMovieImage.build)
         # 视频
@@ -93,6 +99,7 @@ class MovieService(PeopleService):
                 lambda x: {'id': x['id'], 'name': x['name']},
                 merge=True
             )
+
             # 关联 production_companies
             movie.production_companies = await self._get_or_create_list(
                 TMDBProductionCompany,
@@ -124,17 +131,7 @@ class MovieService(PeopleService):
                 }, key='iso_639_1'
             )
 
-            translation = TMDBMovieTranslation(
-                movie_id=details['id'],
-                language=self._language(),
-                title=details['title'],
-                overview=details['overview'],
-                tagline=details['tagline'],
-                homepage=details['homepage'],
-            )
-
             await self.session.merge(movie)
-            await self.session.merge(translation)
             await self.session.flush()
 
     async def _store_movie_credits(self, credits):
@@ -168,6 +165,26 @@ class MovieService(PeopleService):
                 credit_id=crew_data.get('credit_id')
             )
             self.session.add(crew)
+
+    async def _process_translations(self, translations):
+        async with self.session.begin():
+            mid = translations['id']
+            translations_flat = [
+                TMDBMovieTranslation(
+                    movie_id=mid,
+                    iso_3166_1=translation['iso_3166_1'],
+                    iso_639_1=translation['iso_639_1'],
+                    name=translation['name'],
+                    english_name=translation['english_name'],
+                    homepage=translation['data']['homepage'],
+                    overview=translation['data']['overview'],
+                    runtime=translation['data']['runtime'],
+                    tagline=translation['data']['tagline'],
+                    title=translation['data']['title'],
+                )
+                for translation in translations.get('translations', [])
+            ]
+            self.session.add_all(translations_flat)
 
     async def _process_release_dates(self, videos):
         async with self.session.begin():
