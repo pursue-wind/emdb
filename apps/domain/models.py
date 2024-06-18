@@ -316,6 +316,7 @@ class TMDBMovie(BaseMedia):
     videos = relationship('TMDBMovieVideo', back_populates='movie')
 
     release_dates = relationship('TMDBMovieReleaseDate', back_populates='movie')
+    alternative_titles = relationship('TMDBMovieAlternativeTitle', back_populates='movie')
 
 
 class TMDBMovieReleaseDate(Base):
@@ -332,6 +333,19 @@ class TMDBMovieReleaseDate(Base):
     type = Column(Integer, nullable=False, comment='发行类型的标识符')
 
     movie = relationship('TMDBMovie', back_populates='release_dates')
+
+
+class TMDBMovieAlternativeTitle(Base):
+    __tablename__ = 'tmdb_movie_alternative_titles'
+
+    id = Column(Integer, primary_key=True, autoincrement=True, comment='替代标题记录的唯一标识')
+    movie_id = Column(Integer, ForeignKey('tmdb_movies.id'), nullable=False, comment='关联电影的ID')
+    iso_3166_1 = Column(String(2), nullable=False, comment='国家的ISO 3166-1代码')
+    title = Column(String, nullable=False, comment='电影的替代标题')
+    type = Column(String, nullable=True, comment='替代标题的类型')
+
+    movie = relationship('TMDBMovie', back_populates='alternative_titles')
+
 
 class TMDBMovieImage(TMDBImage):
     __tablename__ = 'tmdb_movie_images'

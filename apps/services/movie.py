@@ -50,6 +50,7 @@ class MovieService(PeopleService):
         images = await self._fetch(lambda: movie.images(language=lang))
         videos = await self._fetch(lambda: movie.videos(language=lang))
         release_dates = await self._fetch(lambda: movie.release_dates(language=lang))
+        alternative_titles = await self._fetch(lambda: movie.alternative_titles(language=lang))
 
         await self._store_movie(details)
         await self._store_movie_credits(credits)
@@ -59,6 +60,8 @@ class MovieService(PeopleService):
         await self._process_videos(videos, TMDBMovieVideo.build)
         # 发行日期
         await self._process_release_dates(release_dates)
+        # Alternative Titles
+        await self._process_alternative_titles(alternative_titles)
 
     async def _fetch_movie_details(self, movie):
         return await tornado.ioloop.IOLoop.current().run_in_executor(None,
@@ -184,6 +187,20 @@ class MovieService(PeopleService):
                 for date in country.get('release_dates', [])
             ]
             self.session.add_all(release_dates_flat)
+
+    async def _process_alternative_titles(self, ts):
+        async with self.session.begin():
+            mid = ts['id']
+            ts_add = [
+                TMDBMovieAlternativeTitle(
+                    movie_id=mid,
+                    iso_3166_1=t['iso_3166_1'],
+                    title=t['title'],
+                    type=t['type']
+                )
+                for t in ts.get('titles', [])
+            ]
+            self.session.add_all(ts_add)
 
     @staticmethod
     def _build_movie(details):

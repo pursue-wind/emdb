@@ -3,6 +3,7 @@ import contextvars
 import json
 import re
 
+from objtyping import to_primitive
 from tornado.web import RequestHandler, MissingArgumentError
 
 base64_pattern = re.compile(r'^[0-9a-zA-Z+/]+=*$')
@@ -74,3 +75,7 @@ class BaseHandler(RequestHandler):
             raise MissingArgumentError('Missing argument')
 
         return list(map(lambda k: req[k] if k in req.keys() else None, keys))
+
+    @staticmethod
+    def to_primitive(sqlalchemy_obj):
+        return to_primitive(sqlalchemy_obj)
