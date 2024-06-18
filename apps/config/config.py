@@ -11,11 +11,11 @@ _ENV = os.getenv('ENV')
 print(f"current ENV：{_ENV}")
 app_log.info(f"current ENV：{_ENV}")
 if not _ENV:
-    _ENV = 'local'
-    #raise EnvironmentError("ENV is not available！")
+    #_ENV = 'local'
+    raise EnvironmentError("ENV is not available！")
 _PROJECT = os.getenv('PROJECTNAME', 'emdb-server')
 cfg = None
-config_file = "config/config.yaml"
+config_file = "./apps/config/config.yaml"
 
 commen_config = dict(
     application=dict(

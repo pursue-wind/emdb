@@ -11,6 +11,7 @@ class TVHandler(BaseHandler):
             await tv_service.fetch_and_store_tv(tv_series_id=int(tv_series_id))
         self.success()
 
+
     @auth
     async def get(self, tv_id):
         async with await self.get_session() as session:
