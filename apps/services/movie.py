@@ -27,6 +27,7 @@ class MovieService(PeopleService):
             'production_countries': joinedload(TMDBMovie.production_countries),
             'cast': joinedload(TMDBMovie.movie_cast).joinedload(TMDBMovieCast.people),
             'crew': joinedload(TMDBMovie.movie_crew).joinedload(TMDBMovieCrew.people),
+            'release_dates': joinedload(TMDBMovie.release_dates),
             'images': joinedload(TMDBMovie.images),
             'videos': joinedload(TMDBMovie.videos)
         }
