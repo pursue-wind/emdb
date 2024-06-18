@@ -7,14 +7,16 @@ from apps.domain.base import TMDBImageTypeEnum
 from apps.domain.models import *
 from apps.handlers.base import BaseHandler
 from apps.services.movie import MovieService
+from apps.utils.auth_decorators import auth
 
 
 class MovieHandler(BaseHandler):
+    @auth
     async def post(self, movie_id):
         async with await self.get_session() as session:
             await MovieService(session).fetch_and_store_movie(int(movie_id))
         self.success()
-
+    @auth
     async def get(self, movie_id):
         async with await self.get_session() as session:
             args = self.get_arguments('join')
@@ -27,6 +29,7 @@ class MovieHandler(BaseHandler):
 ####################
 
 class MovieImagesHandler(BaseHandler):
+    @auth
     async def get(self):
         async with await self.get_session() as session:
             movie_id = self.parse_form('movie_id')
@@ -49,6 +52,7 @@ class MovieImagesHandler(BaseHandler):
 
 
 class MovieTranslationsHandler(BaseHandler):
+    @auth
     async def get(self):
         async with await self.get_session() as session:
             movie_id = self.parse_form('movie_id')
@@ -60,6 +64,7 @@ class MovieTranslationsHandler(BaseHandler):
 
 
 class MovieAlternativeTitlesHandler(BaseHandler):
+    @auth
     async def get(self):
         async with await self.get_session() as session:
             movie_id = self.parse_form('movie_id')
@@ -82,6 +87,7 @@ def flatten(target, people):
 
 
 class MovieCreditsHandler(BaseHandler):
+    @auth
     async def get(self):
         async with await self.get_session() as session:
             movie_id = self.parse_form('movie_id')
@@ -98,6 +104,7 @@ class MovieCreditsHandler(BaseHandler):
 
 
 class MovieReleaseDatesHandler(BaseHandler):
+    @auth
     async def get(self):
         async with await self.get_session() as session:
             movie_id = self.parse_form('movie_id')
@@ -110,6 +117,7 @@ class MovieReleaseDatesHandler(BaseHandler):
 
 
 class MovieVideosHandler(BaseHandler):
+    @auth
     async def get(self):
         async with await self.get_session() as session:
             movie_id = self.parse_form('movie_id')
@@ -123,6 +131,7 @@ class MovieVideosHandler(BaseHandler):
 
 
 class SearchCompanyMovies(BaseHandler):
+    @auth
     async def post(self):
         async with await self.get_session() as session:
             movie_name, page_num, page_size = self.parse_body('movie_name', 'page_num', 'page_size')
@@ -174,6 +183,7 @@ class SearchCompanyMovies(BaseHandler):
 
 
 class SearchCompanyTV(BaseHandler):
+    @auth
     async def post(self):
         async with await self.get_session() as session:
             movie_name, page_num, page_size = self.parse_body('movie_name', 'page_num', 'page_size')
