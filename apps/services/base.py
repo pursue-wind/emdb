@@ -1,5 +1,6 @@
 # tv_services.py
 import asyncio
+from datetime import datetime
 
 import requests
 import tmdbsimple as tmdb
@@ -66,3 +67,5 @@ class BaseService:
             v = videos.get('results', [])
             b = list(map(lambda d: build_func(mid, d), v))
             self.session.add_all(b)
+
+

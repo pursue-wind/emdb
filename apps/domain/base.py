@@ -11,7 +11,8 @@ Base0 = declarative_base()
 class Base(Base0):
     __abstract__ = True
     created_at = Column(TIMESTAMP, server_default=text('CURRENT_TIMESTAMP'), nullable=False)
-    updated_at = Column(TIMESTAMP, server_default=text('CURRENT_TIMESTAMP'), nullable=False, onupdate=text('CURRENT_TIMESTAMP'))
+    updated_at = Column(TIMESTAMP, server_default=text('CURRENT_TIMESTAMP'), nullable=False,
+                        onupdate=text('CURRENT_TIMESTAMP'))
 
 
 # 通用的翻译表事件加载方法
@@ -79,7 +80,6 @@ class TMDBImage(Base):
     iso_639_1 = Column(String(2), nullable=True)
     vote_average = Column(Float, nullable=True)
     vote_count = Column(Integer, nullable=True)
-
 
 
 class TMDBVideo(Base):

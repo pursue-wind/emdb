@@ -1,7 +1,6 @@
-import enum
-
-from sqlalchemy import ForeignKey, Table, ARRAY, Column, Integer, String, Boolean, Float, Text, event, and_, Enum, text, \
+from sqlalchemy import ForeignKey, Table, ARRAY, Column, Integer, String, Boolean, Float, Text, event, and_, DateTime, \
     TIMESTAMP
+from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import object_session, relationship
 
 from apps.domain.base import TMDBCast, load_translation, BaseMedia, TMDBCrew, Base, TMDBImage, TMDBVideo
@@ -316,6 +315,23 @@ class TMDBMovie(BaseMedia):
     images = relationship('TMDBMovieImage', back_populates='movie')
     videos = relationship('TMDBMovieVideo', back_populates='movie')
 
+    release_dates = relationship('TMDBMovieReleaseDate', back_populates='movie')
+
+
+class TMDBMovieReleaseDate(Base):
+    __tablename__ = 'tmdb_movie_release_dates'
+
+    id = Column(Integer, primary_key=True, autoincrement=True, comment='发行日期记录的唯一标识')
+    movie_id = Column(Integer, ForeignKey('tmdb_movies.id'), nullable=False, comment='关联电影的ID')
+    iso_3166_1 = Column(String(2), nullable=False, comment='国家的ISO 3166-1代码')
+    certification = Column(String, nullable=True, comment='电影在该国的分级认证')
+    descriptors = Column(JSONB, nullable=True, comment='描述符，作为JSON数组存储')
+    iso_639_1 = Column(String(2), nullable=True, comment='语言的ISO 639-1代码')
+    note = Column(String, nullable=True, comment='有关发行的备注')
+    release_date = Column(TIMESTAMP(timezone=True), nullable=False, comment='电影的发行日期和时间')
+    type = Column(Integer, nullable=False, comment='发行类型的标识符')
+
+    movie = relationship('TMDBMovie', back_populates='release_dates')
 
 class TMDBMovieImage(TMDBImage):
     __tablename__ = 'tmdb_movie_images'

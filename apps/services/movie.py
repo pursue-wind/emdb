@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import tmdbsimple as tmdb
 import tornado.ioloop
 from sqlalchemy import select
@@ -46,6 +48,7 @@ class MovieService(PeopleService):
         credits = await self._fetch(lambda: movie.credits(language=lang))
         images = await self._fetch(lambda: movie.images(language=lang))
         videos = await self._fetch(lambda: movie.videos(language=lang))
+        release_dates = await self._fetch(lambda: movie.release_dates(language=lang))
 
         await self._store_movie(details)
         await self._store_movie_credits(credits)
@@ -53,6 +56,8 @@ class MovieService(PeopleService):
         await self._process_images(images, TMDBMovieImage.build)
         # 视频
         await self._process_videos(videos, TMDBMovieVideo.build)
+        # 发行日期
+        await self._process_release_dates(release_dates)
 
     async def _fetch_movie_details(self, movie):
         return await tornado.ioloop.IOLoop.current().run_in_executor(None,
@@ -135,27 +140,6 @@ class MovieService(PeopleService):
             # 处理剧组信息
             await self._process_crews(credits['id'], credits['crew'])
 
-    def _build_movie(self, details):
-        movie = TMDBMovie(
-            id=details['id'],
-            adult=details['adult'],
-            backdrop_path=details.get('backdrop_path'),
-            budget=details['budget'],
-            imdb_id=details.get('imdb_id'),
-            original_language=details['original_language'],
-            original_title=details.get('original_title'),
-            popularity=details['popularity'],
-            poster_path=details.get('poster_path'),
-            release_date=details.get('release_date'),
-            revenue=details.get('revenue'),
-            runtime=details.get('runtime'),
-            status=details.get('status'),
-            video=details['video'],
-            vote_average=details['vote_average'],
-            vote_count=details['vote_count']
-        )
-        return movie
-
     async def _process_casts(self, movie_id, casts):
         for cast_data in casts:
             people = await self.update_or_create_people(cast_data['id'])
@@ -180,3 +164,44 @@ class MovieService(PeopleService):
                 credit_id=crew_data.get('credit_id')
             )
             self.session.add(crew)
+
+    async def _process_release_dates(self, videos):
+        async with self.session.begin():
+            mid = videos['id']
+            release_dates_flat = [
+                TMDBMovieReleaseDate(
+                    movie_id=mid,
+                    iso_3166_1=country['iso_3166_1'],
+                    certification=date['certification'],
+                    descriptors=date['descriptors'],
+                    iso_639_1=date['iso_639_1'],
+                    note=date['note'],
+                    release_date=datetime.fromisoformat(date['release_date'].replace('Z', '+00:00')),
+                    type=date['type']
+                )
+                for country in videos.get('results', [])
+                for date in country.get('release_dates', [])
+            ]
+            self.session.add_all(release_dates_flat)
+
+    @staticmethod
+    def _build_movie(details):
+        movie = TMDBMovie(
+            id=details['id'],
+            adult=details['adult'],
+            backdrop_path=details.get('backdrop_path'),
+            budget=details['budget'],
+            imdb_id=details.get('imdb_id'),
+            original_language=details['original_language'],
+            original_title=details.get('original_title'),
+            popularity=details['popularity'],
+            poster_path=details.get('poster_path'),
+            release_date=details.get('release_date'),
+            revenue=details.get('revenue'),
+            runtime=details.get('runtime'),
+            status=details.get('status'),
+            video=details['video'],
+            vote_average=details['vote_average'],
+            vote_count=details['vote_count']
+        )
+        return movie
