@@ -7,3 +7,6 @@ test.py
 handlers/test.py
 *.DS_Store
 .gitignore
+
+# Ignore dynaconf secret files
+.secrets.*

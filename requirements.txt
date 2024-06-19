@@ -2,6 +2,7 @@ async-timeout==4.0.3
 asyncpg==0.29.0
 certifi==2024.6.2
 charset-normalizer==3.3.2
+dynaconf==3.2.5
 greenlet==3.0.3
 idna==3.7
 objtyping==0.5.4
@@ -11,4 +12,6 @@ requests==2.32.3
 SQLAlchemy==2.0.30
 tmdbsimple==2.9.1
 tornado==6.4.1
+tqdm==4.66.4
+typing_extensions==4.12.2
 urllib3==2.2.1

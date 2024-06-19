@@ -1,6 +1,6 @@
 from tornado.web import Application
 
-from apps.config.config import cfg
+import config
 from apps.handlers.movie import *
 from apps.handlers.tv import TVHandler
 
@@ -20,4 +20,4 @@ def make_app(session_factory):
 
         ("/api/company/movies", SearchCompanyMovies, dict(session_factory=session_factory)),
         ("/api/company/tv", SearchCompanyTV, dict(session_factory=session_factory)),
-    ], debug=cfg.DEBUG)
+    ], debug=config.settings.DEBUG)
