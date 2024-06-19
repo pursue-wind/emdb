@@ -137,11 +137,12 @@ class TVService(PeopleService):
         await self._process_season_crews(tv_season, credits['crew'])
 
     async def _process_season_casts(self, tv_season, casts):
+        people_ids = list(map(lambda c: c['id'], casts))
+        await self.update_or_create_peoples(people_ids)
         for cast_data in casts:
-            people = await self.update_or_create_people(cast_data['id'])
             cast = TMDBTVSeasonCast(
                 tv_season_id=tv_season.id,
-                people_id=people.id,
+                people_id=cast_data['id'],
                 character=cast_data.get('character'),
                 order=cast_data.get('order'),
                 credit_id=cast_data.get('credit_id'),
@@ -150,11 +151,12 @@ class TVService(PeopleService):
             self.session.add(cast)
 
     async def _process_season_crews(self, tv, crews):
+        people_ids = list(map(lambda c: c['id'], crews))
+        await self.update_or_create_peoples(people_ids)
         for crew_data in crews:
-            people = await self.update_or_create_people(crew_data['id'])
             crew = TMDBTVSeasonCrew(
                 tv_season_id=tv.id,
-                people_id=people.id,
+                people_id=crew_data['id'],
                 department=crew_data.get('department'),
                 job=crew_data.get('job'),
                 credit_id=crew_data.get('credit_id')

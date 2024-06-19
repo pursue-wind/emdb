@@ -8,6 +8,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from apps.domain.models import Base
+from apps.services.fix_data import DataService
 from apps.web import make_app
 from config import settings
 
@@ -45,10 +46,17 @@ async def main():
         app.listen(settings.server.port)
         logging.info(f"Listening on port {settings.server.port}")
 
+        # 同步原表的数据
+        if settings.data_sync:
+            await asyncio.create_task(DataService(async_session_factory).movie())
+            await asyncio.create_task(DataService(async_session_factory).tv())
+
         # Keep the server running
         await asyncio.Event().wait()
     except Exception as e:
         logging.error("Error in main function", exc_info=True)
+
+
 
 
 if __name__ == "__main__":

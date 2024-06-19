@@ -7,6 +7,8 @@ from apps.domain.base import TMDBImageTypeEnum
 from apps.domain.models import *
 from apps.handlers.base import BaseHandler
 from apps.services.movie import MovieService
+from apps.services.search import SearchService
+from apps.services.tv import TVService
 from apps.utils.auth_decorators import auth
 
 
@@ -16,6 +18,7 @@ class MovieHandler(BaseHandler):
         async with await self.get_session() as session:
             await MovieService(session).fetch_and_store_movie(int(movie_id))
         self.success()
+
     @auth
     async def get(self, movie_id):
         async with await self.get_session() as session:
@@ -27,6 +30,80 @@ class MovieHandler(BaseHandler):
 ####################
 #  兼容之前的接口
 ####################
+
+class Movie2Handler(BaseHandler):
+
+    @auth
+    async def post(self, *_args, **_kwargs):
+        """
+        数据入库：必传，电影类型：movie，电视类型：tv
+        """
+        async with await self.get_session() as session:
+            tmdb_id, media_type, tv_season_id, cover = self.parse_body('id', 'media_type',
+                                                                       'tv_season_id', 'cover',
+                                                                       required=['id', 'media_type'])
+            if media_type not in ["movie", "tv"]:
+                self.fail(status=400, msg='media_type param err')
+
+            is_movie_type = media_type == 'movie'
+            if not is_movie_type and not tv_season_id:
+                self.fail(status=400, msg='media_type param err')
+
+            # 强制覆盖的话，不检查是否已存在数据库
+            if not cover:
+                result = await  session.execute(
+                    select(TMDBMovie.id).where(TMDBMovie.id == tmdb_id)) if is_movie_type else session.execute(
+                    select(TMDBTV.id).where(TMDBTV.id == tmdb_id))
+                exist_id = result.scalar_one_or_none()
+                if exist_id:
+                    self.success(data=list())
+
+            # get_tv_detail_filter_season(tmdb_series_id_list[i], season_id_list[i], company_id)
+            if is_movie_type:
+                r = await MovieService(session).get_movie(tmdb_id)
+                self.success(data=tmdb_id)
+            else:
+                r = await TVService(session).fetch_and_store_tv(tmdb_id)
+                self.success(data=tmdb_id)
+
+
+class DiscoverHandler(BaseHandler):
+    @auth
+    async def get(self, *_args, **_kwargs):
+        lang, page, media_type, include_adult = self.parse_form('lang', 'page', 'media_type', 'include_adult')
+        if media_type not in ["movie", "tv"]:
+            self.fail(status=400, msg='media_type param err')
+        async with await self.get_session() as session:
+            res = await SearchService(session).discover(lang=lang, page=page, media_type=media_type,
+                                                        include_adult=include_adult)
+            self.success(data=res)
+
+
+class TMDBTVDetails(BaseHandler):
+    @auth
+    async def get(self, *_args, **_kwargs):
+        lang, series_id = self.parse_form('lang', 'series_id')
+        async with await self.get_session() as session:
+            res = await SearchService(session).tv_detail_by_series_id(lang=lang, series_id=series_id)
+            self.success(data=res)
+
+
+class TMDBSearch(BaseHandler):
+
+    @auth
+    async def get(self, *_args, **_kwargs):
+
+        name, lang, page, media_type, include_adult, \
+            t_id = self.parse_form('name', 'lang', 'page', 'media_type', 'include_adult', 't_id',
+                                   required=['media_type'])
+        if media_type not in ["movie", "tv"]:
+            self.fail(status=400, msg='media_type param err')
+        if name and t_id:
+            self.fail(status=400, msg='only name or id')
+        async with await self.get_session() as session:
+            res = await SearchService(session).search(name, lang=lang, page=page, media_type=media_type, t_id=t_id)
+            self.success(data=res)
+
 
 class MovieImagesHandler(BaseHandler):
     @auth

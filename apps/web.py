@@ -20,4 +20,8 @@ def make_app(session_factory):
 
         ("/api/company/movies", SearchCompanyMovies, dict(session_factory=session_factory)),
         ("/api/company/tv", SearchCompanyTV, dict(session_factory=session_factory)),
+        ("/api/emdb/tv/details", TMDBTVDetails, dict(session_factory=session_factory)),
+        ("/api/emdb/discover", DiscoverHandler, dict(session_factory=session_factory)),
+        ("/api/emdb/search", TMDBSearch, dict(session_factory=session_factory)),
+        ("/api/emdb/", Movie2Handler, dict(session_factory=session_factory)),
     ], debug=config.settings.DEBUG)

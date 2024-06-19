@@ -17,6 +17,8 @@ tmdb.API_KEY = 'fb5642b7e0b6d36ad5ebcdf78a52f14c'
 
 
 class BaseService:
+    IMAGE_BASE_URL = "https://image.tmdb.org/t/p/original"
+
     def __init__(self, session: AsyncSession):
         self.session = session
 
@@ -51,21 +53,20 @@ class BaseService:
         return instance
 
     async def _process_images(self, images, build_func):
-        async with self.session.begin():
-            mid = images['id']
-            backdrops = images['backdrops']
-            logos = images['logos']
-            posters = images['posters']
-            b = list(map(lambda d: build_func(mid, TMDBImageTypeEnum.backdrop, d), backdrops))
-            l = list(map(lambda d: build_func(mid, TMDBImageTypeEnum.logo, d), logos))
-            p = list(map(lambda d: build_func(mid, TMDBImageTypeEnum.poster, d), posters))
-            self.session.add_all(b + l + p)
+        mid = images['id']
+        backdrops = images['backdrops']
+        logos = images['logos']
+        posters = images['posters']
+        b = list(map(lambda d: build_func(mid, TMDBImageTypeEnum.backdrop, d), backdrops))
+        l = list(map(lambda d: build_func(mid, TMDBImageTypeEnum.logo, d), logos))
+        p = list(map(lambda d: build_func(mid, TMDBImageTypeEnum.poster, d), posters))
+        all = b + l + p
+        self.session.add_all(all)
+        await self.session.flush()
 
     async def _process_videos(self, videos, build_func):
-        async with self.session.begin():
-            mid = videos.get('id')
-            v = videos.get('results', [])
-            b = list(map(lambda d: build_func(mid, d), v))
-            self.session.add_all(b)
-
-
+        mid = videos.get('id')
+        v = videos.get('results', [])
+        b = list(map(lambda d: build_func(mid, d), v))
+        self.session.add_all(b)
+        await self.session.flush()

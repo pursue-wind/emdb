@@ -7,6 +7,7 @@ default:
     port: 8088
   debug:
     local: true
+  data_sync: false
 ############################################################################################
 ############################################################################################
 local:
@@ -18,11 +19,14 @@ local:
   pgsql: postgresql+asyncpg://root:1234@127.0.0.1:5432/emdb
   emmai:
     base_url: https://dev-api.emmai.com
+  data_sync: false
 ############################################################################################
 ############################################################################################
 dev:
   server:
     domain: https://dev-xmdb.emmai.com
+    host: 127.0.0.1
+    port: 8088
     pass_mixin: "0x00544"
   pgsql: postgresql+asyncpg://emmai_dev:TeMaqdpWz6ctya3inh@47.76.82.180:54321/emdb
   emmai:
@@ -31,12 +35,11 @@ dev:
 ############################################################################################
 ############################################################################################
 test:
-  log:
-    path: "../../logs/"
-    level: "Info"
   debug: true
   server:
     domain: https://dev-xmdb.emmai.com
+    host: 127.0.0.1
+    port: 8088
     pass_mixin: "0x00544"
   pgsql: postgresql+asyncpg://emmai:fsv33inhTeHkhY5@8.218.184.1:54321/emdb
   emmai:
@@ -46,6 +49,8 @@ test:
 prod:
   server:
     domain: https://dev-xmdb.emmai.com
+    host: 127.0.0.1
+    port: 8088
     pass_mixin: "0x00544"
   pgsql: postgresql+asyncpg://emmai_prod:nhTeHkhY5MaqdpW2b@pgm-j6c277hnh814e491.pg.rds.aliyuncs.com/emdb
   emmai:
