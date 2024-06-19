@@ -37,7 +37,7 @@ dev:
 test:
   debug: true
   server:
-    domain: https://dev-xmdb.emmai.com
+    domain: https://test-xmdb.emmai.com
     host: 127.0.0.1
     port: 8088
     pass_mixin: "0x00544"
@@ -48,7 +48,7 @@ test:
 ############################################################################################
 prod:
   server:
-    domain: https://dev-xmdb.emmai.com
+    domain: https://xmdb.emmai.com
     host: 127.0.0.1
     port: 8088
     pass_mixin: "0x00544"
