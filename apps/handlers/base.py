@@ -25,6 +25,7 @@ class BaseHandler(RequestHandler):
     async def options(self, *_args, **_kwargs):
         self.set_header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE')
         self.set_header('Access-Control-Allow-Headers', 'Content-Type, authorization')
+        self.success()
 
     async def get_session(self) -> AsyncSession:
         return self.session_factory()
@@ -34,8 +35,10 @@ class BaseHandler(RequestHandler):
             self.write({"code": 0, "msg": "success", "data": data})
             return
         self.write({"code": 0, "msg": "success"})
+
     def fail(self, status, msg):
         self.write({"code": status, "msg": msg})
+
     def parse_form(self, *keys, required: list[str] = None, require_all: bool = False, valid_func=None):
         """Parse FORM argument like `get_argument`."""
         if require_all:

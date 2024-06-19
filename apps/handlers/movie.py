@@ -211,7 +211,6 @@ def adapt_emmai(obj):
     setattr(obj, 'tmdb_id', getattr(obj, "id"))
     return obj
 
-
 class SearchCompanyMovies(BaseHandler):
     @auth
     async def post(self):
