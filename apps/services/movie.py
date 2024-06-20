@@ -46,8 +46,8 @@ class MovieService(PeopleService):
         lang = self._language()
 
         # 并行调用多个异步方法
-        details_task = self._fetch(lambda: movie.info(language=lang))  # 获取电影详情
-        credits_task = self._fetch(lambda: movie.credits(language=lang))  # 获取电影演员信息
+        details_task = self._fetch(lambda: movie.info())  # 获取电影详情
+        credits_task = self._fetch(lambda: movie.credits())  # 获取电影演员信息
         images_task = self._fetch(lambda: movie.images())  # 获取电影图片
         videos_task = self._fetch(lambda: movie.videos())  # 获取电影视频
         translations_task = self._fetch(lambda: movie.translations())  # 获取电影翻译
