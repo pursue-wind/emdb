@@ -1,7 +1,9 @@
 import base64
 import contextvars
 import json
+import logging
 import re
+import traceback
 
 from objtyping import to_primitive
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -17,10 +19,32 @@ class BaseHandler(RequestHandler):
     def initialize(self, session_factory):
         self.session_factory = session_factory
 
-    async def prepare(self):
+    def write(self, chunk):
+        # 捕获write中的异常
+        try:
+            super().write(chunk)
+        except Exception as e:
+            traceback.print_exc()
+            self.send_error(500, reason=str(e))
+
+    def on_finish(self):
+        # 在完成请求时进行清理
+        try:
+            super().on_finish()
+        except Exception as e:
+            traceback.print_exc()
+            logging.error(f"Error in on_finish: {e}")
+
+    def prepare(self):
         # 从请求参数中获取 `language` 参数并赋值给处理器实例
         self.language = self.get_argument('lang', 'en')
         language_var.set(self.language)
+        # 捕获非HTTPError异常
+        try:
+            super().prepare()
+        except Exception as e:
+            traceback.print_exc()
+            self.send_error(500, reason=str(e))
 
     def set_default_headers(self):
         origin_url = self.request.headers.get('Origin')
@@ -97,3 +121,18 @@ class BaseHandler(RequestHandler):
     @staticmethod
     def to_primitive(sqlalchemy_obj):
         return to_primitive(sqlalchemy_obj)
+
+    def write_error(self, status_code, **kwargs):
+        # 自定义错误响应
+        error_response = {
+            "error": {
+                "code": status_code,
+                "message": self._reason,
+            }
+        }
+
+        if self.settings.get("debug") and "exc_info" in kwargs:
+            import traceback
+            error_response["error"]["traceback"] = traceback.format_exception(*kwargs["exc_info"])
+
+        self.finish(error_response)

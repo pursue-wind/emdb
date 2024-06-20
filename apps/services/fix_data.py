@@ -70,7 +70,7 @@ class DataService(PeopleService):
             await self.session.commit()
             print(batch)
             for movie_id in batch:
-                language_var.set("zh")
+                language_var.set('en')
                 try:
                     res = await self.movies_service.fetch_and_store_movie(movie_id)
                 except Exception as e:
@@ -94,7 +94,7 @@ class DataService(PeopleService):
             await self.session.commit()
             print(batch)
             for movie_id in batch:
-                language_var.set("zh")
+                language_var.set('en')
                 try:
                     res = await self.tv_service.fetch_and_store_tv(movie_id)
                 except Exception as e:
