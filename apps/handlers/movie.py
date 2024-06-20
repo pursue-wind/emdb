@@ -206,11 +206,6 @@ class MovieVideosHandler(BaseHandler):
             res = self.to_primitive(r)
             self.success({"release_date": res})
 
-
-def adapt_emmai(obj):
-    setattr(obj, 'tmdb_id', getattr(obj, "id"))
-    return obj
-
 class SearchCompanyMovies(BaseHandler):
     @auth
     async def post(self):
@@ -254,14 +249,13 @@ class SearchCompanyMovies(BaseHandler):
 
             movie_list = result.unique().scalars().all()
 
-            movie_list_trans = list(map(lambda x: adapt_emmai(x), movie_list))
 
             # 返回结果
             self.success(dict(
                 page_num=page_num,
                 page_size=page_size,
                 total=total,
-                movies=self.to_primitive(movie_list_trans)
+                movies=self.to_primitive(movie_list)
             ))
 
 

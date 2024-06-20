@@ -417,6 +417,7 @@ class TMDBTVVideo(TMDBVideo):
 
 @event.listens_for(TMDBMovie, 'load')
 def load_movie_translation(target, context):
+    target.tmdb_id = target.id
     if target.backdrop_path:
         target.backdrop_path = IMAGE_BASE_URL + target.backdrop_path
     if target.poster_path:
@@ -461,7 +462,7 @@ class TMDBPeople(Base):
 def load_people(target, context):
     if target.profile_path:
         target.profile_path = IMAGE_BASE_URL + target.profile_path
-
+    target.tmdb_id = target.id
 
 class TMDBTV(BaseMedia):
     __tablename__ = 'tmdb_tv'
@@ -506,6 +507,7 @@ def load_tv_translation(target, context):
         target.backdrop_path = IMAGE_BASE_URL + target.backdrop_path
     if target.poster_path:
         target.poster_path = IMAGE_BASE_URL + target.poster_path
+    target.tmdb_id = target.id
     load_translation_by_iso_639_1(
         target=target,
         context=context,
