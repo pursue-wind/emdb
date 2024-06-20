@@ -58,9 +58,9 @@ class TVService(PeopleService):
             # 翻译
             await self._process_tv_translations(translations)
             # 图片
-            await self._process_images(images, TMDBTVImage.build)
+            await self._process_images(images, TMDBTVImage)
             # 视频
-            await self._process_videos(videos, TMDBTVVideo.build)
+            await self._process_videos(videos, TMDBTVVideo)
             # 处理每一季和集的信息
             if 'seasons' in details:
                 for season_data in details['seasons']:
@@ -141,29 +141,28 @@ class TVService(PeopleService):
     async def _process_season_casts(self, tv_season, casts):
         people_ids = list(map(lambda c: c['id'], casts))
         await self.update_or_create_peoples(people_ids)
-        for cast_data in casts:
-            cast = TMDBTVSeasonCast(
-                tv_season_id=tv_season.id,
-                people_id=cast_data['id'],
-                character=cast_data.get('character'),
-                order=cast_data.get('order'),
-                credit_id=cast_data.get('credit_id'),
-                cast_id=cast_data.get('cast_id')
-            )
-            self.session.add(cast)
+
+        casts_add = list(map(lambda cast_data: {
+            "tv_season_id": tv_season.id,
+            "people_id": cast_data['id'],
+            "character": cast_data.get('character'),
+            "order": cast_data.get('order'),
+            "credit_id": cast_data.get('credit_id'),
+        }, casts))
+        await self._batch_insert(TMDBTVSeasonCast, casts_add)
 
     async def _process_season_crews(self, tv, crews):
         people_ids = list(map(lambda c: c['id'], crews))
         await self.update_or_create_peoples(people_ids)
-        for crew_data in crews:
-            crew = TMDBTVSeasonCrew(
-                tv_season_id=tv.id,
-                people_id=crew_data['id'],
-                department=crew_data.get('department'),
-                job=crew_data.get('job'),
-                credit_id=crew_data.get('credit_id')
-            )
-            self.session.add(crew)
+
+        crews_add = list(map(lambda crew_data: {
+            "tv_season_id": tv.id,
+            "people_id": crew_data['id'],
+            "department": crew_data.get('department'),
+            "job": crew_data.get('job'),
+            "credit_id": crew_data.get('credit_id')
+        }, crews))
+        await self._batch_insert(TMDBTVSeasonCrew, crews_add)
 
     async def _fetch_and_store_season(self, tv_id: int, season_number: int):
         season = tmdb.TV_Seasons(tv_id, season_number)
@@ -226,56 +225,61 @@ class TVService(PeopleService):
         await self._process_episode_crews(episode, credits.get('crew', []))
 
     async def _process_episode_casts(self, episode, casts):
-        for cast_data in casts:
-            people = await self.update_or_create_people(cast_data['id'])
-            cast = TMDBTVEpisodeCast(
-                tv_episodes_id=episode.id,
-                people_id=people.id,
-                character=cast_data.get('character'),
-                order=cast_data.get('order'),
-                credit_id=cast_data.get('credit_id'),
-                cast_id=cast_data.get('cast_id')
-            )
-            self.session.add(cast)
+        people_ids = list(map(lambda c: c['id'], casts))
+        await self.update_or_create_peoples(people_ids)
+
+        casts_add = list(map(lambda cast_data: {
+            "tv_episodes_id": episode.id,
+            "people_id": cast_data.get('id'),
+            "character": cast_data.get('character'),
+            "order": cast_data.get('order'),
+            "credit_id": cast_data.get('credit_id'),
+        }, casts))
+
+        await self._batch_insert(TMDBTVEpisodeCast, casts_add)
 
     async def _process_episode_crews(self, episode, crews):
-        for crew_data in crews:
-            people = await self.update_or_create_people(crew_data['id'])
-            crew = TMDBTVEpisodeCrew(
-                tv_episode_id=episode.id,
-                people_id=people.id,
-                department=crew_data.get('department'),
-                job=crew_data.get('job'),
-                credit_id=crew_data.get('credit_id')
-            )
-            self.session.add(crew)
+        people_ids = list(map(lambda c: c['id'], crews))
+        await self.update_or_create_peoples(people_ids)
+        crews_add = list(map(lambda crew_data: {
+            "tv_episode_id": episode.id,
+            "people_id": crew_data.get('id'),
+            "department": crew_data.get('department'),
+            "job": crew_data.get('job'),
+            "credit_id": crew_data.get('credit_id')
+        }, crews))
+        await self._batch_insert(TMDBTVEpisodeCrew, crews_add)
 
     async def _process_tv_translations(self, translations):
         mid = translations['id']
-        for translation in translations.get('translations', []):
-            t = TMDBTVTranslation(
-                tv_id=mid,
-                iso_3166_1=translation['iso_3166_1'],
-                iso_639_1=translation['iso_639_1'],
-                lang_name=translation['name'],
-                english_name=translation['english_name'],
-                homepage=translation['data']['homepage'],
-                overview=translation['data']['overview'],
-                tagline=translation['data']['tagline'],
-                name=translation['data']['name'],
-            )
-            await self.session.merge(t)
+        t = [
+            {
+                "tv_id": mid,
+                "iso_3166_1": translation['iso_3166_1'],
+                "iso_639_1": translation['iso_639_1'],
+                "lang_name": translation['name'],
+                "english_name": translation['english_name'],
+                "homepage": translation['data']['homepage'],
+                "overview": translation['data']['overview'],
+                "tagline": translation['data']['tagline'],
+                "name": translation['data']['name'],
+            }
+            for translation in translations.get('translations', [])
+        ]
+        await self._batch_insert(TMDBTVTranslation, t)
 
     async def _process_episode_translations(self, translations):
         mid = translations['id']
-        for translation in translations.get('translations', []):
-            t = TMDBTVEpisodeTranslation(
-                tv_episode_id=mid,
-                iso_3166_1=translation['iso_3166_1'],
-                iso_639_1=translation['iso_639_1'],
-                lang_name=translation['name'],
-                english_name=translation['english_name'],
-                overview=translation['data']['overview'],
-                name=translation['data']['name'],
-            )
-            await self.session.merge(t)
+        t = [
+            {
+                "tv_episode_id": mid,
+                "iso_3166_1": translation['iso_3166_1'],
+                "iso_639_1": translation['iso_639_1'],
+                "lang_name": translation['name'],
+                "english_name": translation['english_name'],
+                "overview": translation['data']['overview'],
+                "name": translation['data']['name'],
+            }
+            for translation in translations.get('translations', [])
+        ]
+        await self._batch_insert(TMDBTVEpisodeTranslation, t)

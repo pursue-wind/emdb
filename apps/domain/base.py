@@ -62,7 +62,6 @@ class TMDBCast(Base):
     order = Column(Integer, nullable=True, comment='排序', primary_key=True)
     character = Column(String, nullable=True, comment='角色')
     credit_id = Column(String, nullable=True, comment='信用ID')
-    cast_id = Column(Integer, nullable=True, comment='演员ID', primary_key=True)
 
 
 class TMDBCrew(Base):
