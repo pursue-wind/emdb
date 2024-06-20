@@ -369,7 +369,10 @@ class TMDBMovieImage(TMDBImage):
         img.movie_id = movie_id
         img.image_type = image_type
         return img
-
+@event.listens_for(TMDBMovieImage, 'load')
+def load_tv_translation(target, context):
+    if target.file_path:
+        target.file_path = IMAGE_BASE_URL + target.file_path
 
 class TMDBTVImage(TMDBImage):
     __tablename__ = 'tmdb_tv_images'
@@ -383,7 +386,10 @@ class TMDBTVImage(TMDBImage):
         img.tv_id = tv_id
         img.image_type = image_type
         return img
-
+@event.listens_for(TMDBTVImage, 'load')
+def load_tv_translation(target, context):
+    if target.file_path:
+        target.file_path = IMAGE_BASE_URL + target.file_path
 
 class TMDBMovieVideo(TMDBVideo):
     __tablename__ = 'tmdb_movie_videos'
