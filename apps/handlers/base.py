@@ -31,12 +31,16 @@ class BaseHandler(RequestHandler):
         return self.session_factory()
 
     def success(self, data=None):
+        self.set_header('Content-Type', 'application/json')
+        self.set_header('Access-Control-Allow-Origin', '*')
         if data:
             self.write({"code": 0, "msg": "success", "data": data})
             return
         self.write({"code": 0, "msg": "success"})
 
     def fail(self, status, msg):
+        self.set_header('Content-Type', 'application/json')
+        self.set_header('Access-Control-Allow-Origin', '*')
         self.write({"code": status, "msg": msg})
 
     def parse_form(self, *keys, required: list[str] = None, require_all: bool = False, valid_func=None):
