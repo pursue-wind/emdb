@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from sqlalchemy import ForeignKey, Table, ARRAY, Column, Integer, String, Boolean, Float, Text, event, and_, DateTime, \
     TIMESTAMP
 from sqlalchemy.dialects.postgresql import JSONB
@@ -407,12 +409,18 @@ class TMDBMovieVideo(TMDBVideo):
 
     @staticmethod
     def build(mid, d: dict):
+        d['published_at'] = datetime.fromisoformat(d['published_at'].replace('Z', '+00:00'))
         o = TMDBMovieVideo(**d)
         o.movie_id = mid
         o.tmdb_video_id = o.id
         o.id = None
         return o
-
+@event.listens_for(TMDBMovieVideo, 'load')
+def load_video(target, context):
+    # 兼容emmai之前的接口
+    target.tmdb_id = target.tmdb_video_id
+    if target.site == "YouTube":
+        target.url = "https://www.youtube.com/watch?v="+target.key
 
 class TMDBTVVideo(TMDBVideo):
     __tablename__ = 'tmdb_tv_videos'
@@ -421,13 +429,19 @@ class TMDBTVVideo(TMDBVideo):
     tv = relationship('TMDBTV', back_populates='videos')
 
     @staticmethod
-    def build(tv_id, d: dict):
+    def build(mid, d: dict):
+        d['published_at'] = datetime.fromisoformat(d['published_at'].replace('Z', '+00:00'))
         o = TMDBTVVideo(**d)
-        o.tv_id = tv_id
+        o.movie_id = mid
         o.tmdb_video_id = o.id
         o.id = None
         return o
-
+@event.listens_for(TMDBTVVideo, 'load')
+def load_tv_video(target, context):
+    # 兼容emmai之前的接口
+    target.tmdb_id = target.tmdb_video_id
+    if target.site == "YouTube":
+        target.url = "https://www.youtube.com/watch?v="+target.key
 
 @event.listens_for(TMDBMovie, 'load')
 def load_movie_translation(target, context):

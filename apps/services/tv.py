@@ -47,10 +47,10 @@ class TVService(PeopleService):
     async def fetch_and_store_tv(self, tv_series_id: int):
         tv = tmdb.TV(tv_series_id)
         lang = self._language()
-        details = await self._fetch(lambda: tv.info(language=lang))
+        details = await self._fetch(lambda: tv.info())
         translations = await self._fetch(lambda: tv.translations())
-        images = await self._fetch(lambda: tv.images(language=lang))
-        videos = await self._fetch(lambda: tv.videos(language=lang))
+        images = await self._fetch(lambda: tv.images())
+        videos = await self._fetch(lambda: tv.videos())
         # credits = await self._fetch(lambda: tv.credits(language=self._language()))
         await self._store_tv(details)
         # 翻译

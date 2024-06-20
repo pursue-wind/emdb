@@ -22,17 +22,24 @@ class BaseHandler(RequestHandler):
         self.language = self.get_argument('lang', 'en')
         language_var.set(self.language)
 
-    async def options(self, *_args, **_kwargs):
-        self.set_header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE')
-        self.set_header('Access-Control-Allow-Headers', 'Content-Type, authorization')
-        self.success()
+    def set_default_headers(self):
+        origin_url = self.request.headers.get('Origin')
+        if origin_url:
+            self.set_header("Access-Control-Allow-Origin", origin_url)
+        self.set_header("Access-Control-Allow-Credentials", "true")
+        self.set_header("Access-Control-Allow-Headers", "*")
+        self.set_header('Access-Control-Allow-Methods', '*')
+        self.set_header("Access-Control-Max-Age", 1000)
+        self.set_header("Content-type", "application/json")
+
+    async def options(self):
+        self.set_status(200)
+        await self.finish()
 
     async def get_session(self) -> AsyncSession:
         return self.session_factory()
 
     def success(self, data=None):
-        self.set_header('Content-Type', 'application/json')
-        self.set_header('Access-Control-Allow-Origin', '*')
         if data:
             self.write({"code": 0, "msg": "success", "data": data})
             return

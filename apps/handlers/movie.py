@@ -1,3 +1,4 @@
+import logging
 from operator import or_
 
 from sqlalchemy import select, func
@@ -116,11 +117,11 @@ class MovieImagesHandler(BaseHandler):
 
             def transform_image_type(img: TMDBMovieImage):
                 if img.image_type == TMDBImageTypeEnum.backdrop:
-                    img.type = 1
-                elif img.image_type == TMDBImageTypeEnum.logo:
-                    img.type = 2
-                elif img.image_type == TMDBImageTypeEnum.poster:
                     img.type = 3
+                elif img.image_type == TMDBImageTypeEnum.logo:
+                    img.type = 1
+                elif img.image_type == TMDBImageTypeEnum.poster:
+                    img.type = 2
                 return img
 
             r_trans = list(map(lambda x: transform_image_type(x), r))
@@ -154,12 +155,15 @@ class MovieAlternativeTitlesHandler(BaseHandler):
 
 
 def flatten(target, people):
-    attributes = list(map(lambda c: c.name, people.__table__.columns))
+    if people:
+        attributes = list(map(lambda c: c.name, people.__table__.columns))
 
-    for attr in attributes:
-        setattr(target, attr, getattr(people, attr))
-    target.people = None
-    target.sex = target.gender
+        for attr in attributes:
+            if attr != "id":
+                setattr(target, attr, getattr(people, attr))
+        target.sex = target.gender
+    else:
+        logging.warning('No people found')
     return target
 
 
@@ -167,17 +171,21 @@ class MovieCreditsHandler(BaseHandler):
     @auth
     async def get(self):
         async with await self.get_session() as session:
-            movie_id = self.parse_form('movie_id')
-            result = await session.execute(select(TMDBMovieCast).options(joinedload(TMDBMovieCast.people)).where(
-                TMDBMovieCast.movie_id == int(movie_id)))
-            cast = result.scalars().all()
-            cast_f = list(map(lambda x: flatten(x, x.people), cast))
+            async with session.begin():
 
-            result2 = await session.execute(select(TMDBMovieCrew).options(joinedload(TMDBMovieCrew.people)).where(
-                TMDBMovieCrew.movie_id == int(movie_id)))
-            crew = result2.scalars().all()
-            crew_f = list(map(lambda x: flatten(x, x.people), crew))
-            self.success({"cast": self.to_primitive(cast_f), "crew": self.to_primitive(crew_f)})
+                movie_id = self.parse_form('movie_id')
+                with session.no_autoflush:
+                    result = await session.execute(select(TMDBMovieCast).options(joinedload(TMDBMovieCast.people))
+                                                   .where(TMDBMovieCast.movie_id == int(movie_id)))
+                    cast = result.scalars().all()
+                    cast_f = list(map(lambda x: flatten(x, x.people), cast))
+
+                    result2 = await session.execute(select(TMDBMovieCrew).options(joinedload(TMDBMovieCrew.people))
+                                                    .where(TMDBMovieCrew.movie_id == int(movie_id)))
+                    crew = result2.scalars().all()
+                    crew_f = list(map(lambda x: flatten(x, x.people), crew))
+                    res = {"credits": {"cast": self.to_primitive(cast_f), "crew": self.to_primitive(crew_f)}}
+                    self.success(res)
 
 
 class MovieReleaseDatesHandler(BaseHandler):
@@ -203,8 +211,7 @@ class MovieVideosHandler(BaseHandler):
             r = result.scalars().all()
             res = self.to_primitive(r)
             self.success({"videos": res})
-            res = self.to_primitive(r)
-            self.success({"release_date": res})
+
 
 class SearchCompanyMovies(BaseHandler):
     @auth
@@ -248,7 +255,6 @@ class SearchCompanyMovies(BaseHandler):
             result = await session.execute(paginated_query)
 
             movie_list = result.unique().scalars().all()
-
 
             # 返回结果
             self.success(dict(

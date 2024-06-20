@@ -48,11 +48,11 @@ class MovieService(PeopleService):
         # 并行调用多个异步方法
         details_task = self._fetch(lambda: movie.info(language=lang))  # 获取电影详情
         credits_task = self._fetch(lambda: movie.credits(language=lang))  # 获取电影演员信息
-        images_task = self._fetch(lambda: movie.images(language=lang))  # 获取电影图片
-        videos_task = self._fetch(lambda: movie.videos(language=lang))  # 获取电影视频
+        images_task = self._fetch(lambda: movie.images())  # 获取电影图片
+        videos_task = self._fetch(lambda: movie.videos())  # 获取电影视频
         translations_task = self._fetch(lambda: movie.translations())  # 获取电影翻译
-        release_dates_task = self._fetch(lambda: movie.release_dates(language=lang))  # 获取电影发行日期
-        alternative_titles_task = self._fetch(lambda: movie.alternative_titles(language=lang))  # 获取电影替代标题
+        release_dates_task = self._fetch(lambda: movie.release_dates())  # 获取电影发行日期
+        alternative_titles_task = self._fetch(lambda: movie.alternative_titles())  # 获取电影替代标题
 
         # 等待所有任务完成并获取结果
         details, credits, images, videos, translations, release_dates, alternative_titles = await asyncio.gather(

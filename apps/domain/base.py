@@ -56,12 +56,10 @@ class BaseMedia(Base):
     vote_count = Column(Integer, nullable=False, comment='评分人数')
 
 
-
-
 class TMDBCast(Base):
     __abstract__ = True
     id = Column(Integer, primary_key=True, autoincrement=True)
-    people_id = Column(Integer, ForeignKey('tmdb_people.id'))
+    people_id = Column(Integer, ForeignKey('tmdb_people.id'), nullable=False)
     character = Column(String, nullable=True, comment='角色')
     order = Column(Integer, nullable=True, comment='排序')
     credit_id = Column(String, nullable=True, comment='信用ID')
@@ -72,7 +70,7 @@ class TMDBCrew(Base):
     __abstract__ = True
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    people_id = Column(Integer, ForeignKey('tmdb_people.id'))
+    people_id = Column(Integer, ForeignKey('tmdb_people.id'), nullable=False)
     department = Column(String, nullable=True, comment='部门')
     job = Column(String, nullable=True, comment='职务')
     credit_id = Column(String, nullable=True, comment='信用ID')
@@ -109,5 +107,5 @@ class TMDBVideo(Base):
     size = Column(Integer, nullable=False)
     type = Column(String, nullable=False)
     official = Column(Boolean, nullable=False)
-    published_at = Column(String, nullable=False)
+    published_at = Column(TIMESTAMP(timezone=True), nullable=False)
     tmdb_video_id = Column(String(255), nullable=False)  # Renamed to avoid conflict with PK
