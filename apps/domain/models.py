@@ -369,10 +369,14 @@ class TMDBMovieImage(TMDBImage):
         img.movie_id = movie_id
         img.image_type = image_type
         return img
+
+
 @event.listens_for(TMDBMovieImage, 'load')
-def load_tv_translation(target, context):
+def load_movie_img(target, context):
+    # 兼容emmai之前的接口
     if target.file_path:
-        target.file_path = IMAGE_BASE_URL + target.file_path
+        target.url = IMAGE_BASE_URL + target.file_path
+
 
 class TMDBTVImage(TMDBImage):
     __tablename__ = 'tmdb_tv_images'
@@ -386,10 +390,14 @@ class TMDBTVImage(TMDBImage):
         img.tv_id = tv_id
         img.image_type = image_type
         return img
+
+
 @event.listens_for(TMDBTVImage, 'load')
-def load_tv_translation(target, context):
+def load_tv_img(target, context):
+    # 兼容emmai之前的接口
     if target.file_path:
-        target.file_path = IMAGE_BASE_URL + target.file_path
+        target.url = IMAGE_BASE_URL + target.file_path
+
 
 class TMDBMovieVideo(TMDBVideo):
     __tablename__ = 'tmdb_movie_videos'
@@ -469,6 +477,7 @@ def load_people(target, context):
     if target.profile_path:
         target.profile_path = IMAGE_BASE_URL + target.profile_path
     target.tmdb_id = target.id
+
 
 class TMDBTV(BaseMedia):
     __tablename__ = 'tmdb_tv'
