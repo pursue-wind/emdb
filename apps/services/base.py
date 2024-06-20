@@ -5,6 +5,7 @@ from datetime import datetime
 import requests
 import tmdbsimple as tmdb
 from objtyping import to_primitive
+from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 import tornado.ioloop
 
@@ -52,21 +53,24 @@ class BaseService:
 
         return instance
 
-    async def _process_images(self, images, build_func):
+    async def _process_images(self, images, obj):
         mid = images['id']
         backdrops = images['backdrops']
         logos = images['logos']
         posters = images['posters']
-        b = list(map(lambda d: build_func(mid, TMDBImageTypeEnum.backdrop, d), backdrops))
-        l = list(map(lambda d: build_func(mid, TMDBImageTypeEnum.logo, d), logos))
-        p = list(map(lambda d: build_func(mid, TMDBImageTypeEnum.poster, d), posters))
+        b = list(map(lambda d: obj.build(mid, TMDBImageTypeEnum.backdrop, d), backdrops))
+        l = list(map(lambda d: obj.build(mid, TMDBImageTypeEnum.logo, d), logos))
+        p = list(map(lambda d: obj.build(mid, TMDBImageTypeEnum.poster, d), posters))
         all = b + l + p
-        self.session.add_all(all)
-        await self.session.flush()
+        await self._batch_insert(obj, all)
 
-    async def _process_videos(self, videos, build_func):
+    async def _process_videos(self, videos, obj):
         mid = videos.get('id')
         v = videos.get('results', [])
-        b = list(map(lambda d: build_func(mid, d), v))
-        self.session.add_all(b)
-        await self.session.flush()
+        b = list(map(lambda d: obj.build(mid, d), v))
+        await self._batch_insert(obj, b)
+
+    async def _batch_insert(self, obj, dict_list):
+        stmt = insert(obj).values(dict_list)
+        stmt = stmt.on_conflict_do_nothing()
+        await self.session.execute(stmt)

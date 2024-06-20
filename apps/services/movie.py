@@ -3,6 +3,7 @@ from datetime import datetime
 
 import tmdbsimple as tmdb
 from sqlalchemy import select
+from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import joinedload
 
@@ -72,11 +73,9 @@ class MovieService(PeopleService):
             # 演员信息
             await self._store_movie_credits(credits)
             # 图片
-            await self._process_images(images, TMDBMovieImage.build)
-            # 图片
-            await self._process_images(images, TMDBMovieImage.build)
+            await self._process_images(images, TMDBMovieImage)
             # 视频
-            await self._process_videos(videos, TMDBMovieVideo.build)
+            await self._process_videos(videos, TMDBMovieVideo)
             # 发行日期
             await self._process_release_dates(release_dates)
             # 替代标题
@@ -147,81 +146,81 @@ class MovieService(PeopleService):
     async def _process_casts(self, movie_id, casts):
         people_ids = list(map(lambda c: c['id'], casts))
         await self.update_or_create_peoples(people_ids)
-        casts_add = list(map(lambda cast_data: TMDBMovieCast(
-            movie_id=movie_id,
-            people_id=cast_data['id'],
-            character=cast_data.get('character'),
-            order=cast_data.get('order'),
-            credit_id=cast_data.get('credit_id'),
-            cast_id=cast_data.get('cast_id')
-        ), casts))
+        casts_add = list(map(lambda cast_data: {
+            "movie_id": movie_id,
+            "people_id": cast_data['id'],
+            "character": cast_data.get('character'),
+            "order": cast_data.get('order'),
+            "credit_id": cast_data.get('credit_id'),
+            "cast_id": cast_data.get('cast_id')
+        }, casts))
 
-        self.session.add_all(casts_add)
+        await self._batch_insert(TMDBMovieCast, casts_add)
 
     async def _process_crews(self, movie_id, crews):
         people_ids = list(map(lambda c: c['id'], crews))
         await self.update_or_create_peoples(people_ids)
 
-        crews_add = list(map(lambda crew_data: TMDBMovieCrew(
-            movie_id=movie_id,
-            people_id=crew_data['id'],
-            department=crew_data.get('department'),
-            job=crew_data.get('job'),
-            credit_id=crew_data.get('credit_id')
-        ), crews))
-        self.session.add_all(crews_add)
+        crews_add = list(map(lambda crew_data: {
+            "movie_id": movie_id,
+            "people_id": crew_data['id'],
+            "department": crew_data.get('department'),
+            "job": crew_data.get('job'),
+            "credit_id": crew_data.get('credit_id')
+        }, crews))
+        await self._batch_insert(TMDBMovieCrew, crews_add)
 
     async def _process_translations(self, translations):
         mid = translations['id']
         translations_flat = [
-            TMDBMovieTranslation(
-                movie_id=mid,
-                iso_3166_1=translation['iso_3166_1'],
-                iso_639_1=translation['iso_639_1'],
-                name=translation['name'],
-                english_name=translation['english_name'],
-                homepage=translation['data']['homepage'],
-                overview=translation['data']['overview'],
-                runtime=translation['data']['runtime'],
-                tagline=translation['data']['tagline'],
-                title=translation['data']['title'],
-            )
+            {
+                "movie_id": mid,
+                "iso_3166_1": translation['iso_3166_1'],
+                "iso_639_1": translation['iso_639_1'],
+                "name": translation['name'],
+                "english_name": translation['english_name'],
+                "homepage": translation['data']['homepage'],
+                "overview": translation['data']['overview'],
+                "runtime": translation['data']['runtime'],
+                "tagline": translation['data']['tagline'],
+                "title": translation['data']['title'],
+            }
             for translation in translations.get('translations', [])
         ]
-        self.session.add_all(translations_flat)
+
+        await self._batch_insert(TMDBMovieTranslation, translations_flat)
 
     async def _process_release_dates(self, videos):
         mid = videos['id']
         release_dates_flat = [
-            TMDBMovieReleaseDate(
-                movie_id=mid,
-                iso_3166_1=country['iso_3166_1'],
-                certification=date['certification'],
-                descriptors=date['descriptors'],
-                iso_639_1=date['iso_639_1'],
-                note=date['note'],
-                release_date=datetime.fromisoformat(date['release_date'].replace('Z', '+00:00')),
-                type=date['type']
-            )
+            {
+                "movie_id": mid,
+                "iso_3166_1": country['iso_3166_1'],
+                "certification": date['certification'],
+                "descriptors": date['descriptors'],
+                "iso_639_1": date['iso_639_1'],
+                "note": date['note'],
+                "release_date": datetime.fromisoformat(date['release_date'].replace('Z', '+00:00')),
+                "type": date['type']
+            }
             for country in videos.get('results', [])
             for date in country.get('release_dates', [])
         ]
-        self.session.add_all(release_dates_flat)
-        await self.session.flush()
+
+        await self._batch_insert(TMDBMovieReleaseDate, release_dates_flat)
 
     async def _process_alternative_titles(self, ts):
         mid = ts['id']
         ts_add = [
-            TMDBMovieAlternativeTitle(
-                movie_id=mid,
-                iso_3166_1=t['iso_3166_1'],
-                title=t['title'],
-                type=t['type']
-            )
+            {
+                "movie_id": mid,
+                "iso_3166_1": t['iso_3166_1'],
+                "title": t['title'],
+                "type": t['type']
+            }
             for t in ts.get('titles', [])
         ]
-        self.session.add_all(ts_add)
-        await self.session.flush()
+        await self._batch_insert(TMDBMovieAlternativeTitle, ts_add)
 
     @staticmethod
     def _build_movie(details):

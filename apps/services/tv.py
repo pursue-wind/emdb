@@ -44,7 +44,7 @@ class TVService(PeopleService):
 
         return self.to_primitive(r)
 
-    async def fetch_and_store_tv(self, tv_series_id: int):
+    async def fetch_and_store_tv(self, tv_series_id: int, tv_season_id: int = None):
         tv = tmdb.TV(tv_series_id)
         lang = self._language()
         details = await self._fetch(lambda: tv.info())
@@ -52,24 +52,26 @@ class TVService(PeopleService):
         images = await self._fetch(lambda: tv.images())
         videos = await self._fetch(lambda: tv.videos())
         # credits = await self._fetch(lambda: tv.credits(language=self._language()))
-        await self._store_tv(details)
-        # 翻译
-        await self._process_tv_translations(translations)
-        # 图片
-        await self._process_images(images, TMDBTVImage.build)
-        # 视频
-        await self._process_videos(videos, TMDBTVVideo.build)
-        # 处理每一季和集的信息
-        if 'seasons' in details:
-            for season_data in details['seasons']:
-                await self._fetch_and_store_season(details['id'], season_data['season_number'])
+
+        async with self.session.begin():
+            await self._store_tv(details)
+            # 翻译
+            await self._process_tv_translations(translations)
+            # 图片
+            await self._process_images(images, TMDBTVImage.build)
+            # 视频
+            await self._process_videos(videos, TMDBTVVideo.build)
+            # 处理每一季和集的信息
+            if 'seasons' in details:
+                for season_data in details['seasons']:
+                    if season_data['id'] == tv_season_id or tv_season_id is None:
+                        await self._fetch_and_store_season(details['id'], season_data['season_number'])
 
     async def _store_tv(self, details, series_credits=None):
-        async with self.session.begin():
-            tv = self._build_tv(details)
-            await self._associate_entities(tv, details)
-            await self.session.merge(tv)
-            await self.session.flush()
+        tv = self._build_tv(details)
+        await self._associate_entities(tv, details)
+        await self.session.merge(tv)
+        await self.session.flush()
 
     def _build_tv(self, details):
         return TMDBTV(
@@ -168,13 +170,11 @@ class TVService(PeopleService):
         lang = self._language()
         season_details = await self._fetch(lambda: season.info(language=lang))
         season_credits = await self._fetch(lambda: season.credits(language=lang))
-        async with self.session.begin():
-            tv_season, tv_season_translation = self._build_tv_season_and_trans(tv_id, season_details)
-            await self.session.merge(tv_season)
-            await self.session.merge(tv_season_translation)
-            await self.session.flush()
-            await self._process_season_episodes(tv_id, tv_season, season_details.get('episodes', []))
-            await self._process_season_credits(tv_season, season_credits)
+        tv_season, tv_season_translation = self._build_tv_season_and_trans(tv_id, season_details)
+        await self.session.merge(tv_season)
+        await self.session.merge(tv_season_translation)
+        await self._process_season_episodes(tv_id, tv_season, season_details.get('episodes', []))
+        await self._process_season_credits(tv_season, season_credits)
 
     def _build_tv_season_and_trans(self, tv_id, season_details):
         return TMDBTVSeason(
@@ -251,37 +251,31 @@ class TVService(PeopleService):
             self.session.add(crew)
 
     async def _process_tv_translations(self, translations):
-        async with self.session.begin():
-            mid = translations['id']
-            translations_flat = [
-                TMDBTVTranslation(
-                    tv_id=mid,
-                    iso_3166_1=translation['iso_3166_1'],
-                    iso_639_1=translation['iso_639_1'],
-                    lang_name=translation['name'],
-                    english_name=translation['english_name'],
-                    homepage=translation['data']['homepage'],
-                    overview=translation['data']['overview'],
-                    tagline=translation['data']['tagline'],
-                    name=translation['data']['name'],
-                )
-                for translation in translations.get('translations', [])
-            ]
-            self.session.add_all(translations_flat)
+        mid = translations['id']
+        for translation in translations.get('translations', []):
+            t = TMDBTVTranslation(
+                tv_id=mid,
+                iso_3166_1=translation['iso_3166_1'],
+                iso_639_1=translation['iso_639_1'],
+                lang_name=translation['name'],
+                english_name=translation['english_name'],
+                homepage=translation['data']['homepage'],
+                overview=translation['data']['overview'],
+                tagline=translation['data']['tagline'],
+                name=translation['data']['name'],
+            )
+            await self.session.merge(t)
 
     async def _process_episode_translations(self, translations):
-        async with self.session.begin():
-            mid = translations['id']
-            translations_flat = [
-                TMDBTVEpisodeTranslation(
-                    tv_episode_id=mid,
-                    iso_3166_1=translation['iso_3166_1'],
-                    iso_639_1=translation['iso_639_1'],
-                    lang_name=translation['name'],
-                    english_name=translation['english_name'],
-                    overview=translation['data']['overview'],
-                    name=translation['data']['name'],
-                )
-                for translation in translations.get('translations', [])
-            ]
-            self.session.add_all(translations_flat)
+        mid = translations['id']
+        for translation in translations.get('translations', []):
+            t = TMDBTVEpisodeTranslation(
+                tv_episode_id=mid,
+                iso_3166_1=translation['iso_3166_1'],
+                iso_639_1=translation['iso_639_1'],
+                lang_name=translation['name'],
+                english_name=translation['english_name'],
+                overview=translation['data']['overview'],
+                name=translation['data']['name'],
+            )
+            await self.session.merge(t)

@@ -58,21 +58,19 @@ class BaseMedia(Base):
 
 class TMDBCast(Base):
     __abstract__ = True
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    people_id = Column(Integer, ForeignKey('tmdb_people.id'), nullable=False)
+    people_id = Column(Integer, ForeignKey('tmdb_people.id'), nullable=False, primary_key=True)
+    order = Column(Integer, nullable=True, comment='排序', primary_key=True)
     character = Column(String, nullable=True, comment='角色')
-    order = Column(Integer, nullable=True, comment='排序')
     credit_id = Column(String, nullable=True, comment='信用ID')
-    cast_id = Column(Integer, nullable=True, comment='演员ID')
+    cast_id = Column(Integer, nullable=True, comment='演员ID', primary_key=True)
 
 
 class TMDBCrew(Base):
     __abstract__ = True
 
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    people_id = Column(Integer, ForeignKey('tmdb_people.id'), nullable=False)
-    department = Column(String, nullable=True, comment='部门')
-    job = Column(String, nullable=True, comment='职务')
+    people_id = Column(Integer, ForeignKey('tmdb_people.id'), nullable=False, primary_key=True)
+    department = Column(String, nullable=True, comment='部门', primary_key=True)
+    job = Column(String, nullable=True, comment='职务', primary_key=True)
     credit_id = Column(String, nullable=True, comment='信用ID')
 
 
@@ -84,21 +82,19 @@ class TMDBImageTypeEnum(enum.Enum):
 
 class TMDBImage(Base):
     __abstract__ = True
-
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    file_path = Column(String(255), nullable=False)
+    iso_639_1 = Column(String(2), nullable=True)
+    file_path = Column(String(255), nullable=False, primary_key=True)
     image_type = Column(Enum(TMDBImageTypeEnum), nullable=False)
     aspect_ratio = Column(Float, nullable=True)
     height = Column(Integer, nullable=True)
     width = Column(Integer, nullable=True)
-    iso_639_1 = Column(String(2), nullable=True)
     vote_average = Column(Float, nullable=True)
     vote_count = Column(Integer, nullable=True)
 
 
 class TMDBVideo(Base):
     __abstract__ = True
-    id = Column(Integer, primary_key=True, autoincrement=True)
+    id = Column(String, primary_key=True)
     iso_639_1 = Column(String(2), nullable=False)
     iso_3166_1 = Column(String(2), nullable=False)
     name = Column(String(255), nullable=False)

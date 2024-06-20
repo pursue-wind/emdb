@@ -249,10 +249,9 @@ class TMDBBelongsToCollection(Base):
 class TMDBMovieTranslation(Base):
     __tablename__ = 'tmdb_movie_translations'
 
-    id = Column(Integer, primary_key=True, autoincrement=True, comment='翻译记录的唯一标识')
-    movie_id = Column(Integer, ForeignKey('tmdb_movies.id'), nullable=False, comment='关联电影的ID')
-    iso_3166_1 = Column(String(2), nullable=False, comment='国家的ISO 3166-1代码')
-    iso_639_1 = Column(String(2), nullable=False, comment='语言的ISO 639-1代码')
+    movie_id = Column(Integer, ForeignKey('tmdb_movies.id'), nullable=False, comment='关联电影的ID', primary_key=True)
+    iso_3166_1 = Column(String(2), nullable=False, comment='国家的ISO 3166-1代码', primary_key=True)
+    iso_639_1 = Column(String(2), nullable=False, comment='语言的ISO 639-1代码', primary_key=True)
     name = Column(String, nullable=True, comment='语言的本地名称')
     english_name = Column(String, nullable=True, comment='语言的英语名称')
     homepage = Column(String, nullable=True, comment='翻译版本的主页URL')
@@ -266,9 +265,9 @@ class TMDBMovieTranslation(Base):
 
 class TMDBTVTranslation(Base):
     __tablename__ = 'tmdb_tv_translations'
-
-    iso_3166_1 = Column(String(2), nullable=False, comment='国家的ISO 3166-1代码')
-    iso_639_1 = Column(String(2), nullable=False, comment='语言的ISO 639-1代码')
+    tv_id = Column(Integer, ForeignKey('tmdb_tv.id'), primary_key=True)
+    iso_3166_1 = Column(String(2), nullable=False, comment='国家的ISO 3166-1代码', primary_key=True)
+    iso_639_1 = Column(String(2), nullable=False, comment='语言的ISO 639-1代码', primary_key=True)
     lang_name = Column(String, nullable=True, comment='语言的本地名称')
     english_name = Column(String, nullable=True, comment='语言的英语名称')
     homepage = Column(String, nullable=True, comment='翻译版本的主页URL')
@@ -276,7 +275,6 @@ class TMDBTVTranslation(Base):
     tagline = Column(String, nullable=True, comment='翻译版本的标语')
     name = Column(String, nullable=True, comment='翻译版本的标题')
     # 关系
-    tv_id = Column(Integer, ForeignKey('tmdb_tv.id'), primary_key=True)
     tv_show = relationship('TMDBTV', back_populates='translations')
 
 
@@ -333,12 +331,11 @@ class TMDBMovie(BaseMedia):
 class TMDBMovieReleaseDate(Base):
     __tablename__ = 'tmdb_movie_release_dates'
 
-    id = Column(Integer, primary_key=True, autoincrement=True, comment='发行日期记录的唯一标识')
-    movie_id = Column(Integer, ForeignKey('tmdb_movies.id'), nullable=False, comment='关联电影的ID')
-    iso_3166_1 = Column(String(2), nullable=False, comment='国家的ISO 3166-1代码')
+    movie_id = Column(Integer, ForeignKey('tmdb_movies.id'), nullable=False, comment='关联电影的ID', primary_key=True)
+    iso_3166_1 = Column(String(2), nullable=False, comment='国家的ISO 3166-1代码', primary_key=True)
     certification = Column(String, nullable=True, comment='电影在该国的分级认证')
     descriptors = Column(JSONB, nullable=True, comment='描述符，作为JSON数组存储')
-    iso_639_1 = Column(String(2), nullable=True, comment='语言的ISO 639-1代码')
+    iso_639_1 = Column(String(2), nullable=True, comment='语言的ISO 639-1代码', primary_key=True)
     note = Column(String, nullable=True, comment='有关发行的备注')
     release_date = Column(TIMESTAMP(timezone=True), nullable=False, comment='电影的发行日期和时间')
     type = Column(Integer, nullable=False, comment='发行类型的标识符')
@@ -349,9 +346,8 @@ class TMDBMovieReleaseDate(Base):
 class TMDBMovieAlternativeTitle(Base):
     __tablename__ = 'tmdb_movie_alternative_titles'
 
-    id = Column(Integer, primary_key=True, autoincrement=True, comment='替代标题记录的唯一标识')
-    movie_id = Column(Integer, ForeignKey('tmdb_movies.id'), nullable=False, comment='关联电影的ID')
-    iso_3166_1 = Column(String(2), nullable=False, comment='国家的ISO 3166-1代码')
+    movie_id = Column(Integer, ForeignKey('tmdb_movies.id'), nullable=False, comment='关联电影的ID', primary_key=True)
+    iso_3166_1 = Column(String(2), nullable=False, comment='国家的ISO 3166-1代码', primary_key=True)
     title = Column(String, nullable=False, comment='电影的替代标题')
     type = Column(String, nullable=True, comment='替代标题的类型')
 
@@ -367,10 +363,9 @@ class TMDBMovieImage(TMDBImage):
 
     @staticmethod
     def build(movie_id, image_type, d: dict):
-        img = TMDBMovieImage(**d)
-        img.movie_id = movie_id
-        img.image_type = image_type
-        return img
+        d['movie_id'] = movie_id
+        d['image_type'] = image_type
+        return d
 
 
 @event.listens_for(TMDBMovieImage, 'load')
@@ -387,11 +382,10 @@ class TMDBTVImage(TMDBImage):
     tv = relationship('TMDBTV', back_populates='images')
 
     @staticmethod
-    def build(tv_id, image_type, d: dict):
-        img = TMDBTVImage(**d)
-        img.tv_id = tv_id
-        img.image_type = image_type
-        return img
+    def build(movie_id, image_type, d: dict):
+        d['tv_id'] = movie_id
+        d['image_type'] = image_type
+        return d
 
 
 @event.listens_for(TMDBTVImage, 'load')
@@ -404,44 +398,46 @@ def load_tv_img(target, context):
 class TMDBMovieVideo(TMDBVideo):
     __tablename__ = 'tmdb_movie_videos'
 
-    movie_id = Column(Integer, ForeignKey('tmdb_movies.id'), nullable=False)
+    movie_id = Column(Integer, ForeignKey('tmdb_movies.id'), nullable=False, primary_key=True)
     movie = relationship('TMDBMovie', back_populates='videos')
 
     @staticmethod
     def build(mid, d: dict):
         d['published_at'] = datetime.fromisoformat(d['published_at'].replace('Z', '+00:00'))
-        o = TMDBMovieVideo(**d)
-        o.movie_id = mid
-        o.tmdb_video_id = o.id
-        o.id = None
-        return o
+        d['movie_id'] = mid
+        d['tmdb_video_id'] = d['id']
+        return d
+
+
 @event.listens_for(TMDBMovieVideo, 'load')
 def load_video(target, context):
     # 兼容emmai之前的接口
     target.tmdb_id = target.tmdb_video_id
     if target.site == "YouTube":
-        target.url = "https://www.youtube.com/watch?v="+target.key
+        target.url = "https://www.youtube.com/watch?v=" + target.key
+
 
 class TMDBTVVideo(TMDBVideo):
     __tablename__ = 'tmdb_tv_videos'
 
-    tv_id = Column(Integer, ForeignKey('tmdb_tv.id'), nullable=False)
+    tv_id = Column(Integer, ForeignKey('tmdb_tv.id'), nullable=False, primary_key=True)
     tv = relationship('TMDBTV', back_populates='videos')
 
     @staticmethod
     def build(mid, d: dict):
         d['published_at'] = datetime.fromisoformat(d['published_at'].replace('Z', '+00:00'))
-        o = TMDBTVVideo(**d)
-        o.movie_id = mid
-        o.tmdb_video_id = o.id
-        o.id = None
-        return o
+        d['tv_id'] = mid
+        d['tmdb_video_id'] = d['id']
+        return d
+
+
 @event.listens_for(TMDBTVVideo, 'load')
 def load_tv_video(target, context):
     # 兼容emmai之前的接口
     target.tmdb_id = target.tmdb_video_id
     if target.site == "YouTube":
-        target.url = "https://www.youtube.com/watch?v="+target.key
+        target.url = "https://www.youtube.com/watch?v=" + target.key
+
 
 @event.listens_for(TMDBMovie, 'load')
 def load_movie_translation(target, context):
@@ -600,15 +596,14 @@ class TMDBTVEpisode(Base):
 
 class TMDBTVEpisodeTranslation(Base):
     __tablename__ = 'tmdb_tv_episodes_translations'
-
-    iso_3166_1 = Column(String(2), nullable=False, comment='国家的ISO 3166-1代码')
-    iso_639_1 = Column(String(2), nullable=False, comment='语言的ISO 639-1代码')
+    tv_episode_id = Column(Integer, ForeignKey('tmdb_tv_episodes.id'), primary_key=True)
+    iso_3166_1 = Column(String(2), nullable=False, comment='国家的ISO 3166-1代码', primary_key=True)
+    iso_639_1 = Column(String(2), nullable=False, comment='语言的ISO 639-1代码', primary_key=True)
     lang_name = Column(String, nullable=True, comment='语言的本地名称')
     english_name = Column(String, nullable=True, comment='语言的英语名称')
     overview = Column(String, nullable=True, comment='翻译版本的概述')
     name = Column(String, nullable=True, comment='翻译版本的标题')
     # 关系
-    tv_episode_id = Column(Integer, ForeignKey('tmdb_tv_episodes.id'), primary_key=True)
     tv_episode = relationship('TMDBTVEpisode', back_populates='translations')
 
 
@@ -666,7 +661,7 @@ class TMDBGuestStar(Base):
 class TMDBMovieCrew(TMDBCrew):
     __tablename__ = 'tmdb_movie_crews'
     people = relationship('TMDBPeople', back_populates='movie_crew')
-    movie_id = Column(Integer, ForeignKey('tmdb_movies.id'))
+    movie_id = Column(Integer, ForeignKey('tmdb_movies.id'), primary_key=True)
     # 关系
     movie = relationship('TMDBMovie', back_populates='movie_crew')
 
@@ -674,7 +669,7 @@ class TMDBMovieCrew(TMDBCrew):
 class TMDBTVEpisodeCrew(TMDBCrew):
     __tablename__ = 'tmdb_tv_episode_crews'
     people = relationship('TMDBPeople', back_populates='tv_episode_crew')
-    tv_episode_id = Column(Integer, ForeignKey('tmdb_tv_episodes.id'), nullable=False)
+    tv_episode_id = Column(Integer, ForeignKey('tmdb_tv_episodes.id'), nullable=False, primary_key=True)
     # 关系
     tv_episode = relationship('TMDBTVEpisode', back_populates='tv_episode_crew')
 
@@ -682,7 +677,7 @@ class TMDBTVEpisodeCrew(TMDBCrew):
 class TMDBTVSeasonCrew(TMDBCrew):
     __tablename__ = 'tmdb_tv_season_crews'
     people = relationship('TMDBPeople', back_populates='tv_season_crew')
-    tv_season_id = Column(Integer, ForeignKey('tmdb_tv_seasons.id'), nullable=False)
+    tv_season_id = Column(Integer, ForeignKey('tmdb_tv_seasons.id'), nullable=False, primary_key=True)
     # 关系
     tv_season = relationship('TMDBTVSeason', back_populates='tv_season_crew')
 
@@ -691,7 +686,7 @@ class TMDBTVSeasonCrew(TMDBCrew):
 class TMDBMovieCast(TMDBCast):
     __tablename__ = 'tmdb_movie_cast'
 
-    movie_id = Column(Integer, ForeignKey('tmdb_movies.id'))
+    movie_id = Column(Integer, ForeignKey('tmdb_movies.id'), primary_key=True)
     # 关系
     movie = relationship('TMDBMovie', back_populates='movie_cast')
     people = relationship('TMDBPeople', back_populates='movie_cast')
@@ -700,7 +695,7 @@ class TMDBMovieCast(TMDBCast):
 class TMDBTVEpisodeCast(TMDBCast):
     __tablename__ = 'tmdb_tv_episodes_crew'
 
-    tv_episodes_id = Column(Integer, ForeignKey('tmdb_tv_episodes.id'))
+    tv_episodes_id = Column(Integer, ForeignKey('tmdb_tv_episodes.id'), primary_key=True)
     # 关系
     tv_episode = relationship('TMDBTVEpisode', back_populates='tv_episode_cast')
     people = relationship('TMDBPeople', back_populates='tv_episode_cast')
@@ -709,7 +704,7 @@ class TMDBTVEpisodeCast(TMDBCast):
 class TMDBTVSeasonCast(TMDBCast):
     __tablename__ = 'tmdb_tv_season_cast'
 
-    tv_season_id = Column(Integer, ForeignKey('tmdb_tv_seasons.id'))
+    tv_season_id = Column(Integer, ForeignKey('tmdb_tv_seasons.id'), primary_key=True)
     # 关系
     tv_season = relationship('TMDBTVSeason', back_populates='tv_season_cast')
     people = relationship('TMDBPeople', back_populates='tv_season_cast')

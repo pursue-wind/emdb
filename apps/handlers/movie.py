@@ -64,7 +64,7 @@ class Movie2Handler(BaseHandler):
                 r = await MovieService(session).get_movie(tmdb_id)
                 self.success(data=tmdb_id)
             else:
-                r = await TVService(session).fetch_and_store_tv(tmdb_id)
+                r = await TVService(session).fetch_and_store_tv(tmdb_id, tv_season_id)
                 self.success(data=tmdb_id)
 
 
@@ -172,7 +172,6 @@ class MovieCreditsHandler(BaseHandler):
     async def get(self):
         async with await self.get_session() as session:
             async with session.begin():
-
                 movie_id = self.parse_form('movie_id')
                 with session.no_autoflush:
                     result = await session.execute(select(TMDBMovieCast).options(joinedload(TMDBMovieCast.people))
