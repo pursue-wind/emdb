@@ -4,7 +4,7 @@ from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import object_session, relationship
 
 from apps.domain.base import TMDBCast, load_translation, BaseMedia, TMDBCrew, Base, TMDBImage, TMDBVideo, \
-    load_translation_by_iso_639_1
+    load_translation_by_iso_639_1, IMAGE_BASE_URL
 from apps.handlers.base import language_var
 
 # Many-to-Many relationship tables for TMDBMovie
@@ -261,6 +261,7 @@ class TMDBMovieTranslation(Base):
 
     movie = relationship("TMDBMovie", back_populates="translations")
 
+
 class TMDBTVTranslation(Base):
     __tablename__ = 'tmdb_tv_translations'
 
@@ -416,6 +417,10 @@ class TMDBTVVideo(TMDBVideo):
 
 @event.listens_for(TMDBMovie, 'load')
 def load_movie_translation(target, context):
+    if target.backdrop_path:
+        target.backdrop_path = IMAGE_BASE_URL + target.backdrop_path
+    if target.poster_path:
+        target.poster_path = IMAGE_BASE_URL + target.poster_path
     load_translation_by_iso_639_1(
         target=target,
         context=context,
@@ -450,6 +455,12 @@ class TMDBPeople(Base):
     tv_episode_cast = relationship('TMDBTVEpisodeCast', back_populates='people')
     tv_season_crew = relationship('TMDBTVSeasonCrew', back_populates='people')
     tv_season_cast = relationship('TMDBTVSeasonCast', back_populates='people')
+
+
+@event.listens_for(TMDBPeople, 'load')
+def load_people(target, context):
+    if target.profile_path:
+        target.profile_path = IMAGE_BASE_URL + target.profile_path
 
 
 class TMDBTV(BaseMedia):
@@ -491,6 +502,10 @@ class TMDBTV(BaseMedia):
 
 @event.listens_for(TMDBTV, 'load')
 def load_tv_translation(target, context):
+    if target.backdrop_path:
+        target.backdrop_path = IMAGE_BASE_URL + target.backdrop_path
+    if target.poster_path:
+        target.poster_path = IMAGE_BASE_URL + target.poster_path
     load_translation_by_iso_639_1(
         target=target,
         context=context,
@@ -520,6 +535,8 @@ class TMDBTVSeason(Base):
 
 @event.listens_for(TMDBTVSeason, 'load')
 def load_tv_season_translation(target, context):
+    if target.poster_path:
+        target.poster_path = IMAGE_BASE_URL + target.poster_path
     load_translation(
         target=target,
         context=context,
@@ -565,7 +582,7 @@ class TMDBTVEpisodeTranslation(Base):
 
 
 @event.listens_for(TMDBTVEpisode, 'load')
-def load_tv_season_translation(target, context):
+def load_tv_episode_translation(target, context):
     load_translation_by_iso_639_1(
         target=target,
         context=context,

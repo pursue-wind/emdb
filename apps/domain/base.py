@@ -1,11 +1,12 @@
 import enum
 
-from sqlalchemy import ForeignKey, ARRAY, Column, Integer, String, Boolean, Float, TIMESTAMP, text, Enum
+from sqlalchemy import ForeignKey, ARRAY, Column, Integer, String, Boolean, Float, TIMESTAMP, text, Enum, event
 from sqlalchemy.orm import object_session, declarative_base, relationship
 
 from apps.handlers.base import language_var
 
 Base0 = declarative_base()
+IMAGE_BASE_URL = "https://image.tmdb.org/t/p/original"
 
 
 class Base(Base0):
@@ -53,6 +54,8 @@ class BaseMedia(Base):
     poster_path = Column(String, nullable=True, comment='海报路径')
     vote_average = Column(Float, nullable=False, comment='平均评分')
     vote_count = Column(Integer, nullable=False, comment='评分人数')
+
+
 
 
 class TMDBCast(Base):
