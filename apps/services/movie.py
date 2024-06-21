@@ -152,7 +152,6 @@ class MovieService(PeopleService):
             "character": cast_data.get('character'),
             "order": cast_data.get('order'),
             "credit_id": cast_data.get('credit_id'),
-            "cast_id": cast_data.get('cast_id')
         }, casts))
 
         await self._batch_insert(TMDBMovieCast, casts_add)
