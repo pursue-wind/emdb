@@ -3,7 +3,6 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import joinedload
 from tmdbsimple import TV_Seasons
-from tmdbsimple.base import TMDB
 
 from apps.domain.models import *
 from apps.services.people import PeopleService
@@ -16,7 +15,7 @@ tmdb.API_KEY = 'fb5642b7e0b6d36ad5ebcdf78a52f14c'
 
 class TV_Seasons2(TV_Seasons):
     """
-    TV Seasons functionality.
+    tmdbsimple库不支持 tv season的translation 接口，继承父类接口处理
 
     See: https://developers.themoviedb.org/3/tv-seasons
     """
@@ -37,15 +36,6 @@ class TV_Seasons2(TV_Seasons):
         self.season_number = season_number
 
     def translations(self, **kwargs):
-        """
-        Get a list of the translations that exist for a TV show.
-
-        Args:
-            None
-
-        Returns:
-            A dict respresentation of the JSON returned from the API.
-        """
         path = self._get_tv_id_season_number_path('translations')
 
         response = self._GET(path, kwargs)

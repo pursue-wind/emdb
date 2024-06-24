@@ -14,6 +14,9 @@ tmdb.API_KEY = 'fb5642b7e0b6d36ad5ebcdf78a52f14c'
 
 
 class Movies(Base0):
+    """
+    支持原数据库表的查询
+    """
     __tablename__ = "movies"
     id = Column(Integer, Sequence("movies_seq"), primary_key=True)
     tmdb_id = Column(Integer, nullable=False, index=True)
@@ -56,6 +59,9 @@ class DataService(PeopleService):
         self.tv_service = TVService(session())
 
     async def get_all_genre(self):
+        """
+        多语言的分类数据，启动的时候根据配置 genres_sync: true 拉取所有的分类数据
+        """
         lis = [
             'zh', 'en', 'hu', 'it', 'de', 'pt', 'es', 'fr', 'bg', 'he', 'ko', 'da', 'el', 'ru',
             'ro', 'tr', 'nl', 'pl', 'sv', 'cs', 'id', 'uk', 'sg', 'lb', 'ja', 'sr', 'fi', 'fa', 'no',
