@@ -2,6 +2,8 @@ import tmdbsimple as tmdb
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import joinedload
+from tmdbsimple import TV_Seasons
+from tmdbsimple.base import TMDB
 
 from apps.domain.models import *
 from apps.services.people import PeopleService
@@ -11,6 +13,44 @@ tmdb.API_KEY = 'fb5642b7e0b6d36ad5ebcdf78a52f14c'
 
 
 # tmdb.API_KEY = '71424eb6e25b8d87dc683c59e7feaa88'
+
+class TV_Seasons2(TV_Seasons):
+    """
+    TV Seasons functionality.
+
+    See: https://developers.themoviedb.org/3/tv-seasons
+    """
+    BASE_PATH = 'tv/{tv_id}/season/{season_number}'
+    URLS = {
+        'info': '',
+        'account_states': '/account_states',
+        'credits': '/credits',
+        'external_ids': '/external_ids',
+        'images': '/images',
+        'videos': '/videos',
+        'translations': '/translations',
+    }
+
+    def __init__(self, tv_id, season_number):
+        super(TV_Seasons2, self).__init__(tv_id, season_number)
+        self.tv_id = tv_id
+        self.season_number = season_number
+
+    def translations(self, **kwargs):
+        """
+        Get a list of the translations that exist for a TV show.
+
+        Args:
+            None
+
+        Returns:
+            A dict respresentation of the JSON returned from the API.
+        """
+        path = self._get_tv_id_season_number_path('translations')
+
+        response = self._GET(path, kwargs)
+        self._set_attrs_to_values(response)
+        return response
 
 
 class TVService(PeopleService):
@@ -73,35 +113,11 @@ class TVService(PeopleService):
         await self.session.merge(tv)
         await self.session.flush()
 
-    def _build_tv(self, details):
-        return TMDBTV(
-            id=details['id'],
-            adult=details['adult'],
-            backdrop_path=details.get('backdrop_path'),
-            episode_run_time=details.get('episode_run_time'),
-            first_air_date=details.get('first_air_date'),
-            in_production=details.get('in_production'),
-            languages=details.get('languages'),
-            last_air_date=details.get('last_air_date'),
-            name=details.get('name'),
-            next_episode_to_air=details.get('next_episode_to_air'),
-            number_of_episodes=details.get('number_of_episodes'),
-            number_of_seasons=details.get('number_of_seasons'),
-            original_language=details['original_language'],
-            original_name=details['original_name'],
-            origin_country=details['origin_country'],
-            popularity=details['popularity'],
-            poster_path=details.get('poster_path'),
-            status=details.get('status'),
-            vote_average=details['vote_average'],
-            vote_count=details['vote_count'],
-        )
-
     async def _associate_entities(self, tv, details):
         # 处理相关实体
         tv.genres = await self._get_or_create_list(
             TMDBGenre, details.get('genres', []),
-            lambda x: {'id': x['id'], 'name': x['name']},
+            lambda x: {'id': x['id']},
             merge=True
         )
 
@@ -166,29 +182,18 @@ class TVService(PeopleService):
 
     async def _fetch_and_store_season(self, tv_id: int, season_number: int):
         season = tmdb.TV_Seasons(tv_id, season_number)
+        season2 = TV_Seasons2(tv_id, season_number)
         lang = self._language()
         season_details = await self._fetch(lambda: season.info(language=lang))
         season_credits = await self._fetch(lambda: season.credits(language=lang))
-        tv_season, tv_season_translation = self._build_tv_season_and_trans(tv_id, season_details)
+        season_translations = await self._fetch(lambda: season2.translations())
+
+        tv_season = self._build_tv_season(tv_id, season_details)
+
         await self.session.merge(tv_season)
-        await self.session.merge(tv_season_translation)
         await self._process_season_episodes(tv_id, tv_season, season_details.get('episodes', []))
         await self._process_season_credits(tv_season, season_credits)
-
-    def _build_tv_season_and_trans(self, tv_id, season_details):
-        return TMDBTVSeason(
-            id=season_details['id'],
-            tv_show_id=tv_id,
-            air_date=season_details.get('air_date'),
-            poster_path=season_details['poster_path'],
-            season_number=season_details['season_number'],
-            vote_average=season_details.get('vote_average', 0)
-        ), TMDBTVSeasonTranslation(
-            tv_season_id=season_details['id'],
-            language=self._language(),
-            name=season_details['name'],
-            overview=season_details['overview'],
-        )
+        await self._process_season_translations(season_translations)
 
     async def _process_season_episodes(self, tv_id, season, episodes):
         for episode_data in episodes:
@@ -206,19 +211,6 @@ class TVService(PeopleService):
             )
             await self._process_episode_credits(tv_episode, episode_credits)
             await self._process_episode_translations(episode_translations)
-
-    def _build_tv_episode(self, tv_season_id, episode_data):
-        return TMDBTVEpisode(
-            id=episode_data['id'],
-            tv_season_id=tv_season_id,
-            air_date=episode_data.get('air_date'),
-            episode_number=episode_data['episode_number'],
-            production_code=episode_data.get('production_code'),
-            runtime=episode_data.get('runtime'),
-            season_number=episode_data['season_number'],
-            vote_average=episode_data['vote_average'],
-            vote_count=episode_data['vote_count']
-        )
 
     async def _process_episode_credits(self, episode, credits):
         await self._process_episode_casts(episode, credits.get('cast', []))
@@ -268,6 +260,22 @@ class TVService(PeopleService):
         ]
         await self._batch_insert(TMDBTVTranslation, t)
 
+    async def _process_season_translations(self, translations):
+        mid = translations['id']
+        t = [
+            {
+                "tv_season_id": mid,
+                "iso_3166_1": translation['iso_3166_1'],
+                "iso_639_1": translation['iso_639_1'],
+                "lang_name": translation['name'],
+                "english_name": translation['english_name'],
+                "overview": translation['data']['overview'],
+                "name": translation['data']['name'],
+            }
+            for translation in translations.get('translations', [])
+        ]
+        await self._batch_insert(TMDBTVSeasonTranslation, t)
+
     async def _process_episode_translations(self, translations):
         mid = translations['id']
         t = [
@@ -283,3 +291,53 @@ class TVService(PeopleService):
             for translation in translations.get('translations', [])
         ]
         await self._batch_insert(TMDBTVEpisodeTranslation, t)
+
+    @staticmethod
+    def _build_tv(details):
+        return TMDBTV(
+            id=details['id'],
+            adult=details['adult'],
+            backdrop_path=details.get('backdrop_path'),
+            episode_run_time=details.get('episode_run_time'),
+            first_air_date=details.get('first_air_date'),
+            in_production=details.get('in_production'),
+            languages=details.get('languages'),
+            last_air_date=details.get('last_air_date'),
+            name=details.get('name'),
+            next_episode_to_air=details.get('next_episode_to_air'),
+            number_of_episodes=details.get('number_of_episodes'),
+            number_of_seasons=details.get('number_of_seasons'),
+            original_language=details['original_language'],
+            original_name=details['original_name'],
+            origin_country=details['origin_country'],
+            popularity=details['popularity'],
+            poster_path=details.get('poster_path'),
+            status=details.get('status'),
+            vote_average=details['vote_average'],
+            vote_count=details['vote_count'],
+        )
+
+    @staticmethod
+    def _build_tv_season(tv_id, season_details):
+        return TMDBTVSeason(
+            id=season_details['id'],
+            tv_show_id=tv_id,
+            air_date=season_details.get('air_date'),
+            poster_path=season_details['poster_path'],
+            season_number=season_details['season_number'],
+            vote_average=season_details.get('vote_average', 0)
+        )
+
+    @staticmethod
+    def _build_tv_episode(tv_season_id, episode_data):
+        return TMDBTVEpisode(
+            id=episode_data['id'],
+            tv_season_id=tv_season_id,
+            air_date=episode_data.get('air_date'),
+            episode_number=episode_data['episode_number'],
+            production_code=episode_data.get('production_code'),
+            runtime=episode_data.get('runtime'),
+            season_number=episode_data['season_number'],
+            vote_average=episode_data['vote_average'],
+            vote_count=episode_data['vote_count']
+        )

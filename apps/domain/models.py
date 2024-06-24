@@ -6,7 +6,7 @@ from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import object_session, relationship
 
 from apps.domain.base import TMDBCast, load_translation, BaseMedia, TMDBCrew, Base, TMDBImage, TMDBVideo, \
-    load_translation_by_iso_639_1, IMAGE_BASE_URL
+    load_translation_by_iso_639_1, IMAGE_BASE_URL, Base0
 from apps.handlers.base import language_var
 
 # Many-to-Many relationship tables for TMDBMovie
@@ -106,18 +106,17 @@ class TMDBCreatedBy(Base):
     tv_shows = relationship('TMDBTV', secondary=tmdb_tv_created_by_table, back_populates='created_by')
 
 
-class TMDBGenre(Base):
+class TMDBGenre(Base0):
     __tablename__ = 'tmdb_genres'
 
     id = Column(Integer, primary_key=True, autoincrement=False)
-    name = Column(String, nullable=False, comment='名称')
     # 在关系表中添加back_populates，以双向连接关系。
     movies = relationship('TMDBMovie', secondary=tmdb_movie_genres_table, back_populates='genres')
     tv_shows = relationship('TMDBTV', secondary=tmdb_tv_genres_table, back_populates='genres')
     translations = relationship('TMDBGenreTranslation', back_populates='genre')
 
 
-class TMDBGenreTranslation(Base):
+class TMDBGenreTranslation(Base0):
     __tablename__ = 'tmdb_genres_translations'
 
     genre_id = Column(Integer, ForeignKey('tmdb_genres.id'), primary_key=True)
@@ -151,41 +150,6 @@ def insert_genre_translation(mapper, connection, target):
         session = object_session(target)
         if session:
             session.merge(translation)
-
-
-@event.listens_for(TMDBGenre, 'after_update')
-def update_genre_translation(mapper, connection, target):
-    language = language_var.get()
-    if language:
-        # 查询现有的翻译
-        translation = connection.execute(
-            TMDBGenreTranslation.__table__.select().where(
-                and_(
-                    TMDBGenreTranslation.genre_id == target.id,
-                    TMDBGenreTranslation.language == language
-                )
-            )
-        ).fetchone()
-
-        if translation:
-            # 更新翻译
-            connection.execute(
-                TMDBGenreTranslation.__table__.update().where(
-                    and_(
-                        TMDBGenreTranslation.genre_id == target.id,
-                        TMDBGenreTranslation.language == language
-                    )
-                ).values(name=target.name)
-            )
-        else:
-            # 插入新的翻译
-            connection.execute(
-                TMDBGenreTranslation.__table__.insert().values(
-                    genre_id=target.id,
-                    language=language,
-                    name=target.name
-                )
-            )
 
 
 class TMDBNetwork(Base):
@@ -282,9 +246,12 @@ class TMDBTVSeasonTranslation(Base):
     __tablename__ = 'tmdb_tv_season_translations'
 
     tv_season_id = Column(Integer, ForeignKey('tmdb_tv_seasons.id'), primary_key=True)
-    language = Column(String, primary_key=True, comment='语言代码')
-    name = Column(String, nullable=False, comment='标题')
-    overview = Column(Text, nullable=False, comment='概述')
+    iso_3166_1 = Column(String(2), nullable=False, comment='国家的ISO 3166-1代码', primary_key=True)
+    iso_639_1 = Column(String(2), nullable=False, comment='语言的ISO 639-1代码', primary_key=True)
+    lang_name = Column(String, nullable=True, comment='语言的本地名称')
+    english_name = Column(String, nullable=True, comment='语言的英语名称')
+    overview = Column(String, nullable=True, comment='翻译版本的概述')
+    name = Column(String, nullable=True, comment='翻译版本的标题')
     # 关系
     tv_season = relationship('TMDBTVSeason', back_populates='translations')
 
@@ -564,7 +531,7 @@ class TMDBTVSeason(Base):
 def load_tv_season_translation(target, context):
     if target.poster_path:
         target.poster_path = IMAGE_BASE_URL + target.poster_path
-    load_translation(
+    load_translation_by_iso_639_1(
         target=target,
         context=context,
         translation_model=TMDBTVSeasonTranslation,

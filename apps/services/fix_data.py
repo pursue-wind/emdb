@@ -12,6 +12,7 @@ from apps.services.tv import TVService
 # 配置 TMDB API 密钥
 tmdb.API_KEY = 'fb5642b7e0b6d36ad5ebcdf78a52f14c'
 
+
 class Movies(Base0):
     __tablename__ = "movies"
     id = Column(Integer, Sequence("movies_seq"), primary_key=True)
@@ -54,6 +55,30 @@ class DataService(PeopleService):
         self.movies_service = MovieService(session())
         self.tv_service = TVService(session())
 
+    async def get_all_genre(self):
+        lis = [
+            'zh', 'en', 'hu', 'it', 'de', 'pt', 'es', 'fr', 'bg', 'he', 'ko', 'da', 'el', 'ru',
+            'ro', 'tr', 'nl', 'pl', 'sv', 'cs', 'id', 'uk', 'sg', 'lb', 'ja', 'sr', 'fi', 'fa', 'no',
+            'lv', 'lt', 'sk', 'ka', 'ar', 'be', 'uz', 'sl', 'th', 'et', 'vi', 'ca', 'my'
+        ]
+        g = tmdb.genres.Genres()
+        for lang in lis:
+            res = await self._fetch(lambda: g.movie_list(language=lang))
+            res2 = await self._fetch(lambda: g.tv_list(language=lang))
+            all_lis = res.get('genres', []) + res2.get('genres', [])
+
+            ls = list(map(lambda translation: {
+                "genre_id": translation['id'],
+                "language": lang,
+                "name": translation['name'],
+            }, filter(lambda translation: translation['name'], all_lis)))
+            all_ids = list(map(lambda x: {'id': x['genre_id']}, ls))
+            async with self.session.begin():
+                if all_ids:
+                    await self._batch_insert(TMDBGenre, all_ids)
+                if ls:
+                    await self._batch_insert(TMDBGenreTranslation, ls)
+
     async def movie(self):
         batch_size = 100
         offset = 5
@@ -78,6 +103,7 @@ class DataService(PeopleService):
                     continue
                 print(res)
             offset += batch_size
+
     async def tv(self):
         batch_size = 100
         offset = 0
@@ -85,7 +111,7 @@ class DataService(PeopleService):
         while True:
             # 构建查询
             query = (select(Movies.tmdb_id).where(Movies.source_type == 2).offset(offset).limit(batch_size)
-            .order_by(Movies.tmdb_id))
+                     .order_by(Movies.tmdb_id))
             result = await self.session.execute(query)
             batch = result.scalars().all()
 

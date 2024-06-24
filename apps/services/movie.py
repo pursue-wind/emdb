@@ -99,7 +99,7 @@ class MovieService(PeopleService):
         movie.genres = await self._get_or_create_list(
             TMDBGenre,
             details.get('genres', []),
-            lambda x: {'id': x['id'], 'name': x['name']},
+            lambda x: {'id': x['id']},
             merge=True
         )
 

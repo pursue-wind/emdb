@@ -1,5 +1,6 @@
 # tv_services.py
 import asyncio
+import logging
 from datetime import datetime
 
 import requests
@@ -71,6 +72,9 @@ class BaseService:
         await self._batch_insert(obj, b)
 
     async def _batch_insert(self, obj, dict_list):
+        if not dict_list:
+            logging.warning("not found data: " + str(obj))
+            return
         stmt = insert(obj).values(dict_list)
         stmt = stmt.on_conflict_do_nothing()
         await self.session.execute(stmt)

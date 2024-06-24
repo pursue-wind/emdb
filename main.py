@@ -50,6 +50,8 @@ async def main():
         if settings.data_sync:
             await asyncio.create_task(DataService(async_session_factory).movie())
             await asyncio.create_task(DataService(async_session_factory).tv())
+        if settings.genres_sync:
+            await asyncio.create_task(DataService(async_session_factory).get_all_genre())
 
         # Keep the server running
         await asyncio.Event().wait()
