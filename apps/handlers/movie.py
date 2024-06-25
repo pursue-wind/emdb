@@ -1,4 +1,5 @@
 import logging
+import random
 from operator import or_
 
 from sqlalchemy import select, func
@@ -122,6 +123,9 @@ class MovieImagesHandler(BaseHandler):
                     img.type = 1
                 elif img.image_type == TMDBImageTypeEnum.poster:
                     img.type = 2
+                if not img.iso_639_1:
+                    img.iso_639_1 = 'all'
+
                 return img
 
             r_trans = list(map(lambda x: transform_image_type(x), r))

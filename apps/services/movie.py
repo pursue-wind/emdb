@@ -52,20 +52,22 @@ class MovieService(PeopleService):
         translations_task = self._fetch(lambda: movie.translations())  # 获取电影翻译
         release_dates_task = self._fetch(lambda: movie.release_dates())  # 获取电影发行日期
         alternative_titles_task = self._fetch(lambda: movie.alternative_titles())  # 获取电影替代标题
+        external_ids_task = self._fetch(lambda: movie.external_ids())  # 获取电影替代标题
 
         # 等待所有任务完成并获取结果
-        details, credits, images, videos, translations, release_dates, alternative_titles = await asyncio.gather(
+        details, credits, images, videos, translations, release_dates, alternative_titles, external_ids = await asyncio.gather(
             details_task,
             credits_task,
             images_task,
             videos_task,
             translations_task,
             release_dates_task,
-            alternative_titles_task
+            alternative_titles_task,
+            external_ids_task,
         )
 
         async with self.session.begin():
-            await self._store_movie(details)  # 存储电影详情
+            await self._store_movie(details, external_ids)  # 存储电影详情
             # 翻译
             await self._process_translations(translations)
             # 演员信息
@@ -79,8 +81,8 @@ class MovieService(PeopleService):
             # 替代标题
             await self._process_alternative_titles(alternative_titles)
 
-    async def _store_movie(self, details):
-        movie = self._build_movie(details)
+    async def _store_movie(self, details, external_ids):
+        movie = self._build_movie(details, external_ids)
 
         # 关联 collection
         if details.get('belongs_to_collection'):
@@ -220,7 +222,7 @@ class MovieService(PeopleService):
         await self._batch_insert(TMDBMovieAlternativeTitle, ts_add)
 
     @staticmethod
-    def _build_movie(details):
+    def _build_movie(details, external_ids):
         movie = TMDBMovie(
             id=details['id'],
             adult=details['adult'],
@@ -237,6 +239,7 @@ class MovieService(PeopleService):
             status=details.get('status'),
             video=details['video'],
             vote_average=details['vote_average'],
-            vote_count=details['vote_count']
+            vote_count=details['vote_count'],
+            external_ids=external_ids,
         )
         return movie

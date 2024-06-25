@@ -272,6 +272,7 @@ class TMDBMovie(BaseMedia):
     runtime = Column(Integer, nullable=True, comment='时长（分钟）')
 
     video = Column(Boolean, nullable=False, comment='是否为视频')
+    external_ids = Column(JSONB, nullable=True, comment='external_ids，作为JSON数组存储')
 
     belongs_to_collection = relationship('TMDBBelongsToCollection', backref='tmdb_movies')
     genres = relationship('TMDBGenre', secondary=lambda: tmdb_movie_genres_table, back_populates='movies')
@@ -422,6 +423,9 @@ def load_movie_translation(target, context):
     )
     if target.title == "":
         target.title = target.original_title
+    if target.external_ids is None:
+        target.external_ids = {"id": 101, "imdb_id": target.imdb_id, "twitter_id": None, "facebook_id": None,
+                               "wikidata_id": None, "instagram_id": None}
 
 
 class TMDBPeople(Base):
