@@ -420,6 +420,8 @@ def load_movie_translation(target, context):
         foreign_key_field='movie_id',
         attributes=['title', 'overview', 'tagline', 'homepage']
     )
+    if target.title == "":
+        target.title = target.original_title
 
 
 class TMDBPeople(Base):
