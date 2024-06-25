@@ -2,6 +2,7 @@ import logging
 import random
 from operator import or_
 
+from requests.packages import target
 from sqlalchemy import select, func
 from sqlalchemy.orm import joinedload
 
@@ -227,7 +228,8 @@ class SearchCompanyMovies(BaseHandler):
 
             base_query = select(TMDBMovie).distinct().options(
                 joinedload(TMDBMovie.genres),
-                joinedload(TMDBMovie.alternative_titles)
+                joinedload(TMDBMovie.alternative_titles),
+                joinedload(TMDBMovie.production_countries),
             )
             count_query = select(func.count()).select_from(
                 select(TMDBMovie.id).outerjoin(TMDBMovie.alternative_titles).distinct().subquery()
@@ -259,12 +261,20 @@ class SearchCompanyMovies(BaseHandler):
 
             movie_list = result.unique().scalars().all()
 
+            def trans(target):
+                target_ret = self.to_primitive(target)
+                if 'production_countries' in target_ret:
+                    trans_production_countries = list(map(lambda x: x.iso_3166_1, target.production_countries))
+                    target_ret['production_countries'] = trans_production_countries
+                return target_ret
+
+            movie_res = list(map(lambda x: trans(x), movie_list))
             # 返回结果
             self.success(dict(
                 page_num=page_num,
                 page_size=page_size,
                 total=total,
-                movies=self.to_primitive(movie_list)
+                movies=self.to_primitive(movie_res)
             ))
 
 
