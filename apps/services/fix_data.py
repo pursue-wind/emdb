@@ -87,7 +87,7 @@ class DataService(PeopleService):
 
     async def movie(self):
         batch_size = 100
-        offset = 5
+        offset = 0
 
         while True:
             # 构建查询
@@ -100,7 +100,12 @@ class DataService(PeopleService):
                 break
             await self.session.commit()
             print(batch)
-            for movie_id in batch:
+
+            result = await self.session.execute(select(TMDBMovie.id).where(TMDBMovie.id.in_(batch)))
+            exist_ids = result.scalars().all()
+            need_fetch = set(batch) - set(exist_ids)
+
+            for movie_id in need_fetch:
                 language_var.set('en')
                 try:
                     res = await self.movies_service.fetch_and_store_movie(movie_id)
@@ -116,7 +121,7 @@ class DataService(PeopleService):
 
         while True:
             # 构建查询
-            query = (select(Movies.tmdb_id).where(Movies.source_type == 2).offset(offset).limit(batch_size)
+            query = (select(Movies.tmdb_series_id).where(Movies.source_type == 2).offset(offset).limit(batch_size)
                      .order_by(Movies.tmdb_id))
             result = await self.session.execute(query)
             batch = result.scalars().all()
@@ -125,7 +130,12 @@ class DataService(PeopleService):
                 break
             await self.session.commit()
             print(batch)
-            for movie_id in batch:
+
+            result = await self.session.execute(select(TMDBTV.id).where(TMDBTV.id.in_(batch)))
+            exist_ids = result.scalars().all()
+            need_fetch = set(batch) - set(exist_ids)
+
+            for movie_id in need_fetch:
                 language_var.set('en')
                 try:
                     res = await self.tv_service.fetch_and_store_tv(movie_id)

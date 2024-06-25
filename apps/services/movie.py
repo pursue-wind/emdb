@@ -1,9 +1,7 @@
 import asyncio
-from datetime import datetime
 
 import tmdbsimple as tmdb
 from sqlalchemy import select
-from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import joinedload
 
