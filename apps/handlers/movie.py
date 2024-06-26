@@ -467,6 +467,8 @@ class SearchCompanyTV(BaseHandler):
                     target_ret['run_time'] = target_ret['episode_run_time'][0]
 
                 target_ret['title'] = target_ret['name']
+                target_ret['revenue'] = 0
+                target_ret['budget'] = 0
 
                 if tv_season['overview']:
                     target_ret['overview'] = tv_season['overview']
