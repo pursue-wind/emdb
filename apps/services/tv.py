@@ -84,7 +84,7 @@ class TVService(PeopleService):
         # credits = await self._fetch(lambda: tv.credits(language=self._language()))
         external_ids = await self._fetch(lambda: tv.external_ids())
         keywords = await self._fetch(lambda: tv.keywords())
-
+        alternative_titles = await self._fetch(lambda: tv.alternative_titles())  # 获取电影替代标题
         async with self.session.begin():
             await self._store_tv(details, external_ids=external_ids, keywords=keywords)
             # 翻译
@@ -93,6 +93,8 @@ class TVService(PeopleService):
             await self._process_images(images, TMDBTVImage)
             # 视频
             await self._process_videos(videos, TMDBTVVideo)
+            # alternative_titles
+            await self._process_alternative_titles(alternative_titles)
             # 处理每一季和集的信息
             if 'seasons' in details:
                 for season_data in details['seasons']:
@@ -143,10 +145,12 @@ class TVService(PeopleService):
         )
 
     async def _process_season_credits(self, tv_season, credits):
-        await self._process_season_casts(tv_season, credits['cast'])
-        await self._process_season_crews(tv_season, credits['crew'])
+        await self._process_season_casts(tv_season, credits.get('cast', []))
+        await self._process_season_crews(tv_season, credits.get('crew', []))
 
     async def _process_season_casts(self, tv_season, casts):
+        if not casts:
+            return
         people_ids = list(map(lambda c: c['id'], casts))
         await self.update_or_create_peoples(people_ids)
 
@@ -160,6 +164,8 @@ class TVService(PeopleService):
         await self._batch_insert(TMDBTVSeasonCast, casts_add)
 
     async def _process_season_crews(self, tv, crews):
+        if not crews:
+            return
         people_ids = list(map(lambda c: c['id'], crews))
         await self.update_or_create_peoples(people_ids)
 
@@ -209,6 +215,8 @@ class TVService(PeopleService):
         await self._process_episode_crews(episode, credits.get('crew', []))
 
     async def _process_episode_casts(self, episode, casts):
+        if not casts:
+            return
         people_ids = list(map(lambda c: c['id'], casts))
         await self.update_or_create_peoples(people_ids)
 
@@ -223,6 +231,8 @@ class TVService(PeopleService):
         await self._batch_insert(TMDBTVEpisodeCast, casts_add)
 
     async def _process_episode_crews(self, episode, crews):
+        if not crews:
+            return
         people_ids = list(map(lambda c: c['id'], crews))
         await self.update_or_create_peoples(people_ids)
         crews_add = list(map(lambda crew_data: {
@@ -284,6 +294,19 @@ class TVService(PeopleService):
         ]
         await self._batch_insert(TMDBTVEpisodeTranslation, t)
 
+    async def _process_alternative_titles(self, ts):
+        mid = ts['id']
+        ts_add = [
+            {
+                "tv_id": mid,
+                "iso_3166_1": t['iso_3166_1'],
+                "title": t['title'],
+                "type": t['type']
+            }
+            for t in ts.get('results', [])
+        ]
+        await self._batch_insert(TMDBTVAlternativeTitle, ts_add)
+
     @staticmethod
     def _build_tv(details, external_ids, keywords):
         return TMDBTV(
@@ -307,8 +330,8 @@ class TVService(PeopleService):
             status=details.get('status'),
             vote_average=details['vote_average'],
             vote_count=details['vote_count'],
-            external_ids=details['external_ids'],
-            keywords=details['keywords'],
+            external_ids=external_ids,
+            keywords=keywords,
         )
 
     @staticmethod

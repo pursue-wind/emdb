@@ -194,7 +194,6 @@ class TMDBSpokenLanguage(Base):
                             back_populates='spoken_languages')
 
 
-
 class TMDBMovieTranslation(Base):
     __tablename__ = 'tmdb_movie_translations'
 
@@ -306,6 +305,17 @@ class TMDBMovieAlternativeTitle(Base):
     movie = relationship('TMDBMovie', back_populates='alternative_titles')
 
 
+class TMDBTVAlternativeTitle(Base):
+    __tablename__ = 'tmdb_tv_alternative_titles'
+
+    tv_id = Column(Integer, ForeignKey('tmdb_tv.id'), nullable=False, comment='关联TV的ID', primary_key=True)
+    iso_3166_1 = Column(String(2), nullable=False, comment='国家的ISO 3166-1代码', primary_key=True)
+    title = Column(String, nullable=False, comment='电影的替代标题')
+    type = Column(String, nullable=True, comment='替代标题的类型')
+
+    tv = relationship('TMDBTV', back_populates='alternative_titles')
+
+
 class TMDBMovieImage(TMDBImage):
     __tablename__ = 'tmdb_movie_images'
 
@@ -402,7 +412,6 @@ def load_movie_translation(target, context):
     )
 
 
-
 class TMDBPeople(Base):
     __tablename__ = 'tmdb_people'
 
@@ -466,6 +475,7 @@ class TMDBTV(BaseMedia):
     production_countries = relationship('TMDBProductionCountry',
                                         secondary=lambda: tmdb_tv_production_countries_table,
                                         back_populates='tv_shows')
+    alternative_titles = relationship('TMDBTVAlternativeTitle', back_populates='tv')
     seasons = relationship('TMDBTVSeason', back_populates='tv_show')
     spoken_languages = relationship('TMDBSpokenLanguage', secondary=lambda: tmdb_tv_spoken_languages_table,
                                     back_populates='tv_shows')

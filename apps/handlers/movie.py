@@ -2,7 +2,6 @@ import logging
 import random
 from operator import or_
 
-
 from sqlalchemy import select, func
 from sqlalchemy.orm import joinedload
 
@@ -282,8 +281,8 @@ class SearchCompanyMovies(BaseHandler):
                     target_ret['title'] = target_ret['original_title']
                 if target_ret['external_ids'] is None:
                     target_ret['external_ids'] = {"id": 101, "imdb_id": target_ret['imdb_id'], "twitter_id": None,
-                                           "facebook_id": None,
-                                           "wikidata_id": None, "instagram_id": None}
+                                                  "facebook_id": None,
+                                                  "wikidata_id": None, "instagram_id": None}
                 return target_ret
 
             movie_res = list(map(lambda x: trans(x), movie_list))
@@ -306,17 +305,30 @@ class SearchCompanyTV(BaseHandler):
             offset = (page_num - 1) * page_size
 
             # 构建基础查询
-            base_query = select(TMDBTV).distinct().options(joinedload(TMDBTV.genres), )
-            count_query = select(func.count()).select_from(select(TMDBTV.id).distinct().subquery())
+            base_query = select(TMDBTV).distinct().options(
+                joinedload(TMDBTV.genres),
+                joinedload(TMDBTV.alternative_titles),
+                joinedload(TMDBTV.production_countries),
+                joinedload(TMDBTV.spoken_languages),
+                joinedload(TMDBTV.production_companies),
+            )
+            count_query = select(func.count()).select_from(
+                select(TMDBTV.id).outerjoin(TMDBMovie.alternative_titles).distinct().subquery())
             # 如果有movie_name，添加过滤条件
             if movie_name:
                 base_query = base_query.filter(
-                    TMDBTV.name.ilike(f"%{movie_name}%"),
+                    or_(
+                        TMDBTV.name.ilike(f"%{movie_name}%"),
+                        TMDBTVAlternativeTitle.title.ilike(f"%{movie_name}%")
+                    )
                 )
 
                 count_query = select(func.count()).select_from(
-                    select(TMDBTV.id).filter(
-                        TMDBTV.name.ilike(f"%{movie_name}%"),
+                    select(TMDBTV.id).outerjoin(TMDBTV.alternative_titles).filter(
+                        or_(
+                            TMDBTV.name.ilike(f"%{movie_name}%"),
+                            TMDBTVAlternativeTitle.title.ilike(f"%{movie_name}%")
+                        )
                     ).distinct().subquery()
                 )
 
@@ -329,10 +341,37 @@ class SearchCompanyTV(BaseHandler):
 
             lis = result.unique().scalars().all()
 
+            def trans(target):
+                target_ret = self.to_primitive(target)
+                if 'genres' in target_ret:
+                    target_ret['genres'] = list(map(lambda x: x.name, target.genres))
+                if 'production_countries' in target_ret:
+                    target_ret['production_countries'] = list(map(lambda x: x.iso_3166_1, target.production_countries))
+                if 'spoken_languages' in target_ret:
+                    target_ret['spoken_languages'] = list(map(lambda x: x.iso_639_1, target.spoken_languages))
+                if 'keywords' in target_ret:
+                    target_ret['keywords'] = list(map(lambda x2: x2['name'], target_ret['keywords']['results']))
+                target_ret['tmdb_id'] = target_ret['id']
+                if target_ret['backdrop_path']:
+                    target_ret['backdrop_path'] = IMAGE_BASE_URL + target_ret['backdrop_path']
+                if target_ret['poster_path']:
+                    target_ret['poster_path'] = IMAGE_BASE_URL + target_ret['poster_path']
+                if 'name' in target_ret:
+                    target_ret['title'] = target_ret['name']
+                if 'title' in target_ret and target_ret['title'] == "":
+                    target_ret['title'] = target_ret['original_title']
+
+                if target_ret['external_ids'] is None:
+                    target_ret['external_ids'] = {"id": 101, "imdb_id": target_ret['imdb_id'], "twitter_id": None,
+                                                  "facebook_id": None,
+                                                  "wikidata_id": None, "instagram_id": None}
+                return target_ret
+
+            tv_res = list(map(lambda x: trans(x), lis))
             # 返回结果
             self.success(dict(
                 page_num=page_num,
                 page_size=page_size,
                 total=total,
-                tvs=self.to_primitive(lis)
+                tvs=self.to_primitive(tv_res)
             ))
