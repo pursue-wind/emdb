@@ -305,13 +305,15 @@ class SearchCompanyTV(BaseHandler):
             offset = (page_num - 1) * page_size
 
             # 构建基础查询
-            base_query = select(TMDBTV).distinct().options(
-                joinedload(TMDBTV.genres),
-                joinedload(TMDBTV.alternative_titles),
-                joinedload(TMDBTV.production_countries),
-                joinedload(TMDBTV.spoken_languages),
-                joinedload(TMDBTV.production_companies),
+            base_query = (
+                select(TMDBTVSeason)
+                .distinct()
+                .options(joinedload(TMDBTVSeason.tv_show).joinedload(TMDBTV.genres))
+                .options(joinedload(TMDBTVSeason.tv_show).joinedload(TMDBTV.alternative_titles))
+                .options(joinedload(TMDBTVSeason.tv_show).joinedload(TMDBTV.production_countries))
+                .options(joinedload(TMDBTVSeason.tv_show).joinedload(TMDBTV.production_companies))
             )
+
             count_query = select(func.count()).select_from(
                 select(TMDBTV.id).outerjoin(TMDBMovie.alternative_titles).distinct().subquery())
             # 如果有movie_name，添加过滤条件
@@ -342,22 +344,35 @@ class SearchCompanyTV(BaseHandler):
             lis = result.unique().scalars().all()
 
             def trans(target):
-                target_ret = self.to_primitive(target)
+                tv_season = self.to_primitive(target)
+                target_ret = self.to_primitive(target.tv_show)
+                target_ret['source_type'] = 2
+                target_ret['original_title'] = target_ret['original_name']
+                target_ret['tmdb_id'] = tv_season['id']
+                target_ret['tmdb_series_id'] = target_ret['id']
+
+                target_ret['title'] = target_ret['name']
+
+                if tv_season['overview']:
+                    target_ret['overview'] = tv_season['overview']
+
                 if 'genres' in target_ret:
-                    target_ret['genres'] = list(map(lambda x: x.name, target.genres))
+                    target_ret['genres'] = list(map(lambda x: x.name, target.tv_show.genres))
+                del tv_season['tv_show']
+                target_ret['episode_detail'] = tv_season
                 if 'production_countries' in target_ret:
-                    target_ret['production_countries'] = list(map(lambda x: x.iso_3166_1, target.production_countries))
+                    target_ret['production_countries'] = list(
+                        map(lambda x: x.iso_3166_1, target.tv_show.production_countries))
                 if 'spoken_languages' in target_ret:
-                    target_ret['spoken_languages'] = list(map(lambda x: x.iso_639_1, target.spoken_languages))
+                    target_ret['spoken_languages'] = list(map(lambda x: x.iso_639_1, target.tv_show.spoken_languages))
                 if 'keywords' in target_ret:
                     target_ret['keywords'] = list(map(lambda x2: x2['name'], target_ret['keywords']['results']))
-                target_ret['tmdb_id'] = target_ret['id']
+
                 if target_ret['backdrop_path']:
                     target_ret['backdrop_path'] = IMAGE_BASE_URL + target_ret['backdrop_path']
                 if target_ret['poster_path']:
                     target_ret['poster_path'] = IMAGE_BASE_URL + target_ret['poster_path']
-                if 'name' in target_ret:
-                    target_ret['title'] = target_ret['name']
+
                 if 'title' in target_ret and target_ret['title'] == "":
                     target_ret['title'] = target_ret['original_title']
 

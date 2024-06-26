@@ -80,10 +80,11 @@ class TVService(PeopleService):
         translations = await self._fetch(lambda: tv.translations())
         images = await self._fetch(lambda: tv.images())
         videos = await self._fetch(lambda: tv.videos())
-        # credits = await self._fetch(lambda: tv.credits(language=self._language()))
+        # credits = await self._fetch(lambda: tv.credits())
         external_ids = await self._fetch(lambda: tv.external_ids())
         keywords = await self._fetch(lambda: tv.keywords())
         alternative_titles = await self._fetch(lambda: tv.alternative_titles())  # 获取电影替代标题
+
         async with self.session.begin():
             await self._store_tv(details, external_ids=external_ids, keywords=keywords)
             # 翻译
