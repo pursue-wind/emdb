@@ -10,13 +10,6 @@ from apps.domain.base import TMDBCast, load_translation, BaseMedia, TMDBCrew, Ba
 from apps.handlers.base import language_var
 
 # Many-to-Many relationship tables for TMDBMovie
-tmdb_movie_created_by_table = Table(
-    'tmdb_movie_created_by', Base.metadata,
-    Column('movie_id', Integer, ForeignKey('tmdb_movies.id'), primary_key=True),
-    Column('created_by_id', Integer, ForeignKey('tmdb_created_by.id'),
-           primary_key=True),
-)
-
 tmdb_movie_genres_table = Table(
     'tmdb_movie_genres', Base.metadata,
     Column('movie_id', Integer, ForeignKey('tmdb_movies.id'), primary_key=True),
