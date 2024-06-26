@@ -12,11 +12,18 @@ def make_app(session_factory):
 
         # 兼容之前的接口
         (r"/api/movie/images", MovieImagesHandler, dict(session_factory=session_factory)),
+        (r"/api/tv/images", TVImagesHandler, dict(session_factory=session_factory)),
+        (r"/api/tv/episodes", TVEpisodesHandler, dict(session_factory=session_factory)),
         (r"/api/movie/translations", MovieTranslationsHandler, dict(session_factory=session_factory)),
+        (r"/api/tv/translations", TVTranslationsHandler, dict(session_factory=session_factory)),
         (r"/api/movie/alternative_titles", MovieAlternativeTitlesHandler, dict(session_factory=session_factory)),
+        (r"/api/tv/alternative_titles", TVAlternativeTitlesHandler, dict(session_factory=session_factory)),
         (r"/api/movie/credits", MovieCreditsHandler, dict(session_factory=session_factory)),
+        (r"/api/tv/credits", TVCreditsHandler, dict(session_factory=session_factory)),
         (r"/api/movie/release_dates", MovieReleaseDatesHandler, dict(session_factory=session_factory)),
+        (r"/api/tv/release_dates", TVReleaseDatesHandler, dict(session_factory=session_factory)),
         (r"/api/movie/videos", MovieVideosHandler, dict(session_factory=session_factory)),
+        (r"/api/tv/videos", TVVideosHandler, dict(session_factory=session_factory)),
 
         ("/api/company/movies", SearchCompanyMovies, dict(session_factory=session_factory)),
         ("/api/company/tv", SearchCompanyTV, dict(session_factory=session_factory)),
