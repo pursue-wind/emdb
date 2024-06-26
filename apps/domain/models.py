@@ -456,7 +456,6 @@ class TMDBTV(BaseMedia):
     in_production = Column(Boolean, nullable=False, comment='是否在制作中')
     languages = Column(ARRAY(String), nullable=False, comment='语言')
     last_air_date = Column(String, nullable=True, comment='最近播放日期')
-    last_episode_to_air_id = Column(Integer, ForeignKey('tmdb_last_episode_to_air.id'))
     name = Column(String, nullable=False, comment='名称')
     next_episode_to_air = Column(String, nullable=True, comment='下一集')
     number_of_episodes = Column(Integer, nullable=False, comment='集数')
@@ -465,7 +464,8 @@ class TMDBTV(BaseMedia):
     type = Column(String, nullable=True, comment='类型')
     created_by = relationship('TMDBCreatedBy', secondary=lambda: tmdb_tv_created_by_table,
                               back_populates='tv_shows')
-    last_episode_to_air = relationship('TMDBLastEpisodeToAir')
+    last_episode_to_air = Column(JSONB, nullable=True, comment='last_episode_to_air，作为JSON数组存储')
+
     genres = relationship('TMDBGenre', secondary=lambda: tmdb_tv_genres_table, back_populates='tv_shows')
     networks = relationship('TMDBNetwork', secondary=lambda: tmdb_tv_networks_table, back_populates='tv_shows')
 
@@ -486,10 +486,6 @@ class TMDBTV(BaseMedia):
 
 @event.listens_for(TMDBTV, 'load')
 def load_tv_translation(target, context):
-    if target.backdrop_path:
-        target.backdrop_path = IMAGE_BASE_URL + target.backdrop_path
-    if target.poster_path:
-        target.poster_path = IMAGE_BASE_URL + target.poster_path
     target.tmdb_id = target.id
     load_translation_by_iso_639_1(
         target=target,
@@ -520,8 +516,6 @@ class TMDBTVSeason(Base):
 
 @event.listens_for(TMDBTVSeason, 'load')
 def load_tv_season_translation(target, context):
-    if target.poster_path:
-        target.poster_path = IMAGE_BASE_URL + target.poster_path
     load_translation_by_iso_639_1(
         target=target,
         context=context,
@@ -574,24 +568,6 @@ def load_tv_episode_translation(target, context):
         foreign_key_field='tv_episode_id',
         attributes=['name', 'overview']
     )
-
-
-class TMDBLastEpisodeToAir(Base):
-    __tablename__ = 'tmdb_last_episode_to_air'
-
-    id = Column(Integer, primary_key=True, autoincrement=False)
-    air_date = Column(String, nullable=False, comment='播放日期')
-    episode_number = Column(Integer, nullable=False, comment='集数')
-    episode_type = Column(String, nullable=False, comment='类型')
-    name = Column(String, nullable=False, comment='名称')
-    overview = Column(Text, nullable=False, comment='概述')
-    production_code = Column(String, nullable=False, comment='制作代码')
-    runtime = Column(Integer, nullable=False, comment='时长（分钟）')
-    season_number = Column(Integer, nullable=False, comment='季数')
-    show_id = Column(Integer, nullable=False, comment='剧集 ID')
-    still_path = Column(String, nullable=True, comment='静态图片路径')
-    vote_average = Column(Float, nullable=False, comment='平均评分')
-    vote_count = Column(Integer, nullable=False, comment='评分人数')
 
 
 #############

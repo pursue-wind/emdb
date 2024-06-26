@@ -52,7 +52,6 @@ class TVService(PeopleService):
         j_seasons = joinedload(TMDBTV.seasons)
         joinedload_options = {
             'created_by': joinedload(TMDBTV.created_by),
-            'last_episode_to_air': joinedload(TMDBTV.last_episode_to_air),
             'genres': joinedload(TMDBTV.genres),
             'networks': joinedload(TMDBTV.networks),
             'production_companies': joinedload(TMDBTV.production_companies),
@@ -315,6 +314,7 @@ class TVService(PeopleService):
             backdrop_path=details.get('backdrop_path'),
             episode_run_time=details.get('episode_run_time'),
             first_air_date=details.get('first_air_date'),
+            last_episode_to_air=details.get('last_episode_to_air'),
             in_production=details.get('in_production'),
             languages=details.get('languages'),
             last_air_date=details.get('last_air_date'),
