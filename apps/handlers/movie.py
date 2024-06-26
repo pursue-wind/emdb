@@ -230,6 +230,7 @@ class SearchCompanyMovies(BaseHandler):
                 joinedload(TMDBMovie.genres),
                 joinedload(TMDBMovie.alternative_titles),
                 joinedload(TMDBMovie.production_countries),
+                joinedload(TMDBMovie.spoken_languages),
             )
             count_query = select(func.count()).select_from(
                 select(TMDBMovie.id).outerjoin(TMDBMovie.alternative_titles).distinct().subquery()
@@ -263,12 +264,14 @@ class SearchCompanyMovies(BaseHandler):
 
             def trans(target):
                 target_ret = self.to_primitive(target)
+                if 'genres' in target_ret:
+                    target_ret['genres'] = list(map(lambda x: x.name, target.genres))
                 if 'production_countries' in target_ret:
-                    trans_production_countries = list(map(lambda x: x.iso_3166_1, target.production_countries))
-                    target_ret['production_countries'] = trans_production_countries
+                    target_ret['production_countries'] = list(map(lambda x: x.iso_3166_1, target.production_countries))
+                if 'spoken_languages' in target_ret:
+                    target_ret['spoken_languages'] = list(map(lambda x: x.iso_639_1, target.spoken_languages))
                 if 'keywords' in target_ret:
-                    trans_keywords = list(map(lambda x2: x2['name'], target_ret['keywords']['keywords']))
-                    target_ret['keywords'] = trans_keywords
+                    target_ret['keywords'] = list(map(lambda x2: x2['name'], target_ret['keywords']['keywords']))
                 target_ret['tmdb_id'] = target_ret['id']
                 if target_ret['backdrop_path']:
                     target_ret['backdrop_path'] = IMAGE_BASE_URL + target_ret['backdrop_path']
