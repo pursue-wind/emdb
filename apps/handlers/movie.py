@@ -231,6 +231,7 @@ class SearchCompanyMovies(BaseHandler):
                 joinedload(TMDBMovie.alternative_titles),
                 joinedload(TMDBMovie.production_countries),
                 joinedload(TMDBMovie.spoken_languages),
+                joinedload(TMDBMovie.production_companies),
             )
             count_query = select(func.count()).select_from(
                 select(TMDBMovie.id).outerjoin(TMDBMovie.alternative_titles).distinct().subquery()
