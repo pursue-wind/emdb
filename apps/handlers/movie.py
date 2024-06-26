@@ -461,6 +461,7 @@ class SearchCompanyTV(BaseHandler):
                 target_ret = self.to_primitive(target.tv_show)
                 target_ret['source_type'] = 2
                 target_ret['original_title'] = target_ret['original_name']
+                target_ret['id'] = tv_season['id']
                 target_ret['tmdb_id'] = tv_season['id']
                 target_ret['tmdb_series_id'] = target_ret['id']
                 if 'episode_run_time' in target_ret and target_ret['episode_run_time']:
@@ -470,7 +471,7 @@ class SearchCompanyTV(BaseHandler):
                 target_ret['revenue'] = 0
                 target_ret['budget'] = 0
 
-                if 'overview' in tv_season and tv_season['overview']:
+                if 'overview' in target_ret and target_ret['overview'] == '':
                     target_ret['overview'] = tv_season['overview']
 
                 if 'genres' in target_ret:
