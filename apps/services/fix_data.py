@@ -85,7 +85,7 @@ class DataService(PeopleService):
                 if ls:
                     await self._batch_insert(TMDBGenreTranslation, ls)
 
-    async def movie(self):
+    async def movie(self, force=False):
         batch_size = 100
         offset = 0
 
@@ -100,10 +100,11 @@ class DataService(PeopleService):
                 break
             await self.session.commit()
             print(batch)
-
-            result = await self.session.execute(select(TMDBMovie.id).where(TMDBMovie.id.in_(batch)))
-            exist_ids = result.scalars().all()
-            need_fetch = set(batch) - set(exist_ids)
+            need_fetch = set(batch)
+            if not force:
+                result = await self.session.execute(select(TMDBMovie.id).where(TMDBMovie.id.in_(batch)))
+                exist_ids = result.scalars().all()
+                need_fetch = set(batch) - set(exist_ids)
 
             for movie_id in need_fetch:
                 language_var.set('en')
@@ -115,7 +116,7 @@ class DataService(PeopleService):
                 print(res)
             offset += batch_size
 
-    async def tv(self):
+    async def tv(self, force=False):
         batch_size = 100
         offset = 0
 
@@ -130,10 +131,11 @@ class DataService(PeopleService):
                 break
             await self.session.commit()
             print(batch)
-
-            result = await self.session.execute(select(TMDBTV.id).where(TMDBTV.id.in_(batch)))
-            exist_ids = result.scalars().all()
-            need_fetch = set(batch) - set(exist_ids)
+            need_fetch = set(batch)
+            if not force:
+                result = await self.session.execute(select(TMDBTV.id).where(TMDBTV.id.in_(batch)))
+                exist_ids = result.scalars().all()
+                need_fetch = set(batch) - set(exist_ids)
 
             for movie_id in need_fetch:
                 language_var.set('en')

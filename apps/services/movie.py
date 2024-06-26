@@ -52,10 +52,11 @@ class MovieService(PeopleService):
         translations_task = self._fetch(lambda: movie.translations())  # 获取电影翻译
         release_dates_task = self._fetch(lambda: movie.release_dates())  # 获取电影发行日期
         alternative_titles_task = self._fetch(lambda: movie.alternative_titles())  # 获取电影替代标题
-        external_ids_task = self._fetch(lambda: movie.external_ids())  # 获取电影替代标题
+        external_ids_task = self._fetch(lambda: movie.external_ids())
+        keywords_task = self._fetch(lambda: movie.keywords())
 
         # 等待所有任务完成并获取结果
-        details, credits, images, videos, translations, release_dates, alternative_titles, external_ids = await asyncio.gather(
+        details, credits, images, videos, translations, release_dates, alternative_titles, external_ids, keywords = await asyncio.gather(
             details_task,
             credits_task,
             images_task,
@@ -64,10 +65,11 @@ class MovieService(PeopleService):
             release_dates_task,
             alternative_titles_task,
             external_ids_task,
+            keywords_task,
         )
 
         async with self.session.begin():
-            await self._store_movie(details, external_ids)  # 存储电影详情
+            await self._store_movie(details, external_ids, keywords)  # 存储电影详情
             # 翻译
             await self._process_translations(translations)
             # 演员信息
@@ -81,19 +83,28 @@ class MovieService(PeopleService):
             # 替代标题
             await self._process_alternative_titles(alternative_titles)
 
-    async def _store_movie(self, details, external_ids):
-        movie = self._build_movie(details, external_ids)
-
-        # 关联 collection
-        if details.get('belongs_to_collection'):
-            collection_data = details['belongs_to_collection']
-            collection = await self._get_or_create(
-                TMDBBelongsToCollection, collection_data['id'], {
-                    'name': collection_data['name'],
-                    'poster_path': collection_data.get('poster_path'),
-                    'backdrop_path': collection_data.get('backdrop_path')
-                })
-            movie.belongs_to_collection = collection
+    async def _store_movie(self, details, external_ids, keywords):
+        movie = TMDBMovie(
+            id=details['id'],
+            adult=details['adult'],
+            backdrop_path=details.get('backdrop_path'),
+            budget=details['budget'],
+            imdb_id=details.get('imdb_id'),
+            original_language=details['original_language'],
+            original_title=details.get('original_title'),
+            popularity=details['popularity'],
+            poster_path=details.get('poster_path'),
+            release_date=details.get('release_date'),
+            revenue=details.get('revenue'),
+            runtime=details.get('runtime'),
+            status=details.get('status'),
+            video=details['video'],
+            vote_average=details['vote_average'],
+            vote_count=details['vote_count'],
+            belongs_to_collection=details['belongs_to_collection'],
+            external_ids=external_ids,
+            keywords=keywords,
+        )
 
         # 关联 genres
         movie.genres = await self._get_or_create_list(
@@ -135,7 +146,6 @@ class MovieService(PeopleService):
         )
 
         await self.session.merge(movie)
-        await self.session.flush()
 
     async def _store_movie_credits(self, credits):
         # 处理演员信息
@@ -221,25 +231,4 @@ class MovieService(PeopleService):
         ]
         await self._batch_insert(TMDBMovieAlternativeTitle, ts_add)
 
-    @staticmethod
-    def _build_movie(details, external_ids):
-        movie = TMDBMovie(
-            id=details['id'],
-            adult=details['adult'],
-            backdrop_path=details.get('backdrop_path'),
-            budget=details['budget'],
-            imdb_id=details.get('imdb_id'),
-            original_language=details['original_language'],
-            original_title=details.get('original_title'),
-            popularity=details['popularity'],
-            poster_path=details.get('poster_path'),
-            release_date=details.get('release_date'),
-            revenue=details.get('revenue'),
-            runtime=details.get('runtime'),
-            status=details.get('status'),
-            video=details['video'],
-            vote_average=details['vote_average'],
-            vote_count=details['vote_count'],
-            external_ids=external_ids,
-        )
-        return movie
+

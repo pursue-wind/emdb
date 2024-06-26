@@ -12,7 +12,6 @@ from apps.services.fix_data import DataService
 from apps.web import make_app
 from config import settings
 
-
 log_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '.', 'logs'))
 os.makedirs(log_dir, exist_ok=True)
 log_file = os.path.join(log_dir, 'main.log')
@@ -32,6 +31,7 @@ async_session_factory = sessionmaker(
 
 logging.info(settings.as_dict())
 
+
 async def init_db():
     async with async_engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
@@ -47,18 +47,16 @@ async def main():
         logging.info(f"Listening on port {settings.server.port}")
 
         # 同步原表的数据
-        if settings.data_sync:
-            await asyncio.create_task(DataService(async_session_factory).movie())
-            await asyncio.create_task(DataService(async_session_factory).tv())
         if settings.genres_sync:
             await asyncio.create_task(DataService(async_session_factory).get_all_genre())
+        if settings.data_sync:
+            await asyncio.create_task(DataService(async_session_factory).movie(settings.force))
+            await asyncio.create_task(DataService(async_session_factory).tv(settings.force))
 
         # Keep the server running
         await asyncio.Event().wait()
     except Exception as e:
         logging.error("Error in main function", exc_info=True)
-
-
 
 
 if __name__ == "__main__":

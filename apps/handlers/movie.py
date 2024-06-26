@@ -2,7 +2,7 @@ import logging
 import random
 from operator import or_
 
-from requests.packages import target
+
 from sqlalchemy import select, func
 from sqlalchemy.orm import joinedload
 
@@ -266,6 +266,17 @@ class SearchCompanyMovies(BaseHandler):
                 if 'production_countries' in target_ret:
                     trans_production_countries = list(map(lambda x: x.iso_3166_1, target.production_countries))
                     target_ret['production_countries'] = trans_production_countries
+                target['tmdb_id'] = target['id']
+                if target['backdrop_path']:
+                    target['backdrop_path'] = IMAGE_BASE_URL + target['backdrop_path']
+                if target['poster_path']:
+                    target['poster_path'] = IMAGE_BASE_URL + target['poster_path']
+                if hasattr(target, 'title') and target['title'] == "":
+                    target['title'] = target['original_title']
+                if target['external_ids'] is None:
+                    target['external_ids'] = {"id": 101, "imdb_id": target['imdb_id'], "twitter_id": None,
+                                           "facebook_id": None,
+                                           "wikidata_id": None, "instagram_id": None}
                 return target_ret
 
             movie_res = list(map(lambda x: trans(x), movie_list))

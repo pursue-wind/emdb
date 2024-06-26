@@ -1,6 +1,7 @@
 import enum
 
 from sqlalchemy import ForeignKey, ARRAY, Column, Integer, String, Boolean, Float, TIMESTAMP, text, Enum, event
+from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import object_session, declarative_base, relationship
 
 from apps.handlers.base import language_var
@@ -54,7 +55,8 @@ class BaseMedia(Base):
     poster_path = Column(String, nullable=True, comment='海报路径')
     vote_average = Column(Float, nullable=False, comment='平均评分')
     vote_count = Column(Integer, nullable=False, comment='评分人数')
-
+    external_ids = Column(JSONB, nullable=True, comment='external_ids，作为JSON数组存储')
+    keywords = Column(JSONB, nullable=True, comment='keywords，作为JSON数组存储')
 
 class TMDBCast(Base):
     __abstract__ = True

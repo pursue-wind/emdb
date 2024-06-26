@@ -201,14 +201,6 @@ class TMDBSpokenLanguage(Base):
                             back_populates='spoken_languages')
 
 
-class TMDBBelongsToCollection(Base):
-    __tablename__ = 'tmdb_belongs_to_collections'
-
-    id = Column(Integer, primary_key=True)
-    backdrop_path = Column(String, nullable=True)
-    name = Column(String, nullable=True)
-    poster_path = Column(String, nullable=True)
-
 
 class TMDBMovieTranslation(Base):
     __tablename__ = 'tmdb_movie_translations'
@@ -260,7 +252,7 @@ class TMDBMovie(BaseMedia):
     __tablename__ = 'tmdb_movies'
 
     id = Column(Integer, primary_key=True, autoincrement=False)
-    belongs_to_collection_id = Column(Integer, ForeignKey('tmdb_belongs_to_collections.id'))
+
     budget = Column(Integer, nullable=False, comment='预算')
 
     imdb_id = Column(String, nullable=True, comment='IMDb ID')
@@ -272,9 +264,8 @@ class TMDBMovie(BaseMedia):
     runtime = Column(Integer, nullable=True, comment='时长（分钟）')
 
     video = Column(Boolean, nullable=False, comment='是否为视频')
-    external_ids = Column(JSONB, nullable=True, comment='external_ids，作为JSON数组存储')
+    belongs_to_collection = Column(JSONB, nullable=True, comment='belongs_to_collection，作为JSON数组存储')
 
-    belongs_to_collection = relationship('TMDBBelongsToCollection', backref='tmdb_movies')
     genres = relationship('TMDBGenre', secondary=lambda: tmdb_movie_genres_table, back_populates='movies')
 
     spoken_languages = relationship('TMDBSpokenLanguage', secondary=lambda: tmdb_movie_spoken_languages_table,
@@ -409,11 +400,6 @@ def load_tv_video(target, context):
 
 @event.listens_for(TMDBMovie, 'load')
 def load_movie_translation(target, context):
-    target.tmdb_id = target.id
-    if target.backdrop_path:
-        target.backdrop_path = IMAGE_BASE_URL + target.backdrop_path
-    if target.poster_path:
-        target.poster_path = IMAGE_BASE_URL + target.poster_path
     load_translation_by_iso_639_1(
         target=target,
         context=context,
@@ -421,11 +407,7 @@ def load_movie_translation(target, context):
         foreign_key_field='movie_id',
         attributes=['title', 'overview', 'tagline', 'homepage']
     )
-    if target.title == "":
-        target.title = target.original_title
-    if target.external_ids is None:
-        target.external_ids = {"id": 101, "imdb_id": target.imdb_id, "twitter_id": None, "facebook_id": None,
-                               "wikidata_id": None, "instagram_id": None}
+
 
 
 class TMDBPeople(Base):

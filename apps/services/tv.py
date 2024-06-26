@@ -82,9 +82,11 @@ class TVService(PeopleService):
         images = await self._fetch(lambda: tv.images())
         videos = await self._fetch(lambda: tv.videos())
         # credits = await self._fetch(lambda: tv.credits(language=self._language()))
+        external_ids = await self._fetch(lambda: tv.external_ids())
+        keywords = await self._fetch(lambda: tv.keywords())
 
         async with self.session.begin():
-            await self._store_tv(details)
+            await self._store_tv(details, external_ids=external_ids, keywords=keywords)
             # 翻译
             await self._process_tv_translations(translations)
             # 图片
@@ -97,8 +99,8 @@ class TVService(PeopleService):
                     if season_data['id'] == tv_season_id or tv_season_id is None:
                         await self._fetch_and_store_season(details['id'], season_data['season_number'])
 
-    async def _store_tv(self, details, series_credits=None):
-        tv = self._build_tv(details)
+    async def _store_tv(self, details, external_ids, keywords, series_credits=None):
+        tv = self._build_tv(details, external_ids, keywords)
         await self._associate_entities(tv, details)
         await self.session.merge(tv)
         await self.session.flush()
@@ -283,7 +285,7 @@ class TVService(PeopleService):
         await self._batch_insert(TMDBTVEpisodeTranslation, t)
 
     @staticmethod
-    def _build_tv(details):
+    def _build_tv(details, external_ids, keywords):
         return TMDBTV(
             id=details['id'],
             adult=details['adult'],
@@ -305,6 +307,8 @@ class TVService(PeopleService):
             status=details.get('status'),
             vote_average=details['vote_average'],
             vote_count=details['vote_count'],
+            external_ids=details['external_ids'],
+            keywords=details['keywords'],
         )
 
     @staticmethod
