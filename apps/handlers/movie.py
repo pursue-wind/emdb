@@ -470,7 +470,7 @@ class SearchCompanyTV(BaseHandler):
                 target_ret['revenue'] = 0
                 target_ret['budget'] = 0
 
-                if tv_season['overview']:
+                if 'overview' in tv_season and tv_season['overview']:
                     target_ret['overview'] = tv_season['overview']
 
                 if 'genres' in target_ret:

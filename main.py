@@ -48,10 +48,12 @@ async def main():
 
         # 同步原表的数据
         if settings.genres_sync:
-            await asyncio.create_task(DataService(async_session_factory).get_all_genre())
+            await asyncio.create_task(DataService(async_session_factory).read_all_genre_by_sql_file())
+            # await asyncio.create_task(DataService(async_session_factory).get_all_genre())
+
         if settings.data_sync:
-            await asyncio.create_task(DataService(async_session_factory).movie(settings.force))
-            await asyncio.create_task(DataService(async_session_factory).tv(settings.force))
+            await asyncio.gather(DataService(async_session_factory).movie(settings.force),
+                                 DataService(async_session_factory).tv(settings.force))
 
         # Keep the server running
         await asyncio.Event().wait()

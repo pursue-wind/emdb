@@ -1,7 +1,8 @@
+import os
 import traceback
 
 import tmdbsimple as tmdb
-from sqlalchemy import select, UniqueConstraint, Numeric, Sequence
+from sqlalchemy import select, UniqueConstraint, Numeric, Sequence, text
 
 from apps.domain.base import Base0
 from apps.domain.models import *
@@ -57,6 +58,34 @@ class DataService(PeopleService):
         super().__init__(session())
         self.movies_service = MovieService(session())
         self.tv_service = TVService(session())
+
+    async def read_all_genre_by_sql_file(self):
+        # 获取当前文件的路径
+        current_file_path = os.path.abspath(__file__)
+        current_dir = os.path.dirname(current_file_path)
+        print("current_dir:", current_dir)
+        await self.exec_sql_file(current_dir+'/../../sql/tmdb_genres.sql')
+        await self.exec_sql_file(current_dir+'/../../sql/tmdb_genres_translations.sql')
+
+    async def exec_sql_file(self, sql_file_path):
+        # 检查 SQL 文件是否存在
+        if not os.path.isfile(sql_file_path):
+            raise FileNotFoundError(f"The SQL file at {sql_file_path} was not found.")
+
+        # 读取 SQL 文件的内容
+        with open(sql_file_path, 'r') as file:
+            sql_commands = file.read()
+
+        # 创建会话
+        async with self.session.begin():
+            # 执行每个 SQL 语句
+            for statement in sql_commands.split(';'):
+                statement = statement.strip()
+                if statement:
+                    print(f"Executing: {statement}")
+                    await self.session.execute(text(statement))
+
+        print("SQL file has been executed successfully.")
 
     async def get_all_genre(self):
         """
