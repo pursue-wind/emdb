@@ -315,6 +315,8 @@ class MovieVideosHandler(BaseHandler):
             r = result.scalars().all()
             res = self.to_primitive(r)
             self.success({"videos": res})
+
+
 class TVVideosHandler(BaseHandler):
     @auth
     async def get(self):
@@ -461,7 +463,8 @@ class SearchCompanyTV(BaseHandler):
                 target_ret['original_title'] = target_ret['original_name']
                 target_ret['tmdb_id'] = tv_season['id']
                 target_ret['tmdb_series_id'] = target_ret['id']
-                target_ret['run_time'] = target_ret['episode_run_time']
+                if 'episode_run_time' in target_ret and target_ret['episode_run_time']:
+                    target_ret['run_time'] = target_ret['episode_run_time'][0]
 
                 target_ret['title'] = target_ret['name']
 
