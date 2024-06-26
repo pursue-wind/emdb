@@ -266,6 +266,9 @@ class SearchCompanyMovies(BaseHandler):
                 if 'production_countries' in target_ret:
                     trans_production_countries = list(map(lambda x: x.iso_3166_1, target.production_countries))
                     target_ret['production_countries'] = trans_production_countries
+                if 'keywords' in target_ret:
+                    trans_keywords = list(map(lambda x2: x2['name'], target_ret['keywords']['keywords']))
+                    target_ret['keywords'] = trans_keywords
                 target_ret['tmdb_id'] = target_ret['id']
                 if target_ret['backdrop_path']:
                     target_ret['backdrop_path'] = IMAGE_BASE_URL + target_ret['backdrop_path']
