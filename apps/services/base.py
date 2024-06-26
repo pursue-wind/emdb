@@ -1,6 +1,7 @@
 # tv_services.py
 import asyncio
 import logging
+import traceback
 from datetime import datetime
 
 import requests
@@ -43,16 +44,10 @@ class BaseService:
                 return await self._fetch(func)  # Retry the function
             raise e
 
-    async def _get_or_create_list(self, model, data_list, defaults_func, key='id', merge=False):
-        return [await self._get_or_create(model, data[key], defaults_func(data), merge) for data in data_list]
-
-    async def _get_or_create(self, model, identifier, defaults, merge=False):
-        instance = await self.session.get(model, identifier)
-        if not instance or merge:
-            instance = model(**defaults)
-            await self.session.merge(instance)
-
-        return instance
+    async def _get_or_create_list(self, model, data_list, defaults_func, key='id'):
+        rs = [defaults_func(data) for data in data_list]
+        await self._batch_insert(model, rs)
+        return [model(**data) for data in rs]
 
     async def _process_images(self, images, obj):
         mid = images['id']

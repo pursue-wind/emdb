@@ -105,7 +105,9 @@ class MovieService(PeopleService):
             external_ids=external_ids,
             keywords=keywords,
         )
-
+        print("======================production_companies1")
+        print(details.get('production_companies', []))
+        print("======================production_companies2")
         # 关联 production_companies
         movie.production_companies = await self._get_or_create_list(
             TMDBProductionCompany,
@@ -222,5 +224,3 @@ class MovieService(PeopleService):
             for t in ts.get('titles', [])
         ]
         await self._batch_insert(TMDBMovieAlternativeTitle, ts_add)
-
-
