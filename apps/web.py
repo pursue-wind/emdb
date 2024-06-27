@@ -24,6 +24,7 @@ def make_app(session_factory):
         (r"/api/tv/release_dates", TVReleaseDatesHandler, dict(session_factory=session_factory)),
         (r"/api/movie/videos", MovieVideosHandler, dict(session_factory=session_factory)),
         (r"/api/tv/videos", TVVideosHandler, dict(session_factory=session_factory)),
+        (r"/api/media/count", CountCompanyMovies, dict(session_factory=session_factory)),
 
         ("/api/company/movies", SearchCompanyMovies, dict(session_factory=session_factory)),
         ("/api/company/tv", SearchCompanyTV, dict(session_factory=session_factory)),
