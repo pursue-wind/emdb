@@ -102,12 +102,14 @@ class MovieService(PeopleService):
             vote_average=details['vote_average'],
             vote_count=details['vote_count'],
             belongs_to_collection=details['belongs_to_collection'],
+            homepage=details['homepage'],
+            overview=details['overview'],
+            tagline=details['tagline'],
+            title=details['title'],
             external_ids=external_ids,
             keywords=keywords,
         )
-        print("======================production_companies1")
-        print(details.get('production_companies', []))
-        print("======================production_companies2")
+
         # 关联 production_companies
         movie.production_companies = await self._get_or_create_list(
             TMDBProductionCompany,

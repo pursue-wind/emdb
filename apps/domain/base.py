@@ -41,7 +41,9 @@ def load_translation_by_iso_639_1(target, context, translation_model, foreign_ke
 
             if translation:
                 for attr in attributes:
-                    setattr(target, attr, getattr(translation, attr))
+                    to_set_val = getattr(translation, attr)
+                    if to_set_val:
+                        setattr(target, attr, to_set_val)
 
 
 class BaseMedia(Base):
@@ -57,6 +59,7 @@ class BaseMedia(Base):
     vote_count = Column(Integer, nullable=False, comment='评分人数')
     external_ids = Column(JSONB, nullable=True, comment='external_ids，作为JSON数组存储')
     keywords = Column(JSONB, nullable=True, comment='keywords，作为JSON数组存储')
+
 
 class TMDBCast(Base):
     __abstract__ = True

@@ -324,6 +324,9 @@ class TVService(PeopleService):
             status=details.get('status'),
             vote_average=details['vote_average'],
             vote_count=details['vote_count'],
+            homepage=details['homepage'],
+            overview=details['overview'],
+            tagline=details['tagline'],
             external_ids=external_ids,
             keywords=keywords,
         )
@@ -334,6 +337,8 @@ class TVService(PeopleService):
             id=season_details['id'],
             tv_show_id=tv_id,
             air_date=season_details.get('air_date'),
+            overview=season_details.get('overview'),
+            name=season_details.get('name'),
             poster_path=season_details['poster_path'],
             season_number=season_details['season_number'],
             vote_average=season_details.get('vote_average', 0)
@@ -344,6 +349,8 @@ class TVService(PeopleService):
         return TMDBTVEpisode(
             id=episode_data['id'],
             tv_season_id=tv_season_id,
+            overview=episode_data.get('overview'),
+            name=episode_data.get('name'),
             air_date=episode_data.get('air_date'),
             episode_number=episode_data['episode_number'],
             production_code=episode_data.get('production_code'),

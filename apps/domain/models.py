@@ -254,7 +254,10 @@ class TMDBMovie(BaseMedia):
     release_date = Column(String, nullable=True, comment='上映日期')
     revenue = Column(Integer, nullable=False, comment='收入')
     runtime = Column(Integer, nullable=True, comment='时长（分钟）')
-
+    homepage = Column(String, nullable=True, comment='主页URL')
+    overview = Column(String, nullable=True, comment='概述')
+    tagline = Column(String, nullable=True, comment='标语')
+    title = Column(String, nullable=True, comment='标题')
     video = Column(Boolean, nullable=False, comment='是否为视频')
     belongs_to_collection = Column(JSONB, nullable=True, comment='belongs_to_collection，作为JSON数组存储')
 
@@ -456,7 +459,10 @@ class TMDBTV(BaseMedia):
     in_production = Column(Boolean, nullable=False, comment='是否在制作中')
     languages = Column(ARRAY(String), nullable=False, comment='语言')
     last_air_date = Column(String, nullable=True, comment='最近播放日期')
-    name = Column(String, nullable=False, comment='名称')
+    homepage = Column(String, nullable=True, comment='主页URL')
+    overview = Column(String, nullable=True, comment='概述')
+    tagline = Column(String, nullable=True, comment='标语')
+    name = Column(String, nullable=True, comment='标题')
     next_episode_to_air = Column(String, nullable=True, comment='下一集')
     number_of_episodes = Column(Integer, nullable=False, comment='集数')
     number_of_seasons = Column(Integer, nullable=False, comment='季数')
@@ -500,6 +506,8 @@ class TMDBTVSeason(Base):
     __tablename__ = 'tmdb_tv_seasons'
 
     id = Column(Integer, primary_key=True, autoincrement=False)
+    overview = Column(String, nullable=True, comment='概述')
+    name = Column(String, nullable=True, comment='标题')
     air_date = Column(String, nullable=True, comment='播放日期')
     episode_count = Column(Integer, nullable=True, comment='集数')
     poster_path = Column(String, nullable=True, comment='海报路径')
@@ -529,6 +537,8 @@ class TMDBTVEpisode(Base):
     __tablename__ = 'tmdb_tv_episodes'
 
     id = Column(Integer, primary_key=True)
+    overview = Column(String, nullable=True, comment='概述')
+    name = Column(String, nullable=True, comment='标题')
     air_date = Column(String, nullable=True, comment='播放日期')
     episode_number = Column(Integer, nullable=True, comment='集数')
     episode_type = Column(String, nullable=True, comment='类型')
