@@ -109,6 +109,13 @@ class MovieService(PeopleService):
             external_ids=external_ids,
             keywords=keywords,
         )
+        # 关联 genres
+        movie.genres = await self._get_or_create_list(
+            TMDBGenre,
+            details.get('genres', []),
+            lambda x: {'id': x['id']},
+            data_insert=False
+        )
 
         # 关联 production_companies
         movie.production_companies = await self._get_or_create_list(

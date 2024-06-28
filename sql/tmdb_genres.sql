@@ -1,4 +1,4 @@
-insert into public.tmdb_genres (id)
+insert into tmdb_genres (id)
 values  (28),
         (12),
         (16),

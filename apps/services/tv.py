@@ -108,6 +108,13 @@ class TVService(PeopleService):
         await self.session.flush()
 
     async def _associate_entities(self, tv, details):
+        # 关联 genres
+        tv.genres = await self._get_or_create_list(
+            TMDBGenre,
+            details.get('genres', []),
+            lambda x: {'id': x['id']},
+            data_insert=False
+        )
         tv.production_companies = await self._get_or_create_list(
             TMDBProductionCompany,
             details.get('production_companies', []),

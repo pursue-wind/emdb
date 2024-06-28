@@ -52,7 +52,6 @@ class SearchService(BaseService):
 
     async def search(self, name, lang='en', page=1, media_type="movie", include_adult=True, t_id=None):
         is_movie_type = self.movie_media_type_check_func(media_type)
-        discover = tmdb.discover.Discover()
         if t_id:
             try:
                 res = tmdb.Movies(t_id).info(language=lang) if is_movie_type else tmdb.TV(t_id).info(

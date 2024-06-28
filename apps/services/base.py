@@ -44,9 +44,10 @@ class BaseService:
                 return await self._fetch(func)  # Retry the function
             raise e
 
-    async def _get_or_create_list(self, model, data_list, defaults_func, key='id'):
+    async def _get_or_create_list(self, model, data_list, defaults_func, key='id', data_insert=True):
         rs = [defaults_func(data) for data in data_list]
-        await self._batch_insert(model, rs)
+        if data_insert:
+            await self._batch_insert(model, rs)
         return [model(**data) for data in rs]
 
     async def _process_images(self, images, obj):

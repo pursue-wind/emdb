@@ -87,7 +87,7 @@ class DataService(PeopleService):
 
         print("SQL file has been executed successfully.")
 
-    async def get_all_genre(self):
+    async def get_all_genre_from_tmdb(self):
         """
         多语言的分类数据，启动的时候根据配置 genres_sync: true 拉取所有的分类数据
         """
