@@ -9,6 +9,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from apps.domain.models import Base
 from apps.services.fix_data import DataService
+from apps.services.schedule import ScheduleService
 from apps.web import make_app
 from config import settings
 
@@ -46,14 +47,20 @@ async def main():
         app.listen(settings.server.port)
         logging.info(f"Listening on port {settings.server.port}")
 
+        loop = asyncio.get_event_loop()
+        task = loop.create_task(ScheduleService(async_session_factory).start())
+        loop.run_until_complete(task)
+
         # 同步原表的数据
         if settings.genres_sync:
             await asyncio.create_task(DataService(async_session_factory).read_all_genre_by_sql_file())
             # await asyncio.create_task(DataService(async_session_factory).get_all_genre())
 
         if settings.data_sync:
-            await asyncio.gather(DataService(async_session_factory).movie(settings.force),
-                                 DataService(async_session_factory).tv(settings.force))
+            await asyncio.gather(
+                DataService(async_session_factory).movie(settings.force),
+                DataService(async_session_factory).tv(settings.force)
+            )
 
         # Keep the server running
         await asyncio.Event().wait()

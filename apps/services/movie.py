@@ -90,6 +90,7 @@ class MovieService(PeopleService):
             backdrop_path=details.get('backdrop_path'),
             budget=details['budget'],
             imdb_id=details.get('imdb_id'),
+            origin_country=details['origin_country'],
             original_language=details['original_language'],
             original_title=details.get('original_title'),
             popularity=details['popularity'],
