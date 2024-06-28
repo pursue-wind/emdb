@@ -73,7 +73,7 @@ class TVService(PeopleService):
 
         return self.to_primitive(r)
 
-    async def fetch_and_store_tv(self, tv_series_id: int, tv_season_id: int = None):
+    async def fetch_and_store_tv(self, tv_series_id: int, tv_season_id: int = None, tv_season_num: int = None):
         tv = tmdb.TV(tv_series_id)
         lang = self._language()
         details = await self._fetch(lambda: tv.info())
@@ -98,8 +98,10 @@ class TVService(PeopleService):
             # 处理每一季和集的信息
             if 'seasons' in details:
                 for season_data in details['seasons']:
-                    if season_data['id'] == tv_season_id or tv_season_id is None:
+                    if (season_data['id'] == tv_season_id or str(season_data['season_number']) == str(tv_season_num)) or \
+                            (tv_season_id is None and tv_season_num is None):
                         await self._fetch_and_store_season(details['id'], season_data['season_number'])
+        return details
 
     async def _store_tv(self, details, external_ids, keywords, series_credits=None):
         tv = self._build_tv(details, external_ids, keywords)
@@ -345,7 +347,7 @@ class TVService(PeopleService):
             id=season_details['id'],
             tv_show_id=tv_id,
             air_date=season_details.get('air_date'),
-            episode_count=season_details.get('episode_count'),
+            episode_count=len(season_details.get('episodes', [])),
             overview=season_details.get('overview'),
             name=season_details.get('name'),
             poster_path=season_details['poster_path'],
