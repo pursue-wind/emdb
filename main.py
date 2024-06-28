@@ -47,10 +47,6 @@ async def main():
         app.listen(settings.server.port)
         logging.info(f"Listening on port {settings.server.port}")
 
-        loop = asyncio.get_event_loop()
-        task = loop.create_task(ScheduleService(async_session_factory).start())
-        loop.run_until_complete(task)
-
         # 同步原表的数据
         if settings.genres_sync:
             await asyncio.create_task(DataService(async_session_factory).read_all_genre_by_sql_file())
