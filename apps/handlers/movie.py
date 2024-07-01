@@ -427,6 +427,7 @@ class SearchCompanyTV(BaseHandler):
                 .distinct()
                 .options(joinedload(TMDBTVSeason.tv_show).joinedload(TMDBTV.genres))
                 .options(joinedload(TMDBTVSeason.tv_show).joinedload(TMDBTV.alternative_titles))
+                .options(joinedload(TMDBTVSeason.tv_show).joinedload(TMDBTV.spoken_languages))
                 .options(joinedload(TMDBTVSeason.tv_show).joinedload(TMDBTV.production_countries))
                 .options(joinedload(TMDBTVSeason.tv_show).joinedload(TMDBTV.production_companies))
             )
