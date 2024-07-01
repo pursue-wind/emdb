@@ -356,8 +356,8 @@ class SearchCompanyMovies(BaseHandler):
             if movie_name:
                 base_query = base_query.outerjoin(TMDBMovie.alternative_titles).filter(
                     or_(
-                        TMDBMovie.original_title.ilike(f"%{movie_name}%"),
-                        TMDBMovieAlternativeTitle.title.ilike(f"%{movie_name}%")
+                        TMDBMovie.original_title.ilike(f"{movie_name}%"),
+                        TMDBMovieAlternativeTitle.title.ilike(f"{movie_name}%")
                     )
                 )
 
@@ -365,8 +365,8 @@ class SearchCompanyMovies(BaseHandler):
                 count_query = select(func.count()).select_from(
                     select(TMDBMovie.id).outerjoin(TMDBMovie.alternative_titles).filter(
                         or_(
-                            TMDBMovie.original_title.ilike(f"%{movie_name}%"),
-                            TMDBMovieAlternativeTitle.title.ilike(f"%{movie_name}%")
+                            TMDBMovie.original_title.ilike(f"{movie_name}%"),
+                            TMDBMovieAlternativeTitle.title.ilike(f"{movie_name}%")
                         )
                     ).distinct().subquery()
                 )
@@ -439,16 +439,16 @@ class SearchCompanyTV(BaseHandler):
             if movie_name:
                 base_query = base_query.filter(
                     or_(
-                        TMDBTV.name.ilike(f"%{movie_name}%"),
-                        TMDBTVAlternativeTitle.title.ilike(f"%{movie_name}%")
+                        TMDBTV.name.ilike(f"{movie_name}%"),
+                        TMDBTVAlternativeTitle.title.ilike(f"{movie_name}%")
                     )
                 )
 
                 count_query = select(func.count()).select_from(
                     select(TMDBTV.id).outerjoin(TMDBTV.alternative_titles).filter(
                         or_(
-                            TMDBTV.name.ilike(f"%{movie_name}%"),
-                            TMDBTVAlternativeTitle.title.ilike(f"%{movie_name}%")
+                            TMDBTV.name.ilike(f"{movie_name}%"),
+                            TMDBTVAlternativeTitle.title.ilike(f"{movie_name}%")
                         )
                     ).distinct().subquery()
                 )
@@ -481,12 +481,14 @@ class SearchCompanyTV(BaseHandler):
                 if 'overview' in target_ret and target_ret['overview'] == '':
                     target_ret['overview'] = tv_season['overview']
 
-                r2 = copy.deepcopy(target_ret)
-                target_ret['additional_info'] = r2
+                additional_info = copy.deepcopy(target_ret)
+
+                target_ret['additional_info'] = additional_info
 
                 if 'genres' in target_ret:
                     target_ret['genres'] = list(map(lambda x: x.name, target.tv_show.genres))
                 del tv_season['tv_show']
+                tv_season['external_ids'] = target_ret['external_ids']
                 target_ret['episode_detail'] = tv_season
                 if 'production_countries' in target_ret:
                     target_ret['production_countries'] = list(
