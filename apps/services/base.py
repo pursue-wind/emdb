@@ -7,6 +7,7 @@ from datetime import datetime
 import requests
 import tmdbsimple as tmdb
 from objtyping import to_primitive
+from sqlalchemy import select
 from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 import tornado.ioloop
@@ -74,3 +75,14 @@ class BaseService:
         stmt = insert(obj).values(dict_list)
         stmt = stmt.on_conflict_do_nothing()
         await self.session.execute(stmt)
+
+    async def _simple_query(self, obj, *whereclause, joinedload_options: [] = []):
+        query = select(obj)
+
+        for arg in joinedload_options:
+            query = query.options(joinedload_options[arg])
+
+        result = await self.session.execute(query.where(*whereclause))
+        r = result.unique().scalar_one_or_none()
+
+        return r

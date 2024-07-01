@@ -128,13 +128,14 @@ class DataService(PeopleService):
             if not batch:
                 break
             await self.session.commit()
-            print(batch)
             need_fetch = set(batch)
             if not force:
                 result = await self.session.execute(select(TMDBMovie.id).where(TMDBMovie.id.in_(batch)))
                 exist_ids = result.scalars().all()
                 need_fetch = set(batch) - set(exist_ids)
 
+            if need_fetch:
+                print(need_fetch)
             for movie_id in need_fetch:
                 language_var.set('en')
                 try:

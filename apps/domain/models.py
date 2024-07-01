@@ -58,11 +58,6 @@ tmdb_tv_genres_table = Table(
     Column('genre_id', Integer, ForeignKey('tmdb_genres.id'), primary_key=True),
 )
 
-tmdb_tv_networks_table = Table(
-    'tmdb_tv_networks', Base.metadata,
-    Column('tv_id', Integer, ForeignKey('tmdb_tv.id'), primary_key=True),
-    Column('network_id', Integer, ForeignKey('tmdb_networks.id'), primary_key=True),
-)
 
 tmdb_tv_production_companies_table = Table(
     'tmdb_tv_production_companies', Base.metadata,
@@ -144,16 +139,6 @@ def insert_genre_translation(mapper, connection, target):
         if session:
             session.merge(translation)
 
-
-class TMDBNetwork(Base):
-    __tablename__ = 'tmdb_networks'
-
-    id = Column(Integer, primary_key=True, autoincrement=False)
-    logo_path = Column(String, nullable=True, comment='标志路径')
-    name = Column(String, nullable=False, comment='名称')
-    origin_country = Column(String, nullable=False, comment='原产国')
-
-    tv_shows = relationship('TMDBTV', secondary=tmdb_tv_networks_table, back_populates='networks')
 
 
 class TMDBProductionCompany(Base):
@@ -471,9 +456,9 @@ class TMDBTV(BaseMedia):
     created_by = relationship('TMDBCreatedBy', secondary=lambda: tmdb_tv_created_by_table,
                               back_populates='tv_shows')
     last_episode_to_air = Column(JSONB, nullable=True, comment='last_episode_to_air，作为JSON数组存储')
+    networks = Column(JSONB, nullable=True, comment='networks，作为JSON数组存储')
 
     genres = relationship('TMDBGenre', secondary=lambda: tmdb_tv_genres_table, back_populates='tv_shows')
-    networks = relationship('TMDBNetwork', secondary=lambda: tmdb_tv_networks_table, back_populates='tv_shows')
 
     production_companies = relationship('TMDBProductionCompany',
                                         secondary=lambda: tmdb_tv_production_companies_table,

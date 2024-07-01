@@ -323,6 +323,7 @@ class TVService(PeopleService):
             last_air_date=details.get('last_air_date'),
             name=details.get('name'),
             type=details.get('type'),
+            networks=details.get('networks'),
             next_episode_to_air=details.get('next_episode_to_air'),
             number_of_episodes=details.get('number_of_episodes'),
             number_of_seasons=details.get('number_of_seasons'),

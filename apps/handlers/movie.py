@@ -62,7 +62,7 @@ class Movie2Handler(BaseHandler):
 
             # get_tv_detail_filter_season(tmdb_series_id_list[i], season_id_list[i], company_id)
             if is_movie_type:
-                r = await MovieService(session).get_movie(tmdb_id)
+                r = await MovieService(session).fetch_and_store_movie(tmdb_id)
                 self.success(data=tmdb_id)
             else:
                 r = await TVService(session).fetch_and_store_tv(tmdb_id, tv_season_id)
