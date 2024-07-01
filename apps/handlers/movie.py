@@ -1,3 +1,4 @@
+import copy
 import logging
 import random
 from operator import or_
@@ -479,6 +480,9 @@ class SearchCompanyTV(BaseHandler):
 
                 if 'overview' in target_ret and target_ret['overview'] == '':
                     target_ret['overview'] = tv_season['overview']
+
+                r2 = copy.deepcopy(target_ret)
+                target_ret['additional_info'] = r2
 
                 if 'genres' in target_ret:
                     target_ret['genres'] = list(map(lambda x: x.name, target.tv_show.genres))
