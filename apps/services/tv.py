@@ -215,6 +215,7 @@ class TVService(PeopleService):
     async def _process_episode_credits(self, episode, credits):
         await self._process_episode_casts(episode, credits.get('cast', []))
         await self._process_episode_crews(episode, credits.get('crew', []))
+        await self._process_episode_guest_stars(episode, credits.get('guest_stars', []))
 
     async def _process_episode_casts(self, episode, casts):
         if not casts:
@@ -245,6 +246,20 @@ class TVService(PeopleService):
             "credit_id": crew_data.get('credit_id')
         }, crews))
         await self._batch_insert(TMDBTVEpisodeCrew, crews_add)
+
+    async def _process_episode_guest_stars(self, episode, guest_stars):
+        if not guest_stars:
+            return
+        people_ids = list(map(lambda c: c['id'], guest_stars))
+        await self.update_or_create_peoples(people_ids)
+        crews_add = list(map(lambda cast_data: {
+            "tv_episodes_id": episode.id,
+            "people_id": cast_data.get('id'),
+            "character": cast_data.get('character'),
+            "order": cast_data.get('order'),
+            "credit_id": cast_data.get('credit_id'),
+        }, guest_stars))
+        await self._batch_insert(TMDBTVEpisodeGuestStar, crews_add)
 
     async def _process_tv_translations(self, translations):
         mid = translations['id']

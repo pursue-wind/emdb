@@ -423,15 +423,10 @@ class TMDBPeople(Base):
     movie_crew = relationship('TMDBMovieCrew', back_populates='people')
     tv_episode_crew = relationship('TMDBTVEpisodeCrew', back_populates='people')
     tv_episode_cast = relationship('TMDBTVEpisodeCast', back_populates='people')
+    tv_episode_guest_star = relationship('TMDBTVEpisodeGuestStar', back_populates='people')
     tv_season_crew = relationship('TMDBTVSeasonCrew', back_populates='people')
     tv_season_cast = relationship('TMDBTVSeasonCast', back_populates='people')
 
-
-@event.listens_for(TMDBPeople, 'load')
-def load_people(target, context):
-    if target.profile_path:
-        target.profile_path = IMAGE_BASE_URL + target.profile_path
-    target.tmdb_id = target.id
 
 
 class TMDBTV(BaseMedia):
@@ -535,8 +530,8 @@ class TMDBTVEpisode(Base):
     vote_count = Column(Integer, nullable=True, comment='评分人数')
     tv_season_id = Column(Integer, ForeignKey('tmdb_tv_seasons.id'), nullable=False)
     # 关系
-    guest_stars = relationship('TMDBGuestStar', backref='tv_episode')
     tv_episode_cast = relationship('TMDBTVEpisodeCast', back_populates='tv_episode')
+    tv_episode_guest_star = relationship('TMDBTVEpisodeGuestStar', back_populates='tv_episode')
     tv_episode_crew = relationship('TMDBTVEpisodeCrew', back_populates='tv_episode')
     translations = relationship('TMDBTVEpisodeTranslation', back_populates='tv_episode')
 
@@ -567,21 +562,14 @@ def load_tv_episode_translation(target, context):
 
 #############
 
-class TMDBGuestStar(Base):
-    __tablename__ = 'tmdb_guest_stars'
+class TMDBTVEpisodeGuestStar(TMDBCast):
+    __tablename__ = 'tmdb_tv_episode_guest_stars'
 
     id = Column(Integer, primary_key=True)
-    credit_id = Column(String, nullable=False, comment='信用 ID')
-    character = Column(String, nullable=False, comment='角色')
-    name = Column(String, nullable=False, comment='姓名')
-    original_name = Column(String, nullable=False, comment='原名')
-    gender = Column(Integer, nullable=False, comment='性别')
-    adult = Column(Boolean, nullable=False, comment='是否成人')
-    order = Column(Integer, nullable=False, comment='顺序')
-    known_for_department = Column(String, nullable=False, comment='知名部门')
-    popularity = Column(Integer, nullable=False, comment='流行度')
-    profile_path = Column(String, nullable=True, comment='头像路径')
     tv_episode_id = Column(Integer, ForeignKey('tmdb_tv_episodes.id'), nullable=False)
+    tv_episode = relationship('TMDBTVEpisode', back_populates='tv_episode_guest_star')
+    people = relationship('TMDBPeople', back_populates='tv_episode_guest_star')
+
 
 
 ##################

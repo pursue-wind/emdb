@@ -138,7 +138,10 @@ class TVImagesHandler(BaseHandler):
     async def get(self):
         async with await self.get_session() as session:
             tv_id = self.parse_form('tv_id')
-            query = select(TMDBTVImage).where(TMDBTVImage.tv_id == int(tv_id))
+
+            result = await session.execute(select(TMDBTVSeason).where(TMDBTVSeason.id == int(tv_id)))
+            r = result.scalars().first()
+            query = select(TMDBTVImage).where(TMDBTVImage.tv_id == int(r.tv_show_id))
             result = await session.execute(query)
             r = result.scalars().all()
 
@@ -196,7 +199,7 @@ class TVTranslationsHandler(BaseHandler):
     async def get(self):
         async with await self.get_session() as session:
             tv_id = self.parse_form('tv_id')
-            query = select(TMDBTVTranslation).where(TMDBTVTranslation.tv_id == int(tv_id))
+            query = select(TMDBTVSeasonTranslation).where(TMDBTVSeasonTranslation.tv_season_id == int(tv_id))
             result = await session.execute(query)
             r = result.scalars().all()
             res = self.to_primitive(r)
@@ -221,7 +224,11 @@ class TVAlternativeTitlesHandler(BaseHandler):
     async def get(self):
         async with await self.get_session() as session:
             tv_id = self.parse_form('tv_id')
-            query = select(TMDBTVAlternativeTitle).where(TMDBTVAlternativeTitle.tv_id == int(tv_id))
+            query = select(TMDBTVSeason).where(TMDBTVSeason.id == int(tv_id))
+            result = await session.execute(query)
+            r = result.scalars().first()
+
+            query = select(TMDBTVAlternativeTitle).where(TMDBTVAlternativeTitle.tv_id == int(r.tv_show_id))
             result = await session.execute(query)
             r = result.scalars().all()
 
@@ -229,16 +236,12 @@ class TVAlternativeTitlesHandler(BaseHandler):
             self.success({"alternative_titles": res})
 
 
-def flatten(target, people):
-    if people:
-        attributes = list(map(lambda c: c.name, people.__table__.columns))
-
-        for attr in attributes:
-            if attr != "id":
-                setattr(target, attr, getattr(people, attr))
-        target.sex = target.gender
-    else:
-        logging.warning('No people found')
+def flatten(target):
+    if 'people' in target:
+        for p in target['people']:
+            target[p] = target['people'][p]
+        target['sex'] = target['gender']
+    target['people'] = None
     return target
 
 
@@ -252,13 +255,14 @@ class MovieCreditsHandler(BaseHandler):
                     result = await session.execute(select(TMDBMovieCast).options(joinedload(TMDBMovieCast.people))
                                                    .where(TMDBMovieCast.movie_id == int(movie_id)))
                     cast = result.scalars().all()
-                    cast_f = list(map(lambda x: flatten(x, x.people), cast))
+                    cast_f = list(map(lambda x: flatten(x), self.to_primitive(cast)))
 
                     result2 = await session.execute(select(TMDBMovieCrew).options(joinedload(TMDBMovieCrew.people))
                                                     .where(TMDBMovieCrew.movie_id == int(movie_id)))
                     crew = result2.scalars().all()
-                    crew_f = list(map(lambda x: flatten(x, x.people), crew))
-                    res = {"credits": {"cast": self.to_primitive(cast_f), "crew": self.to_primitive(crew_f)}}
+
+                    crew_f = list(map(lambda x: flatten(x), self.to_primitive(crew)))
+                    res = {"credits": {"cast": cast_f, "crew": crew_f}}
                     self.success(res)
 
 
@@ -268,22 +272,19 @@ class TVCreditsHandler(BaseHandler):
         async with await self.get_session() as session:
             async with session.begin():
                 tv_id = self.parse_form('tv_id')
-                with session.no_autoflush:
-                    result = await session.execute(select(TMDBTVSeasonCast)
-                                                   .options(joinedload(TMDBTVSeasonCast.people))
-                                                   .options(joinedload(TMDBTVSeasonCast.tv_season))
-                                                   .where(TMDBTVSeason.tv_show_id == int(tv_id)))
-                    cast = result.scalars().all()
-                    cast_f = list(map(lambda x: flatten(x, x.people), cast))
+                result = await session.execute(select(TMDBTVSeasonCast)
+                                               .options(joinedload(TMDBTVSeasonCast.people))
+                                               .where(TMDBTVSeasonCast.tv_season_id == int(tv_id)))
+                cast = result.scalars().all()
+                cast_f = list(map(lambda x: flatten(x), self.to_primitive(cast)))
 
-                    result2 = await session.execute(select(TMDBTVSeasonCrew)
-                                                    .options(joinedload(TMDBTVSeasonCrew.people))
-                                                    .options(joinedload(TMDBTVSeasonCrew.tv_season))
-                                                    .where(TMDBTVSeason.tv_show_id == int(tv_id)))
-                    crew = result2.scalars().all()
-                    crew_f = list(map(lambda x: flatten(x, x.people), crew))
-                    res = {"credits": {"cast": self.to_primitive(cast_f), "crew": self.to_primitive(crew_f)}}
-                    self.success(res)
+                result2 = await session.execute(select(TMDBTVSeasonCrew)
+                                                .options(joinedload(TMDBTVSeasonCrew.people))
+                                                .where(TMDBTVSeasonCrew.tv_season_id == int(tv_id)))
+                crew = result2.scalars().all()
+                crew_f = list(map(lambda x: flatten(x), self.to_primitive(crew)))
+                res = {"credits": {"cast": cast_f, "crew": crew_f}}
+                self.success(res)
 
 
 class MovieReleaseDatesHandler(BaseHandler):
@@ -322,8 +323,11 @@ class TVVideosHandler(BaseHandler):
     async def get(self):
         async with await self.get_session() as session:
             tv_id = self.parse_form('tv_id')
+            query = select(TMDBTVSeason).where(TMDBTVSeason.id == int(tv_id))
+            result = await session.execute(query)
+            r = result.scalars().first()
             result = await session.execute(
-                select(TMDBMovieVideo).where(TMDBTVVideo.tv_id == int(tv_id)))
+                select(TMDBTVVideo).where(TMDBTVVideo.tv_id == int(r.tv_show_id)))
             r = result.scalars().all()
             res = self.to_primitive(r)
             self.success({"videos": res})
@@ -464,8 +468,9 @@ class SearchCompanyTV(BaseHandler):
                 target_ret['id'] = tv_season['id']
                 target_ret['tmdb_id'] = tv_season['id']
                 target_ret['tmdb_series_id'] = target_ret['id']
+                target_ret['runtime'] = 0
                 if 'episode_run_time' in target_ret and target_ret['episode_run_time']:
-                    target_ret['run_time'] = target_ret['episode_run_time'][0]
+                    target_ret['runtime'] = target_ret['episode_run_time'][0]
 
                 target_ret['title'] = target_ret['name']
                 target_ret['revenue'] = 0
