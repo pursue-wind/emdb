@@ -541,9 +541,10 @@ class CountCompanyMovies(BaseHandler):
     @auth
     async def get(self, *_args, **_kwargs):
         async with await self.get_session() as session:
-            total_result = await session.execute(select(func.count()).select_from(TMDBMovie.id))
-            movie_count = total_result.scalar()
-            total_result = await session.execute(select(func.count()).select_from(TMDBTVSeason.id))
-            tv_count = total_result.scalar()
+            movie_count_result = await session.execute(select(func.count()).select_from(TMDBMovie))
+            movie_count = movie_count_result.scalar()
+
+            tv_count_result = await session.execute(select(func.count()).select_from(TMDBTVSeason))
+            tv_count = tv_count_result.scalar()
 
             self.success(data=dict(movie_count=movie_count, tv_count=tv_count))
