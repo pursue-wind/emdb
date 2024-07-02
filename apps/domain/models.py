@@ -565,8 +565,7 @@ def load_tv_episode_translation(target, context):
 class TMDBTVEpisodeGuestStar(TMDBCast):
     __tablename__ = 'tmdb_tv_episode_guest_stars'
 
-    id = Column(Integer, primary_key=True)
-    tv_episode_id = Column(Integer, ForeignKey('tmdb_tv_episodes.id'), nullable=False)
+    tv_episode_id = Column(Integer, ForeignKey('tmdb_tv_episodes.id'), primary_key=True)
     tv_episode = relationship('TMDBTVEpisode', back_populates='tv_episode_guest_star')
     people = relationship('TMDBPeople', back_populates='tv_episode_guest_star')
 

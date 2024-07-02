@@ -104,12 +104,36 @@ class TVService(PeopleService):
         return details
 
     async def _store_tv(self, details, external_ids, keywords, series_credits=None):
-        tv = self._build_tv(details, external_ids, keywords)
-        await self._associate_entities(tv, details)
-        await self.session.merge(tv)
-        await self.session.flush()
-
-    async def _associate_entities(self, tv, details):
+        tv = TMDBTV(
+            id=details['id'],
+            adult=details['adult'],
+            backdrop_path=details.get('backdrop_path'),
+            episode_run_time=details.get('episode_run_time'),
+            first_air_date=details.get('first_air_date'),
+            last_episode_to_air=details.get('last_episode_to_air'),
+            in_production=details.get('in_production'),
+            languages=details.get('languages'),
+            last_air_date=details.get('last_air_date'),
+            name=details.get('name'),
+            type=details.get('type'),
+            networks=details.get('networks'),
+            next_episode_to_air=details.get('next_episode_to_air'),
+            number_of_episodes=details.get('number_of_episodes'),
+            number_of_seasons=details.get('number_of_seasons'),
+            original_language=details['original_language'],
+            original_name=details['original_name'],
+            origin_country=details['origin_country'],
+            popularity=details['popularity'],
+            poster_path=details.get('poster_path'),
+            status=details.get('status'),
+            vote_average=details['vote_average'],
+            vote_count=details['vote_count'],
+            homepage=details['homepage'],
+            overview=details['overview'],
+            tagline=details['tagline'],
+            external_ids=external_ids,
+            keywords=keywords,
+        )
         # 关联 genres
         tv.genres = await self._get_or_create_list(
             TMDBGenre,
@@ -145,6 +169,11 @@ class TVService(PeopleService):
                 'name': x['name']
             }, key='iso_639_1'
         )
+
+        await self.session.merge(tv)
+        await self.session.flush()
+
+
 
     async def _process_season_credits(self, tv_season, credits):
         await self._process_season_casts(tv_season, credits.get('cast', []))
@@ -253,7 +282,7 @@ class TVService(PeopleService):
         people_ids = list(map(lambda c: c['id'], guest_stars))
         await self.update_or_create_peoples(people_ids)
         crews_add = list(map(lambda cast_data: {
-            "tv_episodes_id": episode.id,
+            "tv_episode_id": episode.id,
             "people_id": cast_data.get('id'),
             "character": cast_data.get('character'),
             "order": cast_data.get('order'),
@@ -323,39 +352,6 @@ class TVService(PeopleService):
             for t in ts.get('results', [])
         ]
         await self._batch_insert(TMDBTVAlternativeTitle, ts_add)
-
-    @staticmethod
-    def _build_tv(details, external_ids, keywords):
-        return TMDBTV(
-            id=details['id'],
-            adult=details['adult'],
-            backdrop_path=details.get('backdrop_path'),
-            episode_run_time=details.get('episode_run_time'),
-            first_air_date=details.get('first_air_date'),
-            last_episode_to_air=details.get('last_episode_to_air'),
-            in_production=details.get('in_production'),
-            languages=details.get('languages'),
-            last_air_date=details.get('last_air_date'),
-            name=details.get('name'),
-            type=details.get('type'),
-            networks=details.get('networks'),
-            next_episode_to_air=details.get('next_episode_to_air'),
-            number_of_episodes=details.get('number_of_episodes'),
-            number_of_seasons=details.get('number_of_seasons'),
-            original_language=details['original_language'],
-            original_name=details['original_name'],
-            origin_country=details['origin_country'],
-            popularity=details['popularity'],
-            poster_path=details.get('poster_path'),
-            status=details.get('status'),
-            vote_average=details['vote_average'],
-            vote_count=details['vote_count'],
-            homepage=details['homepage'],
-            overview=details['overview'],
-            tagline=details['tagline'],
-            external_ids=external_ids,
-            keywords=keywords,
-        )
 
     @staticmethod
     def _build_tv_season(tv_id, season_details):
