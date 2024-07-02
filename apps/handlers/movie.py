@@ -464,57 +464,61 @@ class SearchCompanyTV(BaseHandler):
 
             def trans(target):
                 tv_season = self.to_primitive(target)
-                target_ret = self.to_primitive(target.tv_show)
-                target_ret['source_type'] = 2
-                target_ret['original_title'] = target_ret['original_name']
-                target_ret['id'] = tv_season['id']
-                target_ret['tmdb_id'] = tv_season['id']
-                target_ret['tmdb_series_id'] = target_ret['id']
-                target_ret['runtime'] = 0
-                if 'episode_run_time' in target_ret and target_ret['episode_run_time']:
-                    target_ret['runtime'] = target_ret['episode_run_time'][0]
+                tv_series = self.to_primitive(target.tv_show)
+                tmdb_series_id = tv_series['id']
+                tv_season_id = tv_season['id']
 
-                target_ret['title'] = target_ret['name']
-                target_ret['revenue'] = 0
-                target_ret['budget'] = 0
+                tv_series['source_type'] = 2
+                tv_series['original_title'] = tv_series['original_name']
+                tv_series['tmdb_series_id'] = tmdb_series_id
+                tv_series['id'] = tv_season_id
+                tv_series['tmdb_id'] = tv_season['id']
+                tv_series['tmdb_season_id'] = tv_series['id']
+                tv_series['runtime'] = 0
+                if 'episode_run_time' in tv_series and tv_series['episode_run_time']:
+                    tv_series['runtime'] = tv_series['episode_run_time'][0]
 
-                if 'overview' in target_ret and target_ret['overview'] == '':
-                    target_ret['overview'] = tv_season['overview']
+                tv_series['title'] = tv_series['name']
+                tv_series['revenue'] = 0
+                tv_series['budget'] = 0
 
-                additional_info = copy.deepcopy(target_ret)
+                if 'overview' in tv_series and tv_series['overview'] == '':
+                    tv_series['overview'] = tv_season['overview']
 
-                target_ret['additional_info'] = additional_info
+                additional_info = copy.deepcopy(tv_series)
 
-                if 'genres' in target_ret:
-                    target_ret['genres'] = list(map(lambda x: x.name, target.tv_show.genres))
+                tv_series['additional_info'] = additional_info
+
+                if 'genres' in tv_series:
+                    tv_series['genres'] = list(map(lambda x: x.name, target.tv_show.genres))
                 del tv_season['tv_show']
-                tv_season['external_ids'] = target_ret['external_ids']
+                tv_season['external_ids'] = tv_series['external_ids']
 
-                tv_season['tmdb_id'] = tv_season['id']
-                tv_season['tmdb_season_id'] = tv_season['id']
-                tv_season['tmdb_series_id'] = target_ret['id']
-                target_ret['episode_detail'] = tv_season
-                if 'production_countries' in target_ret:
-                    target_ret['production_countries'] = list(
+                tv_season['tmdb_id'] = tv_season_id
+                tv_season['tmdb_season_id'] = tv_season_id
+                tv_season['tmdb_series_id'] = tmdb_series_id
+                tv_series['episode_detail'] = tv_season
+                if 'production_countries' in tv_series:
+                    tv_series['production_countries'] = list(
                         map(lambda x: x.iso_3166_1, target.tv_show.production_countries))
-                if 'spoken_languages' in target_ret:
-                    target_ret['spoken_languages'] = list(map(lambda x: x.iso_639_1, target.tv_show.spoken_languages))
-                if 'keywords' in target_ret:
-                    target_ret['keywords'] = list(map(lambda x2: x2['name'], target_ret['keywords']['results']))
+                if 'spoken_languages' in tv_series:
+                    tv_series['spoken_languages'] = list(map(lambda x: x.iso_639_1, target.tv_show.spoken_languages))
+                if 'keywords' in tv_series:
+                    tv_series['keywords'] = list(map(lambda x2: x2['name'], tv_series['keywords']['results']))
 
-                if target_ret['backdrop_path']:
-                    target_ret['backdrop_path'] = IMAGE_BASE_URL + target_ret['backdrop_path']
-                if target_ret['poster_path']:
-                    target_ret['poster_path'] = IMAGE_BASE_URL + target_ret['poster_path']
+                if tv_series['backdrop_path']:
+                    tv_series['backdrop_path'] = IMAGE_BASE_URL + tv_series['backdrop_path']
+                if tv_series['poster_path']:
+                    tv_series['poster_path'] = IMAGE_BASE_URL + tv_series['poster_path']
 
-                if 'title' in target_ret and target_ret['title'] == "":
-                    target_ret['title'] = target_ret['original_title']
+                if 'title' in tv_series and tv_series['title'] == "":
+                    tv_series['title'] = tv_series['original_title']
 
-                if target_ret['external_ids'] is None:
-                    target_ret['external_ids'] = {"id": 101, "imdb_id": target_ret['imdb_id'], "twitter_id": None,
-                                                  "facebook_id": None,
-                                                  "wikidata_id": None, "instagram_id": None}
-                return target_ret
+                if tv_series['external_ids'] is None:
+                    tv_series['external_ids'] = {"id": 101, "imdb_id": tv_series['imdb_id'], "twitter_id": None,
+                                                 "facebook_id": None,
+                                                 "wikidata_id": None, "instagram_id": None}
+                return tv_series
 
             tv_res = list(map(lambda x: trans(x), lis))
             # 返回结果
