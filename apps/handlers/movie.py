@@ -475,6 +475,8 @@ class SearchCompanyTV(BaseHandler):
                 tv_series['tmdb_id'] = tv_season['id']
                 tv_series['tmdb_season_id'] = tv_series['id']
                 tv_series['runtime'] = 0
+                tv_series['external_ids'] = {k: (str(v) if v and k != 'id' else v) for k, v in tv_series['external_ids'].items()}
+
                 if 'episode_run_time' in tv_series and tv_series['episode_run_time']:
                     tv_series['runtime'] = tv_series['episode_run_time'][0]
 
@@ -493,6 +495,7 @@ class SearchCompanyTV(BaseHandler):
                     tv_series['genres'] = list(map(lambda x: x.name, target.tv_show.genres))
                 del tv_season['tv_show']
                 tv_season['external_ids'] = tv_series['external_ids']
+
 
                 tv_season['tmdb_id'] = tv_season_id
                 tv_season['tmdb_season_id'] = tv_season_id
