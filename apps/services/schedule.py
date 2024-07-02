@@ -20,11 +20,62 @@ class ScheduleService(PeopleService):
 
     async def start(self):
         scheduler = TornadoScheduler(timezone='Asia/Shanghai')
-        # scheduler.add_job(self.sync_tv, 'interval', seconds=30)
+        # scheduler.add_job(self.sync_tv, 'interval', seconds=10)
         scheduler.add_job(self.sync_tv, 'interval', seconds=3600 * 12)
         scheduler.start()
 
     async def sync_tv(self):
+        language_var.set('en')
+        skip_load_var.set(True)
+        logging.info("Syncing TV")
+        tvs = await self._simple_query_list(
+            TMDBTV,
+            TMDBTV.status == 'Returning Series',
+            # TMDBTV.next_episode_to_air.isnot(None),
+            TMDBTV.last_episode_to_air.isnot(None),
+        )
+        for tv in tvs:
+            if not tv.last_episode_to_air:
+                print(self.to_primitive(tv))
+                continue
+            season_number = tv.last_episode_to_air['season_number']
+            air_date = tv.last_episode_to_air['air_date']
+            episode_number = tv.last_episode_to_air['episode_number']
+
+            season = await self._simple_query_one(TMDBTVSeason, TMDBTVSeason.tv_show_id == tv.id,
+                                                  TMDBTVSeason.season_number == season_number)
+            # emdb 未导入这一季，跳过
+            if not season:
+                continue
+            # 最近更新过，跳过
+            air_date_time = datetime.strptime(air_date, '%Y-%m-%d')
+            if season.updated_at > air_date_time:
+                continue
+
+            now = datetime.now()
+            difference = air_date - now
+
+            # 检查两个日期是否相差超过一年
+            if difference.days > 365:
+                continue
+            episode = await self._simple_query_one(TMDBTVEpisode, TMDBTVEpisode.tv_season_id == season.id,
+                                                   TMDBTVEpisode.episode_number == episode_number)
+
+            # 已经有导入的数据了，跳过
+            if episode and episode.overview:
+                continue
+
+            if tv.next_episode_to_air:
+                next_season_number = tv.next_episode_to_air['season_number']
+                next_air_date = tv.next_episode_to_air['air_date']
+                next_episode_number = tv.next_episode_to_air['episode_number']
+
+                if next_season_number > season_number:
+                    await self.tv_service.fetch_and_store_tv(tv.id, tv_season_num=next_season_number)
+            logging.info(f"=> Syncing TV: {tv.id}, {season_number}")
+            r = await self.tv_service.fetch_and_store_tv(tv.id, tv_season_num=season_number)
+
+    async def sync_tv2(self):
         language_var.set('en')
         skip_load_var.set(True)
         logging.info("Syncing TV")
@@ -42,8 +93,8 @@ class ScheduleService(PeopleService):
         res = execute_res.fetchall()
         for it in res:
             tv_id, name, last_episode_to_air, number_of_seasons, count_season_number = it
-            season = await self._simple_query(TMDBTVSeason, TMDBTVSeason.tv_show_id == tv_id,
-                                              TMDBTVSeason.season_number == number_of_seasons)
+            season = await self._simple_query_one(TMDBTVSeason, TMDBTVSeason.tv_show_id == tv_id,
+                                                  TMDBTVSeason.season_number == number_of_seasons)
             if season and last_episode_to_air and season.episode_count >= last_episode_to_air.get('episode_number', -1):
                 continue
             logging.info(f"=> Syncing TV {name}")

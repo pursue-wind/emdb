@@ -76,7 +76,7 @@ class BaseService:
         stmt = stmt.on_conflict_do_nothing()
         await self.session.execute(stmt)
 
-    async def _simple_query(self, obj, *whereclause, joinedload_options: [] = []):
+    async def _simple_query_one(self, obj, *whereclause, joinedload_options: [] = []):
         query = select(obj)
 
         for arg in joinedload_options:
@@ -84,5 +84,16 @@ class BaseService:
 
         result = await self.session.execute(query.where(*whereclause))
         r = result.unique().scalar_one_or_none()
+
+        return r
+
+    async def _simple_query_list(self, obj, *whereclause, joinedload_options: [] = []):
+        query = select(obj)
+
+        for arg in joinedload_options:
+            query = query.options(joinedload_options[arg])
+
+        result = await self.session.execute(query.where(*whereclause))
+        r = result.unique().scalars().all()
 
         return r
