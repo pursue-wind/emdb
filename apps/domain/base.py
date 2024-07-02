@@ -21,11 +21,21 @@ class Base(Base0):
 def load_translation(target, context, translation_model, foreign_key_field, attributes):
     if skip_load_var.get():
         return
-    language = language_var.get()
+    language = str(language_var.get()).strip()
     if language:
         session = object_session(target)
         if session:
-            filters = {foreign_key_field: target.id, 'language': language}
+            filters = None
+            if len(language) == 2:
+                filters = {foreign_key_field: target.id, 'language': language}
+            if len(language) == 5:
+                # en-US
+                parts = language.split('-')
+                language_code = parts[0]
+                country_code = parts[1]
+                filters = {foreign_key_field: target.id, 'language': language_code}
+            if not filters:
+                return
             translation = session.query(translation_model).filter_by(**filters).first()
 
             if translation:
@@ -36,7 +46,7 @@ def load_translation(target, context, translation_model, foreign_key_field, attr
 def load_translation_by_iso_639_1(target, context, translation_model, foreign_key_field, attributes):
     if skip_load_var.get():
         return
-    language = language_var.get()
+    language = str(language_var.get()).strip()
     if language:
         session = object_session(target)
         if session:
