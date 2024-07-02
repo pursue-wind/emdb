@@ -13,6 +13,7 @@ base64_pattern = re.compile(r'^[0-9a-zA-Z+/]+=*$')
 
 # 定义一个全局的上下文变量
 language_var = contextvars.ContextVar('language')
+skip_load_var = contextvars.ContextVar('skip_load_var', default=False)
 
 
 class BaseHandler(RequestHandler):

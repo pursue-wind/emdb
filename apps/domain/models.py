@@ -7,7 +7,7 @@ from sqlalchemy.orm import object_session, relationship
 
 from apps.domain.base import TMDBCast, load_translation, BaseMedia, TMDBCrew, Base, TMDBImage, TMDBVideo, \
     load_translation_by_iso_639_1, IMAGE_BASE_URL, Base0
-from apps.handlers.base import language_var
+from apps.handlers.base import language_var, skip_load_var
 
 # Many-to-Many relationship tables for TMDBMovie
 tmdb_movie_genres_table = Table(
@@ -57,7 +57,6 @@ tmdb_tv_genres_table = Table(
     Column('tv_id', Integer, ForeignKey('tmdb_tv.id'), primary_key=True),
     Column('genre_id', Integer, ForeignKey('tmdb_genres.id'), primary_key=True),
 )
-
 
 tmdb_tv_production_companies_table = Table(
     'tmdb_tv_production_companies', Base.metadata,
@@ -138,7 +137,6 @@ def insert_genre_translation(mapper, connection, target):
         session = object_session(target)
         if session:
             session.merge(translation)
-
 
 
 class TMDBProductionCompany(Base):
@@ -428,7 +426,6 @@ class TMDBPeople(Base):
     tv_season_cast = relationship('TMDBTVSeasonCast', back_populates='people')
 
 
-
 class TMDBTV(BaseMedia):
     __tablename__ = 'tmdb_tv'
 
@@ -568,7 +565,6 @@ class TMDBTVEpisodeGuestStar(TMDBCast):
     tv_episode_id = Column(Integer, ForeignKey('tmdb_tv_episodes.id'), primary_key=True)
     tv_episode = relationship('TMDBTVEpisode', back_populates='tv_episode_guest_star')
     people = relationship('TMDBPeople', back_populates='tv_episode_guest_star')
-
 
 
 ##################

@@ -5,6 +5,7 @@ from sqlalchemy.orm import joinedload
 from tmdbsimple import TV_Seasons
 
 from apps.domain.models import *
+from apps.handlers.base import skip_load_var
 from apps.services.people import PeopleService
 
 # 配置 TMDB API 密钥
@@ -174,7 +175,7 @@ class TVService(PeopleService):
         print(self.to_primitive(tv))
         print("==================================")
         print("==================================")
-
+        skip_load_var.set(True)
         await self.session.merge(tv)
         await self.session.flush()
 
@@ -223,7 +224,7 @@ class TVService(PeopleService):
         season_translations = await self._fetch(lambda: season2.translations())
 
         tv_season = self._build_tv_season(tv_id, season_details)
-
+        skip_load_var.set(True)
         await self.session.merge(tv_season)
         await self._process_season_episodes(tv_id, tv_season, season_details.get('episodes', []))
         await self._process_season_credits(tv_season, season_credits)
@@ -232,6 +233,7 @@ class TVService(PeopleService):
     async def _process_season_episodes(self, tv_id, season, episodes):
         for episode_data in episodes:
             tv_episode = self._build_tv_episode(season.id, episode_data)
+            skip_load_var.set(True)
             await self.session.merge(tv_episode)
             await self.session.flush()
             lang = self._language()

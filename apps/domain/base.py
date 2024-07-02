@@ -4,7 +4,7 @@ from sqlalchemy import ForeignKey, ARRAY, Column, Integer, String, Boolean, Floa
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import object_session, declarative_base, relationship
 
-from apps.handlers.base import language_var
+from apps.handlers.base import language_var, skip_load_var
 
 Base0 = declarative_base()
 IMAGE_BASE_URL = "https://image.tmdb.org/t/p/original"
@@ -19,6 +19,8 @@ class Base(Base0):
 
 # 通用的翻译表事件加载方法
 def load_translation(target, context, translation_model, foreign_key_field, attributes):
+    if skip_load_var.get():
+        return
     language = language_var.get()
     if language:
         session = object_session(target)
@@ -32,6 +34,8 @@ def load_translation(target, context, translation_model, foreign_key_field, attr
 
 
 def load_translation_by_iso_639_1(target, context, translation_model, foreign_key_field, attributes):
+    if skip_load_var.get():
+        return
     language = language_var.get()
     if language:
         session = object_session(target)

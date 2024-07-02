@@ -148,7 +148,7 @@ class MovieService(PeopleService):
                 'name': x['name']
             }, key='iso_639_1'
         )
-
+        skip_load_var.set(True)
         await self.session.merge(movie)
 
     async def _store_movie_credits(self, credits):
