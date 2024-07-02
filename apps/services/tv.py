@@ -169,6 +169,11 @@ class TVService(PeopleService):
                 'name': x['name']
             }, key='iso_639_1'
         )
+        print("==================================")
+        print("==================================")
+        print(self.to_primitive(tv))
+        print("==================================")
+        print("==================================")
 
         await self.session.merge(tv)
         await self.session.flush()

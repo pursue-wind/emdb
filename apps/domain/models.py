@@ -443,7 +443,7 @@ class TMDBTV(BaseMedia):
     overview = Column(String, nullable=True, comment='概述')
     tagline = Column(String, nullable=True, comment='标语')
     name = Column(String, nullable=True, comment='标题')
-    next_episode_to_air = Column(String, nullable=True, comment='下一集')
+    next_episode_to_air = Column(JSONB, nullable=True, comment='下一集')
     number_of_episodes = Column(Integer, nullable=False, comment='集数')
     number_of_seasons = Column(Integer, nullable=False, comment='季数')
     original_name = Column(String, nullable=True, comment='原名称')
