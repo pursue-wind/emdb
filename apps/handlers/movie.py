@@ -489,6 +489,10 @@ class SearchCompanyTV(BaseHandler):
                     target_ret['genres'] = list(map(lambda x: x.name, target.tv_show.genres))
                 del tv_season['tv_show']
                 tv_season['external_ids'] = target_ret['external_ids']
+
+                tv_season['tmdb_id'] = tv_season['id']
+                tv_season['tmdb_season_id'] = tv_season['id']
+                tv_season['tmdb_series_id'] = target_ret['id']
                 target_ret['episode_detail'] = tv_season
                 if 'production_countries' in target_ret:
                     target_ret['production_countries'] = list(
