@@ -2,6 +2,7 @@ from tornado.web import Application
 
 import config
 from apps.handlers.movie import *
+from apps.handlers.movie_old import *
 from apps.handlers.tv import TVHandler
 
 

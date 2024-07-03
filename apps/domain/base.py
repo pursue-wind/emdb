@@ -8,6 +8,13 @@ from apps.handlers.base import language_var, skip_load_var
 
 Base0 = declarative_base()
 IMAGE_BASE_URL = "https://image.tmdb.org/t/p/original"
+# 上传进度
+movie_upload_progress = set()
+tv_upload_progress = set()
+
+
+def tv_upload_progress_build_key(tv_series_id, tv_season_id):
+    return str(tv_series_id) + '_' + str(tv_season_id)
 
 
 class Base(Base0):

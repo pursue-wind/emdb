@@ -1,6 +1,7 @@
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from apps.domain.base import movie_upload_progress, tv_upload_progress, tv_upload_progress_build_key
 from apps.domain.models import TMDBMovie, TMDBTV, TMDBTVSeason
 from apps.services.base import BaseService
 import tmdbsimple as tmdb
@@ -21,6 +22,15 @@ class SearchService(BaseService):
 
         if exist_ids is not None:
             d["exist"] = d.get("id") in exist_ids
+
+        return d
+
+    def data_import_check(self, d: dict, is_movie_type: bool, series_id=None) -> dict:
+        if is_movie_type:
+            d['is_importing'] = d.get('id', -1) in movie_upload_progress
+        else:
+            if series_id is not None:
+                d['is_importing'] = tv_upload_progress_build_key(series_id, d.get('id', -1)) in tv_upload_progress
 
         return d
 
@@ -45,6 +55,7 @@ class SearchService(BaseService):
         media_list = result.get("results", [])
         exist_ids = await self.get_exist_ids(is_movie_type, media_list)
         data = list(map(lambda d: self.data_convent(d, exist_ids), media_list))
+        data = list(map(lambda d: self.data_import_check(d, is_movie_type=is_movie_type, series_id=None), data))
         return dict(page_num=int(page),
                     page_size=20,
                     total=result.get('total_results', 0),
@@ -73,6 +84,7 @@ class SearchService(BaseService):
 
         exist_ids = await self.get_exist_ids(is_movie_type, media_list)
         data = list(map(lambda d: self.data_convent(d, exist_ids), media_list))
+        data = list(map(lambda d: self.data_import_check(d, is_movie_type=is_movie_type, series_id=None), data))
 
         return dict(page_num=int(page),
                     page_size=20,
@@ -89,5 +101,5 @@ class SearchService(BaseService):
             result = await self.session.execute(select(TMDBTVSeason.id).where(TMDBTVSeason.id.in_(ids)))
             exist_ids = result.scalars().all()
             data = list(map(lambda d: self.data_convent(d, set(exist_ids)), seasons))
-            r['sensons'] = data
+            data = list(map(lambda d: self.data_import_check(d, is_movie_type=False, series_id=series_id), data))
             return r

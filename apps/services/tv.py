@@ -1,3 +1,5 @@
+import asyncio
+
 import tmdbsimple as tmdb
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -16,8 +18,7 @@ tmdb.API_KEY = 'fb5642b7e0b6d36ad5ebcdf78a52f14c'
 
 class TV_Seasons2(TV_Seasons):
     """
-    tmdbsimple库不支持 tv season的translation 接口，继承父类接口处理
-
+    继承 tmdbsimple 的 TV_Seasons 增加 translations 接口
     See: https://developers.themoviedb.org/3/tv-seasons
     """
     BASE_PATH = 'tv/{tv_id}/season/{season_number}'
@@ -165,7 +166,7 @@ class TVService(PeopleService):
         tv.spoken_languages = await self._get_or_create_list(
             TMDBSpokenLanguage, details.get('spoken_languages', []),
             lambda x: {
-                'iso_639_1': x['iso_639_1'],
+                'iso_639_1': self._str_limit2(x['iso_639_1']),
                 'english_name': x.get('english_name'),
                 'name': x['name']
             }, key='iso_639_1'
@@ -179,11 +180,9 @@ class TVService(PeopleService):
         await self.session.merge(tv)
         await self.session.flush()
 
-
-
-    async def _process_season_credits(self, tv_season, credits):
-        await self._process_season_casts(tv_season, credits.get('cast', []))
-        await self._process_season_crews(tv_season, credits.get('crew', []))
+    async def _process_season_credits(self, tv_season, season_credits):
+        await self._process_season_casts(tv_season, season_credits.get('cast', []))
+        await self._process_season_crews(tv_season, season_credits.get('crew', []))
 
     async def _process_season_casts(self, tv_season, casts):
         if not casts:
@@ -227,8 +226,9 @@ class TVService(PeopleService):
         skip_load_var.set(True)
         await self.session.merge(tv_season)
         await self._process_season_episodes(tv_id, tv_season, season_details.get('episodes', []))
-        await self._process_season_credits(tv_season, season_credits)
+
         await self._process_season_translations(season_translations)
+        await asyncio.gather(self._process_season_credits(tv_season, season_credits))
 
     async def _process_season_episodes(self, tv_id, season, episodes):
         for episode_data in episodes:
@@ -236,17 +236,18 @@ class TVService(PeopleService):
             skip_load_var.set(True)
             await self.session.merge(tv_episode)
             await self.session.flush()
-            lang = self._language()
+
             episode_credits = await self._fetch(
                 lambda: tmdb.TV_Episodes(tv_id, season.season_number, episode_data['episode_number'])
-                .credits(language=lang)
+                .credits()
             )
             episode_translations = await self._fetch(
                 lambda: tmdb.TV_Episodes(tv_id, season.season_number, episode_data['episode_number'])
                 .translations()
             )
-            await self._process_episode_credits(tv_episode, episode_credits)
             await self._process_episode_translations(episode_translations)
+
+            await asyncio.create_task(self._process_episode_credits(tv_episode, episode_credits))
 
     async def _process_episode_credits(self, episode, credits):
         await self._process_episode_casts(episode, credits.get('cast', []))
@@ -302,8 +303,8 @@ class TVService(PeopleService):
         t = [
             {
                 "tv_id": mid,
-                "iso_3166_1": translation['iso_3166_1'],
-                "iso_639_1": translation['iso_639_1'],
+                "iso_3166_1": self._str_limit2(translation['iso_3166_1']),
+                "iso_639_1": self._str_limit2(translation['iso_639_1']),
                 "lang_name": translation['name'],
                 "english_name": translation['english_name'],
                 "homepage": translation['data']['homepage'],
@@ -320,8 +321,8 @@ class TVService(PeopleService):
         t = [
             {
                 "tv_season_id": mid,
-                "iso_3166_1": translation['iso_3166_1'],
-                "iso_639_1": translation['iso_639_1'],
+                "iso_3166_1": self._str_limit2(translation['iso_3166_1']),
+                "iso_639_1": self._str_limit2(translation['iso_639_1']),
                 "lang_name": translation['name'],
                 "english_name": translation['english_name'],
                 "overview": translation['data']['overview'],
@@ -336,8 +337,8 @@ class TVService(PeopleService):
         t = [
             {
                 "tv_episode_id": mid,
-                "iso_3166_1": translation['iso_3166_1'],
-                "iso_639_1": translation['iso_639_1'],
+                "iso_3166_1": self._str_limit2(translation['iso_3166_1']),
+                "iso_639_1": self._str_limit2(translation['iso_639_1']),
                 "lang_name": translation['name'],
                 "english_name": translation['english_name'],
                 "overview": translation['data']['overview'],
@@ -352,7 +353,7 @@ class TVService(PeopleService):
         ts_add = [
             {
                 "tv_id": mid,
-                "iso_3166_1": t['iso_3166_1'],
+                "iso_3166_1": self._str_limit2(t['iso_3166_1']),
                 "title": t['title'],
                 "type": t['type']
             }

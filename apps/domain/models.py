@@ -16,12 +16,6 @@ tmdb_movie_genres_table = Table(
     Column('genre_id', Integer, ForeignKey('tmdb_genres.id'), primary_key=True),
 )
 
-tmdb_movie_networks_table = Table(
-    'tmdb_movie_networks', Base.metadata,
-    Column('movie_id', Integer, ForeignKey('tmdb_movies.id'), primary_key=True),
-    Column('network_id', Integer, ForeignKey('tmdb_networks.id'), primary_key=True),
-)
-
 tmdb_movie_production_companies_table = Table(
     'tmdb_movie_production_companies', Base.metadata,
     Column('movie_id', Integer, ForeignKey('tmdb_movies.id'),

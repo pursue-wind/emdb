@@ -34,6 +34,16 @@ class BaseService:
     def _language():
         return language_var.get()
 
+    @staticmethod
+    def _str_limit2(data):
+        if len(data) > 2:
+            logging.warning(f"!!! iso_639_1 or iso_3611 is too long: {data}")
+        return str(data).strip()[:2]
+
+    async def _fetch_all(self, funcs):
+        """并行获取所有函数的结果"""
+        return await asyncio.gather(*[self._fetch(func) for func in funcs])
+
     async def _fetch(self, func):
         """调用tmdb接口报错时会自动等待重试"""
         try:
@@ -74,7 +84,11 @@ class BaseService:
             return
         stmt = insert(obj).values(dict_list)
         stmt = stmt.on_conflict_do_nothing()
-        await self.session.execute(stmt)
+        try:
+            await self.session.execute(stmt)
+        except Exception as e:
+            traceback.print_exc()
+            logging.error(e)
 
     async def _simple_query_one(self, obj, *whereclause, joinedload_options: [] = []):
         query = select(obj)

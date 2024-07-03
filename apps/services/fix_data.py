@@ -1,3 +1,4 @@
+import logging
 import os
 import traceback
 
@@ -64,8 +65,8 @@ class DataService(PeopleService):
         current_file_path = os.path.abspath(__file__)
         current_dir = os.path.dirname(current_file_path)
         print("current_dir:", current_dir)
-        await self.exec_sql_file(current_dir+'/../../sql/tmdb_genres.sql')
-        await self.exec_sql_file(current_dir+'/../../sql/tmdb_genres_translations.sql')
+        await self.exec_sql_file(current_dir + '/../../sql/tmdb_genres.sql')
+        await self.exec_sql_file(current_dir + '/../../sql/tmdb_genres_translations.sql')
 
     async def exec_sql_file(self, sql_file_path):
         # 检查 SQL 文件是否存在
@@ -126,6 +127,7 @@ class DataService(PeopleService):
             batch = result.scalars().all()
 
             if not batch:
+                logging.info("finish import movie")
                 break
             await self.session.commit()
             need_fetch = set(batch)
@@ -144,6 +146,7 @@ class DataService(PeopleService):
                     traceback.print_exc()
                     continue
                 print(res)
+                await self.session.commit()
             offset += batch_size
 
     async def tv(self, force=False):
@@ -152,7 +155,7 @@ class DataService(PeopleService):
 
         while True:
             # 构建查询
-            query = (select(Movies.tmdb_series_id).where(Movies.source_type == 2).offset(offset).limit(batch_size)
+            query = (select(Movies).where(Movies.source_type == 2).offset(offset).limit(batch_size)
                      .order_by(Movies.tmdb_id))
             result = await self.session.execute(query)
             batch = result.scalars().all()
@@ -161,18 +164,24 @@ class DataService(PeopleService):
                 break
             await self.session.commit()
             print(batch)
-            need_fetch = set(batch)
+            batch_season_ids = list(map(lambda x: x.tmdb_id, batch))
+            need_fetch_season_ids = set()
             if not force:
-                result = await self.session.execute(select(TMDBTV.id).where(TMDBTV.id.in_(batch)))
+                result = await self.session.execute(
+                    select(TMDBTVSeason.id).where(TMDBTVSeason.id.in_(batch_season_ids)))
                 exist_ids = result.scalars().all()
-                need_fetch = set(batch) - set(exist_ids)
+                need_fetch_season_ids = set(batch_season_ids) - set(exist_ids)
 
-            for movie_id in need_fetch:
+            for movie in batch:
                 language_var.set('en')
+                if movie.tmdb_id not in need_fetch_season_ids:
+                    continue
+
                 try:
-                    res = await self.tv_service.fetch_and_store_tv(movie_id)
+                    res = await self.tv_service.fetch_and_store_tv(movie.tmdb_series_id, tv_season_id=movie.tmdb_id)
                 except Exception as e:
                     traceback.print_exc()
                     continue
+                await self.session.flush()
                 print(res)
             offset += batch_size

@@ -137,3 +137,9 @@ class BaseHandler(RequestHandler):
             error_response["error"]["traceback"] = traceback.format_exception(*kwargs["exc_info"])
 
         self.finish(error_response)
+
+    def success_func(self, data=None, func=None):
+        if data:
+            self.write({"code": 0, "msg": "success", "data": func(data)})
+            return
+        self.write({"code": 0, "msg": "success"})

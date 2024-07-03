@@ -16,3 +16,4 @@ tqdm==4.66.4
 typing_extensions==4.12.2
 urllib3==2.2.1
 APScheduler~=3.10.4
+async-lru==2.0.4

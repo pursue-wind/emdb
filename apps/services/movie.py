@@ -83,6 +83,8 @@ class MovieService(PeopleService):
             # 替代标题
             await self._process_alternative_titles(alternative_titles)
 
+        return details
+
     async def _store_movie(self, details, external_ids, keywords):
         movie = TMDBMovie(
             id=details['id'],
@@ -143,7 +145,7 @@ class MovieService(PeopleService):
         movie.spoken_languages = await self._get_or_create_list(
             TMDBSpokenLanguage, details.get('spoken_languages', []),
             lambda x: {
-                'iso_639_1': x['iso_639_1'],
+                'iso_639_1': self._str_limit2(x['iso_639_1']),
                 'english_name': x.get('english_name'),
                 'name': x['name']
             }, key='iso_639_1'
@@ -188,8 +190,8 @@ class MovieService(PeopleService):
         translations_flat = [
             {
                 "movie_id": mid,
-                "iso_3166_1": translation['iso_3166_1'],
-                "iso_639_1": translation['iso_639_1'],
+                "iso_3166_1": self._str_limit2(translation['iso_3166_1']),
+                "iso_639_1": self._str_limit2(translation['iso_639_1']),
                 "name": translation['name'],
                 "english_name": translation['english_name'],
                 "homepage": translation['data']['homepage'],
@@ -208,10 +210,10 @@ class MovieService(PeopleService):
         release_dates_flat = [
             {
                 "movie_id": mid,
-                "iso_3166_1": country['iso_3166_1'],
+                "iso_3166_1": self._str_limit2(country['iso_3166_1']),
                 "certification": date['certification'],
                 "descriptors": date['descriptors'],
-                "iso_639_1": date['iso_639_1'],
+                "iso_639_1": self._str_limit2(date['iso_639_1']),
                 "note": date['note'],
                 "release_date": datetime.fromisoformat(date['release_date'].replace('Z', '+00:00')),
                 "type": date['type']
@@ -227,7 +229,7 @@ class MovieService(PeopleService):
         ts_add = [
             {
                 "movie_id": mid,
-                "iso_3166_1": t['iso_3166_1'],
+                "iso_3166_1": self._str_limit2(t['iso_3166_1']),
                 "title": t['title'],
                 "type": t['type']
             }

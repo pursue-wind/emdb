@@ -37,28 +37,3 @@ def auth(
     return wrapper
 
 
-def async_lru_cache(maxsize=128):
-    def decorator(func):
-        cache = OrderedDict()
-
-        @functools.wraps(func)
-        async def wrapper(*args):
-            if args in cache:
-                # Move the key to the end to show that it was recently used
-                cache.move_to_end(args)
-                print("======================")
-                print("======================")
-                return cache[args]
-
-            result = await func(*args)
-            cache[args] = result
-
-            # Remove the first key-value pair if the cache is over the max size
-            if len(cache) > maxsize:
-                cache.popitem(last=False)
-
-            return result
-
-        return wrapper
-
-    return decorator
