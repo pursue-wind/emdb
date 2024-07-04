@@ -35,7 +35,7 @@ class MovieService(PeopleService):
             if arg in joinedload_options:
                 query = query.options(joinedload_options[arg])
 
-        result = await self.session.execute(query.where(TMDBMovie.id == movie_id))
+        result = await self.session.execute(query.where(TMDBMovie.id == movie_id))  # type: ignore
         r = result.unique().scalar_one_or_none()
 
         return self.to_primitive(r)
