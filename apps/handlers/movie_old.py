@@ -513,13 +513,17 @@ class SearchCompanyTV(BaseHandler):
 
                 if 'overview' in tv_series and tv_series['overview'] == '':
                     tv_series['overview'] = tv_season['overview']
+                if 'production_companies' in tv_series:
+                    tv_series['production_companies'] = list(
+                        map(lambda x: trans_production_companies(x), tv_series['production_companies']))
+                if 'genres' in tv_series:
+                    tv_series['genres'] = list(map(lambda x: x.name, target.tv_show.genres))
 
                 additional_info = copy.deepcopy(tv_series)
 
                 tv_series['additional_info'] = additional_info
 
-                if 'genres' in tv_series:
-                    tv_series['genres'] = list(map(lambda x: x.name, target.tv_show.genres))
+
                 del tv_season['tv_show']
                 tv_season['external_ids'] = tv_series['external_ids']
 
@@ -530,9 +534,7 @@ class SearchCompanyTV(BaseHandler):
                 if 'production_countries' in tv_series:
                     tv_series['production_countries'] = list(
                         map(lambda x: x.iso_3166_1, target.tv_show.production_countries))
-                if 'production_companies' in tv_series:
-                    tv_series['production_companies'] = list(
-                        map(lambda x: trans_production_companies(x), tv_series['production_companies']))
+
                 if 'spoken_languages' in tv_series:
                     tv_series['spoken_languages'] = list(map(lambda x: x.iso_639_1, target.tv_show.spoken_languages))
                 if 'keywords' in tv_series:
