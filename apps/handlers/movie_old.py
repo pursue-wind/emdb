@@ -412,7 +412,7 @@ class SearchCompanyMovies(BaseHandler):
                     target_ret['spoken_languages'] = list(map(lambda x: x.iso_639_1, target.spoken_languages))
                 if 'production_companies' in target_ret:
                     target_ret['production_companies'] = list(
-                        map(lambda x: trans_production_companies(x), target.production_companies))
+                        map(lambda x: trans_production_companies(x), target_ret['production_companies']))
                 if 'keywords' in target_ret:
                     target_ret['keywords'] = list(map(lambda x2: x2['name'], target_ret['keywords']['keywords']))
                 target_ret['tmdb_id'] = target_ret['id']
@@ -532,7 +532,7 @@ class SearchCompanyTV(BaseHandler):
                         map(lambda x: x.iso_3166_1, target.tv_show.production_countries))
                 if 'production_companies' in tv_series:
                     tv_series['production_companies'] = list(
-                        map(lambda x: trans_production_companies(x), target.tv_show.production_companies))
+                        map(lambda x: trans_production_companies(x), tv_series['production_companies']))
                 if 'spoken_languages' in tv_series:
                     tv_series['spoken_languages'] = list(map(lambda x: x.iso_639_1, target.tv_show.spoken_languages))
                 if 'keywords' in tv_series:
