@@ -148,25 +148,33 @@ class TVImagesHandler(BaseHandler):
 
             result = await session.execute(select(TMDBTVSeason).where(TMDBTVSeason.id == int(tv_id)))
             r = result.scalars().first()
+            if r is None:
+                return self.success(data={"images": []})
+
             query = select(TMDBTVImage).where(TMDBTVImage.tv_id == int(r.tv_show_id))
             result = await session.execute(query)
             r = result.scalars().all()
+            r_id = int(tv_id + "000")
 
-            def transform_image_type(img: TMDBImage):
+            def transform_image_type(img: TMDBImage, r_id: int):
+                _img = self.to_primitive(img)
                 if img.image_type == TMDBImageTypeEnum.backdrop:
-                    img.type = 3
+                    _img['type'] = 3
                 elif img.image_type == TMDBImageTypeEnum.logo:
-                    img.type = 1
+                    _img['type'] = 1
                 elif img.image_type == TMDBImageTypeEnum.poster:
-                    img.type = 2
+                    _img['type'] = 2
                 if not img.iso_639_1:
-                    img.iso_639_1 = 'all'
+                    _img['iso_639_1'] = 'all'
+                _img['id'] = r_id + 1
+                r_id = r_id + 1
+                return _img
 
-                return img
-
-            r_trans = list(map(lambda x: transform_image_type(x), r))
-            res = self.to_primitive(r_trans)
-            self.success_func(data={"images": res}, func=tmdb_img_path_handler)
+            r_trans = []
+            for img in r:
+                r_trans.append(transform_image_type(img, r_id))
+                r_id += 1
+            self.success_func(data={"images": r_trans}, func=tmdb_img_path_handler)
 
 
 class TVEpisodesHandler(BaseHandler):
