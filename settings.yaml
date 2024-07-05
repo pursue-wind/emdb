@@ -7,7 +7,7 @@ default:
     port: 8088
   debug:
     local: true
-  data_sync: true # 根据原movie表重刷数据
+  data_sync: false # 根据原movie表重刷数据
   genres_sync: false # 重刷类别信息
   force: false # 强制全部重刷数据
 ############################################################################################
@@ -41,6 +41,7 @@ test:
     host: 127.0.0.1
     port: 8088
     pass_mixin: "0x00544"
+  # psql -h 8.218.184.1 -p 54321 -U emmai -d emdb
   pgsql: postgresql+asyncpg://emmai:fsv33inhTeHkhY5@8.218.184.1:54321/emdb
   emmai:
     base_url: https://test-api.emmai.com

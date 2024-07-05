@@ -191,3 +191,30 @@ curl --location --request GET 'http://127.0.0.1:8088/api/emdb/tv/68006?lang=zh-C
 - TMDb 数据导入错误记录到数据库
 
 - 导入影视进度反馈给前端
+
+## 生产环境数据库替换
+- 导出数据为sql文件
+```shell
+psql postgresql://emmai:fsv33inhTeHkhY5@8.218.184.1:54321/emdb -f /path/to/yourfile.sql
+# 把sql的schema去除
+find /data/emdb/emdb/sql_temp/data -name "tmdb*.sql" | xargs -I {} sed -i 's/public\.//g' {}
+# 使用sed命令将 , order, 替换为 , "order", 
+find /data/emdb/emdb/sql_temp/data -name "tmdb*cast.sql" | xargs -I {} sed -i 's/, order,/, "order",/g' {}
+find /data/emdb/emdb/sql_temp/data -name "tmdb_tv_episode_guest_stars.sql" | xargs -I {} sed -i 's/, order,/, "order",/g' {}
+# 按照关联顺序导入数据，此处配置为测试环境的配置
+find /data/emdb/emdb/sql_temp/data -name "tmdb_genres*.sql" | xargs -I {} psql postgresql://emmai:fsv33inhTeHkhY5@8.218.184.1:54321/emdb -f {}
+
+find /data/emdb/emdb/sql_temp/data -name "tmdb_people.sql" | xargs -I {} psql postgresql://emmai:fsv33inhTeHkhY5@8.218.184.1:54321/emdb -f {}
+
+find /data/emdb/emdb/sql_temp/data -name "tmdb_production_companies.sql" | xargs -I {} psql postgresql://emmai:fsv33inhTeHkhY5@8.218.184.1:54321/emdb -f {}
+find /data/emdb/emdb/sql_temp/data -name "tmdb_production_countries.sql" | xargs -I {} psql postgresql://emmai:fsv33inhTeHkhY5@8.218.184.1:54321/emdb -f {}
+find /data/emdb/emdb/sql_temp/data -name "tmdb_spoken_languages.sql" | xargs -I {} psql postgresql://emmai:fsv33inhTeHkhY5@8.218.184.1:54321/emdb -f {}
+
+find /data/emdb/emdb/sql_temp/data -name "tmdb_movies.sql" | xargs -I {} psql postgresql://emmai:fsv33inhTeHkhY5@8.218.184.1:54321/emdb -f {}
+find /data/emdb/emdb/sql_temp/data -name "tmdb_movie_*.sql" | xargs -I {} psql postgresql://emmai:fsv33inhTeHkhY5@8.218.184.1:54321/emdb -f {}
+
+find /data/emdb/emdb/sql_temp/data -name "tmdb_tv.sql" | xargs -I {} psql postgresql://emmai:fsv33inhTeHkhY5@8.218.184.1:54321/emdb -f {}
+find /data/emdb/emdb/sql_temp/data -name "tmdb_tv_*.sql" | xargs -I {} psql postgresql://emmai:fsv33inhTeHkhY5@8.218.184.1:54321/emdb -f {}
+
+```
+
