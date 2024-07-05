@@ -182,7 +182,7 @@ class TVEpisodesHandler(BaseHandler):
     async def post(self):
         async with await self.get_session() as session:
             tmdb_season_id = self.parse_form('tmdb_season_id')
-            query = select(TMDBTVEpisode).where(TMDBTVEpisode.tv_season_id == int(tmdb_season_id))
+            query = select(TMDBTVEpisode).where(TMDBTVEpisode.tv_season_id == int(tmdb_season_id)).order_by(TMDBTVEpisode.episode_number)
             result = await session.execute(query)
             lis = result.scalars().all()
 
