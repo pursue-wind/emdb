@@ -362,22 +362,22 @@ class SearchCompanyMovies(BaseHandler):
                 joinedload(TMDBMovie.production_companies),
             )
             count_query = select(func.count()).select_from(
-                select(TMDBMovie.id).outerjoin(TMDBMovie.alternative_titles).distinct().subquery()
+                select(TMDBMovie.id).distinct().subquery()
             )
             if movie_name:
-                base_query = base_query.outerjoin(TMDBMovie.alternative_titles).filter(
+                base_query = base_query.outerjoin(TMDBMovie.translations).filter(
                     or_(
                         TMDBMovie.original_title.ilike(f"{movie_name}%"),
-                        TMDBMovieAlternativeTitle.title.ilike(f"{movie_name}%")
+                        TMDBMovieTranslation.title.ilike(f"{movie_name}%")
                     )
                 )
 
                 # 获取总记录数
                 count_query = select(func.count()).select_from(
-                    select(TMDBMovie.id).outerjoin(TMDBMovie.alternative_titles).filter(
+                    select(TMDBMovie.id).outerjoin(TMDBMovie.translations).filter(
                         or_(
                             TMDBMovie.original_title.ilike(f"{movie_name}%"),
-                            TMDBMovieAlternativeTitle.title.ilike(f"{movie_name}%")
+                            TMDBMovieTranslation.title.ilike(f"{movie_name}%")
                         )
                     ).distinct().subquery()
                 )
@@ -443,13 +443,13 @@ class SearchCompanyTV(BaseHandler):
             )
 
             count_query = select(func.count()).select_from(
-                select(TMDBTV.id).outerjoin(TMDBMovie.alternative_titles).distinct().subquery())
+                select(TMDBTV.id).distinct().subquery())
             # 如果有movie_name，添加过滤条件
             if movie_name:
                 base_query = base_query.filter(
                     or_(
                         TMDBTV.name.ilike(f"{movie_name}%"),
-                        TMDBTVAlternativeTitle.title.ilike(f"{movie_name}%")
+                        TMDBTVTranslation.name.ilike(f"{movie_name}%")
                     )
                 )
 
@@ -457,7 +457,7 @@ class SearchCompanyTV(BaseHandler):
                     select(TMDBTV.id).outerjoin(TMDBTV.alternative_titles).filter(
                         or_(
                             TMDBTV.name.ilike(f"{movie_name}%"),
-                            TMDBTVAlternativeTitle.title.ilike(f"{movie_name}%")
+                            TMDBTVTranslation.name.ilike(f"{movie_name}%")
                         )
                     ).distinct().subquery()
                 )
