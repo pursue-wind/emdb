@@ -171,11 +171,6 @@ class TVService(PeopleService):
                 'name': x['name']
             }, key='iso_639_1'
         )
-        print("==================================")
-        print("==================================")
-        print(self.to_primitive(tv))
-        print("==================================")
-        print("==================================")
         skip_load_var.set(True)
         await self.session.merge(tv)
         await self.session.flush()
@@ -236,6 +231,9 @@ class TVService(PeopleService):
             skip_load_var.set(True)
             await self.session.merge(tv_episode)
             await self.session.flush()
+            # 第 0 集，tmdb的查询接口会导致404报错
+            if episode_data.get('episode_number') == 0:
+                return
 
             episode_credits = await self._fetch(
                 lambda: tmdb.TV_Episodes(tv_id, season.season_number, episode_data['episode_number'])

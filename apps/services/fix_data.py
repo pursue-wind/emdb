@@ -163,7 +163,6 @@ class DataService(PeopleService):
             if not batch:
                 break
             await self.session.commit()
-            print(batch)
             batch_season_ids = list(map(lambda x: x.tmdb_id, batch))
             need_fetch_season_ids = set()
             if not force:

@@ -15,12 +15,22 @@ from config import settings
 
 log_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '.', 'logs'))
 os.makedirs(log_dir, exist_ok=True)
-log_file = os.path.join(log_dir, 'main.log')
+error_handler = RotatingFileHandler(os.path.join(log_dir, 'error.log'), maxBytes=10 * 1024 * 1024, backupCount=5)
+
+
+class ErrorFilter(logging.Filter):
+    def filter(self, record):
+        return record.levelno == logging.ERROR
+
+
+error_handler.addFilter(ErrorFilter())
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s %(levelname)s %(message)s',
     handlers=[
-        RotatingFileHandler(log_file, maxBytes=10 * 1024 * 1024, backupCount=5),  # 10 MB per file, keep 5 backups
+        RotatingFileHandler(os.path.join(log_dir, 'main.log'), maxBytes=10 * 1024 * 1024, backupCount=5),
+        # 10 MB per file, keep 5 backups
+        error_handler,
         logging.StreamHandler()  # Also log to console
     ]
 )
