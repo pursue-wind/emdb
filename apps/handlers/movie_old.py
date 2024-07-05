@@ -2,8 +2,8 @@ import asyncio
 import copy
 from operator import or_
 
-from sqlalchemy import select, func
-from sqlalchemy.orm import joinedload
+from sqlalchemy import select, func, distinct
+from sqlalchemy.orm import joinedload, selectinload, aliased
 
 from apps.domain.base import TMDBImageTypeEnum, movie_upload_progress, tv_upload_progress, tv_upload_progress_build_key
 from apps.domain.models import *
@@ -32,9 +32,6 @@ def update_path(data):
 
 def tmdb_img_path_handler(data):
     return update_path(data)
-
-
-
 
 
 class Movie2Handler(BaseHandler):
@@ -430,7 +427,6 @@ class SearchCompanyTV(BaseHandler):
             page_num = int(page_num)
             page_size = int(page_size)
             offset = (page_num - 1) * page_size
-
             # 构建基础查询
             base_query = (
                 select(TMDBTVSeason)
@@ -442,25 +438,29 @@ class SearchCompanyTV(BaseHandler):
                 .options(joinedload(TMDBTVSeason.tv_show).joinedload(TMDBTV.production_companies))
             )
 
-            count_query = select(func.count()).select_from(
-                select(TMDBTV.id).distinct().subquery())
+            count_query = select(func.count(distinct(TMDBTVSeason.id)))
+
             # 如果有movie_name，添加过滤条件
             if movie_name:
-                base_query = base_query.filter(
-                    or_(
-                        TMDBTV.name.ilike(f"{movie_name}%"),
-                        TMDBTVTranslation.name.ilike(f"{movie_name}%")
+                tv_translation_alias = aliased(TMDBTVTranslation)
+
+                tv_query = (
+                    select(TMDBTV.id)
+                    .distinct()
+                    .join(tv_translation_alias, TMDBTV.translations)
+                    .filter(
+                        or_(
+                            TMDBTV.name.ilike(f"{movie_name}%"),
+                            tv_translation_alias.name.ilike(f"{movie_name}%")
+                        )
                     )
                 )
 
-                count_query = select(func.count()).select_from(
-                    select(TMDBTV.id).outerjoin(TMDBTV.alternative_titles).filter(
-                        or_(
-                            TMDBTV.name.ilike(f"{movie_name}%"),
-                            TMDBTVTranslation.name.ilike(f"{movie_name}%")
-                        )
-                    ).distinct().subquery()
-                )
+                # 执行查询
+                tv_ids_r = await session.execute(tv_query)
+                tv_ids = tv_ids_r.scalars().all()
+                base_query = base_query.where(TMDBTVSeason.tv_show_id.in_(tv_ids))
+                count_query = count_query.where(TMDBTVSeason.tv_show_id.in_(tv_ids))
 
             total_result = await session.execute(count_query)
             total = total_result.scalar()
