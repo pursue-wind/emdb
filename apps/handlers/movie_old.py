@@ -182,7 +182,8 @@ class TVEpisodesHandler(BaseHandler):
     async def post(self):
         async with await self.get_session() as session:
             tmdb_season_id = self.parse_form('tmdb_season_id')
-            query = select(TMDBTVEpisode).where(TMDBTVEpisode.tv_season_id == int(tmdb_season_id)).order_by(TMDBTVEpisode.episode_number)
+            query = select(TMDBTVEpisode).where(TMDBTVEpisode.tv_season_id == int(tmdb_season_id)).order_by(
+                TMDBTVEpisode.episode_number)
             result = await session.execute(query)
             lis = result.scalars().all()
 
@@ -350,6 +351,11 @@ class TVVideosHandler(BaseHandler):
             self.success({"videos": res})
 
 
+def trans_production_companies(company):
+    company['tmdb_id'] = company['id']
+    return company
+
+
 class SearchCompanyMovies(BaseHandler):
     @auth
     async def post(self):
@@ -404,6 +410,9 @@ class SearchCompanyMovies(BaseHandler):
                     target_ret['production_countries'] = list(map(lambda x: x.iso_3166_1, target.production_countries))
                 if 'spoken_languages' in target_ret:
                     target_ret['spoken_languages'] = list(map(lambda x: x.iso_639_1, target.spoken_languages))
+                if 'production_companies' in target_ret:
+                    target_ret['production_companies'] = list(
+                        map(lambda x: trans_production_companies(x), target.spoken_languages))
                 if 'keywords' in target_ret:
                     target_ret['keywords'] = list(map(lambda x2: x2['name'], target_ret['keywords']['keywords']))
                 target_ret['tmdb_id'] = target_ret['id']
