@@ -200,7 +200,9 @@ psql postgresql://emmai:fsv33inhTeHkhY5@8.218.184.1:54321/emdb -f /path/to/yourf
 find /data/emdb/emdb/sql_temp/data -name "tmdb*.sql" | xargs -I {} sed -i 's/public\.//g' {}
 # 使用sed命令将 , order, 替换为 , "order", 
 find /data/emdb/emdb/sql_temp/data -name "tmdb*cast.sql" | xargs -I {} sed -i 's/, order,/, "order",/g' {}
+find /data/emdb/emdb/sql_temp/data -name "tmdb*crew.sql" | xargs -I {} sed -i 's/, order,/, "order",/g' {}
 find /data/emdb/emdb/sql_temp/data -name "tmdb_tv_episode_guest_stars.sql" | xargs -I {} sed -i 's/, order,/, "order",/g' {}
+
 # 按照关联顺序导入数据，此处配置为测试环境的配置
 find /data/emdb/emdb/sql_temp/data -name "tmdb_genres*.sql" | xargs -I {} psql postgresql://emmai:fsv33inhTeHkhY5@8.218.184.1:54321/emdb -f {}
 

@@ -90,13 +90,14 @@ class BaseService:
             traceback.print_exc()
             logging.error(e)
 
-    async def _simple_query_one(self, obj, *whereclause, joinedload_options: [] = []):
+    async def _simple_query_one(self, obj, *whereclause, joinedload_options: [] = [], order=None):
         query = select(obj)
 
         for arg in joinedload_options:
             query = query.options(joinedload_options[arg])
 
-        result = await self.session.execute(query.where(*whereclause))
+        result = await (self.session.execute(query.where(*whereclause).order_by(order)) \
+                            if order else self.session.execute(query.where(*whereclause)))
         r = result.unique().scalar_one_or_none()
 
         return r
