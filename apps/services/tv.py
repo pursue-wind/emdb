@@ -15,6 +15,7 @@ from apps.services.people import PeopleService
 # tmdb.API_KEY = 'fb5642b7e0b6d36ad5ebcdf78a52f14c'
 tmdb.API_KEY = '71424eb6e25b8d87dc683c59e7feaa88'
 
+
 class TV_Seasons2(TV_Seasons):
     """
     继承 tmdbsimple 的 TV_Seasons 增加 translations 接口
@@ -226,7 +227,7 @@ class TVService(PeopleService):
 
     async def _process_season_episodes(self, tv_id, season, episodes):
         for episode_data in tqdm(episodes, desc="fetch tv {} season {}".format(tv_id, season.season_number)):
-            tv_episode = self._build_tv_episode(season.id, episode_data)
+            tv_episode = self._build_tv_episode(tv_id, season.id, episode_data)
             skip_load_var.set(True)
             await self.session.merge(tv_episode)
             await self.session.flush()
@@ -244,7 +245,7 @@ class TVService(PeopleService):
             )
             await self._process_episode_translations(episode_translations)
 
-            await asyncio.create_task(self._process_episode_credits(tv_episode, episode_credits))
+            await self._process_episode_credits(tv_episode, episode_credits)
 
     async def _process_episode_credits(self, episode, credits):
         await self._process_episode_casts(episode, credits.get('cast', []))
@@ -373,19 +374,19 @@ class TVService(PeopleService):
         )
 
     @staticmethod
-    def _build_tv_episode(tv_season_id, episode_data):
+    def _build_tv_episode(tv_id, tv_season_id, episode_data):
         return TMDBTVEpisode(
             id=episode_data['id'],
             tv_season_id=tv_season_id,
             overview=episode_data.get('overview'),
             name=episode_data.get('name'),
             air_date=episode_data.get('air_date'),
-            episode_number=episode_data['episode_number'],
-            episode_type=episode_data['episode_type'],
-            show_id=episode_data['show_id'],
+            episode_number=episode_data.get('episode_number'),
+            episode_type=episode_data.get('episode_type'),
+            show_id=tv_id,
             production_code=episode_data.get('production_code'),
             runtime=episode_data.get('runtime'),
-            season_number=episode_data['season_number'],
-            vote_average=episode_data['vote_average'],
-            vote_count=episode_data['vote_count']
+            season_number=episode_data.get('season_number'),
+            vote_average=episode_data.get('vote_average'),
+            vote_count=episode_data.get('vote_count')
         )

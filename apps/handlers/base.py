@@ -12,7 +12,7 @@ from tornado.web import RequestHandler, MissingArgumentError
 base64_pattern = re.compile(r'^[0-9a-zA-Z+/]+=*$')
 
 # 定义一个全局的上下文变量
-language_var = contextvars.ContextVar('language')
+language_var = contextvars.ContextVar('language', default='en')
 skip_load_var = contextvars.ContextVar('skip_load_var', default=False)
 
 
