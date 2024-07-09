@@ -5,16 +5,15 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import joinedload
 from tmdbsimple import TV_Seasons
+from tqdm import tqdm
 
 from apps.domain.models import *
 from apps.handlers.base import skip_load_var
 from apps.services.people import PeopleService
 
 # 配置 TMDB API 密钥
-tmdb.API_KEY = 'fb5642b7e0b6d36ad5ebcdf78a52f14c'
-
-
-# tmdb.API_KEY = '71424eb6e25b8d87dc683c59e7feaa88'
+# tmdb.API_KEY = 'fb5642b7e0b6d36ad5ebcdf78a52f14c'
+tmdb.API_KEY = '71424eb6e25b8d87dc683c59e7feaa88'
 
 class TV_Seasons2(TV_Seasons):
     """
@@ -99,7 +98,7 @@ class TVService(PeopleService):
             await self._process_alternative_titles(alternative_titles)
             # 处理每一季和集的信息
             if 'seasons' in details:
-                for season_data in details['seasons']:
+                for season_data in tqdm(details['seasons'], desc="fetch tv season:"):
                     if (season_data['id'] == tv_season_id or str(season_data['season_number']) == str(tv_season_num)) or \
                             (tv_season_id is None and tv_season_num is None):
                         await self._fetch_and_store_season(details['id'], season_data['season_number'])
@@ -226,7 +225,7 @@ class TVService(PeopleService):
         await asyncio.gather(self._process_season_credits(tv_season, season_credits))
 
     async def _process_season_episodes(self, tv_id, season, episodes):
-        for episode_data in episodes:
+        for episode_data in tqdm(episodes, desc="fetch tv {} season {}".format(tv_id, season.season_number)):
             tv_episode = self._build_tv_episode(season.id, episode_data)
             skip_load_var.set(True)
             await self.session.merge(tv_episode)

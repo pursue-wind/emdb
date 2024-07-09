@@ -3,6 +3,7 @@ import os
 import traceback
 
 import tmdbsimple as tmdb
+from tqdm import tqdm
 from sqlalchemy import select, UniqueConstraint, Numeric, Sequence, text
 
 from apps.domain.base import Base0
@@ -80,7 +81,8 @@ class DataService(PeopleService):
         # 创建会话
         async with self.session.begin():
             # 执行每个 SQL 语句
-            for statement in sql_commands.split(';'):
+            sql_list = sql_commands.split(';')
+            for statement in tqdm(sql_list, desc="exec_sql_file:"):
                 statement = statement.strip()
                 if statement:
                     print(f"Executing: {statement}")
@@ -138,7 +140,7 @@ class DataService(PeopleService):
 
             if need_fetch:
                 print(need_fetch)
-            for movie_id in need_fetch:
+            for movie_id in tqdm(need_fetch, desc="fetch_and_store_movie:"):
                 language_var.set('en')
                 try:
                     res = await self.movies_service.fetch_and_store_movie(movie_id)
@@ -170,12 +172,10 @@ class DataService(PeopleService):
                     select(TMDBTVSeason.id).where(TMDBTVSeason.id.in_(batch_season_ids)))
                 exist_ids = result.scalars().all()
                 need_fetch_season_ids = set(batch_season_ids) - set(exist_ids)
-
-            for movie in batch:
+            for movie in tqdm(batch, desc="fetch_and_store_tv:"):
                 language_var.set('en')
                 if movie.tmdb_id not in need_fetch_season_ids:
                     continue
-
                 try:
                     res = await self.tv_service.fetch_and_store_tv(movie.tmdb_series_id, tv_season_id=movie.tmdb_id)
                 except Exception as e:

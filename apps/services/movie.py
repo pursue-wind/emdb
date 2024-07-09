@@ -9,7 +9,8 @@ from apps.domain.models import *
 from apps.services.people import PeopleService
 
 # 配置 TMDB API 密钥
-tmdb.API_KEY = 'fb5642b7e0b6d36ad5ebcdf78a52f14c'
+# tmdb.API_KEY = 'fb5642b7e0b6d36ad5ebcdf78a52f14c'
+tmdb.API_KEY = '71424eb6e25b8d87dc683c59e7feaa88'
 
 
 class MovieService(PeopleService):

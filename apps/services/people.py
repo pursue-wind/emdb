@@ -5,6 +5,7 @@ import tmdbsimple as tmdb
 from async_lru import alru_cache
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
+from tqdm import tqdm
 
 from apps.domain.models import *
 from apps.services.base import BaseService
@@ -82,8 +83,7 @@ class PeopleService(BaseService):
         # 需要从 API 获取的新 people
         new_people_ids = set(people_ids) - exist_people_ids
         ps_insert = []
-
-        for people_id in new_people_ids:
+        for people_id in tqdm(new_people_ids, desc="fetch people info: "):
             people = await self._fetch_person_info(people_id, lang)
             ps_insert.append(people)
 

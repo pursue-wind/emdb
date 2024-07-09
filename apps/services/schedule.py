@@ -3,8 +3,8 @@ from datetime import timedelta
 
 import tmdbsimple as tmdb
 from apscheduler.schedulers.tornado import TornadoScheduler
-from sqlalchemy import text, select
-from sqlalchemy.orm import joinedload
+from sqlalchemy import text
+from tqdm import tqdm
 
 from apps.domain.models import *
 from apps.services.people import PeopleService
@@ -21,8 +21,8 @@ class ScheduleService(PeopleService):
 
     async def start(self):
         scheduler = TornadoScheduler(timezone='Asia/Shanghai')
-        scheduler.add_job(self.sync_tv, 'interval', seconds=10)
-        # scheduler.add_job(self.sync_tv, 'interval', seconds=3600 * 12)
+        # scheduler.add_job(self.sync_tv, 'interval', seconds=10)
+        scheduler.add_job(self.sync_tv, 'interval', seconds=3600 * 12)
         scheduler.start()
 
     async def sync_tv(self):
@@ -38,8 +38,7 @@ class ScheduleService(PeopleService):
             TMDBTV.last_episode_to_air.isnot(None),
             TMDBTV.updated_at < twelve_hours_ago  # updated_at 是11小时前的
         )
-
-        for tv in tvs:
+        for tv in tqdm(tvs, desc="schedule fetch tv:"):
             if not tv.last_episode_to_air:
                 print(self.to_primitive(tv))
                 continue
