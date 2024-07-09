@@ -2,6 +2,7 @@ import asyncio
 import copy
 from operator import or_
 
+from objtyping import to_primitive
 from sqlalchemy import select, func, distinct
 from sqlalchemy.orm import joinedload, selectinload, aliased
 
@@ -114,6 +115,20 @@ class TMDBSearch(BaseHandler):
             self.success(data=res)
 
 
+def transform_image_type(img: TMDBImage, r_id: int):
+    _img = to_primitive(img)
+    if img.image_type == TMDBImageTypeEnum.backdrop:
+        _img['type'] = 3
+    elif img.image_type == TMDBImageTypeEnum.logo:
+        _img['type'] = 1
+    elif img.image_type == TMDBImageTypeEnum.poster:
+        _img['type'] = 2
+    if not img.iso_639_1:
+        _img['iso_639_1'] = 'all'
+    _img['id'] = r_id + 1
+    return _img
+
+
 class MovieImagesHandler(BaseHandler):
     @auth
     async def get(self):
@@ -122,20 +137,12 @@ class MovieImagesHandler(BaseHandler):
             query = select(TMDBMovieImage).where(TMDBMovieImage.movie_id == int(movie_id))
             result = await session.execute(query)
             r = result.scalars().all()
+            r_id = int(movie_id + "000")
 
-            def transform_image_type(img: TMDBMovieImage):
-                if img.image_type == TMDBImageTypeEnum.backdrop:
-                    img.type = 3
-                elif img.image_type == TMDBImageTypeEnum.logo:
-                    img.type = 1
-                elif img.image_type == TMDBImageTypeEnum.poster:
-                    img.type = 2
-                if not img.iso_639_1:
-                    img.iso_639_1 = 'all'
-
-                return img
-
-            r_trans = list(map(lambda x: transform_image_type(x), r))
+            r_trans = []
+            for img in r:
+                r_trans.append(transform_image_type(img, r_id))
+                r_id += 1
             res = self.to_primitive(r_trans)
             self.success_func(data={"images": res}, func=tmdb_img_path_handler)
 
@@ -155,21 +162,6 @@ class TVImagesHandler(BaseHandler):
             result = await session.execute(query)
             r = result.scalars().all()
             r_id = int(tv_id + "000")
-
-            def transform_image_type(img: TMDBImage, r_id: int):
-                _img = self.to_primitive(img)
-                if img.image_type == TMDBImageTypeEnum.backdrop:
-                    _img['type'] = 3
-                elif img.image_type == TMDBImageTypeEnum.logo:
-                    _img['type'] = 1
-                elif img.image_type == TMDBImageTypeEnum.poster:
-                    _img['type'] = 2
-                if not img.iso_639_1:
-                    _img['iso_639_1'] = 'all'
-                _img['id'] = r_id + 1
-                r_id = r_id + 1
-                return _img
-
             r_trans = []
             for img in r:
                 r_trans.append(transform_image_type(img, r_id))
@@ -522,7 +514,6 @@ class SearchCompanyTV(BaseHandler):
                 additional_info = copy.deepcopy(tv_series)
 
                 tv_series['additional_info'] = additional_info
-
 
                 del tv_season['tv_show']
                 tv_season['external_ids'] = tv_series['external_ids']

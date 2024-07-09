@@ -205,7 +205,6 @@ find /data/emdb/emdb/sql_temp/data -name "tmdb_tv_episode_guest_stars.sql" | xar
 
 # 按照关联顺序导入数据，此处配置为测试环境的配置
 find /data/emdb/emdb/sql_temp/data -name "tmdb_genres*.sql" | xargs -I {} psql postgresql://emmai:fsv33inhTeHkhY5@8.218.184.1:54321/emdb -f {}
-
 find /data/emdb/emdb/sql_temp/data -name "tmdb_people.sql" | xargs -I {} psql postgresql://emmai:fsv33inhTeHkhY5@8.218.184.1:54321/emdb -f {}
 
 find /data/emdb/emdb/sql_temp/data -name "tmdb_production_companies.sql" | xargs -I {} psql postgresql://emmai:fsv33inhTeHkhY5@8.218.184.1:54321/emdb -f {}
@@ -213,10 +212,17 @@ find /data/emdb/emdb/sql_temp/data -name "tmdb_production_countries.sql" | xargs
 find /data/emdb/emdb/sql_temp/data -name "tmdb_spoken_languages.sql" | xargs -I {} psql postgresql://emmai:fsv33inhTeHkhY5@8.218.184.1:54321/emdb -f {}
 
 find /data/emdb/emdb/sql_temp/data -name "tmdb_movies.sql" | xargs -I {} psql postgresql://emmai:fsv33inhTeHkhY5@8.218.184.1:54321/emdb -f {}
+find /data/emdb/emdb/sql_temp/data -name "tmdb_tv.sql" | xargs -I {} psql postgresql://emmai:fsv33inhTeHkhY5@8.218.184.1:54321/emdb -f {}
+
+
+find /data/emdb/emdb/sql_temp/data -name "tmdb*cast.sql" | xargs -I {} psql postgresql://emmai:fsv33inhTeHkhY5@8.218.184.1:54321/emdb -f {}
+find /data/emdb/emdb/sql_temp/data -name "tmdb*crew.sql" | xargs -I {} psql postgresql://emmai:fsv33inhTeHkhY5@8.218.184.1:54321/emdb -f {}
+
 find /data/emdb/emdb/sql_temp/data -name "tmdb_movie_*.sql" | xargs -I {} psql postgresql://emmai:fsv33inhTeHkhY5@8.218.184.1:54321/emdb -f {}
 
-find /data/emdb/emdb/sql_temp/data -name "tmdb_tv.sql" | xargs -I {} psql postgresql://emmai:fsv33inhTeHkhY5@8.218.184.1:54321/emdb -f {}
+find /data/emdb/emdb/sql_temp/data -name "tmdb_tv_episodes.sql" | xargs -I {} psql postgresql://emmai:fsv33inhTeHkhY5@8.218.184.1:54321/emdb -f {}
+find /data/emdb/emdb/sql_temp/data -name "tmdb_tv_seasons.sql" | xargs -I {} psql postgresql://emmai:fsv33inhTeHkhY5@8.218.184.1:54321/emdb -f {}
+
 find /data/emdb/emdb/sql_temp/data -name "tmdb_tv_*.sql" | xargs -I {} psql postgresql://emmai:fsv33inhTeHkhY5@8.218.184.1:54321/emdb -f {}
 
 ```
-
