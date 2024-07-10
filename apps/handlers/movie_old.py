@@ -499,8 +499,8 @@ class SearchCompanyTV(BaseHandler):
             tv_season_runtime_res = execute_res.fetchall()
             tv_season_runtime_dict = {}
             for tv_season_runtime_re in tv_season_runtime_res:
-                tv_id, season_id, runtime = tv_season_runtime_re
-                tv_season_runtime_dict[(tv_id, season_id)] = runtime
+                _tv_id, _season_id, _runtime = tv_season_runtime_re
+                tv_season_runtime_dict[(_tv_id, _season_id)] = _runtime
 
             def trans(target):
                 tv_season = self.to_primitive(target)
