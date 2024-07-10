@@ -485,22 +485,22 @@ class SearchCompanyTV(BaseHandler):
 
             lis = result.unique().scalars().all()
 
-            tv_ids = ",".join(set(map(lambda x: str(x.tv_show_id), lis)))
-
-            statement = """
-            select show_id, tv_season_id, sum(runtime)
-            from tmdb_tv_episodes
-            where show_id in ({})
-            group by 1, 2
-            """.format(tv_ids)
-
-            logging.info(f"Executing: {statement}")
-            execute_res = await session.execute(text(statement))
-            tv_season_runtime_res = execute_res.fetchall()
             tv_season_runtime_dict = {}
-            for tv_season_runtime_re in tv_season_runtime_res:
-                _tv_id, _season_id, _runtime = tv_season_runtime_re
-                tv_season_runtime_dict[(_tv_id, _season_id)] = _runtime
+            if lis:
+                tv_ids = ",".join(set(map(lambda x: str(x.tv_show_id), lis)))
+                statement = """
+                select show_id, tv_season_id, sum(runtime)
+                from tmdb_tv_episodes
+                where show_id in ({})
+                group by 1, 2
+                """.format(tv_ids)
+                logging.info(f"Executing: {statement}")
+                execute_res = await session.execute(text(statement))
+                tv_season_runtime_res = execute_res.fetchall()
+
+                for tv_season_runtime_re in tv_season_runtime_res:
+                    _tv_id, _season_id, _runtime = tv_season_runtime_re
+                    tv_season_runtime_dict[(_tv_id, _season_id)] = _runtime
 
             def trans(target):
                 tv_season = self.to_primitive(target)
@@ -512,10 +512,11 @@ class SearchCompanyTV(BaseHandler):
                 tv_series['original_title'] = tv_series['original_name']
                 tv_series['tmdb_series_id'] = tmdb_series_id
                 tv_series['id'] = tv_season_id
-                tv_series['tmdb_id'] = tv_season['id']
-                tv_series['tmdb_season_id'] = tv_series['id']
+                tv_series['tmdb_id'] = tv_season_id
+                tv_series['tmdb_season_id'] = tv_season_id
                 # runtime 分转秒 * 60
-                tv_series['runtime'] = tv_season_runtime_dict.get((tmdb_series_id, tv_season_id), 0) * 60
+                all_run_time = tv_season_runtime_dict.get((tmdb_series_id, tv_season_id), 0)
+                tv_series['runtime'] = all_run_time * 60 if all_run_time else 0
 
                 tv_series['external_ids'] = {k: (str(v) if v and k != 'id' else v) for k, v in
                                              tv_series['external_ids'].items()}
