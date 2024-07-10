@@ -1,9 +1,10 @@
 import asyncio
 import copy
+import logging
 from operator import or_
 
 from objtyping import to_primitive
-from sqlalchemy import select, func, distinct
+from sqlalchemy import select, func, distinct, text
 from sqlalchemy.orm import joinedload, selectinload, aliased
 
 from apps.domain.base import TMDBImageTypeEnum, movie_upload_progress, tv_upload_progress, tv_upload_progress_build_key
@@ -184,6 +185,8 @@ class TVEpisodesHandler(BaseHandler):
                 target_ret['tmdb_series_id'] = target_ret['tv_season_id']
                 target_ret['tmdb_episode_id'] = target_ret['id']
                 target_ret['tmdb_season_id'] = target_ret['tv_season_id']
+                # runtime 分转秒 * 60
+                target_ret['runtime'] = target_ret['runtime'] * 60
                 return target_ret
 
             tv_res = list(map(lambda x: trans(x), lis))
@@ -408,6 +411,8 @@ class SearchCompanyMovies(BaseHandler):
                 if 'keywords' in target_ret:
                     target_ret['keywords'] = list(map(lambda x2: x2['name'], target_ret['keywords']['keywords']))
                 target_ret['tmdb_id'] = target_ret['id']
+                # runtime 分转秒 * 60
+                target_ret['runtime'] = target_ret['runtime'] * 60
 
                 if 'title' in target_ret and target_ret['title'] == "":
                     target_ret['title'] = target_ret['original_title']
@@ -480,6 +485,23 @@ class SearchCompanyTV(BaseHandler):
 
             lis = result.unique().scalars().all()
 
+            tv_ids = ",".join(set(map(lambda x: str(x.tv_show_id), lis)))
+
+            statement = """
+            select show_id, tv_season_id, sum(runtime)
+            from tmdb_tv_episodes
+            where show_id in ({})
+            group by 1, 2
+            """.format(tv_ids)
+
+            logging.info(f"Executing: {statement}")
+            execute_res = await session.execute(text(statement))
+            tv_season_runtime_res = execute_res.fetchall()
+            tv_season_runtime_dict = {}
+            for tv_season_runtime_re in tv_season_runtime_res:
+                tv_id, season_id, runtime = tv_season_runtime_re
+                tv_season_runtime_dict[(tv_id, season_id)] = runtime
+
             def trans(target):
                 tv_season = self.to_primitive(target)
                 tv_series = self.to_primitive(target.tv_show)
@@ -492,12 +514,11 @@ class SearchCompanyTV(BaseHandler):
                 tv_series['id'] = tv_season_id
                 tv_series['tmdb_id'] = tv_season['id']
                 tv_series['tmdb_season_id'] = tv_series['id']
-                tv_series['runtime'] = 0
+                # runtime 分转秒 * 60
+                tv_series['runtime'] = tv_season_runtime_dict.get((tmdb_series_id, tv_season_id), 0) * 60
+
                 tv_series['external_ids'] = {k: (str(v) if v and k != 'id' else v) for k, v in
                                              tv_series['external_ids'].items()}
-
-                if 'episode_run_time' in tv_series and tv_series['episode_run_time']:
-                    tv_series['runtime'] = tv_series['episode_run_time'][0]
 
                 tv_series['title'] = tv_series['name']
                 tv_series['revenue'] = 0
