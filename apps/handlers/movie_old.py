@@ -240,7 +240,8 @@ class TVAlternativeTitlesHandler(BaseHandler):
             query = select(TMDBTVSeason).where(TMDBTVSeason.id == int(tv_id))
             result = await session.execute(query)
             r = result.scalars().first()
-
+            if r is None:
+                return self.success(data={"alternative_titles": []})
             query = select(TMDBTVAlternativeTitle).where(TMDBTVAlternativeTitle.tv_id == int(r.tv_show_id))
             result = await session.execute(query)
             r = result.scalars().all()
@@ -340,6 +341,8 @@ class TVVideosHandler(BaseHandler):
             query = select(TMDBTVSeason).where(TMDBTVSeason.id == int(tv_id))
             result = await session.execute(query)
             r = result.scalars().first()
+            if r is None:
+                return self.success(data={"videos": []})
             result = await session.execute(
                 select(TMDBTVVideo).where(TMDBTVVideo.tv_id == int(r.tv_show_id)))
             r = result.scalars().all()
