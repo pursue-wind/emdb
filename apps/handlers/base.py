@@ -38,8 +38,14 @@ class BaseHandler(RequestHandler):
 
     def prepare(self):
         # 从请求参数中获取 `language` 参数并赋值给处理器实例
-        self.language = self.get_argument('lang', 'en')
-        language_var.set(self.language)
+        language_param = self.get_argument('lang', 'en')
+        if language_param:
+            language_var.set(language_param)
+
+        lang_header = self.request.headers.get('Accept-Language')
+        if lang_header:
+            language_var.set(lang_header)
+
         # 捕获非HTTPError异常
         try:
             super().prepare()
