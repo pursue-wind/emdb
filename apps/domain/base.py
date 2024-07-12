@@ -37,7 +37,7 @@ def load_translation(target, context, translation_model, foreign_key_field, attr
                 filters = {foreign_key_field: target.id, 'language': language}
             if len(language) == 5:
                 # en-US
-                parts = language.split('-')
+                parts = language.split('-') if '-' in language else language.split('_')
                 language_code = parts[0]
                 country_code = parts[1]
                 filters = {foreign_key_field: target.id, 'language': language_code}
