@@ -50,9 +50,7 @@ class PeopleService(BaseService):
 
         return exist_peoples + ps_insert
 
-    @alru_cache(maxsize=2048)
     async def _fetch_person_info(self, people_id: int, lang: str) -> TMDBPeople:
-        logging.info(f"=> fetch people info: {people_id}")
         """辅助方法，用于从 TMDB API 获取人物信息，并缓存结果。"""
         people_info = await self._fetch(lambda: tmdb.People(people_id).info(language=lang))
         return TMDBPeople(
@@ -83,6 +81,7 @@ class PeopleService(BaseService):
         # 需要从 API 获取的新 people
         new_people_ids = set(people_ids) - exist_people_ids
         ps_insert = []
+        logging.info(f"=> fetch people info: {new_people_ids}")
         for people_id in tqdm(new_people_ids, desc="fetch people info: "):
             people = await self._fetch_person_info(people_id, lang)
             ps_insert.append(people)

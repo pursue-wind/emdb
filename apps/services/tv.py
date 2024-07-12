@@ -75,7 +75,8 @@ class TVService(PeopleService):
 
         return self.to_primitive(r)
 
-    async def fetch_and_store_tv(self, tv_series_id: int, tv_season_id: int = None, tv_season_num: int = None):
+    async def fetch_and_store_tv(self, tv_series_id: int, tv_season_id: int = None, tv_season_num: int = None,
+                                 tv_episode_num: int = None):
         tv = tmdb.TV(tv_series_id)
         lang = self._language()
         details = await self._fetch(lambda: tv.info())
@@ -102,7 +103,7 @@ class TVService(PeopleService):
                 for season_data in tqdm(details['seasons'], desc="fetch tv season:"):
                     if (season_data['id'] == tv_season_id or str(season_data['season_number']) == str(tv_season_num)) or \
                             (tv_season_id is None and tv_season_num is None):
-                        await self._fetch_and_store_season(details['id'], season_data['season_number'])
+                        await self._fetch_and_store_season(details['id'], season_data['season_number'], tv_episode_num)
         return details
 
     async def _store_tv(self, details, external_ids, keywords, series_credits=None):
@@ -209,7 +210,7 @@ class TVService(PeopleService):
         }, crews))
         await self._batch_insert(TMDBTVSeasonCrew, crews_add)
 
-    async def _fetch_and_store_season(self, tv_id: int, season_number: int):
+    async def _fetch_and_store_season(self, tv_id: int, season_number: int, tv_episode_num: int = None):
         season = tmdb.TV_Seasons(tv_id, season_number)
         season2 = TV_Seasons2(tv_id, season_number)
         lang = self._language()
@@ -220,32 +221,39 @@ class TVService(PeopleService):
         tv_season = self._build_tv_season(tv_id, season_details)
         skip_load_var.set(True)
         await self.session.merge(tv_season)
-        await self._process_season_episodes(tv_id, tv_season, season_details.get('episodes', []))
 
         await self._process_season_translations(season_translations)
-        await asyncio.gather(self._process_season_credits(tv_season, season_credits))
+        await self._process_season_credits(tv_season, season_credits)
 
-    async def _process_season_episodes(self, tv_id, season, episodes):
-        for episode_data in tqdm(episodes, desc="fetch tv {} season {}".format(tv_id, season.season_number)):
-            tv_episode = self._build_tv_episode(tv_id, season.id, episode_data)
-            skip_load_var.set(True)
-            await self.session.merge(tv_episode)
-            await self.session.flush()
-            # 第 0 集，tmdb的查询接口会导致404报错
-            if episode_data.get('episode_number') == 0:
-                return
+        # 处理每一季和集的信息
+        if 'episodes' in season_details:
+            for episode_data in tqdm(season_details['episodes'], desc="fetch tv episodes:"):
+                if (str(episode_data['episode_number']) == str(tv_episode_num)) or \
+                        (tv_episode_num is None):
+                    await self._process_season_episodes(tv_id, tv_season, episode_data)
 
-            episode_credits = await self._fetch(
-                lambda: tmdb.TV_Episodes(tv_id, season.season_number, episode_data['episode_number'])
-                .credits()
-            )
-            episode_translations = await self._fetch(
-                lambda: tmdb.TV_Episodes(tv_id, season.season_number, episode_data['episode_number'])
-                .translations()
-            )
-            await self._process_episode_translations(episode_translations)
+    async def _process_season_episodes(self, tv_id, season, episode_data):
+        tv_episode = self._build_tv_episode(tv_id, season.id, episode_data)
+        skip_load_var.set(True)
+        await self.session.merge(tv_episode)
+        await self.session.flush()
+        # 第 0 集，tmdb的查询接口会导致404报错
+        if episode_data.get('episode_number') == 0:
+            return
 
-            await self._process_episode_credits(tv_episode, episode_credits)
+        episode_number = episode_data['episode_number']
+
+        episode_credits = await self._fetch(
+            lambda: tmdb.TV_Episodes(tv_id, season.season_number, episode_number)
+            .credits()
+        )
+        episode_translations = await self._fetch(
+            lambda: tmdb.TV_Episodes(tv_id, season.season_number, episode_number)
+            .translations()
+        )
+        await self._process_episode_translations(episode_translations)
+
+        await self._process_episode_credits(tv_episode, episode_credits)
 
     async def _process_episode_credits(self, episode, credits):
         await self._process_episode_casts(episode, credits.get('cast', []))

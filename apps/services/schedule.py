@@ -21,8 +21,8 @@ class ScheduleService(PeopleService):
 
     async def start(self):
         scheduler = TornadoScheduler(timezone='Asia/Shanghai')
-        scheduler.add_job(self.sync_tv, 'interval', seconds=3600*6)
-        # scheduler.add_job(self.sync_tv, 'interval', seconds=3600 * 12)
+        # scheduler.add_job(self.sync_tv, 'interval', seconds=11)
+        scheduler.add_job(self.sync_tv, 'interval', seconds=3600 * 12)
         scheduler.start()
 
     async def sync_tv(self):
@@ -61,7 +61,7 @@ class ScheduleService(PeopleService):
             if tv.next_episode_to_air is None:
                 # 最近更新过，跳过
                 air_date_time = datetime.strptime(air_date, '%Y-%m-%d')
-                if season.updated_at.date() > air_date_time.date(): # 如果最后一集的播出日期比数据库更新时间更晚
+                if season.updated_at.date() > air_date_time.date():  # 如果最后一集的播出日期比数据库更新时间更晚
                     continue
                 now = datetime.now()
                 difference = now - air_date_time
@@ -70,7 +70,7 @@ class ScheduleService(PeopleService):
                 if difference.days > 365:
                     continue
 
-            if tv.next_episode_to_air:
+            if tv.next_episode_to_air and tv.next_episode_to_air != 'null':
                 next_season_number = tv.next_episode_to_air['season_number']
                 next_air_date = tv.next_episode_to_air['air_date']
                 next_episode_number = tv.next_episode_to_air['episode_number']
@@ -79,14 +79,18 @@ class ScheduleService(PeopleService):
 
                 # 如果下一集的播出日期没超过当前时间，需要更新
                 if next_air_date_time.date() <= datetime.now().date():
-                    r = await self.tv_service.fetch_and_store_tv(tv.id, tv_season_num=season_number)
-
+                    if next_episode_number - episode_number == 1:
+                        r = await self.tv_service.fetch_and_store_tv(tv.id,
+                                                                     tv_season_num=season_number,
+                                                                     tv_episode_num=next_episode_number)
+                    else:
+                        r = await self.tv_service.fetch_and_store_tv(tv.id,
+                                                                     tv_season_num=season_number)
                 # 如果下一集是下一季，更新下一季
                 if next_season_number > season_number:
                     await self.tv_service.fetch_and_store_tv(tv.id, tv_season_num=next_season_number)
 
             logging.info(f"=> Syncing TV: {tv.id}, {season_number}")
-
 
     async def sync_tv2(self):
         language_var.set('en')
