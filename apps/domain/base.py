@@ -29,6 +29,8 @@ def load_translation(target, context, translation_model, foreign_key_field, attr
     if skip_load_var.get():
         return
     language = str(language_var.get()).strip()
+    if len(language) > 5:
+        language = language[:5]
     if language:
         session = object_session(target)
         if session:
@@ -39,7 +41,6 @@ def load_translation(target, context, translation_model, foreign_key_field, attr
                 # en-US
                 parts = language.split('-') if '-' in language else language.split('_')
                 language_code = parts[0]
-                country_code = parts[1]
                 filters = {foreign_key_field: target.id, 'language': language_code}
             if not filters:
                 return
@@ -54,6 +55,8 @@ def load_translation_by_iso_639_1(target, context, translation_model, foreign_ke
     if skip_load_var.get():
         return
     language = str(language_var.get()).strip()
+    if len(language) > 5:
+        language = language[:5]
     if language:
         session = object_session(target)
         if session:

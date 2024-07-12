@@ -401,11 +401,11 @@ class SearchCompanyMovies(BaseHandler):
             def trans(target):
                 target_ret = self.to_primitive(target)
                 if 'genres' in target_ret:
-                    target_ret['genres'] = list(map(lambda x: x.name, target.genres))
+                    target_ret['genres'] = list(map(lambda x: x.get('name', ''), target_ret['genres']))
                 if 'production_countries' in target_ret:
-                    target_ret['production_countries'] = list(map(lambda x: x.iso_3166_1, target.production_countries))
+                    target_ret['production_countries'] = list(map(lambda x: x['iso_3166_1'], target_ret['production_countries']))
                 if 'spoken_languages' in target_ret:
-                    target_ret['spoken_languages'] = list(map(lambda x: x.iso_639_1, target.spoken_languages))
+                    target_ret['spoken_languages'] = list(map(lambda x: x['iso_639_1'], target_ret['spoken_languages']))
                 if 'production_companies' in target_ret:
                     target_ret['production_companies'] = list(
                         map(lambda x: trans_production_companies(x), target_ret['production_companies']))
