@@ -62,7 +62,7 @@ def load_translation_by_iso_639_1(target, context, translation_model, foreign_ke
                 filters = {foreign_key_field: target.id, 'iso_639_1': language}
             if len(language) == 5:
                 # en-US
-                parts = language.split('-')
+                parts = language.split('-') if '-' in language else language.split('_')
                 language_code = parts[0]
                 country_code = parts[1]
                 filters = {foreign_key_field: target.id, 'iso_639_1': language_code, 'iso_3166_1': country_code}
