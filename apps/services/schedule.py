@@ -21,8 +21,8 @@ class ScheduleService(PeopleService):
 
     async def start(self):
         scheduler = TornadoScheduler(timezone='Asia/Shanghai')
-        # scheduler.add_job(self.sync_tv, 'interval', seconds=10)
-        scheduler.add_job(self.sync_tv, 'interval', seconds=3600 * 12)
+        scheduler.add_job(self.sync_tv, 'interval', seconds=3600*6)
+        # scheduler.add_job(self.sync_tv, 'interval', seconds=3600 * 12)
         scheduler.start()
 
     async def sync_tv(self):

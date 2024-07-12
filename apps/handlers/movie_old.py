@@ -186,7 +186,8 @@ class TVEpisodesHandler(BaseHandler):
                 target_ret['tmdb_episode_id'] = target_ret['id']
                 target_ret['tmdb_season_id'] = target_ret['tv_season_id']
                 # runtime 分转秒 * 60
-                target_ret['runtime'] = target_ret['runtime'] * 60
+                all_run_time = target_ret.get('runtime', 0)
+                target_ret['runtime'] = all_run_time * 60 if all_run_time else 0
                 return target_ret
 
             tv_res = list(map(lambda x: trans(x), lis))
@@ -412,7 +413,8 @@ class SearchCompanyMovies(BaseHandler):
                     target_ret['keywords'] = list(map(lambda x2: x2['name'], target_ret['keywords']['keywords']))
                 target_ret['tmdb_id'] = target_ret['id']
                 # runtime 分转秒 * 60
-                target_ret['runtime'] = target_ret['runtime'] * 60
+                all_run_time = target_ret.get('runtime', 0)
+                target_ret['runtime'] = all_run_time * 60 if all_run_time else 0
 
                 if 'title' in target_ret and target_ret['title'] == "":
                     target_ret['title'] = target_ret['original_title']
