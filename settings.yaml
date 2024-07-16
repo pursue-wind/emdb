@@ -7,6 +7,8 @@ default:
     port: 8088
   debug:
     local: true
+  schedule:
+    interval_sec: 30
   data_sync: false # 根据原movie表重刷数据
   genres_sync: false # 重刷类别信息
   force: false # 强制全部重刷数据

@@ -226,3 +226,6 @@ find /data/emdb/emdb/sql_temp/data -name "tmdb_tv_seasons.sql" | xargs -I {} psq
 find /data/emdb/emdb/sql_temp/data -name "tmdb_tv_*.sql" | xargs -I {} psql postgresql://emmai:fsv33inhTeHkhY5@8.218.184.1:54321/emdb -f {}
 
 ```
+
+根据这个帖子：TMDB season/episode ID 不会重复
+https://www.themoviedb.org/talk/552e997ac3a36804cd0013ab

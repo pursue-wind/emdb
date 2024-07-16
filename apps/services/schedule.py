@@ -15,14 +15,14 @@ tmdb.API_KEY = 'fb5642b7e0b6d36ad5ebcdf78a52f14c'
 
 
 class ScheduleService(PeopleService):
-    def __init__(self, session):
+    def __init__(self, session, interval_sec):
         super().__init__(session())
         self.tv_service = TVService(session())
+        self.interval_sec = interval_sec
 
     async def start(self):
         scheduler = TornadoScheduler(timezone='Asia/Shanghai')
-        # scheduler.add_job(self.sync_tv, 'interval', seconds=11)
-        scheduler.add_job(self.sync_tv, 'interval', seconds=3600 * 12)
+        scheduler.add_job(self.sync_tv, 'interval', seconds=self.interval_sec)
         scheduler.start()
 
     async def sync_tv(self):
@@ -36,7 +36,7 @@ class ScheduleService(PeopleService):
             TMDBTV.status == 'Returning Series',
             # TMDBTV.next_episode_to_air.isnot(None),
             TMDBTV.last_episode_to_air.isnot(None),
-            TMDBTV.updated_at < twelve_hours_ago  # updated_at 是11小时前的
+            TMDBTV.updated_at < twelve_hours_ago
         )
         for tv in tqdm(tvs, desc="schedule fetch tv:"):
             if not tv.last_episode_to_air:
@@ -45,9 +45,6 @@ class ScheduleService(PeopleService):
             season_number = tv.last_episode_to_air['season_number']
             air_date = tv.last_episode_to_air['air_date']
             episode_number = tv.last_episode_to_air['episode_number']
-
-            if tv.id == 76479:
-                print(tv)
 
             season = await self._simple_query_one(
                 TMDBTVSeason,
@@ -79,6 +76,9 @@ class ScheduleService(PeopleService):
 
                 # 如果下一集的播出日期没超过当前时间，需要更新
                 if next_air_date_time.date() <= datetime.now().date():
+                    logging.info("schedule fetch_and_store_tv: tv id: {}, tv_season: {}, episode: {}".format(tv.id,
+                                                                                                             season_number,
+                                                                                                             episode_number))
                     if next_episode_number - episode_number == 1:
                         r = await self.tv_service.fetch_and_store_tv(tv.id,
                                                                      tv_season_num=season_number,

@@ -57,7 +57,7 @@ async def main():
         app.listen(settings.server.port)
         logging.info(f"Listening on port {settings.server.port}")
 
-        await asyncio.create_task(ScheduleService(async_session_factory).start())
+        await asyncio.create_task(ScheduleService(async_session_factory, settings.schedule.interval_sec).start())
 
         # 同步原表的数据
         if settings.genres_sync:
