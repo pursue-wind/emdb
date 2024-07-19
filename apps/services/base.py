@@ -78,12 +78,20 @@ class BaseService:
         b = list(map(lambda d: obj.build(mid, d), v))
         await self._batch_insert(obj, b)
 
-    async def _batch_insert(self, obj, dict_list):
+    async def _batch_insert(self, obj, dict_list, need_update=False, need_update_conflict_cols=[]):
         if not dict_list:
             logging.warning("not found data: " + str(obj))
             return
         stmt = insert(obj).values(dict_list)
-        stmt = stmt.on_conflict_do_nothing()
+        if need_update:
+            update_cols = {col: getattr(stmt.excluded, col) for col in dict_list[0].keys()}
+
+            stmt = stmt.on_conflict_do_update(
+                index_elements=need_update_conflict_cols,
+                set_=update_cols
+            )
+        else:
+            stmt = stmt.on_conflict_do_nothing()
         try:
             await self.session.execute(stmt)
         except Exception as e:

@@ -352,7 +352,7 @@ class TVService(PeopleService):
             }
             for translation in translations.get('translations', [])
         ]
-        await self._batch_insert(TMDBTVEpisodeTranslation, t)
+        await self._batch_insert(TMDBTVEpisodeTranslation, t, True, ['tv_episode_id', 'iso_3166_1', 'iso_639_1'])
 
     async def _process_alternative_titles(self, ts):
         mid = ts['id']
