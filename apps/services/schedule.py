@@ -3,7 +3,7 @@ from datetime import timedelta
 
 import tmdbsimple as tmdb
 from apscheduler.schedulers.tornado import TornadoScheduler
-from sqlalchemy import text
+from sqlalchemy import text, select
 from tqdm import tqdm
 
 from apps.domain.models import *
@@ -15,7 +15,8 @@ tmdb.API_KEY = 'fb5642b7e0b6d36ad5ebcdf78a52f14c'
 
 
 class ScheduleService(PeopleService):
-    def __init__(self, session, interval_sec):
+    def __init__(self, async_session_factory, interval_sec):
+        session = async_session_factory()
         super().__init__(session)
         self.tv_service = TVService(session)
         self.interval_sec = interval_sec
@@ -31,13 +32,14 @@ class ScheduleService(PeopleService):
         logging.info("Syncing TV")
         twelve_hours_ago = datetime.utcnow() - timedelta(hours=11)
 
-        tvs = await self._simple_query_list(
-            TMDBTV,
+        result = await self.session.execute(select(TMDBTV).where(
             TMDBTV.status == 'Returning Series',
             # TMDBTV.next_episode_to_air.isnot(None),
             TMDBTV.last_episode_to_air.isnot(None),
             TMDBTV.updated_at < twelve_hours_ago
-        )
+        ))
+        tvs = result.unique().scalars().all()
+
         for tv in tqdm(tvs, desc="schedule fetch tv:"):
             if not tv.last_episode_to_air:
                 print(self.to_primitive(tv))
