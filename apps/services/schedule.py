@@ -4,6 +4,7 @@ from datetime import timedelta
 import tmdbsimple as tmdb
 from apscheduler.schedulers.tornado import TornadoScheduler
 from sqlalchemy import text, select
+from sqlalchemy.ext.asyncio import AsyncSession
 from tqdm import tqdm
 
 from apps.domain.models import *
@@ -16,10 +17,12 @@ tmdb.API_KEY = 'fb5642b7e0b6d36ad5ebcdf78a52f14c'
 
 class ScheduleService(PeopleService):
     def __init__(self, async_session_factory, interval_sec):
-        session = async_session_factory()
-        super().__init__(session)
-        self.tv_service = TVService(session)
+        self.session_factory = async_session_factory
+        super().__init__(async_session_factory())
         self.interval_sec = interval_sec
+
+    async def get_session(self) -> AsyncSession:
+        return self.session_factory()
 
     async def start(self):
         scheduler = TornadoScheduler(timezone='Asia/Shanghai')
@@ -82,46 +85,19 @@ class ScheduleService(PeopleService):
                                                                                                              season_number,
                                                                                                              episode_number))
                     if next_episode_number - episode_number == 1:
-                        r = await self.tv_service.fetch_and_store_tv(tv.id,
-                                                                     tv_season_num=season_number,
-                                                                     tv_episode_num=next_episode_number)
+                        async with await self.get_session() as session:
+                            r = await TVService(session).fetch_and_store_tv(tv.id,
+                                                                            tv_season_num=season_number,
+                                                                            tv_episode_num=next_episode_number)
                     else:
-                        r = await self.tv_service.fetch_and_store_tv(tv.id,
-                                                                     tv_season_num=season_number)
+                        async with await self.get_session() as session:
+                            r = await TVService(session).fetch_and_store_tv(tv.id,
+                                                                            tv_season_num=season_number)
                 # 如果下一集是下一季，更新下一季
                 if next_season_number > season_number:
-                    await self.tv_service.fetch_and_store_tv(tv.id, tv_season_num=next_season_number)
+                    async with await self.get_session() as session:
+                        r = await TVService(session).fetch_and_store_tv(tv.id, tv_season_num=next_season_number)
 
             logging.info(f"=> Syncing TV: {tv.id}, {season_number}")
 
-    async def sync_tv2(self):
-        language_var.set('en')
-        skip_load_var.set(True)
-        logging.info("Syncing TV")
-        statement = """
-                    select tv.id, tv.name, tv.last_episode_to_air, tv.number_of_seasons, count_season_number
-                    from tmdb_tv tv
-                             left join (select tv_show_id, count(*) count_season_number
-                                        from tmdb_tv_seasons
-                                        where season_number != 0
-                                        group by tv_show_id) ts on tv.id = ts.tv_show_id
-                    where tv.status = 'Returning Series'
-                    """
-        logging.info(f"Executing: {statement}")
-        execute_res = await self.session.execute(text(statement))
-        res = execute_res.fetchall()
-        for it in res:
-            tv_id, name, last_episode_to_air, number_of_seasons, count_season_number = it
-            season = await self._simple_query_one(TMDBTVSeason, TMDBTVSeason.tv_show_id == tv_id,
-                                                  TMDBTVSeason.season_number == number_of_seasons)
-            if season and last_episode_to_air and season.episode_count >= last_episode_to_air.get('episode_number', -1):
-                continue
-            logging.info(f"=> Syncing TV {name}")
-            if number_of_seasons == count_season_number:
-                r = await self.tv_service.fetch_and_store_tv(tv_id, tv_season_num=number_of_seasons)
-                logging.info(r)
-            if number_of_seasons > count_season_number:
-                r = await self.tv_service.fetch_and_store_tv(tv_id)
-                logging.info(r)
 
-        print(res)
