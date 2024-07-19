@@ -16,8 +16,8 @@ tmdb.API_KEY = 'fb5642b7e0b6d36ad5ebcdf78a52f14c'
 
 class ScheduleService(PeopleService):
     def __init__(self, session, interval_sec):
-        super().__init__(session())
-        self.tv_service = TVService(session())
+        super().__init__(session)
+        self.tv_service = TVService(session)
         self.interval_sec = interval_sec
 
     async def start(self):
