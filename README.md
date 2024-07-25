@@ -22,6 +22,13 @@ python3 main.py
 ---
 
 ## EMDB API
+> APIFOX 链接: https://pursue-wind.apifox.cn  访问密码: likn1234
+ 
+新版本只有下面4个接口，其他接口都是为了兼容重构之前版本的接口返回做了数据转换
+- GET /api/emdb/movie/{id}
+- POST /api/emdb/movie/{id}
+- GET /api/emdb/tv/{id}
+- POST /api/emdb/tv/{id}
 
 ### 电影 API
 
