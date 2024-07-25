@@ -1,7 +1,24 @@
 # EMDB 影视数据服务
-
 > 同步 TMDb 数据到本地
 
+## 安装依赖
+```shell
+pip install -r requirements.txt
+```
+
+## 项目启动
+```shell
+python3 main.py
+```
+
+### 根据环境变量`ENV`读取 setting.yaml 内的配置
+- ENV：
+  - local
+  - dev
+  - test
+  - release
+
+> script.sh 是重构前的启动脚本，可以不用也可以继续使用
 ---
 
 ## EMDB API
@@ -187,10 +204,6 @@ curl --location --request GET 'http://127.0.0.1:8088/api/emdb/tv/68006?lang=zh-C
 ## 待完善
 
 - EMMAI导入数据改用新的api
-
-- TMDb 数据导入错误记录到数据库
-
-- 导入影视进度反馈给前端
 
 ## 生产环境数据库替换
 - 导出数据为sql文件

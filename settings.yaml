@@ -9,9 +9,9 @@ default:
     local: true
   schedule:
     interval_sec: 43200
-  data_sync: false # 根据原movie表重刷数据
-  genres_sync: false # 重刷类别信息
-  force: false # 强制全部重刷数据
+  data_sync: false # 同步重构前的版本movie表的数据
+  genres_sync: false # 重刷类别信息数据，死数据，支持从sql或者tmdb同步
+  force: false # 强制同步重构前的版本movie表的数据
 ############################################################################################
 ############################################################################################
 local:
