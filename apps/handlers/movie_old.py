@@ -83,7 +83,7 @@ class DiscoverHandler(BaseHandler):
     async def get(self, *_args, **_kwargs):
         lang, page, media_type, include_adult = self.parse_form('lang', 'page', 'media_type', 'include_adult')
         if media_type not in ["movie", "tv"]:
-            self.fail(status=400, msg='media_type param err')
+            return self.fail(status=400, msg='media_type param err')
         async with await self.get_session() as session:
             res = await SearchService(session).discover(lang=lang, page=page, media_type=media_type,
                                                         include_adult=include_adult)
