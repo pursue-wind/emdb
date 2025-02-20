@@ -11,6 +11,9 @@ VENV_NAME="emdb"
 
 start() {
     workon "$VENV_NAME"  # 切换到虚拟环境
+
+    pip install -r requirements.txt
+
     echo "work in VENV: $VENV_NAME, ENV: $ENV"
     if [ "$2" = "main" ]; then
         cd "$APP_PATH" || exit

@@ -1,0 +1,60 @@
+default:
+  project:
+    name: emdb
+  server:
+    domain: https://dev-xmdb.emmai.com
+    host: 127.0.0.1
+    port: 8088
+  debug:
+    local: true
+  schedule:
+    interval_sec: 43200
+  data_sync: false # 同步重构前的版本movie表的数据
+  genres_sync: false # 重刷类别信息数据，死数据，支持从sql或者tmdb同步
+  force: false # 强制同步重构前的版本movie表的数据
+############################################################################################
+############################################################################################
+local:
+  server:
+    domain: https://dev-xmdb.emmai.com
+    host: 127.0.0.1
+    port: 8088
+    pass_mixin: "0x00544"
+  pgsql: postgresql+asyncpg://root:1234@127.0.0.1:5432/emdb
+  emmai:
+    base_url: https://dev-api.emmai.com
+############################################################################################
+############################################################################################
+dev:
+  server:
+    domain: https://dev-xmdb.emmai.com
+    host: 127.0.0.1
+    port: 8088
+    pass_mixin: "0x00544"
+  pgsql: postgresql+asyncpg://emmai_dev:TeMaqdpWz6ctya3inh@47.76.82.180:54321/emdb
+  emmai:
+    base_url: https://dev-api.emmai.com
+############################################################################################
+############################################################################################
+test:
+  debug: true
+  server:
+    domain: https://test-xmdb.emmai.com
+    host: 127.0.0.1
+    port: 8088
+    pass_mixin: "0x00544"
+  # psql -h 8.218.184.1 -p 54321 -U emmai -d emdb
+  pgsql: postgresql+asyncpg://emmai:fsv33inhTeHkhY5@8.218.184.1:54321/emdb
+  emmai:
+    base_url: https://test-api.emmai.com
+############################################################################################
+############################################################################################
+release:
+  server:
+    domain: https://xmdb.emmai.com
+    host: 127.0.0.1
+    port: 8088
+    pass_mixin: "0x00544"
+  pgsql: postgresql+asyncpg://emmai_prod:nhTeHkhY5MaqdpW2b@pgm-j6c277hnh814e491.pg.rds.aliyuncs.com/emdb
+  emmai:
+    base_url: https://api.emmai.com

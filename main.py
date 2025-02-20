@@ -1,61 +1,83 @@
+import asyncio
+import logging
 import os
+from logging.handlers import RotatingFileHandler
+from tornado.ioloop import IOLoop
+from sqlalchemy.ext.asyncio import create_async_engine
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.ext.asyncio import AsyncSession
 
-import tornado.web
-from tornado.log import access_log, app_log
+from apps.domain.models import Base
+from apps.services.fix_data import DataService
+from apps.services.schedule import ScheduleService
+from apps.web import make_app
+from config import settings
 
-from db.pgsql.mysql_models import init_db
-# from db.pgsql.base import init_db
-from lib.logger import init_log
-from routes import ROUTES as routes
-from config import CFG as cfg
-from tornado_swagger.setup import setup_swagger
-
-
-def log_function(handler):
-    """
-    log handler
-    :param handler:
-    :return:
-    """
-    if handler.get_status() < 400:
-        log_method = access_log.info
-    elif handler.get_status() < 500:
-        log_method = access_log.warning
-    else:
-        log_method = access_log.error
-    request_time = 1000.0 * handler.request.request_time()
-    status = handler.get_status()
-    summary = handler._request_summary()
-    log_method(f'{request_time:6.2f}ms {status} {summary}')
+log_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '.', 'logs'))
+os.makedirs(log_dir, exist_ok=True)
+error_handler = RotatingFileHandler(os.path.join(log_dir, 'error.log'), maxBytes=10 * 1024 * 1024, backupCount=5)
 
 
-class Application(tornado.web.Application):
-    def __init__(self):
+class ErrorFilter(logging.Filter):
+    def filter(self, record):
+        return record.levelno == logging.ERROR
 
-        setup_swagger(
-            routes=routes,
-            swagger_url="/docs",
-            api_base_url="/api",
-            description="",
-            api_version="1.0.0",
-            title="EMDB API",
-        )
 
-        super(Application, self).__init__(handlers=routes, log_function=log_function, **cfg.application)
-        init_log(log_name="main")
+error_handler.addFilter(ErrorFilter())
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s %(levelname)s %(message)s',
+    handlers=[
+        RotatingFileHandler(os.path.join(log_dir, 'main.log'), maxBytes=10 * 1024 * 1024, backupCount=5),
+        # 10 MB per file, keep 5 backups
+        error_handler,
+        logging.StreamHandler()  # Also log to console
+    ]
+)
 
-        # cfg.show()
-        init_db()
+async_engine = create_async_engine(settings.pgsql, echo=True)
+async_session_factory = sessionmaker(
+    async_engine, class_=AsyncSession, expire_on_commit=False
+)
+
+logging.info(settings.as_dict())
+
+
+async def init_db():
+    async with async_engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
+        logging.info("Database initialized")
+
+
+async def main():
+    try:
+        # Initialize database and get async session factory
+        await init_db()
+        app = make_app(async_session_factory)
+        app.listen(settings.server.port)
+        logging.info(f"Listening on port {settings.server.port}")
+
+        await asyncio.create_task(ScheduleService(async_session_factory, settings.schedule.interval_sec).start())
+
+        # 同步原表的数据
+        if settings.genres_sync:
+            await asyncio.create_task(DataService(async_session_factory).read_all_genre_by_sql_file())
+            # await asyncio.create_task(DataService(async_session_factory).get_all_genre())
+
+        if settings.data_sync:
+            await asyncio.gather(
+                DataService(async_session_factory).movie(settings.force),
+                DataService(async_session_factory).tv(settings.force)
+            )
+
+        # Keep the server running
+        await asyncio.Event().wait()
+    except Exception as e:
+        logging.error("Error in main function", exc_info=True)
 
 
 if __name__ == "__main__":
-    app = Application()
-    app.listen(cfg.server.port)
-    app_log.info("*"*40)
-    app_log.info(f"servive start listening on {cfg.server.host}:{cfg.server.port}")
-    _ENV = os.getenv('ENV')
-    app_log.info(f"current ENV：{_ENV}")
-    app_log.info("*"*40)
-    io_loop = tornado.ioloop.IOLoop.current()
-    io_loop.start()
-
+    try:
+        IOLoop.current().run_sync(main)
+    except Exception as e:
+        logging.error("Error starting the IOLoop", exc_info=True)
